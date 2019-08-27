@@ -36,7 +36,7 @@ Vue.component(topTabbar.name,topTabbar);
 
 
 // 配置公共的url
-Axios.defaults.baseURL = '/api';
+// Axios.defaults.baseURL = '/api';
 Axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // 配置 axios
@@ -48,11 +48,12 @@ if (process.env.NODE_ENV === 'production') {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
   if (process.env.VUE_APP_FLAG === 'pro') {
     //production 生产环境发布 地址
-    Axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
+    // Axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
+    Axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
 
   } else {
     //test 测试环境 测试地址 http://vikily.f3322.net:10007
-    Axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
+    // Axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
     config.optimization.minimize(false)
   }
 } else {
