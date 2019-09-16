@@ -7,7 +7,6 @@ export default new Vuex.Store({
   //声明全局维护的状态
   state: {
     stateName:"开始状态=statename",  //默认值
-
     stateNum:1,
   },
 
@@ -23,7 +22,7 @@ export default new Vuex.Store({
     // gettersName = state => state.stateName
   },
 
-  // 提交 mutations是更改Vuex状态的唯一合法方法
+  //执行同步操作改变state  提交 mutations是更改Vuex状态的唯一合法方法
   mutations: {
     // 点击更换
     mutationsName(state,name){
@@ -42,8 +41,16 @@ export default new Vuex.Store({
     //   state.stateName = name
     // },
   },
-  // 给action注册事件处理函数。当这个函数被触发时候，将状态提交到mutations中处理
+
+  // 进行异步操作 给action注册事件处理函数。当这个函数被触发时候，将状态提交到mutations中处理
   actions: {
+    // dispatch：含有异步操作，
+    // 存储:this.$store.dispatch('setTargetUser',friend);
+    // 取值: this.$store.getters.targetUser;
+    // commit：同步操作，
+    // 存储:this.$store.commit('setTargetUser',friend);
+    // 取值:this.$store.state.setTargetUser
+
     actionsName({commit},name){
       return commit ('mutationsName',name);
     },
