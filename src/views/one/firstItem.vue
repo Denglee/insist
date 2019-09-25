@@ -3,8 +3,21 @@
 
         <el-button type="primary" :disabled="isDisable" @click="buttonClicked($event)">主要按钮</el-button>
 
+        <i class="iconfont icon-home"></i>主要按钮
+
+<!--        <svg class="icon" aria-hidden="true">-->
+<!--            <use xlink:href="#icon-home"></use>-->
+<!--        </svg>-->
+
+        <el-button :plain="true" @click="open">
+            打开消息提示
+        </el-button>
+
     </div>
 </template>
+
+
+
 
 <script>
 
@@ -22,22 +35,31 @@
             onLoad() {
                 index({
                     city_id:17,
-                    use_type:'2'
-                    // day:'2019-09-16',
+                    day:'2019-09-16',
                 }).then( res=> {
                     console.log(res)   // 成功回调
                 });
-                index2().then( res=> {
-                    console.log(res)   // 成功回调
-                });
+                // index2().then( res=> {
+                //     console.log(res)   // 成功回调
+                // });
             },
 
             buttonClicked(e){
-                that.utils.buttonClicked(e);
-            }
+
+              this.isDisable=true;
+              setTimeout(()=>{
+                  this.isDisable=false;
+              },1000)
+            },
+
+            open() {
+                this.$message('这是一条消息提示');
+            },
+
         },
         created() {
             this.onLoad();
+            console.log('sd');
         }
     }
 </script>
