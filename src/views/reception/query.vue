@@ -5,6 +5,7 @@
 </template>
 
 <script>
+    import {recRegister} from "../../assets/js/api"
     export default {
         name: "query",
         inject:['reload'],
@@ -19,7 +20,12 @@
             },
         },
         created() {
-            console.log('s');
+            recRegister().then(res=>{
+                console.log(res);
+            });
+            recRegister().then(res=>{
+                console.log(res);
+            });
         }
 
     }

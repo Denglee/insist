@@ -7,6 +7,12 @@
 <script>
   import container from '@/components/container.vue'
   export default {
+    name:"App",
+    data(){
+      return {
+
+      }
+    },
     components: {container},
   }
 </script>

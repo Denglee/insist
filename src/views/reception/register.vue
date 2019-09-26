@@ -1,18 +1,19 @@
 <template>
     <div>
-        asd
+
     </div>
 </template>
 
 <script>
-    import {recRegister} from "../../assets/js/api"
+    import {recRegister} from '@/assets/js/api'
     export default {
-        name: "index",
+        name: "register",
         data(){
             return{
 
             }
         },
+
         methods:{
 
         },
@@ -20,8 +21,10 @@
             recRegister().then(res=>{
                 console.log(res);
             });
+            recRegister().then(res=>{
+                console.log(res);
+            })
         }
-
     }
 </script>
 

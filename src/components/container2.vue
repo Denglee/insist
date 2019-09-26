@@ -1,53 +1,88 @@
 <template>
-    <div class="container">
-        <el-row>
-            <!--左边导航-->
-            <el-col :span="4" class="navBox">
-                <div @mouseleave.stop="navSubOut()" >
-                    <ul class="navAsideTop"  >
-                        <li v-for="(navItem , index) in navArr" >
-                            <div
-                                @mousemove="navSubIn(index)"
-                                :class="navSubActive == index ? 'navActive' : ''"
-                            >
-                                <i :class="navItem.icon" class="iconfont"></i>
-                                {{navItem.title}}
-                            </div>
-
-                            <ul class="navSub" v-show="navSubActive == index">
-                                <li v-for="(subItems,index2) in navItem.sub_items"
-                                    :class="navSubActive2 == index2 ? 'navActive' : ''">
-                                    <router-link :to="subItems.path">
-                                        <i :class="subItems.icon" class="iconfont"></i>
-                                        {{subItems.name}}
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+    <div class="aside">
+        <div class="box cl Flex">
+            <!-- 侧边栏导航 -->
+            <aside class="cl">
+                <!--我的信息-->
+                <div class='wisdom' v-bind:class="!isCollapse ? 'between' : 'center'">
+                    <p v-bind:class="isCollapse ? 'center' : 'none'">MES</p>
+                    <P v-bind:class="!isCollapse ? 'between' : 'center'" v-if="!isCollapse" class='zhihuiguanli'>后台管理系统</P>
                 </div>
-            </el-col>
-
-            <!--右边主内容-->
-            <el-col :span="20" class="right-main">
-
-                <ul>
-                    <li v-for="(navItem , index) in navArr" >
-                        <ul class="navSub">
-                            <li v-for="(subItems,index2) in navItem.sub_items"
-                                :class="navSubActive2 == index2 ? 'navActive' : ''">
-                                <router-link :to="subItems.path">
-                                    <i :class="subItems.icon" class="iconfont"></i>
-                                    {{subItems.name}}
-                                </router-link>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <router-view v-if="isRouterAlive"></router-view>
-            </el-col>
-        </el-row>
+                <div
+                        class="demo-basic--circle Flex"
+                        v-bind:class="!isCollapse ? 'between' : 'center'"
+                        style="padding:0.05rem 2%;">
+                    <div class="block">
+                        <el-avatar :size="40" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style v-if="!isCollapse">
+                        <p class="name">{{Person.name}}</p>
+                        <p>
+                            <i class="el-fontzhongduanzaixianguanli icon iconfont"></i>
+                            <span>{{Person.condition}}</span>
+                        </p>
+                    </div>
+                </div>
+                <!--侧边导航-->
+                <el-menu
+                        v-bind:default-active="asideDefaultSelected"
+                        class="el-menu-vertical-demo  navigation"
+                        background-color="#5BC2AD"
+                        text-color="#fff"
+                        active-text-color="#ffd04b"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        :collapse="isCollapse"
+                >
+                    <div
+                            :menuData="onemenu"
+                            :icon="onemenu.icon"
+                            :default-active='activeIndex'
+                            :totalKey="index"
+                            v-for="(onemenu, index) in asideData"
+                            :key="onemenu.value"
+                            :to="onemenu.path"
+                            @addAside="addAside"
+                    >
+                        {{onemenu.title}}
+                    </div>
+                </el-menu>
+            </aside>
+            <section class=" w1">
+                <!-- 横向导航 -->
+                <header class="cl Flex between">
+                    <div class="trans" style="">
+                        <el-radio-group v-model="isCollapse" style="">
+                            <el-radio-button :label="false" v-show='isCollapse'><i class='el-icon-s-unfold'></i></el-radio-button>
+                            <el-radio-button :label="true" v-show='!isCollapse'><i class='el-icon-s-fold'></i></el-radio-button>
+                        </el-radio-group>
+                    </div>
+                    <!-- 消息提示 -->
+                </header>
+                <nav class="Flex ">
+                    <div class="Flex w1">
+                        <div class="add addindex">
+                            <router-link to="home">默认首页</router-link>
+                        </div>
+                        <div class="nowrap w1">
+                            <div
+                                    class="add wome "
+                                    v-for="(aside, key) in headerData"
+                                    :key="aside.value"
+                                    v-bind:class="headerSelected == aside.title ? 'selected' : ''"
+                                    @click="selectedAsideMenu(aside)"
+                            >
+                                {{ aside.title }}
+                                <i class="el-icon-close" @click="deleteAside(key)"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 页签操作 -->
+                </nav>
+                <!-- 中间内容 -->
+                <router-view></router-view>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -57,114 +92,87 @@
         name: "navLeft",
         data() {
             return {
-
-                isRouterAlive: true,   //控制视图是否显示的变量
-
-                navSubActive:0,  //控制子导航显示的值 index
-                navSubActive2:1,
-                // 导航集合
-                navArr:[
+                isCollapse: true,
+                circleUrl:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+                activeIndex: "1",
+                // 个人信息
+                Person:{
+                    name: '犬夜叉',
+                    date: '12',
+                    condition: '在线'
+                },
+                // 菜单栏默认选中
+                asideDefaultSelected: "0-0-1",
+                //  添加导航
+                asideData: [
                     {
-                        title: "前台",
-                        icon: "icon-shouye2",
-                        sub_items: [{
-                                name: "会员登记",
-                                path: "/reception/register",
-                                icon: "icon-home"
+                        title: "实时监控",
+                        icon:"el-icon-data-line",
+                        children: [
+                            {
+                                title: '模型版本',
+                                icon: '',
+                                children:[
+                                    {
+                                        title: '模型版本——1',
+                                        icon: '',
+                                        path: '/home'
+                                    },
+                                    {
+                                        title: '模型版本——2',
+                                        icon: '',
+                                        path: '/home'
+                                    },
+                                ]
                             },
                             {
-                                name: "入场查询",
-                                path: "/reception/query",
-                                icon: "icon-home"
-                            }
-                        ],
+                                title: "我的试验系统系统",
+                                icon: '',
+                                path: '/home',
+                            },
+                        ]
                     },
                     {
-                        title: "会员",
-                        icon: "icon-vip2",
-                        sub_items: [{
-                                name: "正式会员",
-                                path: "/vip/officialVip",
-                                icon: "icon-user"
-                            },
-                        ],
-
+                        title: "我们",
+                        path: '/home',
                     },
-                    {
-                        title: "课程",
-                        icon: "icon-news_icon",
-                        sub_items: [{
-                                name: "私教",
-                                path: "/course/trainer",
-                                icon: "icon-user"
-                            },
-                            {
-                                name: "团课",
-                                path: "/course/group",
-                                icon: "icon-user"
-                            },
-                        ],
-                    },
-                    {
-                        title: "合同",
-                        icon: "icon-shangwutubiao-",
-                        sub_items: [{
-                                name: "合同列表",
-                                path: "/contract/contractList",
-                                icon: "icon-user"
-                            },
-
-                        ],
-
-                    },
-                    {
-                        title: "员工",
-                        icon: "icon-gerenzhongxin",
-                        sub_items: [{
-                                name: "员工列表",
-                                path: "/staff/staffList",
-                                icon: "icon-user"
-                            },
-                            {
-                                name: "入场查询",
-                                path: "/staff/staffQuery",
-                                icon: "icon-user"
-                            },
-                        ],
-
-                    }
-                ]
-            };
-        },
-
-        provide () {    //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。
-            return {
-                reload: this.reload
+                ],
+                // 存放空的数组
+                headerData: [],
+                // 存放选中的数组
+                headerSelected: "",
             }
         },
+
         methods: {
-            // 刷新页面
-            reload () {
-                this.isRouterAlive = false;            //先关闭，
-                this.$nextTick(function () {
-                    this.isRouterAlive = true;         //再打开
-                })
+// 点击侧边栏菜单 添加到头部
+            addAside(data, key) {
+                // 判断添加的是否存在如果不存在添加
+                const has = this.headerData.find(item => item.title == data.title);
+                if (!has) {
+                    data.key = key;
+                    this.headerData.push(data);
+                }
+                this.headerSelected = data.title;
+            },
+            // 新增加的数组删除
+            deleteAside(key) {
+                this.headerData.splice(key, 1);
+            },
+            // 点击头部菜单 反向选中 侧边栏menu
+            selectedAsideMenu(selected) {
+                this.asideDefaultSelected = selected.key
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
             },
 
-            // 鼠标移入 相应二级导航显示
-            navSubIn(index){
-                let that = this;
-                console.log(index);
-                that.navSubActive=index;
-            },
-
-            // 鼠标移出，隐藏二级导航
-            navSubOut(){
-                let that = this;
-                setTimeout(function(){
-                    that.navSubActive=-1;
-                },1000);
-            },
         }
     };
 </script>

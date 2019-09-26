@@ -85,12 +85,12 @@ export function post(url, params) {
         axios.post(url, Qs.stringify(params))
             .then(res => {
                 resolve(res.data);
-                Loading.service(true).close();
+                // Loading.service(true).close();
                 //  Message({message: '请求成功', type: 'success'});
             })
             .catch(err => {
                 reject(err.data);
-                Loading.service(true).close();
+                // Loading.service(true).close();
                 Message({message: '加载失败', type: 'error'});
             })
     });}

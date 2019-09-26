@@ -1,15 +1,13 @@
 <template>
-    <div>
-
-    </div>
+    
 </template>
 
 <script>
     export default {
-        name: "register"
+        name: "login"
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

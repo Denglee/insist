@@ -7,6 +7,11 @@ import thirdIndex from '@/views/three/thirdIndex'
 
 Vue.use(Router)
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 export default new Router({
   mode: 'hash',
   base: process.env.BASE_URL,
@@ -24,17 +29,20 @@ export default new Router({
       // component：resolve=>(['需要加载的路由的地址'，resolve])
       component: () => import('@/views/index/index'),
     },
+
+    // reception: 前台
     {
       path: "/reception/register",
       name: 'register',
-      component: () => import('@/views/contract/register'),
+      component: () => import('@/views/reception/register'),
     },
     {
       path: "/reception/query",
       name: 'query',
-      component: () => import('@/views/contract/query'),
+      component: () => import('@/views/reception/query'),
     },
 
+    //contract 合同
     {
       path: '/home',
       name: 'home',
@@ -55,7 +63,7 @@ export default new Router({
       path: '/thirdIndex',
       name: 'thirdIndex',
       component: thirdIndex
-    },
+    }
 
     // {
     // path: '/about',

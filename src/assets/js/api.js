@@ -15,10 +15,17 @@ import { get, post } from './axios';
  */
 
 
-export const index = params => post('/Applet/make/index/', params); // 首页
+/*export const index = params => post('/Applet/make/index/', params); // 首页
 export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', {
     name:'留夫鸭',
-});
+})*/
 
-export const navIndex = params => post('', params); // 导航首页
+export const navIndex = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', params); // 导航首页
+
+
+// reception: 前台
+export  const recRegister =params => get('https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com/recRegister', params);  //前台签到
+
+
+//contract 合同
 
