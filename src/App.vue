@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <container></container>
-<!--    <router-view/>-->
+    <router-view/>
   </div>
 </template>
 <script>
-  import container from '@/components/container.vue'
   export default {
     name:"App",
     data(){
@@ -13,7 +11,6 @@
 
       }
     },
-    components: {container},
   }
 </script>
 <style lang="scss">

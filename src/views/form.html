@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://spt.zmtek.net/statics/Admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/css/font-awesome.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/css/checkbox.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/css/icheck.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/css/animate.min.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/css/style.css" rel="stylesheet">
+    <link href="http://spt.zmtek.net/statics/Admin/js/layui2.1/css/layui.css" rel="stylesheet">
+    <script src="http://spt.zmtek.net/statics/Admin/js/jquery.js"></script>
+    <script src="http://spt.zmtek.net/statics/Admin/js/bootstrap.js"></script>
+    <script src="http://spt.zmtek.net/statics/Admin/js/layui2.1/layui.js"></script>
+    <link href="http://spt.zmtek.net/statics/Admin/css/public.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入框</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">辅助文字</div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+    <script src="http://spt.zmtek.net/statics/Admin/js/validate/validate.js"></script>
+    <script src="http://spt.zmtek.net/statics/Admin/js/validate/messages.js"></script>
+
+    <script type="text/javascript">
+
+        $('#but-card2').click(function(){
+            $("#but_add2").validate({
+                submitHandler: function () {
+                    var data = $("#but_add2").serialize();
+                    var url = $("#but_add2").attr('action');
+    //          console.log(data);
+                    $.ajax({
+                        url: url,
+                        type: "post",
+                        dataType: "json",
+                        data: data,
+                        success: function (res) {
+                            console.log(res);
+                            if (res.status == 1) {
+                                swal("解绑成功", "你已成功解绑手环", "success");
+                                setTimeout(function(){window.location.reload(); },1000);
+
+                            } else {
+                                if(res.info == '无权限操作!'){
+                                    swal("无权限操作", res.info, "error");
+                                }else{
+                                    swal("解绑失败", res.info, "error");
+                                }
+
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
+
+</body>
+</html>

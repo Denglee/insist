@@ -1,11 +1,12 @@
 <template>
     <div>
-        asd
+fd
     </div>
 </template>
 
 <script>
     import {recRegister} from "../../assets/js/api"
+    import {mapState,mapActions, mapGetters} from 'vuex'
     export default {
         name: "index",
         data(){
@@ -17,10 +18,15 @@
 
         },
         created() {
-            recRegister().then(res=>{
-                console.log(res);
-            });
+
+
+
+        },
+
+        computed: {
+
         }
+
 
     }
 </script>

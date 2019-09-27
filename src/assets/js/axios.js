@@ -4,21 +4,21 @@ import { Message, Loading } from 'element-ui'; // 消息提示框组件
 
 
 // /*第一层if判断生产环境和开发环境*/
-if (process.env.NODE_ENV === 'production') {
-      /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
-      if (process.env.VUE_APP_FLAG === 'pro') { //production 生产环境发布 地址  .env
-
-        // axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
-        axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
-
-      } else {//test 测试环境  .env.text
-        // axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
-        config.optimization.minimize(false);  //代码最小化 没有错误提示
-      }
-} else {
-      // dev 开发环境 本地 /api
-      axios.defaults.baseURL = '/api';
-}
+// if (process.env.NODE_ENV === 'production') {
+//       /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
+//       if (process.env.VUE_APP_FLAG === 'pro') { //production 生产环境发布 地址  .env
+//
+//         // axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
+//         axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
+//
+//       } else {//test 测试环境  .env.text
+//         // axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
+//         config.optimization.minimize(false);  //代码最小化 没有错误提示
+//       }
+// } else {
+//       // dev 开发环境 本地 /api
+//       axios.defaults.baseURL = '/api';
+// }
 
 
 // 设置请求超时时间
@@ -66,11 +66,11 @@ export function get(url, params){
             params: params
         }).then(res => {
             resolve(res.data);
-            Loading.service(true).close();
+            // Loading.service(true).close();
             //  Message({message: '请求成功', type: 'success'});
         }).catch(err => {
             reject(err.data);
-            Loading.service(true).close();
+            // Loading.service(true).close();
             Message({message: '加载失败', type: 'error'});
         })
     });}

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import {recRegister} from "../../assets/js/api"
+    // import {recRegister} from "../../assets/js/api"
     export default {
         name: "query",
         inject:['reload'],

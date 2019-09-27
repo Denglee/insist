@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 Vue.config.productionTip = false
 
+import '../mock/index.js'
+
 // 引入element
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -15,10 +17,8 @@ import utils  from  '@/assets/js/global.js'
 Vue.prototype.utils = utils
 
 // 注册全局组件
-import topTabbar from '@/components/topTabbar'
-Vue.component(topTabbar.name,topTabbar);
-// import navLeft from '@/components/navLeft'
-// Vue.component(navLeft.name,navLeft);
+// import topTabbar from '@/components/topTabbar'
+// Vue.component(topTabbar.name,topTabbar);
 
 // import goTop from "@/components/goTop";
 // Vue.component(goTop.name,goTop)

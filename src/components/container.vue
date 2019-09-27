@@ -12,11 +12,11 @@
                                     :class="navSubActive == index ? 'navActive' : ''"
                             >
                                 <i :class="navItem.icon" class="iconfont"></i>
-                                {{navItem.title}}
+                                {{navItem.name}}
                             </div>
 
                             <ul class="navSub" v-show="navSubActive == index">
-                                <li v-for="(subItems,index2) in navItem.sub_items"
+                                <li v-for="(subItems,index2) in navItem.child"
                                     :class="navSubActive2 == index2 ? 'navActive' : ''">
                                     <router-link :to="subItems.path">
                                         <i :class="subItems.icon" class="iconfont"></i>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-
+    import {recRegister} from "@/assets/js/api"
     export default {
         name: "container",
         data() {
@@ -52,77 +52,78 @@
                 navSubActive:0,  //控制子导航显示的值 index
                 navSubActive2:1,
                 // 导航集合
-                navArr:[
-                    {
-                        title: "前台",
-                        icon: "icon-shouye2",
-                        sub_items: [{
-                            name: "会员登记",
-                            path: "/reception/register",
-                            icon: "icon-home"
-                        },
-                            {
-                                name: "入场查询",
-                                path: "/reception/query",
-                                icon: "icon-home"
-                            }
-                        ],
-                    },
-                    {
-                        title: "会员",
-                        icon: "icon-vip2",
-                        sub_items: [{
-                            name: "正式会员",
-                            path: "/vip/officialVip",
-                            icon: "icon-user"
-                        },
-                        ],
-
-                    },
-                    {
-                        title: "课程",
-                        icon: "icon-news_icon",
-                        sub_items: [{
-                            name: "私教",
-                            path: "/course/trainer",
-                            icon: "icon-user"
-                        },
-                            {
-                                name: "团课",
-                                path: "/course/group",
-                                icon: "icon-user"
-                            },
-                        ],
-                    },
-                    {
-                        title: "合同",
-                        icon: "icon-shangwutubiao-",
-                        sub_items: [{
-                            name: "合同列表",
-                            path: "/contract/contractList",
-                            icon: "icon-user"
-                        },
-
-                        ],
-
-                    },
-                    {
-                        title: "员工",
-                        icon: "icon-gerenzhongxin",
-                        sub_items: [{
-                            name: "员工列表",
-                            path: "/staff/staffList",
-                            icon: "icon-user"
-                        },
-                            {
-                                name: "入场查询",
-                                path: "/staff/staffQuery",
-                                icon: "icon-user"
-                            },
-                        ],
-
-                    }
-                ]
+                navArr:[],
+                // navArr:[
+                //     {
+                //         title: "前台",
+                //         icon: "icon-shouye2",
+                //         sub_items: [{
+                //             name: "会员登记",
+                //             path: "/reception/register",
+                //             icon: "icon-home"
+                //         },
+                //             {
+                //                 name: "入场查询",
+                //                 path: "/reception/query",
+                //                 icon: "icon-home"
+                //             }
+                //         ],
+                //     },
+                //     {
+                //         title: "会员",
+                //         icon: "icon-vip2",
+                //         sub_items: [{
+                //             name: "正式会员",
+                //             path: "/vip/officialVip",
+                //             icon: "icon-user"
+                //         },
+                //         ],
+                //
+                //     },
+                //     {
+                //         title: "课程",
+                //         icon: "icon-news_icon",
+                //         sub_items: [{
+                //             name: "私教",
+                //             path: "/course/trainer",
+                //             icon: "icon-user"
+                //         },
+                //             {
+                //                 name: "团课",
+                //                 path: "/course/group",
+                //                 icon: "icon-user"
+                //             },
+                //         ],
+                //     },
+                //     {
+                //         title: "合同",
+                //         icon: "icon-shangwutubiao-",
+                //         sub_items: [{
+                //             name: "合同列表",
+                //             path: "/contract/contractList",
+                //             icon: "icon-user"
+                //         },
+                //
+                //         ],
+                //
+                //     },
+                //     {
+                //         title: "员工",
+                //         icon: "icon-gerenzhongxin",
+                //         sub_items: [{
+                //             name: "员工列表",
+                //             path: "/staff/staffList",
+                //             icon: "icon-user"
+                //         },
+                //             {
+                //                 name: "入场查询",
+                //                 path: "/staff/staffQuery",
+                //                 icon: "icon-user"
+                //             },
+                //         ],
+                //
+                //     }
+                // ]
             };
         },
 
@@ -139,10 +140,12 @@
                     this.isRouterAlive = true;         //再打开
                 });
             },
+
             goIndex(){
                 const that=this;
                 this.$router.push({path:'/index'});
             },
+
 
             // 鼠标移入 相应二级导航显示
             navSubIn(index){
@@ -158,7 +161,14 @@
                 //     that.navSubActive=-1;
                 // },1000);
             },
-        }
+        },
+
+        created() {
+            recRegister().then(res=>{
+                console.log(res);
+                this.navArr=res;
+            });
+        },
     };
 </script>
 
