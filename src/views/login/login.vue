@@ -18,7 +18,7 @@
                         <img :src="captcha.src" alt="">
                         <el-input v-model="loginForm.captcha" type="text" :placeholder="captcha"></el-input>
                     </el-form-item>
-
+                    <el-button type="primary" icon="el-icon-search">搜索</el-button>
 <!--                    <p class="textR">{{global.forgetPassword}}</p>-->
                     <el-button type="primary">默认按钮</el-button>
                     <a class="btn-login" type="primary" @click="submitForm()">locin</a>

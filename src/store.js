@@ -7,8 +7,8 @@ import Vuex from 'vuex'
 // import actions from './actions'
 
 
-import StoreTagNav from '@/module/StoreTagNav'
-import StoreActiveNav from '@/module/StoreActiveNav'
+import StoreTagNav from '@/store/StoreTagNav'
+import StoreActiveNav from '@/store/StoreActiveNav'
 Vue.use(Vuex)
 
 export default new Vuex.Store({

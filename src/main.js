@@ -8,13 +8,14 @@ import '../mock/index.js'
 
 // 引入element
 import ElementUI from 'element-ui';
+// import '@/assets/css/changeEleCss.scss';
 import '@/assets/css/changeEleCss.scss';
 Vue.use(ElementUI);
 
 // 引入自己的全局的css
 import '@/assets/css/global.scss'
-import utils  from  '@/assets/js/global.js'
-Vue.prototype.utils = utils
+// import utils  from  '@/assets/js/global.js'
+// Vue.prototype.utils = utils
 
 // 注册全局组件
 // import topTabbar from '@/components/topTabbar'

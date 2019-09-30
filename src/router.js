@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
-import staticRoute from '@/module/staticRoute'
+import staticRoute from '@/router/staticRoute'
 
 // Vue.use(Router)
 
