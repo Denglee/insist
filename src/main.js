@@ -8,7 +8,7 @@ import '../mock/index.js'
 
 // 引入element
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import '@/assets/css/changeEleCss.scss';
 Vue.use(ElementUI);
 
 // 引入自己的全局的css

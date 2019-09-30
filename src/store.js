@@ -8,11 +8,13 @@ import Vuex from 'vuex'
 
 
 import StoreTagNav from '@/module/StoreTagNav'
+import StoreActiveNav from '@/module/StoreActiveNav'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules:{
     StoreTagNav,
+    StoreActiveNav,
   }
 })
 

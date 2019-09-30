@@ -9,25 +9,27 @@
             </header-bar>-->
 
 
-        <div class="nav-main">
+<!--        <div class="nav-main">-->
             <!--左侧导航-->
             <LeftNav></LeftNav>
 
 
             <!--右侧-->
             <div class="sys-content">
+
                 <!--左侧点击路由添加显示在头部导航-->
-<!--                <tag-nav></tag-nav>-->
+                <tag-nav></tag-nav>
 
                 <!--主题内容  :include 缓存-->
-                <keep-alive :include="tagNavList">
+                <!--<keep-alive :include="tagNavList">
                     <router-view></router-view>
-                </keep-alive>
+                </keep-alive>-->
+                <router-view></router-view>
             </div>
 
 
 
-        </div>
+<!--        </div>-->
     </div>
 </template>
 
@@ -57,3 +59,27 @@
 
     }
 </script>
+<style scoped lang="scss">
+    .wrapper{
+        display: flex;
+    }
+    .left-nav{
+        flex: 1;
+        min-height: 100vh;
+        border: solid 1px blue;
+
+    }
+    .sys-content{
+        flex: 6;
+        border: solid 1px red;
+        box-sizing: border-box;
+    }
+    .navAsideTop{
+        li{
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+            position: relative;
+        }
+    }
+</style>

@@ -2,8 +2,8 @@
 var data = [
 
     {
-        path: '/home',
-        name: '首页',
+        name: '前台',
+        path: '/index',
         icon: "icon-home"
     },
     {
@@ -12,85 +12,106 @@ var data = [
         child: [
             {
                 name: '会员登记',
-                path: '/reception/register'
+                path: '/reception/registerRec'
+            },
+            {
+                name: '审核卡信息',
+                path: '/reception/examineRec'
             },
             {
                 name: '入场查询',
-                path: '/reception/query',
-                // child: [
-                //     {
-                //         path: '/components/permission',
-                //         name: '详细鉴权'
-                //     },
-                //     {
-                //         path: '/components/pageTable',
-                //         name: '表格分页'
-                //     }
-                // ]
+                path: '/reception/queryRec',
             },
-           /* {
-                name: '会员',
-                icon: "icon-vip2",
-                path: '/reception/register',
-                // child: [
-                //     {
-                //         path: '/components/pageTitle',
-                //         name: '页面标题'
-                //     },
-                //     {
-                //         path: '/components/pageSection',
-                //         name: '子区域'
-                //     },
-                //     {
-                //         path: '/components/pageSearch',
-                //         name: '搜索条'
-                //     },
-                //     {
-                //         path: '/components/pageToolbar',
-                //         name: '工具条'
-                //     }
-                // ]
-            },
-            {
-                name: '辅助类',
-                path: '/components/pageNotes',
-                // child: [
-                //     {
-                //         path: '/components/pageNotes',
-                //         name: '引用说明'
-                //     }
-                // ]
-            }*/
         ]
     },
     {
         name: '会员',
-        icon: "icon-vip2",
+        icon: "icon-vip",
         child: [
             {
-                path: '/vip/officialVip',
+                name: '潜在会员',
+                path: '/vip/potentialVip'
+            },
+            {
                 name: '正式会员',
-                permission: ['edit']
+                path: '/vip/formalVip'
             },
             {
-                path: '/example/charts',
-                name: '图表页面'
+                name: '更近记录',
+                path: '/vip/queryVip',
+            },
+        ]
+    },
+    {
+        name: '课程',
+        icon: "icon-lesson",
+        child: [
+            {
+                name: '私教',
+                path: '/course/trainerCourse'
             },
             {
-                path: '/example/map',
-                name: '地图页面'
+                name: '团课',
+                path: '/course/groupCourse'
+            },
+            {
+                name: '训练营',
+                path: '/course/campCourse',
+            },
+            {
+                name: '培训课程',
+                path: '/reception/trainCourse'
+            },
+            {
+                name: '评价管理',
+                path: '/reception/evaluateCourse',
+            },
+        ]
+    },
+    {
+        name:"合同",
+        icon:"icon_staff",
+        child:[
+            {
+                name:'期限合同',
+                path:'/contract/termContract'
             }
         ]
     },
     {
-        path: '/course/trainer',
-        name: '课程',
-        icon: "icon-news_icon",
+        name:"员工",
+        icon:"icon_staff",
+        child:[
+            {
+                name:'员工列表',
+                path:'/staff/staffList'
+            }
+        ]
     },
-    // {
-    //     path: '/theme',
-    //     name: '主题切换'
-    // }
+    {
+        name: '统计',
+        icon: "icon-statistics",
+        child: [
+            {
+                name: '会员卡记录',
+                path: '/statistics/vipCardSta'
+            },
+            {
+                name: '客流',
+                path: '/statistics/flowSta',
+            },
+            {
+                name: '私教业绩',
+                path: '/statistics/trainerSta'
+            },
+            {
+                name: '会籍业绩',
+                path: '/statistics/vipSta',
+            },
+        ]
+    },
+
+
 ]
 
 export default [{

@@ -33,13 +33,14 @@ const actions={
 
     // 获取该用户的菜单列表
     getNavList({commit}){
-
-        recRegister().then(res =>{
-            console.log(res);
-            commit("mSetNavList", res)
-            return res
-            // resolve(res)
+        return new Promise((resolve) =>{
+            recRegister().then((res) =>{
+                console.log(res);
+                commit("mSetNavList", res);
+                resolve (res);
+            })
         })
+
 
         // return new Promise((resolve) =>{
         //     axios({

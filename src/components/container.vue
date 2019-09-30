@@ -100,7 +100,7 @@
                 //         icon: "icon-shangwutubiao-",
                 //         sub_items: [{
                 //             name: "合同列表",
-                //             path: "/contract/contractList",
+                //             path: "/statistics/contractList",
                 //             icon: "icon-user"
                 //         },
                 //

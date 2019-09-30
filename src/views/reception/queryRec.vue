@@ -1,5 +1,7 @@
 <template>
     <div class="box">
+        <router-view></router-view>
+
         <button @click="refresh()">刷新</button>
     </div>
 </template>
@@ -7,25 +9,25 @@
 <script>
     // import {recRegister} from "../../assets/js/api"
     export default {
-        name: "query",
-        inject:['reload'],
+        name: "queryRec",
+        // inject:['reload'],
         data(){
             return{
 
             }
         },
         methods:{
-            refresh(){
-                this.reload();
-            },
+            // refresh(){
+            //     this.reload();
+            // },
         },
         created() {
-            recRegister().then(res=>{
-                console.log(res);
-            });
-            recRegister().then(res=>{
-                console.log(res);
-            });
+            // recRegister().then(res=>{
+            //     console.log(res);
+            // });
+            // recRegister().then(res=>{
+            //     console.log(res);
+            // });
         }
 
     }

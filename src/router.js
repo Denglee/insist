@@ -5,10 +5,10 @@ import staticRoute from '@/module/staticRoute'
 
 // Vue.use(Router)
 
-const originalPush = Router.prototype.push
-Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+// const originalPush = Router.prototype.push
+// Router.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 
 
 
@@ -21,7 +21,7 @@ function initRoute(router){
       console.log("没有权限数据，正在获取")
       store.dispatch('StoreTagNav/getNavList').then((res) => {
       console.log(res);
-
+          permissionList = res;
         //     // 将菜单列表扁平化形成权限列表
         // store.dispatch('auth/getPermissionList').then((res) => {
         //   console.log("权限列表生成完毕");
@@ -34,7 +34,7 @@ function initRoute(router){
         //       routeItem.meta.name = v.name
         //     }
         //   })
-          resolve()
+          resolve(res)
         // })
       })
     } else{
@@ -58,6 +58,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   console.log(permissionList);
   initRoute(router);
+  next();
   // 开启进度条
   // NProgress.start();
 

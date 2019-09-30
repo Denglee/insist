@@ -1,13 +1,8 @@
 <template>
-<div>
-
-    {{navList}}
-
-    <div style="color: red;">{{navList}}1</div>
-    <div @mouseleave.stop="navSubOut()" >
-        <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>
+    <div @mouseleave.stop="navSubOut()" class="left-nav">
+<!--        <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>-->
         <ul class="navAsideTop"  >
-            <li v-for="(navItem , index) in navArr" >
+            <li v-for="(navItem , index) in gNavList" >
                 <div
                         @mousemove="navSubIn(index)"
                         :class="navSubActive == index ? 'navActive' : ''"
@@ -28,7 +23,6 @@
             </li>
         </ul>
     </div>
-</div>
 
 </template>
 
@@ -102,9 +96,6 @@
                 'gNavList',
             ]),
 
-            // ...mapStates('StoreTagNav',[ //用mapGetters来获取collection.js里面的getters
-            //     'navList',
-            // ]),
         }
     };
 </script>
