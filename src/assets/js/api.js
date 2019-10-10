@@ -24,11 +24,13 @@ export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs
 
 
 // reception: 前台
-// export  const recRegister =params => get('/user/navlist', params);  //前台签到
+// export  const recRegister =params => get('/user/navlist', params);
 
 // 获取nav
-export  const recRegister =params => get('/user/navlist', params);  //前台签到
+export  const recRegister = params => get('/user/navlist', params);
 
 
-//contract 合同
+// 登录
+export  const loginApi = params => get('/login', params);
+
 

@@ -4,9 +4,6 @@
             <!--头部-->
             <!--v-once只渲染元素和组件一次，随后的渲染，使用了此指令的元素/组件及其所有的子节点，都会当作静态内容并跳过，这可以用于优化更新性能。-->
             <!--<header-bar v-once>-->
-           <!-- <header-bar>
-                <p slot="logo">VueJS模板系统</p>
-            </header-bar>-->
 
 
 <!--        <div class="nav-main">-->
@@ -16,12 +13,16 @@
 
             <!--右侧-->
             <div class="sys-content">
+<!--                <header-bar>-->
+<!--                    <p slot="logo">VueJS模板系统</p>-->
+<!--                    <p slot="topnav">made</p>-->
+<!--                </header-bar>-->
 
                 <!--左侧点击路由添加显示在头部导航-->
                 <tag-nav></tag-nav>
 
                 <!--主题内容  :include 缓存-->
-                <!--<keep-alive :include="tagNavList">
+            <!--    <keep-alive :include="StoreTagNav">
                     <router-view></router-view>
                 </keep-alive>-->
                 <router-view></router-view>
@@ -73,6 +74,7 @@
         flex: 6;
         border: solid 1px red;
         box-sizing: border-box;
+        min-height: 100vh;
     }
     .navAsideTop{
         li{

@@ -1,10 +1,10 @@
 <template>
-    <div @mouseleave.stop="navSubOut()" class="left-nav">
+    <div class="left-nav">
 <!--        <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>-->
-        <ul class="navAsideTop"  >
+        <ul class="navAsideTop"  @mouseleave.stop="navSubOut()">
             <li v-for="(navItem , index) in gNavList" >
                 <div
-                        @mousemove="navSubIn(index)"
+                        @mouseenter="navSubIn(index)"
                         :class="navSubActive == index ? 'navActive' : ''"
                 >
                     <i :class="navItem.icon" class="iconfont"></i>
@@ -13,6 +13,8 @@
 
                 <ul class="navSub" v-show="navSubActive == index">
                     <li v-for="(subItems,index2) in navItem.child"
+                        @mouseenter="navSubIn(index)"
+                        @click="navSubOut()"
                         :class="navSubActive2 == index2 ? 'navActive' : ''">
                         <router-link :to="subItems.path">
                             <i :class="subItems.icon" class="iconfont"></i>
@@ -42,6 +44,8 @@
                 navSubActive2:1,
                 // 导航集合
                 navList:[],
+
+                HideNavStatus:false
             };
         },
 
@@ -64,21 +68,26 @@
                 this.$router.push({path:'/index'});
             },
 
-
-            // 鼠标移入 相应二级导航显示
+            // 相应二级导航显示
             navSubIn(index){
                 let that = this;
-                console.log(index);
-                that.navSubActive=index;
+                 that.HideNavStatus = false;
+                if(!that.HideNavStatus){
+                    that.navSubActive=index;
+                }
             },
 
-            // 鼠标移出，隐藏二级导航
+            // 隐藏二级导航
             navSubOut(){
                 let that = this;
-                // setTimeout(function(){
-                //     that.navSubActive=-1;
-                // },1000);
+                that.HideNavStatus = true;
+                setTimeout(function(){
+                    if(that.HideNavStatus){
+                        that.navSubActive=-1;
+                    }
+                },100);
             },
+
         },
 
         created() {
