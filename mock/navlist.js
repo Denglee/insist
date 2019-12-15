@@ -2,9 +2,7 @@
 var data = [
 
     {
-        name: '前台',
         path: '/index',
-        icon: "icon-home"
     },
     {
         name: '前台',

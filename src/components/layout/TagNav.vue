@@ -1,4 +1,4 @@
-<template>
+.tag-nav<template>
     <div class="tag-nav">
 <!--        {{openedPageList}}-->
 <!--        <scroll-bar ref="scrollBar">-->
@@ -35,7 +35,7 @@ export default {
     watch: {
         $route(){
             this.addTagNav();
-            this.scrollToCurTag()
+            // this.scrollToCurTag()
         }
     },
     methods: {
@@ -83,7 +83,7 @@ export default {
     $white:#fff;
     $themeColor:#ffa300;
     .tag-nav{
-        position: absolute;
+        /*position: absolute;*/
         top: 0;
         width: 100%;
         height: 53px;

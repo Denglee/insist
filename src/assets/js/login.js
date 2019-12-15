@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import Cookies from 'js-cookie'
+=======
+// import Cookies from 'js-cookie'
+>>>>>>> fd81a4b50fe12154711869015eaa93aa25d2b42a
 
 const authToken = {
     // 当Token超时后采取何种策略
@@ -16,7 +20,12 @@ const authToken = {
 
     // 当前是否是登录状态
     isLogin: function(){
+<<<<<<< HEAD
         return Cookies.get(this.loginKey)
+=======
+        return localStorage.getItem(this.loginKey)
+        // Cookies.get(this.loginKey)
+>>>>>>> fd81a4b50fe12154711869015eaa93aa25d2b42a
     },
 
     // 设置Token

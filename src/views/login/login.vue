@@ -6,14 +6,18 @@
             </div>
             <div class="form-group">
                 <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px">
+
+                    <!--用户名-->
                     <el-form-item prop="name">
-                        <el-input v-model="loginForm.name" type="text" placeholder="username"></el-input>
+                        <el-input v-model="loginForm.name" type="text" placeholder="username" autocomplete="off"></el-input>
                     </el-form-item>
 
+                    <!--密码-->
                     <el-form-item prop="password">
-                        <el-input v-model="loginForm.password" type="password" placeholder="password"></el-input>
+                        <el-input v-model="loginForm.password" type="password" placeholder="password" autocomplete="off"></el-input>
                     </el-form-item>
 
+<<<<<<< HEAD
                     <el-form-item prop="captcha" v-if="captcha.show" class="captcha">
                         <img :src="captcha.src" alt="">
                         <el-input v-model="loginForm.captcha" type="text" :placeholder="captcha"></el-input>
@@ -26,6 +30,10 @@
                     <a class="btn-login" type="primary" @click="submitForm()">locin</a>
                 </el-form>
 
+=======
+                    <el-button @click="submitForm">立即登录</el-button>
+                </el-form>
+>>>>>>> fd81a4b50fe12154711869015eaa93aa25d2b42a
             </div>
 
         </div>
@@ -42,7 +50,6 @@
                 loginForm: {
                     name: '',
                     password: '',
-                    captcha: '',
                 },
                 loginRules: {
                     name: [
@@ -51,13 +58,6 @@
                     password :[
                         {required: true, message: '', trigger: 'blur'}
                     ],
-                    captcha: [
-                        {required: false, message: '', trigger: 'blur'}
-                    ]
-                },
-                captcha: {
-                    show: false,
-                    src: ''
                 },
                 sysMsg: ''
             }
@@ -78,23 +78,27 @@
             this.setErrMsg()
         },
         methods: {
-            ...mapActions({
-                login: 'auth/loginByEmail',
-                loadLang: 'loadLang'
-            }),
+            ...mapActions('StoreTagNav',[ //用mapGetters来获取collection.js里面的getters
+                'getNavList', 'aLogin',
+            ]),
+            // ...mapActions({
+            //     login: 'auth/loginByEmail',
+            //     loadLang: 'loadLang'
+            // }),
             submitForm(){
                 this.$refs.loginForm.validate((valid) => {
+                    console.log(valid);
                     if (valid) {
-                        this.login({
+                        // this.$store.dispatch('StoreTagNav/aLogin',{
+                        this.aLogin({
                             name: this.loginForm.name,
                             password: this.loginForm.password
                         }).then(res => {
+                            // console.log(res)
                             if(res.login){
                                 this.$router.push('index')
                             } else {
-                                this.sysMsg = res.message;
-                                this.captcha.show = true;
-                                this.captcha.src = res.captcha;
+                                console.log('登录失败');
                             }
                         })
                     } else {
@@ -117,7 +121,7 @@
             // },
             setErrMsg(){
                 console.log('14');
-                // this.loginRules.name[0].message = this.global.errMsg.inputRequired, {cont: this.global.username};
+                // this.loginRules.name[0].message = this.global.errMsg.inputRequired;
                 // this.loginRules.password[0].message = this.global.errMsg.inputRequired, {cont: this.global.password};
                 // this.loginRules.captcha[0].message = this.global.errMsg.inputRequired, {cont: this.global.captcha};
             }

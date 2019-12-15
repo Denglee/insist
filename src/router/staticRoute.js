@@ -158,6 +158,10 @@ const staticRoute = [
         component: () => import('@/views/login/login')
     },
     {
+        path: '/register',
+        component: () => import('@/views/login/logout')
+    },
+    {
         path: '*',
         redirect: '/error/404'
     }

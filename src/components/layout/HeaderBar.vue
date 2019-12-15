@@ -3,24 +3,16 @@
         <div class="logo">
             <slot name="logo"></slot>
         </div>
-        <div>asdad</div>
-<!--        <slot name="topnav"></slot>-->
+        <div class="topnav">
+            <slot name="topnav"></slot>
+        </div>
 
         <div class="userInfo">
             <ul>
                 <li>
                     <el-dropdown @command="userOperation">
                         <span class="user">{{username}}<i class="el-icon-caret-bottom el-icon--right"></i></span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="editPaw">{{$t('global.editpassword')}}</el-dropdown-item>
-                            <el-dropdown-item command="logout">{{$t('global.logout')}}</el-dropdown-item>
-                        </el-dropdown-menu>
                     </el-dropdown>
-                </li>
-                <li>
-                    <span class="lang" :class="{cur: lang=='zhCN'}" @click="changeLang('zhCN')">中</span>
-                    <span>/</span>
-                    <span class="lang" :class="{cur: lang=='en'}" @click="changeLang('en')">EN</span>
                 </li>
             </ul>
         </div>
@@ -52,6 +44,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
     data() {
         return {
+            username:'',
             dialog: {
                 editPaw: {
                     show: false
@@ -100,10 +93,10 @@ export default {
         }
     },
     computed: {
-        ...mapState({
-            username: state => state.user.name,
-            lang: state => state.lang
-        })
+        // ...mapState({
+        //     username: state => state.user.name,
+        //     lang: state => state.lang
+        // })
     },
     methods: {
         ...mapActions({
@@ -111,11 +104,11 @@ export default {
             loadLang: 'loadLang'
         }),
         changeLang(val) {
-            if (val == this.lang) return
-            // 改变语言后，因为表单校验的错误提示或者后台返回的信息等问题，需要进行页面刷新
-            this.loadLang(val).then(() => {
-                window.location.reload()
-            })
+            // if (val == this.lang) return
+            // // 改变语言后，因为表单校验的错误提示或者后台返回的信息等问题，需要进行页面刷新
+            // this.loadLang(val).then(() => {
+            //     window.location.reload()
+            // })
         },
         userOperation(command){
             switch(command){
@@ -129,19 +122,19 @@ export default {
             }
         },
         logout() {
-            this.sysLogout().then(() => {
-                this.$router.push('/login')
-            })
+            // this.sysLogout().then(() => {
+            //     this.$router.push('/login')
+            // })
         },
         editPawSubmit(){
-            this.$refs.editPaw.validate((valid) => {
-                if (valid) {
-                    console.log("修改密码表单提交")
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
-            });
+            // this.$refs.editPaw.validate((valid) => {
+            //     if (valid) {
+            //         console.log("修改密码表单提交")
+            //     } else {
+            //         console.log('error submit!!');
+            //         return false;
+            //     }
+            // });
         }
     }
 }
