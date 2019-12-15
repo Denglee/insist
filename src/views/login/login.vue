@@ -18,24 +18,16 @@
                         <img :src="captcha.src" alt="">
                         <el-input v-model="loginForm.captcha" type="text" :placeholder="captcha"></el-input>
                     </el-form-item>
-                    <el-button type="primary" icon="el-icon-search">搜索</el-button>
-<!--                    <p class="textR">{{global.forgetPassword}}</p>-->
-                    <el-button type="primary">默认按钮</el-button>
+
+
+<!--                    <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
+<!--&lt;!&ndash;                    <p class="textR">{{global.forgetPassword}}</p>&ndash;&gt;-->
+<!--                    <el-button type="primary">默认按钮</el-button>-->
                     <a class="btn-login" type="primary" @click="submitForm()">locin</a>
                 </el-form>
-<!--                <div v-if="sysMsg" class="err-msg">{{sysMsg}}</div>-->
+
             </div>
-<!--            <div class="lang-toggle">
-                <span :class="{cur: lang=='zhCN'}" @click="changeLang('zhCN')">中</span> |
-                <span :class="{cur: lang=='en'}" @click="changeLang('en')">En</span>
-            </div>
-            <div class="lang-toggle">
-                <span :class="{cur: theme=='theme-default'}" @click="changeTheme('theme-default')">浅</span> |
-                <span :class="{cur: theme=='theme-dark'}" @click="changeTheme('theme-dark')">深</span>
-            </div>-->
-            <div class="tip">
-<!--                <p>{{global.loginTip}}</p>-->
-            </div>
+
         </div>
     </div>
 </template>
