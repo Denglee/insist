@@ -1,6 +1,6 @@
 <template>
     <div class="left-nav">
-<!--        <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>-->
+        <div @click="goIndex" style="width: 100%;text-align: center;padding: 20px;">首页</div>
         <ul class="navAsideTop"  @mouseleave.stop="navSubOut()">
             <li v-for="(navItem , index) in gNavList" >
                 <div

@@ -3,13 +3,14 @@ import Qs from 'qs';  //post 的 序列化
 import { Message, Loading } from 'element-ui'; // 消息提示框组件
 
 
-// /*第一层if判断生产环境和开发环境*/
+/*第一层if判断生产环境和开发环境*/
 // if (process.env.NODE_ENV === 'production') {
 //       /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
 //       if (process.env.VUE_APP_FLAG === 'pro') { //production 生产环境发布 地址  .env
 //
 //         // axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
-//         axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
+//         // axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
+//         axios.defaults.baseURL = 'https://spt.zmtek.net';//路径
 //
 //       } else {//test 测试环境  .env.text
 //         // axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
@@ -75,6 +76,21 @@ export function get(url, params){
         })
     });}
 
+/**用法
+ *
+ api.js
+ export  const loginApi = params => get('/login', params);
+
+ // 页面
+ import {recRegister,loginApi} from "@/assets/js/api"
+
+loginApi({
+    name:'xiaoming',
+}).then((res) =>{
+    console.log(res);
+})
+
+ */
 /**
  * post方法，对应post请求
  * @param {String} url [请求的url地址]

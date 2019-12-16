@@ -6,11 +6,9 @@ Vue.config.productionTip = false
 
 import '../mock/index.js'
 
-// 引入element
-import ElementUI from 'element-ui';
-// import '@/assets/css/changeEleCss.scss';
-import '@/assets/css/changeEleCss.scss';
-Vue.use(ElementUI);
+// 引入Mint
+import Mint from 'mint-ui';
+Vue.use(Mint);
 
 // 引入自己的全局的css
 import '@/assets/css/global.scss'

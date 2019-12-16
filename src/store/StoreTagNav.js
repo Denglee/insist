@@ -55,19 +55,6 @@ const actions={
                 resolve (res);
             })
         })
-
-
-        // return new Promise((resolve) =>{
-        //     axios({
-        //         url: '/user/navlist',
-        //         methods: 'post',
-        //         data: {}
-        //     }).then((res) => {
-        //         console.log(res);
-        //         commit("setNavList", res)
-        //         resolve(res)
-        //     })
-        // })
     },
 
     // 将菜单列表扁平化形成权限列表
@@ -105,30 +92,14 @@ const actions={
                 resolve(res)
             })
         })
-
-        // return new Promise((resolve) => {
-        //     axios({
-        //         url: '/login',
-        //         method: 'post',
-        //         data: {
-        //             ...userInfo
-        //         }
-        //     }).then(res => {
-        //         if(res.login){
-        //             commit('setToken', res.token)
-        //             commit('user/setName', res.name, { root: true })
-        //         }
-        //         resolve(res)
-        //     })
-        // });
     },
 
     // 登出
     logout({commit}) {
         return new Promise((resolve) => {
-            commit('setToken', '')
-            commit('user/setName', '', { root: true })
-            commit('tagNav/removeTagNav', '', {root: true})
+            commit('setToken', '');
+            commit('user/setName', '', { root: true });
+            commit('tagNav/removeTagNav', '', {root: true});
             resolve()
         })
     },

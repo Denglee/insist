@@ -67,12 +67,12 @@
     .left-nav{
         flex: 1;
         min-height: 100vh;
-        border: solid 1px blue;
+        /*border: solid 1px blue;*/
 
     }
     .sys-content{
         flex: 6;
-        border: solid 1px red;
+        /*border: solid 1px red;*/
         box-sizing: border-box;
         min-height: 100vh;
     }
