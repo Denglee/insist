@@ -17,8 +17,23 @@
                         <el-input v-model="loginForm.password" type="password" placeholder="password" autocomplete="off"></el-input>
                     </el-form-item>
 
+<<<<<<< HEAD
+                    <el-form-item prop="captcha" v-if="captcha.show" class="captcha">
+                        <img :src="captcha.src" alt="">
+                        <el-input v-model="loginForm.captcha" type="text" :placeholder="captcha"></el-input>
+                    </el-form-item>
+
+
+<!--                    <el-button type="primary" icon="el-icon-search">搜索</el-button>-->
+<!--&lt;!&ndash;                    <p class="textR">{{global.forgetPassword}}</p>&ndash;&gt;-->
+<!--                    <el-button type="primary">默认按钮</el-button>-->
+                    <a class="btn-login" type="primary" @click="submitForm()">locin</a>
+                </el-form>
+
+=======
                     <el-button @click="submitForm">立即登录</el-button>
                 </el-form>
+>>>>>>> fd81a4b50fe12154711869015eaa93aa25d2b42a
             </div>
 
         </div>
