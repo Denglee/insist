@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, {mapActions, mapGetters} from 'vuex'
 // import vuexModules from './modules'
 //
 // import state from './state'
@@ -91,6 +91,7 @@ export default new Vuex.Store({
 //   },
 //
 //   // 进行异步操作 给action注册事件处理函数。当这个函数被触发时候，将状态提交到mutations中处理
+     //注册 action 类似于 vue的methods
 //   actions: {
 //     // dispatch：含有异步操作，
 //     // 存储:this.$store.dispatch('setTargetUser',friend);
@@ -136,4 +137,31 @@ export default new Vuex.Store({
 // “this.$store.state.count”
 // 和“this.$store.dispatch('funName')”这种很长的写法，
 // 那么我们可以使用mapState、mapGetters、mapActions就不会这么麻烦了；
+
+/*store*/
+// 1、定义好states
+// 2、getters获取state
+// 3、muations 改变state
+// 4、actions 定义方法 执行muations
+
+/*页面*/
+// 1、先引用vuex    import {mapStates,mapActions, mapGetters} from 'vuex'
+// computed 监听 getters
+
+/*
+{{getName2}}
+<div @click="changeName()">改变</div>
+
+computed:{
+  ...mapGetters('StoreTagNav',[ //用mapGetters来获取StoreTagNav.js里面的getters 的 gState
+    'gState',
+  ]),
+}
+methods:{
+...mapActions({
+    changeName: "StoreTagNav/actName2",
+  }),
+}
+*/
+
 // */

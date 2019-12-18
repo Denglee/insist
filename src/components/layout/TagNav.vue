@@ -2,7 +2,9 @@
     <div class="tag-nav">
 <!--        {{openedPageList}}-->
 <!--        <scroll-bar ref="scrollBar">-->
-            <router-link ref="tag" class="tag-nav-item" :class="isActive(item) ? 'cur' : ''" v-for="(item, index) in openedPageList"
+<!--        {{openedPageList}}-->
+            <router-link ref="tag" class="tag-nav-item" :class="isActive(item) ? 'cur' : ''"
+                         v-for="(item, index) in openedPageList"
             :to="item.path" :key="index">
                 {{item.name}}
                 <span class='el-icon-close' @click.prevent.stop="closeTheTag(item, index)"></span>
@@ -79,15 +81,15 @@ export default {
     // components: {ScrollBar}
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
     $white:#fff;
     $themeColor:#ffa300;
     .tag-nav{
         /*position: absolute;*/
         top: 0;
         width: 100%;
-        height: 53px;
-        padding: 10px;
+        height: 36px;
+        /*padding: 10px;*/
         background: $white;
         border-bottom: 1px solid #ddd;
         box-shadow: 0 1px 2px #f2f2f2;
@@ -101,7 +103,7 @@ export default {
             margin-right: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            background-color: #ddd;
+            background-color: #DADFE8;
             text-decoration: none;
             span{
                 width: 16px;

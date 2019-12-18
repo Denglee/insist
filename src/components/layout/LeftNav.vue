@@ -1,35 +1,37 @@
 <template>
-    <div class="left-nav">
-        <div @click="goIndex" style="width: 100%;text-align: center;padding: 20px;">首页</div>
-        <ul class="navAsideTop"  @mouseleave.stop="navSubOut()">
-            <li v-for="(navItem , index) in gNavList" >
-                <div
-                        @mouseenter="navSubIn(index)"
-                        :class="navSubActive == index ? 'navActive' : ''"
-                >
-                    <i :class="navItem.icon" class="iconfont"></i>
-                    {{navItem.name}}
-                </div>
+    <div class="layoutLeft-nav">
 
-                <ul class="navSub" v-show="navSubActive == index">
-                    <li v-for="(subItems,index2) in navItem.child"
-                        @mouseenter="navSubIn(index)"
-                        @click="navSubOut()"
-                        :class="navSubActive2 == index2 ? 'navActive' : ''">
-                        <router-link :to="subItems.path">
-                            <i :class="subItems.icon" class="iconfont"></i>
+        <el-menu default-active="1-1"
+                 class="el-menu-vertical-demo"
+                 :collapse="isCollapse"
+                 background-color="#253954"
+                 text-color="#fff"
+                 active-text-color="#fff"
+        >
+            <el-submenu class="sunmenu-box" :index="index1 +''" v-for="(navItem , index1) in StateNavList.data"  :key="index1">
+                <template slot="title">
+                    <i class="iconfont el-icon-goods"></i>
+                    <span slot="title">{{navItem.name}}</span>
+                </template>
+
+                <el-menu-item-group v-for="(subItems,index2) in (navItem.sub_menu)" :key="index2">
+                    <el-menu-item :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
+                        <router-link :to="{path:'/'+subItems.controller+'/'+subItems.action}"
+                                     :dataPath="subItems.controller+'/'+subItems.action">
+
                             {{subItems.name}}
                         </router-link>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                    </el-menu-item>
+                </el-menu-item-group>
+            </el-submenu>
+        </el-menu>
+
     </div>
 
 </template>
 
 <script>
-    // import {recRegister} from "@/assets/js/api"
+    import {recRegister} from "@/assets/js/api"
 
     import {mapStates,mapActions, mapGetters} from 'vuex'
 
@@ -38,12 +40,11 @@
         data() {
             return {
 
-                isRouterAlive: true,   //控制视图是否显示的变量
+                isCollapse: true,
+                isRouterAlive: false,   //控制视图是否显示的变量
 
                 navSubActive:0,  //控制子导航显示的值 index
                 navSubActive2:1,
-                // 导航集合
-                navList:[],
 
                 HideNavStatus:false
             };
@@ -54,7 +55,22 @@
                 reload: this.reload
             }
         },
+
         methods: {
+
+            //store 里 StoreTagNav中 actions 的getNavList方法  获取左侧路由导航
+            ...mapActions({
+                getNavList: "StoreTagNav/actNavList",
+            }),
+
+
+            // goNext(e){
+            //     console.log(e);
+            //     let trainerId = e.currentTarget.dataset.dataname;
+            //     console.log(`${trainerId}`);
+            //     this.$router.push({path:trainerId});
+            // },
+
             // 刷新页面
             reload () {
                 this.isRouterAlive = false;            //先关闭，
@@ -91,24 +107,20 @@
         },
 
         created() {
-            // recRegister().then(res=>{
-            //     console.log(res);
-            //     this.navArr=res;
-            // });
+            // 调用 getNavList方法  获取路由
+            this.getNavList();
         },
         computed:{
-            // this.$store.StoreTagNav.state.navList,
-            ...mapGetters('StoreTagNav',[ //用mapGetters来获取collection.js里面的getters
-                'gState',
-            ]),
-            ...mapGetters('StoreTagNav',[ //用mapGetters来获取collection.js里面的getters
-                'gNavList',
-            ]),
+            //获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
+            ...mapGetters({
+                gState: "StoreTagNav/gState",
+                StateNavList: "StoreTagNav/getNavList",
+            }),
 
         }
     };
 </script>
 
-<style scoped lang="scss">
-    @import "@/assets/css/nav.scss";
+<style lang="scss">
+    @import "@/assets/css/LayoutNav.scss";
 </style>

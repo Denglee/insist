@@ -1,19 +1,20 @@
-import {recRegister,loginApi} from "@/assets/js/api"
+import {loginApi, recRegister} from "@/assets/js/api"
 
 const state = {
-    name:'', //用户名
-    navList: [],  //路由集合
+    StateUserName: '', //用户名
+    StateNavList: [],  //路由集合
 };
 
-const getters={
+const getters = {
+
     // 获取用户名
-    gState(state,name){
-        return state.name
+    getUserName(state, StateUserName) {
+        return state.StateUserName
     },
 
     // 获取 导航列表
-    gNavList(state,navList){
-        return state.navList
+    getNavList(state, StateNavList) {
+        return state.StateNavList
     },
 };
 
@@ -21,73 +22,76 @@ const getters={
 const mutations = {
 
     // 保存用户名
-    mSetName(state,name){
-        if(name){
-            localStorage.setItem('userName',name);
+    mutSetName(state, name) {
+        if (name) {
+            localStorage.setItem('userName', name);
         } else {
             localStorage.removeItem('userName');
         }
-        state.name = name
+        state.name = StateUserName
     },
 
     //登录状态
-  mSetLoginStatus(state,name){
-      localStorage.setItem('isLogin',true);
-  },
+    mutSetLoginStatus(state, name) {
+        localStorage.setItem('isLogin', true);
+    },
 
-
-    // 插入路由
-    mSetNavList: (state, data) => {
-        state.navList = data
+    // 插入路由 获取左侧路由导航
+    mutNavList: (state, data) => {
+        console.log(data);
+        state.StateNavList = data
     },
 };
 
-const actions={
-    aName({commit},name){
-      return commit ('mName',name);
+const actions = {
+
+    actName({commit}, name) {
+        return commit('mutSetName', name);
     },
 
-    // 获取该用户的菜单列表
-    getNavList({commit}){
-        return new Promise((resolve) =>{
-            recRegister().then((res) =>{
-                commit("mSetNavList", res);
-                resolve (res);
+    // 获取该用户的菜单列表  获取左侧路由导航
+    actNavList({commit}) {
+        return new Promise((resolve) => {
+            recRegister().then((res) => {
+                console.log(res);
+                commit("mutNavList", res);
+                resolve(res);
             })
         })
     },
 
     // 将菜单列表扁平化形成权限列表
-    getPermissionList({state}){
-
-        return new Promise((resolve) =>{
+    getPermissionList({state}) {
+        return new Promise((resolve) => {
             let permissionList = []
+
             // 将菜单数据扁平化为一级
-            function flatNavList(arr){
-                for(let v of arr){
+            function flatNavList(arr) {
+                console.log(arr);
+                for (let v of arr) {
                     console.log(arr);
-                    if(v.child && v.child.length){
+                    if (v.child && v.child.length) {
                         flatNavList(v.child)
-                    } else{
+                    } else {
                         permissionList.push(v)
                     }
                 }
             }
 
-            flatNavList(state.navList);
+            flatNavList(state.StateNavList);
 
             resolve(permissionList)  //Promise.resolve(value)方法返回一个以给定值解析后的Promise 对象
         })
     },
 
     // 登录
-    aLogin({ commit }) {
-        return new Promise((resolve) =>{
-            loginApi().then((res) =>{
-                if(res.login){
+    aLogin({commit}) {
+        return new Promise((resolve) => {
+            loginApi().then((res) => {
+                if (res.login) {
                     // commit('setToken', res.token)
-                    commit('mSetName', res.name);
-                    commit("mSetLoginStatus");
+                    commit('mutSetName', res.name);
+                    commit("mutSetLoginStatus");
                 }
                 resolve(res)
             })
@@ -98,14 +102,12 @@ const actions={
     logout({commit}) {
         return new Promise((resolve) => {
             commit('setToken', '');
-            commit('user/setName', '', { root: true });
+            commit('user/setName', '', {root: true});
             commit('tagNav/removeTagNav', '', {root: true});
             resolve()
         })
     },
 }
-
-
 
 
 export default {

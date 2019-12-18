@@ -21,4 +21,7 @@
     fill: currentColor;
     overflow: hidden;
   }
+  /*body{*/
+  /*  overflow-y: hidden;*/
+  /*}*/
 </style>

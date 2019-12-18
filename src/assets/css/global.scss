@@ -1,5 +1,14 @@
 @charset "UTF-8";
 /*lideng*/
+
+//公共颜色
+$color-green:#8cc31f;
+$color-blue:#253954;
+$color-gray:#b6b6b6;
+$color-white:#fff;
+$color-paleWhite:#f4f4f4;
+$color-orange:#ffa300;
+
 * {
     margin: 0;
     padding: 0;
@@ -60,33 +69,8 @@ input,button{
 /*============ 初始样式 到此结束 ============*/
 
 /*============ 公共部分  开始 ============*/
-//公共颜色
-$color-green:#8cc31f;
-$color-blue:#014da1;
-$color-gray:#b6b6b6;
-$color-white:#fff;
-$color-paleWhite:#f4f4f4;
-$color-orange:#ffa300;
 
 /*公共头部*/
-.header-box{
-    padding-bottom: 42px;
-}
-.header-nav{
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1111;
-}
-.header-top{
-    background-color: $color-blue;
-    position: relative;
-    color: $color-white;
-    height: 42px;
-    line-height: 42px;
-    text-align: center;
-}
 .goBack{
     /*border: solid 1px red;*/
     height: 20px;
@@ -96,11 +80,31 @@ $color-orange:#ffa300;
     left: 0;
 }
 
-.container{
-    padding: 0;
-    margin: 0;
-    /*font-size: 0.4rem;*/
-}
 /*============ 公共部分  结束 ============*/
 
 /*============ 分类首页 开始 ============*/
+::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius   : 10px;
+    background-color: $color-blue;
+    background-image: -webkit-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.2) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0.2) 75%,
+                    transparent 75%,
+                    transparent
+    );
+}
+::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.3);
+    background   : #ededed;
+    border-radius: 10px;
+}

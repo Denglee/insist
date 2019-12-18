@@ -4,7 +4,7 @@
             <!--左边导航-->
             <el-col :span="4" class="navBox">
                 <div @mouseleave.stop="navSubOut()" >
-                    <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>
+<!--                    <div @click="goIndex" style="width: 100%;text-align: center;color: #fff;padding: 20px;">首页</div>-->
                     <ul class="navAsideTop"  >
                         <li v-for="(navItem , index) in navArr" >
                             <div

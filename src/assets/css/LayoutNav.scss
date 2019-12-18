@@ -1,0 +1,115 @@
+@import "global";
+
+/*layout*/
+.layout-box {
+  .layout-left{
+    height: 100vh;
+    .layoutLeft-nav {
+      width: 100%;
+      max-height:100vh;
+      overflow-y: auto;
+      .el-menu--collapse{
+        width: 100%;
+      }
+    }
+  }
+  .layout-right{
+    //border: solid 1px red;
+  }
+}
+
+/*element导航样式修改*/
+.el-menu--vertical {
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  border-radius: 14px;
+  .el-menu--popup{
+    min-width: auto;
+  }
+}
+.el-menu--collapse .el-submenu{
+  text-align: center;
+  .el-submenu__title span {
+    height: auto;
+    visibility: visible;
+    overflow: auto;
+    width: auto;
+    padding: 16px 0 16px 10px;
+    font-size: 16px;
+  }
+}
+
+.el-menu--horizontal{
+  .el-menu--popup{
+    min-width: auto;
+    background-color: $color-blue;
+    border-radius: 14px;
+  }
+}
+.el-menu--horizontal .el-menu .el-menu-item,
+.el-menu--horizontal .el-menu .el-submenu__title{
+  padding: 4px 30px;
+  background: none;
+}
+.el-menu-item,
+.el-submenu__title {
+  height: auto;
+  line-height: inherit;
+}
+.el-menu-item-group__title{
+  padding: 0;
+}
+.el-menu-item-group>ul li{
+  padding: 10px 20px!important;
+  a{
+    color: inherit;
+  }
+}
+
+$headerHeight:70px;
+/*headerTop*/
+.headerTop-user{
+  height: $headerHeight;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 30px;
+  .el-submenu__title{
+    height: $headerHeight !important;
+    line-height: $headerHeight !important;
+    border: none;
+  }
+}
+.search-form{
+  height: $headerHeight;
+  line-height: $headerHeight;
+  input{
+    //width:100%;
+    width: 338px;
+    //max-width: 190px;
+    height:36px;
+    line-height: 36px;
+    background:rgba(239,242,249,1);
+    border-radius:24px;
+  }
+}
+
+.headerTop-userInfo{
+  text-align: right;
+  display: flex;
+  .el-menu-demo{
+    width: calc(100% - 60px);
+    display: inline-block;
+  }
+  .userHeader{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 40px;
+  }
+}
+
+/*tagnav*/
+.tag-nav{
+  background-color: #DADFE8;
+}

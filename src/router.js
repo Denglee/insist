@@ -6,10 +6,9 @@ import staticRoute from '@/router/staticRoute'
 import Login from '@/assets/js/login'
 
 import whiteList from '@/router/whiteList'
-
 // import NProgress from 'nprogress'
 // import 'nprogress/nprogress.css'
-import { Message } from 'element-ui'
+import {Message} from 'element-ui'
 
 
 // Vue.use(Router)
@@ -20,13 +19,12 @@ import { Message } from 'element-ui'
 // }
 
 
-
 var permissionList = []
 
-function initRoute(router){
+function initRoute(router) {
     return new Promise((resolve) => {
         console.log(resolve);
-        if(permissionList.length == 0){
+        if (permissionList.length == 0) {
             console.log("没有权限数据，正在获取")
             store.dispatch('StoreTagNav/getNavList').then((res) => {
                 console.log(res);
@@ -36,9 +34,9 @@ function initRoute(router){
                     console.log("权限列表生成完毕");
                     console.log(res);
                     permissionList = res;
-                    res.forEach(function(v){
+                    res.forEach(function (v) {
                         let routeItem = router.match(v.path)
-                        if(routeItem){
+                        if (routeItem) {
                             routeItem.meta.permission = v.permission ? v.permission : []
                             routeItem.meta.name = v.name
                         }
@@ -46,7 +44,7 @@ function initRoute(router){
                     resolve(res)
                 })
             })
-        } else{
+        } else {
             console.log("已有权限数据")
             resolve()
         }
@@ -64,7 +62,7 @@ const router = new Router({
 })
 
 // 路由跳转前验证
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
     // console.log(permissionList);
     // 开启进度条
     // NProgress.start();
@@ -77,21 +75,19 @@ router.beforeEach((to, from, next) => {
         // 这种情况出现在手动修改地址栏地址时
         if (to.path === '/login') {
             next({path: "/home", replace: true})
-        } else if(to.path.indexOf("/error") >= 0){
+        } else if (to.path.indexOf("/error") >= 0) {
             // 防止因重定向到error页面造成beforeEach死循环
             next()
         } else {
             initRoute(router).then(() => {
-            <<<<<<< HEAD
+
                 let isPermission = false
                 console.log("进入权限判断")
-                =======
-                    let isPermission = false;
-                console.log("进入权限判断");
+
 
                 permissionList.forEach((v) => {
                     // 判断跳转的页面是否在权限列表中
-                    if(v.path == to.fullPath){
+                    if (v.path == to.fullPath) {
                         isPermission = true
                     }
 
@@ -100,53 +96,52 @@ router.beforeEach((to, from, next) => {
             })
 
             // 没有权限时跳转到401页面
-            if(!isPermission){
+            if (!isPermission) {
                 next({path: "/error/401", replace: true})
             } else {
                 next()
             }
-        })
-}
-} else {
-    // 如果是免登陆的页面则直接进入，否则跳转到登录页面
-    if (whiteList.indexOf(to.path) >= 0) {
-
-        console.log('该页面无需登录即可访问')
-        next()
-    } else {
-        console.warn('当前未处于登录状态，请登录')
-        next({path: "/login", replace: true})
-        // 如果store中有token，同时Cookie中没有登录状态
-        if(store.state.user.token){
-            Message({
-                message: '登录超时，请重新登录'
-            })
         }
+    }
+    else {
+        // 如果是免登陆的页面则直接进入，否则跳转到登录页面
+        if (whiteList.indexOf(to.path) >= 0) {
+
+            console.log('该页面无需登录即可访问')
+            next();
+        } else {
+            console.warn('当前未处于登录状态，请登录')
+            next({path: "/login", replace: true})
+            // 如果store中有token，同时Cookie中没有登录状态
+            if (store.state.user.token) {
+                Message({
+                    message: '登录超时，请重新登录'
+                })
+            }
 
             console.log('该页面无需登录即可访问');
-        next()
-    } else {
-        console.warn('当前未处于登录状态，请登录');
-        next({path: "/login", replace: true})
-        // 如果store中有token，同时Cookie中没有登录状态
-        // if(stor){
-        //   Message({
-        //     message: '登录超时，请重新登录';
-        //   })
-        // }
+            next()
+        }
+        /!*else{
+            console.warn('当前未处于登录状态，请登录');
+            next({path: "/login", replace: true})
+            // 如果store中有token，同时Cookie中没有登录状态
+            // if(stor){
+            //   Message({
+            //     message: '登录超时，请重新登录';
+            //   })
+            // }
 
-        // NProgress.done()
+            // NProgress.done()
+        }*!/
     }
-}
-})
+})*/
 
 router.afterEach(() => {
     // NProgress.done(); // 结束Progress
 })
 
-
 export default router
-
 
 
 
@@ -214,3 +209,4 @@ export default router
     // }
   ]*!/
 })*/
+
