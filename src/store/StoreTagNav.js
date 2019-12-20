@@ -1,7 +1,8 @@
-import {loginApi, recRegister} from "@/assets/js/api"
+import {ApiloginIn, layoutNav} from "@/assets/js/api"
 
 const state = {
     StateUserName: '', //用户名
+
     StateNavList: [],  //路由集合
 };
 
@@ -28,7 +29,7 @@ const mutations = {
         } else {
             localStorage.removeItem('userName');
         }
-        state.name = StateUserName
+        state.name = StateUserName;
     },
 
     //登录状态
@@ -45,14 +46,14 @@ const mutations = {
 
 const actions = {
 
-    actName({commit}, name) {
+    ACTName({commit}, name) {
         return commit('mutSetName', name);
     },
 
     // 获取该用户的菜单列表  获取左侧路由导航
     actNavList({commit}) {
         return new Promise((resolve) => {
-            recRegister().then((res) => {
+            layoutNav().then((res) => {
                 console.log(res);
                 commit("mutNavList", res);
                 resolve(res);
@@ -85,9 +86,9 @@ const actions = {
     },
 
     // 登录
-    aLogin({commit}) {
+    ACTLogin({commit}) {
         return new Promise((resolve) => {
-            loginApi().then((res) => {
+            ApiloginIn().then((res) => {
                 if (res.login) {
                     // commit('setToken', res.token)
                     commit('mutSetName', res.name);
@@ -99,7 +100,7 @@ const actions = {
     },
 
     // 登出
-    logout({commit}) {
+    ACTlogout({commit}) {
         return new Promise((resolve) => {
             commit('setToken', '');
             commit('user/setName', '', {root: true});
@@ -117,3 +118,5 @@ export default {
     mutations,
     actions
 }
+
+

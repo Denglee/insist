@@ -8,10 +8,10 @@ module.exports = {
     // 则设置 baseUrl 为 /my-app/。
     //baseUrl 从 Vue CLI 3.3 起已弃用，请使用publicPath
     //baseUrl: process.env.NODE_ENV === "production" ? "./" : "/",
-    publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
+    publicPath: process.env.NODE_ENV === "production" ? "http://192.168.0.133:20000/" : "/",
     runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
     // outputDir: 在npm run build 或 yarn build 时 ，生成文件的目录名称（要和baseUrl的生产环境路径一致）
-    outputDir: process.env.outputDir,
+    outputDir: 'http://192.168.0.133:20000/',
     //用于放置生成的静态资源 (js、css、img、fonts) 的；（项目打包之后，静态资源会放在这个文件夹下）
     assetsDir: "assets",
     //指定生成的 index.html 的输出路径  (打包之后，改变系统默认的index.html的文件名)

@@ -1,12 +1,13 @@
 <template>
-    <div>
-        
+    <div class="layoutR-main">
+        <!--右边iframe-->
+        <publicIframe/>
     </div>
 </template>
 
 <script>
     export default {
-        name: "managewardrobe",
+        name: "Devicemanagewardrobe",
         data() {
             return {}
         },
@@ -17,6 +18,6 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

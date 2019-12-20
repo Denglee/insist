@@ -8,19 +8,15 @@
     export default {
         name: "logout",
         data() {
-            return {
-
-            }
+            return {}
         },
-        methods: {
-
-        },
+        methods: {},
         created() {
 
         },
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

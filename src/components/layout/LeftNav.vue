@@ -1,39 +1,46 @@
 <template>
-    <div class="layoutLeft-nav">
+    <aside class="layoutLeft-nav">
+        <!--logo-->
+        <img @click="goIndex()" src="~@/assets/img/logo.png" alt="" class="img-logo">
 
         <el-menu default-active="1-1"
                  class="el-menu-vertical-demo"
                  :collapse="isCollapse"
                  background-color="#253954"
                  text-color="#fff"
-                 active-text-color="#fff"
-        >
-            <el-submenu class="sunmenu-box" :index="index1 +''" v-for="(navItem , index1) in StateNavList.data"  :key="index1">
+                 active-text-color="#fff">
+
+            <!--一级导航-->
+            <el-submenu class="sunmenu-box" :index="index1 +''"  v-for="(navItem , index1) in StateNavList.data"  :key="index1">
+
                 <template slot="title">
-                    <i class="iconfont el-icon-goods"></i>
+                    <!--<span>iconNav{{navItem.fonts}}</span>-->
+                    <i class="iconNav" :class="'iconNav'+navItem.fonts"></i>
                     <span slot="title">{{navItem.name}}</span>
                 </template>
 
+                <!--二级导航 数据-->
                 <el-menu-item-group v-for="(subItems,index2) in (navItem.sub_menu)" :key="index2">
-                    <el-menu-item :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
-                        <router-link :to="{path:'/'+subItems.controller+'/'+subItems.action}"
-                                     :dataPath="subItems.controller+'/'+subItems.action">
 
-                            {{subItems.name}}
-                        </router-link>
-                    </el-menu-item>
+                        <el-menu-item v-if="subItems.action ==''"></el-menu-item>
+                        <el-menu-item v-else :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
+                            <router-link :to="{path:'/'+subItems.controller+'/'+subItems.action}"
+                                         :dataPath="subItems.controller+'/'+subItems.action">
+                                {{subItems.name}}
+                            </router-link>
+                        </el-menu-item>
+
                 </el-menu-item-group>
             </el-submenu>
         </el-menu>
 
-    </div>
+    </aside>
 
 </template>
 
 <script>
-    import {recRegister} from "@/assets/js/api"
 
-    import {mapStates,mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default {
         name: "LeftNav",
@@ -42,11 +49,6 @@
 
                 isCollapse: true,
                 isRouterAlive: false,   //控制视图是否显示的变量
-
-                navSubActive:0,  //控制子导航显示的值 index
-                navSubActive2:1,
-
-                HideNavStatus:false
             };
         },
 
@@ -63,13 +65,18 @@
                 getNavList: "StoreTagNav/actNavList",
             }),
 
+            /*回到首页*/
+            goIndex(){
+                this.$router.push({path:'/index'});
+            },
 
-            // goNext(e){
-            //     console.log(e);
-            //     let trainerId = e.currentTarget.dataset.dataname;
-            //     console.log(`${trainerId}`);
-            //     this.$router.push({path:trainerId});
-            // },
+            goNext(e){
+                console.log(e);
+                let trainerId = e.currentTarget.dataset.datanum;
+                console.log(`${trainerId}`);
+                this.dataNum = trainerId;
+                // this.$router.push({path:trainerId});
+            },
 
             // 刷新页面
             reload () {
@@ -79,30 +86,6 @@
                 });
             },
 
-            goIndex(){
-                const that=this;
-                this.$router.push({path:'/index'});
-            },
-
-            // 相应二级导航显示
-            navSubIn(index){
-                let that = this;
-                 that.HideNavStatus = false;
-                if(!that.HideNavStatus){
-                    that.navSubActive=index;
-                }
-            },
-
-            // 隐藏二级导航
-            navSubOut(){
-                let that = this;
-                that.HideNavStatus = true;
-                setTimeout(function(){
-                    if(that.HideNavStatus){
-                        that.navSubActive=-1;
-                    }
-                },100);
-            },
 
         },
 
@@ -122,5 +105,5 @@
 </script>
 
 <style lang="scss">
-    @import "@/assets/css/LayoutNav.scss";
+
 </style>

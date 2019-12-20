@@ -15,18 +15,15 @@ import { get, post } from './axios';
  */
 
 
-/*export const index = params => post('/Applet/make/index/', params); // 首页
-export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', {
-    name:'留夫鸭',
-})*/
 
 
+/*获取侧边栏 nav*/
+export  const layoutNav = params => get('admin/Test/indexMenu', params);
 
-// 获取nav
-export  const recRegister = params => get('admin/Test/indexMenu', params);
+/*登录*/
+export  const ApiloginIn = params => post('admin/Test/login', params);
 
-
-// 登录
-export  const loginApi = params => get('admin/Test/login', params);
+/*退出*/
+export  const ApiloginOut = params => post('admin/Test/login_out', params);
 
 

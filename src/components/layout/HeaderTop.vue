@@ -10,17 +10,18 @@
                 </el-input>
             </el-form>
 
-
             <!--头部用户信息+退出+更换密码-->
             <div class="headerTop-userInfo">
-                <img class="userHeader" src="../../assets/img/userHeader.png" alt="">
+                <img class="userHeader" src="~@/assets/img/userHeader.png" alt="">
                 <el-menu class="el-menu-demo" mode="horizontal" >
                     <el-submenu index="2">
                         <template slot="title">用户名</template>
                         <el-menu-item index="2-1">
                             <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
                         </el-menu-item>
-                        <el-menu-item index="2-2">退出</el-menu-item>
+                        <el-menu-item index="2-2">
+                            <el-button type="text" @click="loginOut()">退出</el-button>
+                        </el-menu-item>
                     </el-submenu>
                 </el-menu>
             </div>
@@ -46,6 +47,9 @@
 </template>
 
 <script>
+
+    import {ApiloginOut} from '@/assets/js/api'
+
     export default {
         name: "HeaderTop",
         data() {
@@ -68,13 +72,28 @@
         },
         methods: {
 
+            /*退出登录*/
+            loginOut(){
+                let that = this;
+                ApiloginOut().then(res=>{
+                    console.log(res);
+                    if(res.status == 1){
+                        this.$message({
+                            type:'success',
+                            duration:1500,
+                            message:"退出成功！",
+                        });
+                        setTimeout(()=>{
+                            that.$router.push({path:'/login'})
+                        },1500)
+
+                    };
+
+                })
+            },
         },
         created() {
 
         },
     }
 </script>
-
-<style scoped lang="scss">
-
-</style>

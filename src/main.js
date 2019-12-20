@@ -2,37 +2,37 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import qs from 'qs'
+
 Vue.config.productionTip = false
 
 import Axios from 'axios'
 
 // import '../mock/index.js'
 
-
 /*引入 element*/
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+Vue.use(ElementUI, {
+  size: 'small'
+});
 
 /*更换 element 主题*/
 import '@/assets/css/element-variables.scss'
 
-
-
-// 引入自己的全局的css
+/*引入自己的全局的css*/
 import '@/assets/css/global.scss'
+import '@/assets/css/animate37.css'
 
-// 引用全局js
+/*引用全局js*/
 import global from  '@/assets/js/global.js'
 Vue.prototype.GLOBAL = global
 
 
-// 注册全局组件
+/*注册全局组件*/
 // import topTabbar from '@/components/topTabbar'
 // Vue.component(topTabbar.name,topTabbar);
 
-// 通用iframe
+/*全局 通用iframe 组件*/
 import publicIframe from '@/components/publicIframe/publicIframe'
 Vue.component(publicIframe.name,publicIframe);
 
@@ -42,11 +42,10 @@ Vue.component(publicIframe.name,publicIframe);
 // 引用md5
 // import md5 from 'js-md5';
 
-
+/*引用axios*/
 Vue.prototype.$axios=Axios;
 
-// 引用qs
-Vue.prototype.$qs = qs
+
 
 /*第一层if判断生产环境和开发环境*/
 if (process.env.NODE_ENV === 'production') {
@@ -57,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
 
   } else {
     //test 测试环境 测试地址 http://vikily.f3322.net:10007
-    Axios.defaults.baseURL = 'http://vikily.f3322.net:2000';//路径
+    Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//路径
     config.optimization.minimize(false)
   }
 } else {
@@ -65,7 +64,6 @@ if (process.env.NODE_ENV === 'production') {
   Axios.defaults.baseURL = '/api';
   // Axios.defaults.baseURL = 'http://vikily.f3322.net:10007';
 }
-
 
 new Vue({
   router,

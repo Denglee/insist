@@ -1,26 +1,10 @@
 import axios from 'axios';
-import Qs from 'qs';  //post 的 序列化
-import { Message, Loading } from 'element-ui'; // 消息提示框组件
+import Qs from 'qs'; //post 的 序列化
+import {Message} from 'element-ui';
 
-
-/*第一层if判断生产环境和开发环境*/
-// if (process.env.NODE_ENV === 'production') {
-//       /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
-//       if (process.env.VUE_APP_FLAG === 'pro') { //production 生产环境发布 地址  .env
-//
-//         // axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
-//         // axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
-//         axios.defaults.baseURL = 'https://spt.zmtek.net';//路径
-//
-//       } else {//test 测试环境  .env.text
-//         // axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
-//         config.optimization.minimize(false);  //代码最小化 没有错误提示
-//       }
-// } else {
-//       // dev 开发环境 本地 /api
-//       axios.defaults.baseURL = '/api';
-// }
-
+/*引用qs*/
+/*Vue.prototype.$qs = qs
+this.$qs.stringify*/
 
 // 设置请求超时时间
 axios.defaults.timeout = 10000;
@@ -29,7 +13,7 @@ axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 // 请求拦截
-axios.interceptors.request.use( config => {
+axios.interceptors.request.use(config => {
     // 在发送请求之前做些什么 验证token之类的
 
     // Loading.service(true);
@@ -40,10 +24,10 @@ axios.interceptors.request.use( config => {
 });
 
 // 响应拦截
-axios.interceptors.response.use( response => {
+axios.interceptors.response.use(response => {
     // 对响应数据做点什么
     // console.log(response.data.status);
-    if(response.data.status == 3){
+    if (response.data.status == 3) {
         console.log('重新授权');
     }
     return response;
@@ -61,8 +45,8 @@ axios.interceptors.response.use( response => {
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
-export function get(url, params){
-    return new Promise((resolve, reject) =>{
+export function get(url, params) {
+    return new Promise((resolve, reject) => {
         axios.get(url, {
             params: params
         }).then(res => {
@@ -74,7 +58,8 @@ export function get(url, params){
             // Loading.service(true).close();
             Message({message: '加载失败', type: 'error'});
         })
-    });}
+    });
+}
 
 /**用法
  *
@@ -84,7 +69,7 @@ export function get(url, params){
  // 页面
  import {recRegister,loginApi} from "@/assets/js/api"
 
-loginApi({
+ loginApi({
     name:'xiaoming',
 }).then((res) =>{
     console.log(res);
@@ -109,4 +94,33 @@ export function post(url, params) {
                 // Loading.service(true).close();
                 Message({message: '加载失败', type: 'error'});
             })
-    });}
+    });
+}
+
+
+// this.$axios.post('http://192.168.0.133:20000/admin/Test/login', {
+// post
+// this.$axios.post('/admin/Test/login', formData)
+//     .then(function (response) {
+//         console.log(response);
+//         // if( ){
+//         //
+//         // }
+//     })
+//     .catch(function (error) {
+//         console.log(error);
+//     });
+
+// get
+// this.$axios.get('/admin/Test/login', {
+//     params:{
+//         "username": username,
+//         "password": password,
+//     }
+// })
+//     .then(function (response) {
+//         console.log(response);
+//     })
+//     .catch(function (error) {
+//         console.log(error);
+//     });

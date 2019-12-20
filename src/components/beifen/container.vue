@@ -47,7 +47,7 @@
         data() {
             return {
 
-                isRouterAlive: true,   //控制视图是否显示的变量
+                isRouterAlive: true,   //控制视图是否显示
 
                 navSubActive:0,  //控制子导航显示的值 index
                 navSubActive2:1,

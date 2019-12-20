@@ -1,6 +1,10 @@
 <template>
-    <div>
-        <publicIframe></publicIframe>
+    <div class="layoutR-main">
+        <!--右边iframe-->
+        <publicIframe/>
+
+        <!--<div style="height: 600px;background-color: blue;">dsa</div>-->
+
     </div>
 </template>
 
@@ -8,9 +12,7 @@
     export default {
         name: "Membercheck_card",
         data() {
-            return {
-
-            }
+            return {}
         },
         methods: {},
         created() {
@@ -19,6 +21,6 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>

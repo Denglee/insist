@@ -1,30 +1,93 @@
-@import "global";
+//公共颜色
+$color-black:#333;
+$color-green:#8cc31f;
+$color-blue: #253954;
+$color-linghtBlue:#DADFE8;
+$color-gray: #949494;
+$color-white:#fff;
+$color-paleWhite:#f4f4f4;
+$color-linghtWhite:#EFF2F9;
+$color-orange:#ffa300;
+
 
 /*layout*/
 .layout-box {
+  /*layout-left 左侧导航*/
   .layout-left{
     height: 100vh;
+    width: 150px;
+    position: fixed;
+    left: 0;
+    top: 0;
     .layoutLeft-nav {
       width: 100%;
       max-height:100vh;
+      height: 100vh;
+      background-color: $color-blue;
       overflow-y: auto;
+      .img-logo{
+        display: block;
+        width: 60%;
+        margin: 40px auto;
+        cursor: pointer;
+      }
       .el-menu--collapse{
         width: 100%;
+        border: none;
       }
     }
+    & ::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+      height: 4px;
+    }
+    & ::-webkit-scrollbar-thumb {
+      /*滚动条里面小方块*/
+      border-radius   : 4px;
+      background-color: #203047;
+      //background-image: -webkit-linear-gradient(45deg,
+      //                rgba(255, 255, 255, 0.2) 25%,
+      //                transparent 25%,
+      //                transparent 50%,
+      //                rgba(255, 255, 255, 0.2) 50%,
+      //                rgba(255, 255, 255, 0.2) 75%,
+      //                transparent 75%,
+      //                transparent
+      //);
+    }
+    & ::-webkit-scrollbar-track {
+      /*滚动条里面轨道*/
+      //box-shadow   : inset 0 0 5px #223354;
+      //background   : #1c2b3f;
+      background   : #2c4362;
+      border-radius: 4px;
+    }
   }
+  /*layout-left 右边主题内容*/
   .layout-right{
-    //border: solid 1px red;
+    width: calc(100% - 150px);
+    margin-left: 150px;
+    .layoutR-header{
+      width: 100%;
+    }
+    .layoutR-main{
+      width: 100%;
+      height: calc(100vh - 106px);
+      box-sizing: border-box;
+      overflow-y: auto;
+      background-color: $color-linghtWhite;
+    }
   }
 }
 
-/*element导航样式修改*/
+/*element 竖导航样式修改*/
 .el-menu--vertical {
   max-height: 100vh !important;
   overflow-y: auto !important;
-  border-radius: 14px;
+  left: 148px!important;
   .el-menu--popup{
     min-width: auto;
+    border-radius: 6px;
   }
 }
 .el-menu--collapse .el-submenu{
@@ -38,36 +101,54 @@
     font-size: 16px;
   }
 }
-
-.el-menu--horizontal{
-  .el-menu--popup{
-    min-width: auto;
-    background-color: $color-blue;
-    border-radius: 14px;
-  }
-}
-.el-menu--horizontal .el-menu .el-menu-item,
-.el-menu--horizontal .el-menu .el-submenu__title{
-  padding: 4px 30px;
-  background: none;
-}
 .el-menu-item,
 .el-submenu__title {
   height: auto;
   line-height: inherit;
+
 }
 .el-menu-item-group__title{
   padding: 0;
 }
 .el-menu-item-group>ul li{
-  padding: 10px 20px!important;
+  padding: 0!important;
   a{
     color: inherit;
+    display: block;
+    padding: 10px 20px!important;
   }
 }
 
-$headerHeight:70px;
+/*横导航栏*/
+.el-menu--horizontal{
+  .el-menu--popup{
+    min-width: auto;
+    background-color: $color-blue;
+    border-radius: 6px;
+    padding-bottom: 10px;
+  }
+  .el-button--text{
+    color: #fff;
+    width: 100%;
+    display: block;
+    padding: 10px 20px;
+    text-align: left;
+    &:hover{
+      color:$color-gray;
+    }
+  }
+}
+
+.el-menu--horizontal .el-menu .el-menu-item,
+.el-menu--horizontal .el-menu .el-submenu__title{
+  padding: 0;
+  background: none;
+  border: none!important;
+}
+
+
 /*headerTop*/
+$headerHeight:70px;
 .headerTop-user{
   height: $headerHeight;
   display: flex;
@@ -76,7 +157,10 @@ $headerHeight:70px;
   .el-submenu__title{
     height: $headerHeight !important;
     line-height: $headerHeight !important;
-    border: none;
+    border: none!important;
+  }
+  .el-icon-arrow-down:before{
+    content: "\E6DF";
   }
 }
 .search-form{
@@ -111,5 +195,142 @@ $headerHeight:70px;
 
 /*tagnav*/
 .tag-nav{
-  background-color: #DADFE8;
+  /*position: absolute;*/
+  top: 0;
+  width: 100%;
+  height: 36px;
+  /*padding: 10px;*/
+  background: $color-linghtBlue;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 2px #f2f2f2;
+  box-sizing: border-box;
+  .tag-nav-item{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding-left: 10px;
+    background-color:  $color-linghtBlue;
+    text-decoration: none;
+    border-right: solid 1px $color-blue;
+    &:hover {
+      background-color: $color-linghtWhite;
+      color: $color-black;
+    }
+    & > i{
+      line-height: 36px;
+      padding: 0 8px;
+      color: $color-blue;
+      &:hover {
+        color: $color-black;
+      }
+    }
+  }
+  & .cur{
+    background-color: $color-linghtWhite;
+    color: $color-black;
+  }
 }
+
+
+/*icon图标*/
+.iconNav{
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+@mixin backSize{
+  background-size:100%;
+  background-repeat: no-repeat;
+}
+/*前台*/
+.iconNavpencil-square-o{
+  background: url("~@/assets/icon/iconNavpencil-square-o.png");
+  @include backSize();
+}
+/*会员*/
+.iconNavusers{
+  background: url("~@/assets/icon/iconNavVip.png");
+  @include backSize();
+}
+/*课程*/
+.iconNavcalendar{
+  background: url("~@/assets/icon/iconNavcalendar.png");
+  @include backSize();
+}
+/*合同*/
+.iconNavshopping-cart{
+  background: url("~@/assets/icon/iconNavshopping-cart.png");
+  @include backSize();
+}
+/*员工*/
+.iconNavodnoklassniki{
+  background: url("~@/assets/icon/iconNavodnoklassniki.png");
+  @include backSize();
+}
+/*统计*/
+.iconNavpie-chart{
+  background: url("~@/assets/icon/iconNavpie-chart.png");
+  @include backSize();
+}
+/*设置*/
+.iconNavgears{
+  background: url("~@/assets/icon/iconNavgears.png");
+  @include backSize();
+}
+/*终端*/
+.iconNavandroid{
+  background: url("~@/assets/icon/iconNavEquipment.png");
+  @include backSize();
+}
+/*项目*/
+//.iconNavth-large{
+//  background: url("~@/assets/icon/iconNavth-large.png");
+//  @include backSize();
+//}
+/*个人*/
+.iconNavuser{
+  background: url("~@/assets/icon/iconNavPerson.png");
+  @include backSize();
+}
+/*消费*/
+//.iconNavcredit-card{
+//  background: url("~@/assets/icon/iconNavcredit-card.png");
+//  @include backSize();
+//}
+
+/*商品 和 合同冲突*/
+.iconNavshopping-cart{
+  background: url("~@/assets/icon/iconNavshopping-cart.png");
+  @include backSize();
+}
+
+/*收款*/
+//.iconNavdesktop{
+//  background: url("~@/assets/icon/iconNavdesktop.png");
+//  @include backSize();
+//}
+
+/*服务*/
+.iconNavcommenting-o{
+  background: url("~@/assets/icon/iconNavcommenting-o.png");
+  @include backSize();
+}
+/*营销*/
+.iconNavbar-chart{
+  background: url("~@/assets/icon/iconNavbar-chart.png");
+  @include backSize();
+}
+/*识别 和个人冲突*/
+//.iconNavuser{
+//  background: url("~@/assets/icon/iconNavuser.png");
+//  @include backSize();
+//}
+/*场馆*/
+//.iconNavuniversity{
+//  background: url("~@/assets/icon/iconNavuniversity.png");
+//  @include backSize();
+//}
+
+
