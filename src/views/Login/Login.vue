@@ -62,18 +62,27 @@
 
         methods: {
             ...mapActions({
-                ACTLogin:'StoreTagNav/ACTLogin'
+                ACTLogin:'StoreTagNav/ACTLogin',   //store里 login登录方法
+                ACTlogout:'StoreTagNav/ACTlogout'   //store里 loginOut 退出登录方法
             }),
 
 
             /*提交*/
             submit() {
                 let that=this;
-                let username = this.username,
-                    password = this.password;
-                console.log(username);
-                console.log(password);
-                ApiloginIn({
+                // let username = that.username,
+                //     password = that.password;
+                // console.log(username);
+                // console.log(password);
+
+                let dataLogin = {
+                     username : that.username,
+                    password : that.password,
+                }
+
+                that.ACTLogin(dataLogin)
+
+               /* ApiloginIn({
                     username:username,
                     password:password,
                 }).then(res=>{
@@ -89,18 +98,12 @@
                         //     that.$router.push({path:'/index'});
                         // },1500)
                     }
-                });
+                });*/
             },
 
             loginOut() {
-                // 192.168.0.133:20000/admin/Test/login_out
-                this.$axios.post('/admin/Test/login_out')
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                let that = this;
+                that.ACTlogout();
             },
 
         }

@@ -1,4 +1,6 @@
-import {ApiloginIn, layoutNav} from "@/assets/js/api"
+import {ApiloginIn,ApiloginOut, layoutNav} from "@/assets/js/api"
+import { Message } from 'element-ui';
+import router from '../router'
 
 const state = {
     StateUserName: '', //用户名
@@ -29,7 +31,7 @@ const mutations = {
         } else {
             localStorage.removeItem('userName');
         }
-        state.name = StateUserName;
+        state.StateUserName = name;
     },
 
     //登录状态
@@ -86,13 +88,26 @@ const actions = {
     },
 
     // 登录
-    ACTLogin({commit}) {
+    ACTLogin({commit},dataLogin) {
+
         return new Promise((resolve) => {
-            ApiloginIn().then((res) => {
-                if (res.login) {
+            ApiloginIn(dataLogin).then((res) => {
+                console.log(res);
+                if (res.status == 1) {
+                    let resName='lideng';
                     // commit('setToken', res.token)
-                    commit('mutSetName', res.name);
+                    commit('mutSetName', resName);
                     commit("mutSetLoginStatus");
+
+                    Message({
+                        message: '登录成功',
+                        type: 'success',
+                        duration:1500,
+                    });
+                    let that = this;
+                    setTimeout(()=>{
+                        this.$router.push({path:'/index'});
+                    },1500)
                 }
                 resolve(res)
             })
@@ -102,10 +117,12 @@ const actions = {
     // 登出
     ACTlogout({commit}) {
         return new Promise((resolve) => {
-            commit('setToken', '');
-            commit('user/setName', '', {root: true});
-            commit('tagNav/removeTagNav', '', {root: true});
-            resolve()
+            ApiloginOut().then((res) =>{
+                commit('setToken', '');
+                commit('user/setName', '', {root: true});
+                commit('tagNav/removeTagNav', '', {root: true});
+                resolve()
+            });
         })
     },
 }
