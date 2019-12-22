@@ -11,6 +11,7 @@ const staticRoute = [
         children: [
             {
                 path: '',
+                name:'index',
                 component: () => import(/* webpackChunkName: "index" */ '@/views/Index/index'),
                 meta: {title: '首页'}
             },
@@ -202,8 +203,8 @@ const staticRoute = [
             },
             {
                 path: 'Stat/achievement',  //会籍业绩
-                name:'Statachievement',
-                component: () => import(/* webpackChunkName: "Statachievement" */ '@/views/Total/Statachievement'),
+                name:'Statachievement1',
+                component: () => import(/* webpackChunkName: "Statachievement1" */ '@/views/Total/Statachievement'),
                 meta:{title: '会籍业绩'},
             },
             {

@@ -89,40 +89,40 @@ const actions = {
 
     // 登录
     ACTLogin({commit},dataLogin) {
+        let name='lideng';
+        return commit('mutSetName', name);
 
-        return new Promise((resolve) => {
-            ApiloginIn(dataLogin).then((res) => {
-                console.log(res);
-                if (res.status == 1) {
-                    let resName='lideng';
-                    // commit('setToken', res.token)
-                    commit('mutSetName', resName);
-                    commit("mutSetLoginStatus");
-
-                    Message({
-                        message: '登录成功',
-                        type: 'success',
-                        duration:1500,
-                    });
-                    let that = this;
-                    setTimeout(()=>{
-                        this.$router.push({path:'/index'});
-                    },1500)
-                }
-                resolve(res)
-            })
-        })
+        // return new Promise((resolve) => {
+        //     ApiloginIn(dataLogin).then((res) => {
+        //         console.log(res);
+        //         if (res.status == 1) {
+        //             let resName='lideng';
+        //             // commit('setToken', res.token)
+        //             commit('mutSetName', resName);
+        //             commit("mutSetLoginStatus");
+        //
+        //             Message({
+        //                 message: '登录成功',
+        //                 type: 'success',
+        //                 duration:1500,
+        //             });
+        //             let that = this;
+        //             setTimeout(()=>{
+        //                 this.$router.push({path:'/index'});
+        //             },1500)
+        //         }
+        //         resolve(res)
+        //     })
+        // })
     },
 
     // 登出
     ACTlogout({commit}) {
         return new Promise((resolve) => {
-            ApiloginOut().then((res) =>{
-                commit('setToken', '');
-                commit('user/setName', '', {root: true});
-                commit('tagNav/removeTagNav', '', {root: true});
-                resolve()
-            });
+             // commit('setToken', '');
+             // commit('user/setName', '', {root: true});
+             // commit('tagNav/removeTagNav', '', {root: true});
+             // resolve();
         })
     },
 }
