@@ -4,8 +4,11 @@
             <!--头部搜索-->
             <el-form class="search-form">
                 <el-input
+
+                        @blur="inpAdd()"
                         placeholder="请输入姓名、卡号、会员卡号"
-                        v-model="SearchVal">
+                        v-model="SearchVal"
+                        clearable>
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
             </el-form>
@@ -13,7 +16,25 @@
             <!--头部用户信息+退出+更换密码-->
             <div class="headerTop-userInfo">
                 <img class="userHeader" src="~@/assets/img/userHeader.png" alt="">
-                <el-menu class="el-menu-demo" mode="horizontal" >
+                <el-dropdown>
+                    <div class="el-dropdown-link">
+                        <div class="userName">
+                            {{StateUserName}}<i class="el-icon-caret-bottom"></i>
+                        </div>
+                    </div>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="a">
+                            <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
+                        </el-dropdown-item>
+                        <el-dropdown-item command="b">
+                            <el-button type="text" @click="loginOut()">退出</el-button>
+                        </el-dropdown-item>
+
+                    </el-dropdown-menu>
+                </el-dropdown>
+
+
+               <!-- <el-menu class="el-menu-demo" mode="horizontal" >
                     <el-submenu index="2">
                         <template slot="title">用户名</template>
                         <el-menu-item index="2-1">
@@ -23,7 +44,7 @@
                             <el-button type="text" @click="loginOut()">退出</el-button>
                         </el-menu-item>
                     </el-submenu>
-                </el-menu>
+                </el-menu>-->
             </div>
         </div>
 
@@ -50,6 +71,8 @@
 
     import {ApiloginOut} from '@/assets/js/api'
 
+    import {mapState,mapActions, mapGetters} from 'vuex'
+
     export default {
         name: "HeaderTop",
         data() {
@@ -67,7 +90,7 @@
                     resource: '',
                     desc: ''
                 },
-                formLabelWidth: '120px'
+                formLabelWidth: '80px',
             }
         },
         methods: {
@@ -91,9 +114,21 @@
 
                 })
             },
-        },
-        created() {
 
+            /*搜索*/
+            inpAdd(){
+                let SearchVal=this.SearchVal;
+                console.log(SearchVal);
+                this.$router.push({path:'/Member/statistics'});
+            }
+        },
+        computed: {
+            // ...mapGetters('StoreTagNav',[ //用mapGetters来获取StoreTagNav.js里面的getters 的 gState
+            //     'StateUserName',
+            // ]),
+            ...mapState({
+                StateUserName:'StoreTagNav/StateUserName',
+            }),
         },
     }
 </script>

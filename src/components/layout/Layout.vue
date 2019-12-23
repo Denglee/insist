@@ -67,5 +67,5 @@
     }
 </script>
 <style lang="scss">
-    @import "~@/assets/css/LayoutNav.scss";
+    /*@import "~@/assets/css/LayoutNav.scss";*/
 </style>

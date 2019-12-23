@@ -1,36 +1,41 @@
 <template>
-    <div class="login-main">
+    <div id="login">
+        <el-form class="loginFrom" :model="logindata" :rules="rules" ref="ruleForm">
+            <el-form-item class="login-item">
+                <img src="~@/assets/img/logo.png" alt="" class="login-logo">
+                <b class="login-title">SAAS管理系统</b>
+            </el-form-item>
+            <el-form-item prop="userName">
+                <el-input
+                        class="login-inputorbuttom"
+                        prefix-icon="el-icon-user"
+                        placeholder="登录名"
+                        v-model="logindata.userName"
+                ></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+                <el-input
+                        class="login-inputorbuttom"
+                        prefix-icon="el-icon-lock"
+                        placeholder="密码"
+                        v-model="logindata.password"
+                ></el-input>
+            </el-form-item>
 
-        <div class="login-box">
-            <img src="~@/assets/img/logo-daka.png" alt="" class="login-logo">
-            <b class="login-title">SAAS管理系统</b>
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm">
-                <el-form-item prop="username">
-                    <el-input
-                            v-model="loginForm.username"
-                            placeholder="账号">
-                        <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
-                    </el-input>
-                </el-form-item>
+            <el-form-item class="login-item">
+                <el-button
+                        class="login-inputorbuttom login-bottom"
+                        type="primary"
+                        v-popover:popover
+                        @click="visible = !visible"
+                >登 录</el-button
+                >
+            </el-form-item>
 
-                <el-form-item prop="password">
-                    <el-input v-model="loginForm.password"
-                              placeholder="账号">
-                        <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
-                    </el-input>
-                </el-form-item>
+            <el-divider>第三方登录</el-divider>
 
-                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">立即登录</el-button>
-<!--                <el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
-
-                <el-divider>第三方登录</el-divider>
-
-                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat">
-
-            </el-form>
-
-        </div>
-
+            <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat">
+        </el-form>
         <!--验证码弹窗-->
         <el-popover
                 popper-class="slidingPictures"
@@ -65,32 +70,18 @@
         </el-popover>
     </div>
 </template>
-
 <script>
-    import {ApiloginIn,ApiloginOut} from '@/assets/js/api'
-    import {mapState,mapActions, mapGetters} from 'vuex'
-
     export default {
+        name: "Login",
         data() {
             return {
-
-                loginForm: {
-                    username: 'admin',
-                    password: 'zm#83221820',
-                  /*  username: '',
-                    password: '',*/
-                },
-                loginRules: {
-                    username: [
-                        {required: true, message: '姓名不能为空', trigger: 'blur'}
-                    ],
-                    password: [
-                        {required: true, message: '密码不能为空', trigger: 'blur'}
-                    ],
-                },
-
                 tips: "拖动左边滑块完成上方拼图",
-
+                logindata: {
+                    userName: "",
+                    password: "",
+                    verificationCode: ""
+                },
+                rules: {},
                 visible: false,
                 //滑块x轴数据
                 slider: {
@@ -98,17 +89,8 @@
                     bx: 0
                 },
                 //拼图是否正确
-                puzzle: false,
-
-                btnStatue:true,
-
-            }
-        },
-        computed: {
-            /*       ...mapState({
-                       lang: state => state.lang,
-                       theme: state => state.theme
-                   })*/
+                puzzle: false
+            };
         },
         watch: {
             visible(e) {
@@ -118,34 +100,11 @@
                 }
             }
         },
-
+        beforeCreate() {},
+        created() {},
+        beforeMount() {},
+        mounted() {},
         methods: {
-            ...mapActions({
-                ACTLogin:'StoreTagNav/ACTLogin',   //store里 login登录方法 并 保存用户信息
-                ACTlogout:'StoreTagNav/ACTlogout'   //store里 loginOut 退出登录方法
-            }),
-
-            /*提交*/
-            submitForm(loginForm) {
-                this.$refs[loginForm].validate((valid) => {
-                    if (valid) {
-                        let btnStatue = this.btnStatue;
-                        if(btnStatue){
-                            console.log(`${btnStatue}`);
-                            /*弹出验证框*/
-                            this.visible =!this.visible;
-                            this.btnStatue = false;
-                            setTimeout(()=>{
-                                this.btnStatue =true;
-                            },700);
-                        }
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-
             //拼图验证码初始化
             canvasInit() {
                 //生成指定区间的随机数
@@ -182,42 +141,13 @@
                     document.removeEventListener("mouseup", up);
                     dom.style.left = "";
                     console.log(x, checkx);
-                    let max = checkx - 0;
-                    let min = checkx - 100;
+                    let max = checkx - 1;
+                    let min = checkx - 20;
                     //允许正负误差1
                     if ((max >= x && x >= min) || x === checkx) {
                         console.log("滑动解锁成功");
                         this.puzzle = true;
-                        // this.tips = "验证成功";
-
-                         let that=this;
-                          let username = that.loginForm.username;
-                          let password = that.loginForm.password;
-                          ApiloginIn({
-                              username:username,
-                              password:password,
-                          }).then(res=>{
-                              console.log(res);
-                              if(res.status == 1){
-                                  that.ACTLogin(res.data);
-                                  this.$message({
-                                      message: res.info,
-                                      type: 'success',
-                                      duration:1500,
-                                  });
-                                  // setTimeout(()=>{
-                                  //     that.$router.push({path:'/index'});
-                                  // },1500)
-                              }
-                              if(res.status == 0){
-                                  this.$message({
-                                      message: res.info,
-                                      type: 'failed',
-                                      duration:1500,
-                                  });
-                              }
-                          });
-
+                        this.tips = "验证成功";
                         setTimeout(() => {
                             this.visible = false;
                         }, 500);
@@ -277,117 +207,86 @@
                 ctx.arc(x, y + w / 2, r, 0.5 * PI, 1.5 * PI, true);
                 ctx.lineTo(x, y);
                 //修饰，没有会看不出效果
-                ctx.lineWidth = 2;
-                ctx.fillStyle = "rgba(255, 255, 255, 1)";
-                ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+                ctx.lineWidth = 1;
+                ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
                 ctx.stroke();
                 ctx[type]();
                 ctx.globalCompositeOperation = "xor";
             }
-
         }
-    }
+    };
 </script>
-<style lang="scss">
-    .login-main{
-        background: url('http://192.168.0.133:20000/statics/Admin/wxlogin/img/bg.jpg') no-repeat  50% 50%;
-        background-size: cover;
+<style>
+    .slidingPictures {
+        padding: 0;
+        width: 300px;
+        border-radius: 2px;
+    }
+</style>
+<style  lang="scss">
+    #login {
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
+        align-items: center;
         width: 100%;
         height: 100vh;
+        background-image: url("http://192.168.0.133:20000/statics/Admin/wxlogin/img/bg.jpg");
+        background-size: 100% 100%;
         position: relative;
-        .login-box{
+        .loginFrom {
+            width: 300px;
+         /*   <!--margin-top: -10vw;-->
+            <!--margin-right: 10vw;-->*/
+
             position: absolute;
-            right: 158px;
-            top: 100px;
-            /*top: calc(50vh - );*/
-            width:320px;
-            /*height:400px;*/
-            background:rgba(39,61,89,.9);
-            box-shadow:-1px 2px 8px 0px rgba(12,22,36,0.79);
-            border-radius:25px;
-            text-align: center;
-            padding: 20px 30px;
-            .login-logo{
-                display: block;
-                margin: 0 auto 6px;
-                width: 60%;
+            right: 200px;
+            .login-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
-            .login-title{
-                display: block;
-                margin: 0 auto;
-                color: #fff;
+            .login-title {
+                color: #ffffff;
                 font-size: 16px;
+                margin-bottom: 10px;
             }
-            .el-input{
+            .login-bottom {
                 margin-top: 15px;
-                font-size: 16px;
             }
-            .el-input--small .el-input__icon{
-                color: #fff;
+            .login-bottom:hover {
+                background: rgba(28, 136, 188, 0.5);
             }
-            .el-input__inner{
-                /*height: 40px;*/
-                /*line-height: 40px;*/
-                background:rgba(255,255,255,.4);
-                font-size: 16px;
-                font-weight: 400;
-                color:rgba(255,255,255,1);
-                /*color:#333;*/
+            .login-bottom:active {
+                background: rgba(228, 199, 200, 0.5);
             }
-            .btnLogin{
-                width: 100%;
-                margin-top: 15px;
-                background-color: #fff;
-                color: #273D59;
-            }
-            .el-divider__text{
-                background:rgba(39, 61, 89, 1);
-                color: #fff;
-                font-size: 16px;
-            }
-            .logo-wechat{
-                width: 35px;
-                margin: 0 auto;
-                display: block;
+            .login-inputorbuttom {
+                height: 40px;
+                width: 300px;
+                background: rgba(57, 108, 158, 0.5);
+                border-radius: 20px;
+                border: #396c9e 1px solid;
+                font-size: 14px;
+                color: #ffffff;
+                .el-input--small,
+                .el-input__inner {
+                    line-height: 43px;
+                    border: none;
+                    color: #ffffff;
+                    font-size: 14px;
+                    height: 40px;
+                    border-radius: 20px;
+                    background: transparent;
+                    text-align: center;
+                }
+                .el-input__icon {
+                    line-height: 40px;
+                    font-size: 16px;
+                }
             }
         }
-
-        .el-form-item__content{
-            margin-left: 0!important;
-        }
-        .el-form-item{
-            margin-bottom: 0;
-        }
-        .el-popover{
-            position: fixed;
-            right: 168px;
-            top: 381px;
-            width: 280px;
-        }
     }
-    .login {
-        text-align: center;
-    }
-
-    .login input {
-        display: block;
-        border: solid 1px #ddd;
-        border-radius: 4px;
-        padding: 10px;
-        width: 200px;
-        margin: 20px auto 0;
-    }
-
-    .login button {
-        display: block;
-        border: solid 1px #ddd;
-        border-radius: 4px;
-        padding: 10px;
-        width: 200px;
-        margin: 20px auto 0;
-    }
-
-
     /*该样式最终是以弹窗插入*/
     .sliding-pictures {
         width: 100%;

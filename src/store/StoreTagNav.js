@@ -12,20 +12,21 @@ const getters = {
 
     // 获取用户名
     getUserName(state, StateUserName) {
-        return state.StateUserName
+        return state.StateUserName;
     },
 
     // 获取 导航列表
     getNavList(state, StateNavList) {
-        return state.StateNavList
+        return state.StateNavList;
     },
 };
-
 
 const mutations = {
 
     // 保存用户名
-    mutSetName(state, name) {
+    mutSetName(state, data) {
+        let name = data.username;
+        console.log(name);
         if (name) {
             localStorage.setItem('userName', name);
         } else {
@@ -47,10 +48,6 @@ const mutations = {
 };
 
 const actions = {
-
-    ACTName({commit}, name) {
-        return commit('mutSetName', name);
-    },
 
     // 获取该用户的菜单列表  获取左侧路由导航
     actNavList({commit}) {
@@ -89,7 +86,7 @@ const actions = {
 
     // 登录
     ACTLogin({commit},dataLogin) {
-        let name='lideng';
+
         return commit('mutSetName', name);
 
         // return new Promise((resolve) => {

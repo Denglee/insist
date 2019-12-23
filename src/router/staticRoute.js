@@ -631,6 +631,11 @@ const staticRoute = [
         component: () => import('@/views/Login/Login')
     },
     {
+        name: 'login1',  //登录
+        path: '/login1',
+        component: () => import('@/views/Login/Login1')
+    },
+    {
         name: 'register', //注册
         path: '/register',
         component: () => import('@/views/Login/Register')
