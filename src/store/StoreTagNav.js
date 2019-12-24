@@ -1,21 +1,27 @@
-import {ApiloginIn,ApiloginOut, layoutNav} from "@/assets/js/api"
+
 import { Message } from 'element-ui';
 import router from '../router'
 
 const state = {
-    StateUserName: '', //用户名
-
+    StateUserInfo:'', //用户信息
     StateNavList: [],  //路由集合
 };
 
 const getters = {
 
-    // 获取用户名
-    getUserName(state, StateUserName) {
-        return state.StateUserName;
+    /*获取用户信息*/
+    getsUserInfo(){
+        let userInfo =JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo){
+            if(userInfo.logo == 1){
+                userInfo.logo='statics/Admin/wxlogin/img/108.png'
+            }
+            console.log(userInfo);
+            state.StateUserInfo = userInfo;
+            return userInfo;
+        }
     },
-
-    // 获取 导航列表
+    /*获取 导航列表*/
     getNavList(state, StateNavList) {
         return state.StateNavList;
     },
@@ -23,44 +29,72 @@ const getters = {
 
 const mutations = {
 
-    // 保存用户名
+    /*保存用户信息*/
     mutSetName(state, data) {
-        let name = data.username;
-        console.log(name);
-        if (name) {
-            localStorage.setItem('userName', name);
-        } else {
-            localStorage.removeItem('userName');
-        }
-        state.StateUserName = name;
+        console.log(data);
+        let StorageData=JSON.stringify(data);
+        localStorage.setItem('userInfo', StorageData);
+        // if (name) {
+        //     localStorage.setItem('userName', name);
+        // } else {
+        //     localStorage.removeItem('userName');
+        // }
+        state.StateUserInfo = data;
     },
 
-    //登录状态
+    /*获取用户信息*/
+    mutUserInfo(state, StateUserInfo) {
+        let userInfo =JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo){
+            if(userInfo.logo == 1){
+                userInfo.logo='statics/Admin/wxlogin/img/108.png'
+            }
+            console.log(userInfo);
+            state.StateUserInfo = userInfo;
+            return userInfo;
+        }
+    },
+
+    /*登录状态*/
     mutSetLoginStatus(state, name) {
         localStorage.setItem('isLogin', true);
     },
 
-    // 插入路由 获取左侧路由导航
+    /*退出登录*/
+    mutLOginOut(){
+        localStorage.removeItem('userInfo');
+        state.StateUserInfo = '';
+    },
+
+    /*插入路由 获取左侧路由导航*/
     mutNavList: (state, data) => {
-        console.log(data);
-        state.StateNavList = data
+        state.StateNavList = data;
     },
 };
 
 const actions = {
 
-    // 获取该用户的菜单列表  获取左侧路由导航
-    actNavList({commit}) {
-        return new Promise((resolve) => {
-            layoutNav().then((res) => {
-                console.log(res);
-                commit("mutNavList", res);
-                resolve(res);
-            })
-        })
+    /* 调用 获取用户信息*/
+    actUserInfo({commit}){
+        return commit('mutUserInfo');
     },
 
-    // 将菜单列表扁平化形成权限列表
+    /*获取该用户的菜单列表  获取左侧路由导航*/
+    actNavList({commit},res) {
+        return commit("mutNavList", res);
+        // resolve(res);
+        /*return new Promise((resolve) => {
+            layoutNav().then((res) => {
+                console.log(res);
+                // if(res.info == 0){
+                //
+                // }
+
+            })
+        })*/
+    },
+
+    /*将菜单列表扁平化形成权限列表*/
     getPermissionList({state}) {
         return new Promise((resolve) => {
             let permissionList = []
@@ -84,43 +118,14 @@ const actions = {
         })
     },
 
-    // 登录
+    /*登录*/
     ACTLogin({commit},dataLogin) {
-
-        return commit('mutSetName', name);
-
-        // return new Promise((resolve) => {
-        //     ApiloginIn(dataLogin).then((res) => {
-        //         console.log(res);
-        //         if (res.status == 1) {
-        //             let resName='lideng';
-        //             // commit('setToken', res.token)
-        //             commit('mutSetName', resName);
-        //             commit("mutSetLoginStatus");
-        //
-        //             Message({
-        //                 message: '登录成功',
-        //                 type: 'success',
-        //                 duration:1500,
-        //             });
-        //             let that = this;
-        //             setTimeout(()=>{
-        //                 this.$router.push({path:'/index'});
-        //             },1500)
-        //         }
-        //         resolve(res)
-        //     })
-        // })
+        return commit('mutSetName', dataLogin);
     },
 
-    // 登出
+    /*登出*/
     ACTlogout({commit}) {
-        return new Promise((resolve) => {
-             // commit('setToken', '');
-             // commit('user/setName', '', {root: true});
-             // commit('tagNav/removeTagNav', '', {root: true});
-             // resolve();
-        })
+        return commit('mutLOginOut');
     },
 }
 

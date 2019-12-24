@@ -1,4 +1,4 @@
-
+@import "global";
 /*layout*/
 .layout-box {
   /*layout-left 左侧导航*/
@@ -194,6 +194,13 @@ $headerHeight:70px;
   //border-radius: 4px;
   //-webkit-box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
   //box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
+  .el-dropdown-menu__item{
+    padding: 0;
+    .el-button--text{
+      padding: 10px 20px;
+      width: 100%;
+    }
+  }
 }
 
 /*tagnav*/
@@ -254,7 +261,8 @@ $headerHeight:70px;
 }
 /*会员*/
 .iconNavusers{
-  background: url("~@/assets/icon/iconNavVip.png");
+  //background: url("~@/assets/icon/iconNavVip.png");
+  background: url("~@/assets/icon/iconNavcalendar.png");
   @include backSize();
 }
 /*课程*/
@@ -288,33 +296,33 @@ $headerHeight:70px;
   @include backSize();
 }
 /*项目*/
-//.iconNavth-large{
-//  background: url("~@/assets/icon/iconNavth-large.png");
-//  @include backSize();
-//}
+.iconNavth-large{
+  //background: url("~@/assets/icon/iconNavth-large.png");
+  background: url("~@/assets/icon/iconNavEquipment.png");
+  @include backSize();
+}
 /*个人*/
 .iconNavuser{
-  background: url("~@/assets/icon/iconNavPerson.png");
+  //background: url("~@/assets/icon/iconNavPerson.png");
   @include backSize();
 }
 /*消费*/
-//.iconNavcredit-card{
-//  background: url("~@/assets/icon/iconNavcredit-card.png");
-//  @include backSize();
-//}
-
+.iconNavcredit-card{
+  background: url("~@/assets/icon/iconNavPerson.png");
+  //background: url("~@/assets/icon/iconNavcredit-card.png");
+  @include backSize();
+}
 /*商品 和 合同冲突*/
 .iconNavshopping-cart{
   background: url("~@/assets/icon/iconNavshopping-cart.png");
   @include backSize();
 }
-
 /*收款*/
-//.iconNavdesktop{
-//  background: url("~@/assets/icon/iconNavdesktop.png");
-//  @include backSize();
-//}
-
+.iconNavdesktop{
+  //background: url("~@/assets/icon/iconNavdesktop.png");
+  background: url("~@/assets/icon/iconNavcommenting-o.png");
+  @include backSize();
+}
 /*服务*/
 .iconNavcommenting-o{
   background: url("~@/assets/icon/iconNavcommenting-o.png");
@@ -326,14 +334,28 @@ $headerHeight:70px;
   @include backSize();
 }
 /*识别 和个人冲突*/
-//.iconNavuser{
-//  background: url("~@/assets/icon/iconNavuser.png");
-//  @include backSize();
-//}
+.iconNavuser{
+  background: url("~@/assets/icon/iconNavuser.png");
+  @include backSize();
+}
 /*场馆*/
-//.iconNavuniversity{
-//  background: url("~@/assets/icon/iconNavuniversity.png");
-//  @include backSize();
-//}
+.iconNavuniversity{
+  //background: url("~@/assets/icon/iconNavuniversity.png");
+  background: url("~@/assets/icon/iconNavuser.png");
+  @include backSize();
+}
 
 
+
+/*ScrollBar*/
+.scroll-wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.scroll-cont{
+  position: absolute;
+  transition: all .3s ease;
+}

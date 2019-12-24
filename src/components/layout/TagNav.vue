@@ -90,7 +90,3 @@
         components: {ScrollBar}
     }
 </script>
-<style lang="scss">
-
-
-</style>

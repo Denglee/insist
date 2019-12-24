@@ -1,6 +1,6 @@
 <template>
     <div class="layoutR-main">
-        这是首页
+        <iframe src="http://spt.zmtek.net/admin/index/home.html" frameborder="0"></iframe>
     </div>
 </template>
 
@@ -9,7 +9,9 @@
     export default {
         name: "index",
         data() {
-            return {}
+            return {
+
+            }
         },
         methods: {
             getIndex() {
@@ -18,10 +20,12 @@
                 // }).then((res) =>{
                 //     console.log(res);
                 // })
-            }
+            },
+
         },
         created() {
             this.getIndex();
+
         },
         computed: {}
     }

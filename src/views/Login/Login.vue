@@ -4,30 +4,45 @@
         <div class="login-box">
             <img src="~@/assets/img/logo-daka.png" alt="" class="login-logo">
             <b class="login-title">SAAS管理系统</b>
-            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm">
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm" v-show="!LoginWechat">
                 <el-form-item prop="username">
                     <el-input
                             v-model="loginForm.username"
-                            placeholder="账号">
+                            placeholder="账号"
+                            clearable>
                         <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
                     </el-input>
                 </el-form-item>
 
                 <el-form-item prop="password">
                     <el-input v-model="loginForm.password"
-                              placeholder="账号">
+                              placeholder="账号"
+                              type="password"
+                              clearable>
                         <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
                     </el-input>
                 </el-form-item>
 
-                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">立即登录</el-button>
+                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
 <!--                <el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
 
                 <el-divider>第三方登录</el-divider>
 
-                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat">
+                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="LoginWechat = !LoginWechat">
 
             </el-form>
+
+            <!--微信扫码登录-->
+
+                <div class="login-wechat" v-if="LoginWechat">
+                    <img src="" alt="">
+                    <div class="LoginWechat-tip">
+                        请使用微信扫描二维码登录
+                        <br>
+                        “健身房管理系统”
+                    </div>
+                    <el-button class="btnLogin" type="primary" @click="LoginWechat = !LoginWechat">返回账号密码登录</el-button>
+                </div>
 
         </div>
 
@@ -69,10 +84,11 @@
 <script>
     import {ApiloginIn,ApiloginOut} from '@/assets/js/api'
     import {mapState,mapActions, mapGetters} from 'vuex'
-
+    let btnStatusLogin = true;   //按钮是否可点击状态
     export default {
         data() {
             return {
+                LoginWechat:false, //登录方式切换 显隐状态
 
                 loginForm: {
                     username: 'admin',
@@ -80,7 +96,7 @@
                   /*  username: '',
                     password: '',*/
                 },
-                loginRules: {
+                loginRules: {  //验证规则
                     username: [
                         {required: true, message: '姓名不能为空', trigger: 'blur'}
                     ],
@@ -91,7 +107,7 @@
 
                 tips: "拖动左边滑块完成上方拼图",
 
-                visible: false,
+                visible: false,  //登录验证滑动框 显隐状态
                 //滑块x轴数据
                 slider: {
                     mx: 0,
@@ -99,9 +115,6 @@
                 },
                 //拼图是否正确
                 puzzle: false,
-
-                btnStatue:true,
-
             }
         },
         computed: {
@@ -122,25 +135,22 @@
         methods: {
             ...mapActions({
                 ACTLogin:'StoreTagNav/ACTLogin',   //store里 login登录方法 并 保存用户信息
-                ACTlogout:'StoreTagNav/ACTlogout'   //store里 loginOut 退出登录方法
             }),
 
             /*提交*/
             submitForm(loginForm) {
                 this.$refs[loginForm].validate((valid) => {
-                    if (valid) {
-                        let btnStatue = this.btnStatue;
-                        if(btnStatue){
-                            console.log(`${btnStatue}`);
-                            /*弹出验证框*/
-                            this.visible =!this.visible;
-                            this.btnStatue = false;
-                            setTimeout(()=>{
-                                this.btnStatue =true;
-                            },700);
-                        }
+                    if (valid && btnStatusLogin) {
+                        this.tips = "拖动左边滑块完成上方拼图";
+                        console.log(`${btnStatusLogin}`);
+                        /*弹出验证框*/
+                        this.visible =!this.visible;
+                        btnStatusLogin = false;
+                        setTimeout(()=>{
+                            btnStatusLogin =true;
+                        },500);
                     } else {
-                        console.log('error submit!!');
+                        console.error('登录提交失败!!');
                         return false;
                     }
                 });
@@ -181,14 +191,14 @@
                     document.removeEventListener("mousemove", move);
                     document.removeEventListener("mouseup", up);
                     dom.style.left = "";
-                    console.log(x, checkx);
-                    let max = checkx - 0;
-                    let min = checkx - 100;
+                    let max = checkx + 40;
+                    let min = checkx - 40;
+                    console.log('x:'+x, 'checkx:'+checkx, 'max:'+max, 'min:'+min);
                     //允许正负误差1
                     if ((max >= x && x >= min) || x === checkx) {
                         console.log("滑动解锁成功");
                         this.puzzle = true;
-                        // this.tips = "验证成功";
+                        this.tips = "验证成功";
 
                          let that=this;
                           let username = that.loginForm.username;
@@ -199,21 +209,25 @@
                           }).then(res=>{
                               console.log(res);
                               if(res.status == 1){
-                                  that.ACTLogin(res.data);
+                                  let loginData = res.data;
+                                  console.log(loginData);
+                                  that.ACTLogin(loginData);
                                   this.$message({
                                       message: res.info,
                                       type: 'success',
                                       duration:1500,
+                                      offset:100,
                                   });
-                                  // setTimeout(()=>{
-                                  //     that.$router.push({path:'/index'});
-                                  // },1500)
+                                  setTimeout(()=>{
+                                      that.$router.push({path:'/index'});
+                                  },1500)
                               }
                               if(res.status == 0){
                                   this.$message({
                                       message: res.info,
-                                      type: 'failed',
-                                      duration:1500,
+                                      type: 'error',
+                                      duration:3000,
+                                      offset:40,
                                   });
                               }
                           });
@@ -259,7 +273,7 @@
                 let x = xy.x,
                     y = xy.y,
                     r = xy.r,
-                    w = 40;
+                    w = 44;
                 let PI = Math.PI;
                 //绘制
                 ctx.beginPath();
@@ -290,7 +304,7 @@
 </script>
 <style lang="scss">
     .login-main{
-        background: url('http://192.168.0.133:20000/statics/Admin/wxlogin/img/bg.jpg') no-repeat  50% 50%;
+        background: url('~@/assets/img/bg-login.png') no-repeat  50% 50%;
         background-size: cover;
         width: 100%;
         height: 100vh;
@@ -298,13 +312,13 @@
         .login-box{
             position: absolute;
             right: 158px;
-            top: 100px;
-            /*top: calc(50vh - );*/
+            /*top: 100px;*/
+            top: calc(50vh - 196px);
             width:320px;
-            /*height:400px;*/
+            min-height:392px;
             background:rgba(39,61,89,.9);
             box-shadow:-1px 2px 8px 0px rgba(12,22,36,0.79);
-            border-radius:25px;
+            border-radius:10px;
             text-align: center;
             padding: 20px 30px;
             .login-logo{
@@ -340,6 +354,10 @@
                 background-color: #fff;
                 color: #273D59;
             }
+            .btnLogin:hover{
+                background-color: #273D59;
+                color: #fff;
+            }
             .el-divider__text{
                 background:rgba(39, 61, 89, 1);
                 color: #fff;
@@ -349,6 +367,11 @@
                 width: 35px;
                 margin: 0 auto;
                 display: block;
+                cursor: pointer;
+            }
+            .LoginWechat-tip{
+                text-align: center;
+                color: #fff;
             }
         }
 
@@ -360,8 +383,8 @@
         }
         .el-popover{
             position: fixed;
-            right: 168px;
-            top: 381px;
+            right: 177px;
+            top: 205px;
             width: 280px;
         }
     }
@@ -397,7 +420,7 @@
             height: 170px;
             #codeImg,
             #sliderBlock {
-                padding: 7px 7px 0 7px;
+                /*padding: 7px 7px 0 7px;*/
                 width: inherit;
                 height: inherit;
             }
@@ -425,7 +448,7 @@
                 font-size: 14px;
                 line-height: 38px;
                 padding-right: 15px;
-                padding-left: 70px;
+                padding-left: 62px;
             }
             .pintuTrue {
                 background: #67c23a;

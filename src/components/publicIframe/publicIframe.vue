@@ -30,6 +30,8 @@
         /*height: 100%;*/
         display: block;
         height: calc( 100vh - 106px );
+        padding-right: 10px;
+        box-sizing: border-box;
         /*margin-top: 108px;*/
     }
 </style>

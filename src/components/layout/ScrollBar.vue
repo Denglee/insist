@@ -54,16 +54,3 @@
         }
     }
 </script>
-<style lang="scss" scoped>
-    .scroll-wrap{
-        position: relative;
-        width: 100%;
-        height: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    .scroll-cont{
-        position: absolute;
-        transition: all .3s ease;
-    }
-</style>

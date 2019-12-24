@@ -12,7 +12,7 @@ const staticRoute = [
             {
                 path: '',
                 name:'index',
-                component: () => import(/* webpackChunkName: "index" */ '@/views/Index/index'),
+                component: () => import('@/views/Index/index'),
                 meta: {title: '首页'}
             },
         ]

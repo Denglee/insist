@@ -45,7 +45,7 @@
         },
         methods:{
             getGlobal(){
-                console.log(this.localUrl);
+                // console.log(this.localUrl);
             },
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
@@ -67,5 +67,5 @@
     }
 </script>
 <style lang="scss">
-    /*@import "~@/assets/css/LayoutNav.scss";*/
+    @import "~@/assets/css/LayoutNav.scss";
 </style>

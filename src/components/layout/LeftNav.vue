@@ -41,7 +41,7 @@
 <script>
 
     import {mapActions, mapGetters} from 'vuex'
-
+    import {ApiLayoutNav} from "@/assets/js/api"
     export default {
         name: "LeftNav",
         data() {
@@ -59,11 +59,32 @@
         },
 
         methods: {
-
             //store 里 StoreTagNav中 actions 的getNavList方法  获取左侧路由导航
             ...mapActions({
                 getNavList: "StoreTagNav/actNavList",
             }),
+
+            /*获取侧边导航数据*/
+            getNavObj(){
+                ApiLayoutNav().then(res =>{
+                    if(res.status == 1){
+                        this.getNavList(res);  //数据传到store
+                    }
+                    if(res.status == 0){
+                        this.$message({
+                            message: res.info,
+                            type: 'error',
+                            duration:1500,
+                            offset:40,
+                        });
+                        setTimeout(()=>{
+                            this.$router.replace({path:'/login'});
+                        },1500)
+                    }
+                }).catch(res=>{
+                    console.log(res);
+                });
+            },
 
             /*回到首页*/
             goIndex(){
@@ -78,25 +99,14 @@
                 // this.$router.push({path:trainerId});
             },
 
-            // 刷新页面
-            reload () {
-                this.isRouterAlive = false;            //先关闭，
-                this.$nextTick(function () {
-                    this.isRouterAlive = true;         //再打开
-                });
-            },
-
-
         },
 
         created() {
-            // 调用 getNavList方法  获取路由
-            this.getNavList();
+            this.getNavObj();
         },
         computed:{
             //获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
             ...mapGetters({
-                gState: "StoreTagNav/gState",
                 StateNavList: "StoreTagNav/getNavList",
             }),
 
@@ -104,6 +114,3 @@
     };
 </script>
 
-<style lang="scss">
-
-</style>
