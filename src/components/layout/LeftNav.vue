@@ -4,14 +4,15 @@
         <img @click="goIndex()" src="~@/assets/img/logo.png" alt="" class="img-logo">
 
         <el-menu default-active="1-1"
-                 class="el-menu-vertical-demo"
+                 class="Menu-LeftNav-Box"
                  :collapse="isCollapse"
                  background-color="#253954"
                  text-color="#fff"
                  active-text-color="#fff">
-
             <!--一级导航-->
-            <el-submenu class="sunmenu-box" :index="index1 +''"  v-for="(navItem , index1) in StateNavList.data"  :key="index1">
+            <el-submenu class="sunmenu-box"
+                        popper-class="Menu-LeftNav"
+                        :index="index1 +''"  v-for="(navItem , index1) in StateNavList.data"  :key="index1">
 
                 <template slot="title">
                     <!--<span>iconNav{{navItem.fonts}}</span>-->

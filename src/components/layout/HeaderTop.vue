@@ -3,25 +3,29 @@
         <div class="headerTop-user">
             <!--头部搜索-->
             <el-form class="search-form">
-                <el-input
-                        @blur="inpAdd()"
+                <el-autocomplete
                         placeholder="请输入姓名、卡号、会员卡号"
                         v-model="SearchVal"
+                        :fetch-suggestions="querySearchAsync"
+                        @select="handleSelect"
                         clearable>
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                </el-input>
+                </el-autocomplete>
             </el-form>
 
             <!--头部用户信息+退出+更换密码-->
             <div class="headerTop-userInfo">
                 <img class="userHeader" :src='"http://spt.zmtek.net/"+UserInfo.logo' alt="">
-                <el-dropdown>
+                <el-dropdown class="dropdown-header">
                     <div class="el-dropdown-link">
                         <div class="userName">
-                            {{UserInfo.username}}<i class="el-icon-caret-bottom"></i>
+                            {{UserInfo.username}}
+                            <i class="el-icon-caret-bottom"></i>
                         </div>
                     </div>
-                    <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-menu slot="dropdown"
+                                      hide-timeout="30000"
+                                      class="dropdown-HeaderTop">
                         <el-dropdown-item command="a">
                             <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
                         </el-dropdown-item>
@@ -36,7 +40,10 @@
         </div>
 
         <!--更换密码弹出-->
-        <el-dialog title="更换密码" :visible.sync="dialogFormVisible">
+        <el-dialog title="更换密码"
+                   :visible.sync="dialogFormVisible"
+                   custom-class="passAlert"
+                   width="40%">
             <el-form :model="changePassForm" status-icon :rules="changeRules" ref="changePassForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="旧密码" prop="oldPass">
                     <el-input type="password" v-model="changePassForm.oldPass" autocomplete="off"  clearable></el-input>
@@ -48,8 +55,8 @@
                     <el-input type="password" v-model="changePassForm.checkPass" autocomplete="off"  clearable></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('changePassForm')">提交</el-button>
-                    <el-button @click="resetForm('changePassForm')">重置</el-button>
+                    <el-button type="primary" size="small" @click="submitForm('changePassForm')">提交</el-button>
+                    <el-button size="small" @click="resetForm('changePassForm')">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -59,7 +66,7 @@
 
 <script>
 
-    import {ApiloginOut,ApiChangePass} from '@/assets/js/api'
+    import {ApiloginOut,ApiChangePass,ApiTopSearch} from '@/assets/js/api'
 
     import {mapState,mapActions, mapGetters} from 'vuex'
     let btnStateChange = true;  //修改密码按钮点击状态
@@ -155,12 +162,61 @@
             },
 
             /*搜索*/
-            inpAdd(){
-                let SearchVal = this.SearchVal;
-                console.log(SearchVal);
-                this.$router.push({path:'/Member/statistics'});
+            //queryString 为在框中输入的值
+            //callback 回调函数,将处理好的数据推回
+            querySearchAsync(queryString, callback) {
+                // console.log(queryString);
+                if(queryString){
+                    let list =[];
+                    ApiTopSearch({
+                        keyword:queryString,
+                    }).then(res=>{
+                        if(res.value){
+                            for(let i of res.value){
+                                i.value = i.phone;  //将想要展示的数据作为value
+                                console.log(i.value)
+                            }
+                            list = res.value;
+                        } else{
+                            list = [];
+                        }
+                        console.log(list);
+                        callback(list);
+                    }).catch(res=>{
+                        console.error(res);
+                    });
+                }
             },
 
+
+            handleSelect(item) {
+                console.log(item);
+                if(item.member_type == 1) {
+                    console.log('正式会员');
+                    let user_id=item.id;
+                    console.log(user_id);
+                    this.$router.push({name:'Memberreal_member',params:{
+                        'user_id':user_id,
+                        }});
+                }
+                if(item.member_type == 0){
+                    console.log('非正式会员');
+                    let user_id=item.id;
+                    this.$router.push({name:'Memberindex',
+                        params:{
+                            'user_id':user_id,
+                        }
+                    })
+                }
+            },
+
+           /* inpAdd(){
+                let SearchVal = this.SearchVal;
+                console.log(SearchVal);
+                // ApiloginOut
+                // this.$router.push({path:'/Member/statistics'});
+            },
+*/
             /*修改密码提交*/
             submitForm(changePassForm) {
                 this.$refs[changePassForm].validate((valid) => {

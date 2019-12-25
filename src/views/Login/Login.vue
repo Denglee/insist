@@ -24,7 +24,7 @@
                 </el-form-item>
 
                 <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
-<!--                <el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
+                <!--<el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
 
                 <el-divider>第三方登录</el-divider>
 

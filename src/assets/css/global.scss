@@ -13,7 +13,6 @@ $color-linghtWhite:#EFF2F9;
 $color-orange:#ffa300;
 
 
-
 * {
     margin: 0;
     padding: 0;
@@ -81,6 +80,10 @@ input,button{
 
 
 
+/*element*/
 .el-button--small{
     font-size: 14px;
+}
+.el-dialog{
+    border-radius: 6px;
 }

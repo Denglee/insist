@@ -1,5 +1,6 @@
 /*** api接口统一管理 */
 import { get, post } from './axios';
+import HeaderTop from "../../components/layout/HeaderTop";
 
 /**
  *
@@ -15,17 +16,17 @@ import { get, post } from './axios';
  */
 
 
-
-
 /*获取侧边栏 nav*/
-export  const ApiLayoutNav = params => get('admin/Test/indexMenu', params);
+export const ApiLayoutNav = params => get('admin/Test/indexMenu', params);
 
 /*登录*/
-export  const ApiloginIn = params => post('admin/Test/login', params);
+export const ApiloginIn = params => post('admin/Test/login', params);
 
 /*退出*/
-export  const ApiloginOut = params => post('admin/Test/login_out', params);
+export const ApiloginOut = params => post('admin/Test/login_out', params);
 
 /*修改密码*/
-export  const ApiChangePass = params => post('admin/Test/update_password', params);
+export const ApiChangePass = params => post('admin/Test/update_password', params);
 
+/*HeaderTop 头部搜索*/
+export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params);

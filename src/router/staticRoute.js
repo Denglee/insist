@@ -12,7 +12,7 @@ const staticRoute = [
             {
                 path: '',
                 name:'index',
-                component: () => import('@/views/Index/index'),
+                component: () => import(/* webpackChunkName: "Receptionindex" */ '@/views/Index/index'),
                 meta: {title: '首页'}
             },
         ]
@@ -629,11 +629,6 @@ const staticRoute = [
         name: 'login',  //登录
         path: '/login',
         component: () => import('@/views/Login/Login')
-    },
-    {
-        name: 'login1',  //登录
-        path: '/login1',
-        component: () => import('@/views/Login/Login1')
     },
     {
         name: 'register', //注册

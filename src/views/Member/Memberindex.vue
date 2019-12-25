@@ -1,7 +1,7 @@
 <template>
     <div class="layoutR-main">
         <!--右边iframe-->
-        <publicIframe/>
+        <!--<publicIframe/>-->
     </div>
 </template>
 
@@ -13,7 +13,8 @@
         },
         methods: {},
         created() {
-
+            let userId=this.$route.params.user_id;
+            console.log(userId);
         },
     }
 </script>
