@@ -1,4 +1,4 @@
-const Layout = () => import(/* webpackChunkName: "index" */ '@/components/layout/Layout')
+const Layout = () => import(/* webpackChunkName: "Layout" */ '@/components/layout/Layout')
 
 const staticRoute = [
     {
@@ -604,36 +604,40 @@ const staticRoute = [
     {
         name: 'Error',
         path: '/error',
-        component: () => import( '@/views/Error'),
+        component: () => import( /* webpackChunkName: "error" */ '@/views/Error'),
         children: [
             {
                 path: '401',
-                component: () => import('@/views/Error/401')
+                component: () => import(/* webpackChunkName: "401" */ '@/views/Error/401')
             },
             {
                 path: '403',
-                component: () => import( '@/views/Error/403')
+                component: () => import(/* webpackChunkName: "403" */ '@/views/Error/403')
             },
             {
                 path: '404',
-                component: () => import('@/views/Error/404')
+                component: () => import(/* webpackChunkName: "404" */ '@/views/Error/404')
             },
             {
                 path: '500',
-                component: () => import('@/views/Error/500')
+                component: () => import(/* webpackChunkName: "500" */ '@/views/Error/500')
             }
         ]
     },
-
+    {
+        name: 'redirect',  //空白页面
+        path: '/redirect',
+        component: () => import(/* webpackChunkName: "redirect" */ '@/components/redirect/redirect')
+    },
     {
         name: 'login',  //登录
         path: '/login',
-        component: () => import('@/views/Login/Login')
+        component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/Login')
     },
     {
         name: 'register', //注册
         path: '/register',
-        component: () => import('@/views/Login/Register')
+        component: () => import(/* webpackChunkName: "Register" */ '@/views/Login/Register')
     },
     {
         name: '*',

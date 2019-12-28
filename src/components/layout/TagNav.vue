@@ -4,12 +4,19 @@
                 <scroll-bar ref="scrollBar">
 <!--                {{openedPageList}}-->
 
-        <router-link ref="tag" class="tag-nav-item" :class="isActive(item) ? 'cur' : ''"
+    <!--    <router-link ref="tag" class="tag-nav-item" :class="isActive(item) ? 'cur' : ''"
                      v-for="(item, index) in openedPageList"
                      :to="item.path" :key="index">
             {{item.title}}
             <i class="el-icon-circle-close"  @click.prevent.stop="closeTheTag(item, index)"></i>
-        </router-link>
+        </router-link>-->
+
+                    <div ref="tag" class="tag-nav-item" :class="isActive(item) ? 'cur' : ''"
+                                 v-for="(item, index) in openedPageList" :to="item.path" :key="index"
+                            :Path="item.path" @click="reloadRouter($event)">
+                        {{item.title}}
+                        <i class="el-icon-circle-close"  @click.prevent.stop="closeTheTag(item, index)"></i>
+                    </div>
 
         <!--        <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">-->
         <!--            <router-link :to="item.path" class="tags-li-title">-->
@@ -41,7 +48,12 @@
         },
         mounted(){
             // 首次加载时将默认页面加入缓存
-            this.addTagNav()
+            this.addTagNav();
+
+
+        },
+        created() {
+            // this.$router.go(0);
         },
         watch: {
             $route(){
@@ -50,10 +62,28 @@
             }
         },
         methods: {
+
+            reloadRouter(e) {
+                let path = e.target.getAttribute('Path');
+                console.log(path);
+                this.$router.replace({
+                    path: "/redirect",
+                    query: {
+                        nextPath: path
+                    }
+                });
+            },
+
+            // goPath(e){
+            //     let path = e.target.getAttribute('Path');
+            //     console.log(Path);
+            //     this.$router.push({path:Path});
+            // },
+
             addTagNav(){
                 // 如果需要缓存则必须使用组件自身的name，而不是router的name
                 this.$store.commit("StoreActiveNav/addTagNav", {
-                    name: this.$router.getMatchedComponents()[1].name,
+                    name: this.$router.name,
                     path: this.$route.path,
                     title: this.$route.meta.title
                 })
@@ -64,12 +94,13 @@
             closeTheTag(item, index){
                 // 当关闭当前页面的Tag时，则自动加载前一个Tag所属的页面
                 // 如果没有前一个Tag，则加载默认页面
+
                 this.$store.commit("StoreActiveNav/removeTagNav", item)
                 if(this.$route.path == item.path){
                     if(index){
                         this.$router.push(this.tagNavList[index-1].path)
                     } else {
-                        this.$router.push(this.defaultPage)
+                        this.$router.push(this.defaultPage);
                         if(this.$route.path == "/index"){
                             this.addTagNav()
                         }

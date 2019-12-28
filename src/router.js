@@ -6,17 +6,9 @@ import staticRoute from '@/router/staticRoute'
 import Login from '@/assets/js/login'
 
 import whiteList from '@/router/whiteList'
-// import NProgress from 'nprogress'
-// import 'nprogress/nprogress.css'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import {Message} from 'element-ui'
-
-
-// Vue.use(Router)
-
-// const originalPush = Router.prototype.push
-// Router.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
 
 
 var permissionList = []
@@ -52,25 +44,25 @@ function initRoute(router) {
 }
 
 
-// NProgress.configure({ showSpinner: false });
+NProgress.configure({ showSpinner: false });
 
 Vue.use(Router)
 
 const router = new Router({
-    mode: 'hash',
+    mode: 'hash', //history
     routes: staticRoute
 })
 
 // 路由跳转前验证
-/*router.beforeEach((to, from, next) => {
-    // console.log(permissionList);
+router.beforeEach((to, from, next) => {
+    console.log(permissionList);
     // 开启进度条
-    // NProgress.start();
-
+    NProgress.start();
+    next();
     // console.log(Auth.login);
     // 判断用户是否处于登录状态
     // debugger
-    if (Login.isLogin()) {
+    /*if (Login.isLogin()) {
         // 如果当前处于登录状态，并且跳转地址为login，则自动跳回系统首页
         // 这种情况出现在手动修改地址栏地址时
         if (to.path === '/login') {
@@ -80,19 +72,14 @@ const router = new Router({
             next()
         } else {
             initRoute(router).then(() => {
-
                 let isPermission = false
                 console.log("进入权限判断")
-
-
                 permissionList.forEach((v) => {
                     // 判断跳转的页面是否在权限列表中
                     if (v.path == to.fullPath) {
                         isPermission = true
                     }
-
                 });
-
             })
 
             // 没有权限时跳转到401页面
@@ -134,11 +121,11 @@ const router = new Router({
 
             // NProgress.done()
         }*!/
-    }
-})*/
+    }*/
+})
 
 router.afterEach(() => {
-    // NProgress.done(); // 结束Progress
+    NProgress.done(); // 结束Progress
 })
 
 export default router

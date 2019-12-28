@@ -2,7 +2,7 @@
     <div class="login-main">
 
         <div class="login-box">
-            <img src="~@/assets/img/logo-daka.png" alt="" class="login-logo">
+            <img src="http://192.168.0.133:20000/assets/images/logo-daka.png" alt="" class="login-logo">
             <b class="login-title">SAAS管理系统</b>
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm" v-show="!LoginWechat">
                 <el-form-item prop="username">
@@ -18,7 +18,8 @@
                     <el-input v-model="loginForm.password"
                               placeholder="账号"
                               type="password"
-                              clearable>
+                              clearable
+                              :show-password = true>
                         <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
                     </el-input>
                 </el-form-item>
@@ -28,21 +29,20 @@
 
                 <el-divider>第三方登录</el-divider>
 
-                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="LoginWechat = !LoginWechat">
+                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
 
             </el-form>
 
             <!--微信扫码登录-->
-
-                <div class="login-wechat" v-if="LoginWechat">
-                    <img src="" alt="">
-                    <div class="LoginWechat-tip">
-                        请使用微信扫描二维码登录
-                        <br>
-                        “健身房管理系统”
-                    </div>
-                    <el-button class="btnLogin" type="primary" @click="LoginWechat = !LoginWechat">返回账号密码登录</el-button>
+            <div class="login-wechat" v-if="LoginWechat">
+                <img src="" alt="">
+                <div class="LoginWechat-tip">
+                    请使用微信扫描二维码登录
+                    <br>
+                    “健身房管理系统”
                 </div>
+                <el-button class="btnLogin" type="primary" @click="goCodeLogin()">返回账号密码登录</el-button>
+            </div>
 
         </div>
 
@@ -78,6 +78,7 @@
                 </div>
             </div>
         </el-popover>
+
     </div>
 </template>
 
@@ -86,15 +87,13 @@
     import {mapState,mapActions, mapGetters} from 'vuex'
     let btnStatusLogin = true;   //按钮是否可点击状态
     export default {
+        inject:['reLoad'],
         data() {
             return {
                 LoginWechat:false, //登录方式切换 显隐状态
-
                 loginForm: {
-                    username: 'admin',
-                    password: 'zm#83221820',
-                  /*  username: '',
-                    password: '',*/
+                    username: '',
+                    password: '',
                 },
                 loginRules: {  //验证规则
                     username: [
@@ -115,6 +114,7 @@
                 },
                 //拼图是否正确
                 puzzle: false,
+
             }
         },
         computed: {
@@ -129,13 +129,32 @@
                     this.canvasInit();
                     this.puzzle = false;
                 }
+            },
+
+            '$route' (to, from) {
+                console.log(this.getStatus(this.$route.path))
             }
+        },
+
+        created() {
+            console.log(this.getStatus(this.$route.path));
         },
 
         methods: {
             ...mapActions({
                 ACTLogin:'StoreTagNav/ACTLogin',   //store里 login登录方法 并 保存用户信息
             }),
+
+            getStatus (urlStr) {
+                var urlStrArr = urlStr.split('/');
+                return urlStrArr[urlStrArr.length - 1]
+            },
+
+            /*二维码登录*/
+            goCodeLogin(){
+                this.LoginWechat = !this.LoginWechat;
+                this.visible = false;
+            },
 
             /*提交*/
             submitForm(loginForm) {
@@ -218,9 +237,18 @@
                                       duration:1500,
                                       offset:100,
                                   });
+
+
                                   setTimeout(()=>{
+                                     /* this.$router.replace({
+                                          path: "/redirect",
+                                          query: {
+                                              nextPath: '/index'
+                                          }
+                                      });*/
                                       that.$router.push({path:'/index'});
-                                  },1500)
+                                  },1500);
+
                               }
                               if(res.status == 0){
                                   this.$message({
@@ -255,7 +283,9 @@
                 //重新赋值，让canvas进行重新绘制
                 blockDom.height = height;
                 mainDom.height = height;
-                let imgsrc = "http://spt.zmtek.net/statics/Admin/wxlogin/img/bg.jpg";
+
+                /*绘图背景*/
+                let imgsrc = "http://192.168.0.133:20000/assets/images/bg_loginCanvas.png";
                 let img = document.createElement("img");
                 img.style.objectFit = "scale-down";
                 img.src = imgsrc;
@@ -304,7 +334,7 @@
 </script>
 <style lang="scss">
     .login-main{
-        background: url('~@/assets/img/bg-login.png') no-repeat  50% 50%;
+        background: url('http://192.168.0.133:20000/assets/images/bg-login.png') no-repeat  50% 50%;
         background-size: cover;
         width: 100%;
         height: 100vh;
@@ -468,6 +498,7 @@
                 color: #3e5d8b;
                 &:hover {
                     color: #2181bd;
+                    cursor: pointer;
                 }
             }
         }

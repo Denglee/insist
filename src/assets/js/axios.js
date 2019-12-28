@@ -1,13 +1,13 @@
 import axios from 'axios';
 import Qs from 'qs'; //post 的 序列化
-import {Message} from 'element-ui';
+import {Message,Loading} from 'element-ui';
 
 /*引用qs*/
 /*Vue.prototype.$qs = qs
 this.$qs.stringify*/
 
 // 设置请求超时时间
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 5000;
 
 // 设置post请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';

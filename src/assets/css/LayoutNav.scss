@@ -1,4 +1,4 @@
-@import "global";
+@import "public";
 /*layout*/
 .layout-box {
   /*layout-left 左侧导航*/
@@ -172,18 +172,35 @@ $headerHeight:70px;
 
 /*头部导航下拉*/
 .dropdown-HeaderTop{
-  //background-color: $color-blue;
-  //border: 1px solid $color-blue;
-  //border-radius: 4px;
-  //-webkit-box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
-  //box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
-  //display: block!important;
+  background-color: $color-blue;
+  border: 1px solid $color-blue;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
+  box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
+  position: fixed;
+  right: 0;
+  top: 100px;
+  width: 100px;
   .el-dropdown-menu__item{
     padding: 0;
     .el-button--text{
       padding: 10px 20px;
       width: 100%;
+      color: $color-white;
+      &:hover{
+        color: $color-gray;
+      }
     }
+  }
+  .el-dropdown-menu__item:not(.is-disabled):hover,
+  .el-dropdown-menu__item:focus{
+    background: none;
+  }
+  .popper__arrow{
+    border-bottom-color: $color-blue!important;
+  }
+  .popper__arrow::after{
+    border-bottom-color: $color-blue!important;
   }
 }
 

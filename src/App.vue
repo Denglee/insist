@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouterAlive"/>
+    <!--<router-view v-if="isRouterAlive"/>-->
+
+      <router-view v-if="isRouterAlive" :key="key"></router-view>
+
   </div>
 </template>
 <script>
@@ -25,6 +28,16 @@
         })
       },
     },
+
+    computed: {
+      key() {
+        return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
+      }
+    },
+
+    activated: function() {
+      this.getCase();
+    }
   }
 
   /*

@@ -11,15 +11,35 @@ import Axios from 'axios'
 
 /*引入 element*/
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+/*更换 element 主题*/
+import '@/assets/css/element-variables.scss'
+
 Vue.use(ElementUI, {
   size: 'middle'
 });
 
+/*import echarts from'echarts'
+Vue.prototype.$echarts = echarts //将echarts注册成Vue的全局属性*/
+
+// 引入 ECharts 主模块
+let echarts = require('echarts/lib/echarts');
+/*引入折线图/柱状图等组件*/
+require('echarts/lib/chart/line')  //折线
+require('echarts/lib/chart/bar')   //柱状
+require('echarts/lib/chart/funnel')  //漏斗
+require('echarts/lib/chart/pie')    //饼图
+
+// 引入提示框和title组件，图例
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+require('echarts/lib/component/legend')
+require('echarts/lib/component/legendScroll')//图例滚动
+
+//vue全局注入echarts
+Vue.prototype.$echarts = echarts
 
 
-/*更换 element 主题*/
-import '@/assets/css/element-variables.scss'
+
 
 /*引入自己的全局的css*/
 import '@/assets/css/global.scss'
@@ -47,8 +67,6 @@ Vue.component(publicIframe.name,publicIframe);
 /*引用axios*/
 Vue.prototype.$axios=Axios;
 
-
-
 /*第一层if判断生产环境和开发环境*/
 if (process.env.NODE_ENV === 'production') {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
@@ -58,7 +76,7 @@ if (process.env.NODE_ENV === 'production') {
 
   } else {
     //test 测试环境 测试地址 http://vikily.f3322.net:10007
-    Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//路径
+    Axios.defaults.baseURL = 'http://192.168.0.133:20000';//路径
     config.optimization.minimize(false)
   }
 } else {

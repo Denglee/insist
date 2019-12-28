@@ -3,12 +3,12 @@
         <!--logo-->
         <img @click="goIndex()" src="~@/assets/img/logo.png" alt="" class="img-logo">
 
-        <el-menu default-active="1-1"
-                 class="Menu-LeftNav-Box"
+        <el-menu class="Menu-LeftNav-Box"
                  :collapse="isCollapse"
                  background-color="#253954"
                  text-color="#fff"
-                 active-text-color="#fff">
+                 active-text-color="#fff"
+                 default-active="this.$route.path">
             <!--一级导航-->
             <el-submenu class="sunmenu-box"
                         popper-class="Menu-LeftNav"
@@ -24,7 +24,14 @@
                 <el-menu-item-group v-for="(subItems,index2) in (navItem.sub_menu)" :key="index2">
 
                         <el-menu-item v-if="subItems.action ==''"></el-menu-item>
-                        <el-menu-item v-else :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
+                 <!--   <el-menu-item v-else
+                                  :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''"
+                                  @click="reloadRouter('/'+subItems.controller+'/'+subItems.action)"
+                    >
+                        <span style="padding:  10px  20px;color: #fff;">{{subItems.name}}</span>
+                    </el-menu-item>-->
+                        <el-menu-item v-else
+                                      :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
                             <router-link :to="{path:'/'+subItems.controller+'/'+subItems.action}"
                                          :dataPath="subItems.controller+'/'+subItems.action">
                                 {{subItems.name}}
@@ -34,9 +41,7 @@
                 </el-menu-item-group>
             </el-submenu>
         </el-menu>
-
     </aside>
-
 </template>
 
 <script>
@@ -60,6 +65,7 @@
         },
 
         methods: {
+
             //store 里 StoreTagNav中 actions 的getNavList方法  获取左侧路由导航
             ...mapActions({
                 getNavList: "StoreTagNav/actNavList",

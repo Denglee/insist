@@ -1,18 +1,6 @@
 @charset "UTF-8";
 /*lideng*/
-
-//公共颜色
-$color-black:#333;
-$color-green:#8cc31f;
-$color-blue: #253954;
-$color-linghtBlue:#DADFE8;
-$color-gray: #949494;
-$color-white:#fff;
-$color-paleWhite:#f4f4f4;
-$color-linghtWhite:#EFF2F9;
-$color-orange:#ffa300;
-
-
+@import "public";
 * {
     margin: 0;
     padding: 0;
@@ -87,3 +75,79 @@ input,button{
 .el-dialog{
     border-radius: 6px;
 }
+
+/*首页*/
+.index-row{
+    padding: 20px 0;
+}
+
+@mixin borBom($wid, $color){
+    border-bottom: solid $wid $color,;
+}
+@mixin bor($wid, $color){
+    border: solid $wid $color,;
+}
+@mixin borRadis($wid){
+    border-radius: $wid;
+}
+.index-item{
+    @include borBom(1px, $color-linghtWhite);
+    @include borRadis(8px);
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+}
+.index-item-title{
+    @include borBom(1px, $color-linghtWhite);
+    padding-bottom:10px;
+    font-size: 20px;
+    font-weight:500;
+}
+.index-item-tipUl{
+    margin-top: 16px;
+    li{
+        display: inline-block;
+        margin-right: 16px;
+        color: $color-gray;
+        font-size: 12px;
+        img{
+            height: 8px;
+            margin-right: 2px;
+        }
+        span{
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 4px;
+            margin-top: -2px;
+        }
+    }
+}
+.vipNum{
+    color: $color-gray;
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    .vipTipG{
+        color: $color-vipG;
+    }
+    .vipTipB{
+        color: $color-vipB;
+    }
+    .vipTipY{
+        color: $color-vipY;
+    }
+}
+.addVip-tagG{
+    background-color: $color-vipG;
+}
+.addVip-tagB{
+    background-color: $color-vipB;
+}
+.addVip-tagY{
+    background-color: $color-vipY;
+}
+
+

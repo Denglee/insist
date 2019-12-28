@@ -2,9 +2,7 @@
     <div class="layoutR-main">
         <publicIframe/>
 
-        <!--<div style="height: 600px;background-color: red;">dsa</div>-->
-
-        <!--<button @click="refresh()">刷新</button>-->
+        <!--http://192.168.0.133:20000/Admin/Reception/index/phone/18815254796.html-->
     </div>
 </template>
 

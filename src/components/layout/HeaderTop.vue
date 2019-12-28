@@ -8,9 +8,13 @@
                         v-model="SearchVal"
                         :fetch-suggestions="querySearchAsync"
                         @select="handleSelect"
-                        clearable>
+                        >
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-autocomplete>
+                <!--<template slot-scope="{ item }">
+                    <div class="name">{{ item.phone }}</div>
+                    <span class="addr">{{ item.true_name }}</span>
+                </template>-->
             </el-form>
 
             <!--头部用户信息+退出+更换密码-->
@@ -32,10 +36,8 @@
                         <el-dropdown-item command="b">
                             <el-button type="text" @click="loginOut()">退出</el-button>
                         </el-dropdown-item>
-
                     </el-dropdown-menu>
                 </el-dropdown>
-
             </div>
         </div>
 
@@ -46,13 +48,13 @@
                    width="40%">
             <el-form :model="changePassForm" status-icon :rules="changeRules" ref="changePassForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="旧密码" prop="oldPass">
-                    <el-input type="password" v-model="changePassForm.oldPass" autocomplete="off"  clearable></el-input>
+                    <el-input type="password" :show-password="true" v-model="changePassForm.oldPass" autocomplete="off"  clearable></el-input>
                 </el-form-item>
                 <el-form-item label="新密码" prop="newPass">
-                    <el-input type="password" v-model="changePassForm.newPass" autocomplete="off"  clearable></el-input>
+                    <el-input type="password" :show-password="true" v-model="changePassForm.newPass" autocomplete="off"  clearable></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码" prop="checkPass">
-                    <el-input type="password" v-model="changePassForm.checkPass" autocomplete="off"  clearable></el-input>
+                    <el-input type="password" :show-password="true" v-model="changePassForm.checkPass" autocomplete="off"  clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" size="small" @click="submitForm('changePassForm')">提交</el-button>
@@ -60,6 +62,8 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
+
+        <!--<el-button size="small" @click="reLoad()">刷新</el-button>-->
 
     </div>
 </template>
@@ -173,8 +177,7 @@
                     }).then(res=>{
                         if(res.value){
                             for(let i of res.value){
-                                i.value = i.phone;  //将想要展示的数据作为value
-                                console.log(i.value)
+                                i.value = i.phone + ' / ' + i.true_name;
                             }
                             list = res.value;
                         } else{
@@ -188,35 +191,22 @@
                 }
             },
 
-
+            /*选中*/
             handleSelect(item) {
                 console.log(item);
                 if(item.member_type == 1) {
                     console.log('正式会员');
-                    let user_id=item.id;
+                    let user_id = item.id;
                     console.log(user_id);
-                    this.$router.push({name:'Memberreal_member',params:{
-                        'user_id':user_id,
-                        }});
+                    this.$router.push({name:'Memberreal_member',params:{'user_id':user_id,}});
                 }
                 if(item.member_type == 0){
                     console.log('非正式会员');
-                    let user_id=item.id;
-                    this.$router.push({name:'Memberindex',
-                        params:{
-                            'user_id':user_id,
-                        }
-                    })
+                    let user_id = item.id;
+                    this.$router.push({name:'Memberindex', params:{'user_id':user_id,}})
                 }
             },
 
-           /* inpAdd(){
-                let SearchVal = this.SearchVal;
-                console.log(SearchVal);
-                // ApiloginOut
-                // this.$router.push({path:'/Member/statistics'});
-            },
-*/
             /*修改密码提交*/
             submitForm(changePassForm) {
                 this.$refs[changePassForm].validate((valid) => {
@@ -269,12 +259,15 @@
             /*修改密码 重置*/
             resetForm(changePassForm) {
                 this.$refs[changePassForm].resetFields();
-            }
+            },
+
         },
         created() {
             this.metUserInfo();
             console.log(this.UserInfo);
+
         },
+
         computed: {
             ...mapGetters({
                 UserInfo:'StoreTagNav/getsUserInfo'
