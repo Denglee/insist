@@ -1,9 +1,11 @@
 <template>
     <div class="layoutR-main">
-        <!--        <iframe src="http://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>-->
-        <!--        <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
+        <!--<iframe src="http://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>-->
+        <!-- <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
 
+        <!--现有会员  新增会员 在场人数-->
         <el-row :gutter="20" class="index-row" type="flex" justify="space-between">
+            <!--现有会员-->
             <el-col :span="8">
                 <div class="index-item">
                     <header class="index-item-title" @click="changeData($event)">现有会员</header>
@@ -12,7 +14,7 @@
                         <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
                         <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
                     </ul>
-                    <div class="el-row--flex is-justify-space-between">
+                    <div class="flex-between">
                         <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
                         <ul class="vipNum">
                             <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
@@ -22,51 +24,141 @@
                     </div>
                 </div>
             </el-col>
+
+            <!--今日新增会员-->
             <el-col :span="8">
                 <div class="index-item">
-                    <header class="index-item-title" @click="changeData($event)">今日新增会员</header>
+                    <header class="index-item-title">今日新增会员</header>
                     <ul class="index-item-tipUl">
                         <li><span class="addVip-tagG"></span>潜在会员</li>
                         <li><span class="addVip-tagB"></span>正式会员</li>
                         <li><span class="addVip-tagY"></span>私教会员</li>
                     </ul>
-                    <div class="el-row--flex is-justify-space-between">
-                        <eCharts :eChartObj="addVip" :style="styleVip"></eCharts>
+                    <div class="flex-between">
+                        <eCharts :eChartObj="addVip" :style="styleAddVip"></eCharts>
                         <ul class="vipNum">
                             <li>潜在会员： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{addVip.series[0].data[0].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{addVip.series[0].data[0].value}}</span></li>
+                            <li>正式会员： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
+                            <li>私教会员： <span class="vipTipY">{{addVip.series[0].data[2].value}}</span></li>
                         </ul>
                     </div>
                 </div>
             </el-col>
+
+            <!--在场人数-->
             <el-col :span="8">
                 <div class="index-item">
-                        <div class="index-item">
-                            <header class="index-item-title" @click="changeData($event)">今日新增会员</header>
-                            <ul class="index-item-tipUl">
-                                <li><span class="addVip-tagG"></span>潜在会员</li>
-                                <li><span class="addVip-tagB"></span>正式会员</li>
-                                <li><span class="addVip-tagY"></span>私教会员</li>
-                            </ul>
-                            <div class="el-row--flex is-justify-space-between">
-                                <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>
-                                <ul class="vipNum">
-                                    <li>潜在会员： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
-                                    <li>正式会员： <span class="vipTipB">{{addVip.series[0].data[0].value}}</span></li>
-                                    <li>私教会员： <span class="vipTipY">{{addVip.series[0].data[0].value}}</span></li>
-                                </ul>
-                            </div>
+                    <div class="flex-between present-box">
+                        <div class="present-top present-TopL">
+                            <p class="title">在场人数</p>
+                            <p class="num">58</p>
+                        </div>
+                        <div class="present-top present-TopR">
+                            <p class="title">客流人数</p>
+                            <p class="num">129</p>
                         </div>
                     </div>
+                    <div class="flex-between">
+                        <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>
+                    </div>
+                </div>
             </el-col>
         </el-row>
 
-        <div>
-            <eCharts :eChartObj="echartObj" :style="stylePresent"></eCharts>
-            <eCharts :eChartObj="echartObj2" :style="stylePresent"></eCharts>
-            <eCharts :eChartObj="echartObj3" :style="stylePresent"></eCharts>
+        <!--更衣室使用情况 + 课程分析-->
+        <el-row :gutter="20" class="index-row locker-room" type="flex" justify="space-between">
+            <!--更衣室使用情况-->
+            <el-col :span="8">
+                <div class="index-item">
+                    <header class="index-item-title">更衣室使用情况</header>
+                    <div class="lockerRoom-box flex-between">
+                        <ul class="index-item-tipUl">
+                            <li><span class="addVip-tagB"></span>男更</li>
+                            <li><span class="addVip-tagY"></span>女更</li>
+                        </ul>
+                        <ul class="lockerRoom-main">
+                            <li class="lockerRoom-item">
+                                <el-progress :percentage="50" :text-inside="true" :stroke-width="16" :color="progressColorMan"></el-progress>
+                                <div class="flex-between">
+                                    <div class="used-room">占用45</div>
+                                    <div class="surplus-roomM">剩余5</div>
+                                </div>
+                            </li>
+                            <li class="lockerRoom-item">
+                                <el-progress :percentage="50" :text-inside="true" :stroke-width="16" :color="progressColorFeman"></el-progress>
+                                <div class="flex-between">
+                                    <div class="used-room">占用20</div>
+                                    <div class="surplus-roomF">剩余15</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </el-col>
 
+            <!--课程分析-->
+            <el-col :span="16">
+                <div class="index-item">
+                    <header class="index-item-title">课程分析</header>
+                    <div class="lesson-main lesson-borR">
+                        <h4 class="lesson-main-title">团课</h4>
+                        <div class="lesson-item">
+                            <eCharts :eChartObj="lessonGroup" :style="styleLesson"></eCharts>
+                            <ul class="vipNum">
+                                <li>上课人数： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
+                                <li>预约人数： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
+                             </ul>
+                        </div>
+                    </div>
+                    <div class="lesson-main">
+                        <h4 class="lesson-main-title">私教课</h4>
+                        <div class="lesson-item">
+                            <eCharts :eChartObj="lessonTrainer" :style="styleLesson"></eCharts>
+                            <ul class="vipNum">
+                                <li>上课人数： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
+                                <li>预约人数： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+
+        <!--收支统计-->
+        <div class="index-item income-container clearfix">
+            <header class="index-item-title flex-between">
+                <div>课程分析</div>
+                <div>今天</div>
+            </header>
+            <div class="income-total">
+                <div class="income-borR">
+                    <div class='price'>￥140000</div>
+                    <div>总收入</div>
+                </div>
+            </div>
+            <div class="income-box">
+                <ul class="flex-between">
+                    <li class="income-item" v-for="(item,index) in incomeArr" :key="index">
+                        <el-progress type="circle" :percentage="item.percentage" :stroke-width="16" :color="item.color"></el-progress>
+                        <div :class="item.class">￥{{item.price}}</div>
+                        <div class="income-type">{{item.name}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--收入趋势-->
+        <div class="index-item comein-main">
+            <header class="index-item-title flex-between">
+                <div>收入趋势</div>
+                <div>今天</div>
+            </header>
+            <ul class="index-item-tipUl">
+                <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">团课营收</li>
+                <li><img src="~@/assets/icon/icon_comeinSJ.png" alt="">私教营收</li>
+                <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">会籍营收</li>
+            </ul>
+            <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
         </div>
 
     </div>
@@ -79,23 +171,90 @@
         name: "index",
         data() {
             return {
+                incomeArr:[
+                    {
+                        percentage:35,
+                        name:'团课收入',
+                        price:'5200',
+                        class:"colorRed",
+                        color:'#005AD4',
+                    },
+                    {
+                        percentage:40,
+                        name:'私教收入',
+                        price:'1680',
+                        class:"colorBlueL",
+                        color:'#FF8A7E',
+                    },
+                    {
+                        percentage:54,
+                        name:'会籍收入',
+                        price:'1180',
+                        class:"colorYellow",
+                        color:'#4CCBEB',
+                    },
+                    {
+                        percentage:35,
+                        name:'定金',
+                        price:'5200',
+                        class:"colorBlue",
+                        color:'#FFBE00',
+                    },
+                    {
+                        percentage:70,
+                        name:'转让',
+                        price:'1680',
+                        class:"colorGreen",
+                        color:'#1EAAA1',
+                    },
+                    {
+                        percentage:20,
+                        name:'退还',
+                        price:'1680',
+                        class:"colorViolet",
+                        color:'#B6A2DE',
+                    },
+                ],
+                progressColorMan:'#005AD4', /*男更进度条 颜色*/
+                progressColorFeman:'#FF8A7E', /*女更进度条 颜色*/
+
+                /*eCharts 对应宽高*/
                 styleVip: {
-                    height: '300px',
-                    width: '300px',
+                    height: '220px',
+                    width: '220px',
                 },
-                stylePresent:{
-                    height: '300px',
-                    width: '400px',
+                styleAddVip: {
+                    height: '220px',
+                    width: '70%',
                 },
+                stylePresent: {
+                    height: '180px',
+                    width: '100%',
+                },
+                styleLesson:{
+                    height: '160px',
+                    width: '50%',
+                },
+                styleComeIN: {
+                    height: '310px',
+                    width: '100%',
+                },
+
 
                 /*现有会员*/
                 chartVip: {
-                    title: {},
-                    xAxis: {},
-                    yAxis: {},
+                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
                     series: [{
                         // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
                         type: 'pie',
+
                         data: [],
                         label: {
                             normal: {
@@ -113,262 +272,230 @@
 
                 /*新增会员*/
                 addVip: {
-                    title: {},
-                    xAxis: {},
-                    yAxis: {},
-                    series: [{
-                        // name: '新增会员',
-                        type: 'funnel',
-                        data: [],
-                        label: {
-                            normal: {
-                                show: false,
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        }
-                    }],
-                },
-
-                /*在场与客流人数*/
-                presentNum:{
-                    title: {
-                        text: '未来一周气温变化',
-                        subtext: '纯属虚构'
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data:['最高气温','最低气温']
-                    },
-                    toolbox: {
-                        show: true,
-                        feature: {
-                            dataZoom: {
-                                yAxisIndex: 'none'
-                            },
-                            dataView: {readOnly: false},
-                            magicType: {type: ['line', 'bar']},
-                            restore: {},
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis:  {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['周一','周二','周三','周四','周五','周六','周日'],
-                        show:true,
-                    },
-                    yAxis: {
-                        type: 'value',
-                        show:true,
-                        axisLabel: {
-                            formatter: '{value} °C'
-                        }
-                    },
-                    series: [
-                        {
-                            name:'最高气温',
-                            type:'line',
-                            data:[11, 11, 15, 13, 12, 13, 10],
-                            markPoint: {
-                                data: [
-                                    {type: 'max', name: '最大值'},
-                                    {type: 'min', name: '最小值'}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'}
-                                ]
-                            }
-                        },
-                        {
-                            name:'最低气温',
-                            type:'line',
-                            data:[1, -2, 2, 5, 3, 2, 0],
-                            markPoint: {
-                                data: [
-                                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-                                ]
-                            },
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'},
-                                    [{
-                                        symbol: 'none',
-                                        x: '90%',
-                                        yAxis: 'max'
-                                    }, {
-                                        symbol: 'circle',
-                                        label: {
-                                            normal: {
-                                                position: 'start',
-                                                formatter: '最大值'
-                                            }
-                                        },
-                                        type: 'max',
-                                        name: '最高点'
-                                    }]
-                                ]
-                            }
-                        }
-                    ]
-                },
-
-
-              /*  presentNum: {
-                    title: {},
-                    xAxis: {
-                        show: true,
-                        type: 'category',
-                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                    },
-                    yAxis: {
-                        show: true,
-                        type: 'value'
-                    },
-                    series: [
-
-
-                        {
-                        name: '在场人数',
-                        type: 'line',
-                        data: [820, 932, 901, 934, 1290, 1330, 1320],
-                    },
-                    // {
-                    //     name: '客流人数',
-                    //     type: 'line',
-                    //     data:[101, 11, 105, 13, 120, 13, 97],
-                    // }
-                    ],
-                },*/
-
-                echartObj: {
-                    title: {
-                        text: '新增会员'
-                    },
-                    tooltip: {},
-                    xAxis: {},
-                    yAxis: {
-                        show: false,
-                        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-                    },
-                    series: [{
-                        name: '销量',
-                        type: 'pie',
-                        data: [5, 20, 36, 10, 10, 20]
-                    }]
-                },
-                echartObj2: {
-                    title: {
-                        text: 'ECharts 示例'
-                    },
-                    tooltip: {},
-                    xAxis: {
-                        show: true,
-                        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-                    },
-                    yAxis: {
-                        show: true,
-                        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-                    },
-                    series : [
-                        {
-                            name:'直接访问',
-                            type:'bar',
-                            barWidth: '50%',
-                            data:[100, 1052, 2000, 1034, 2390, 1030, 2220],    //每个日期对应的数据
-                            itemStyle: {
-                                normal: {
-                                    label: {
-                                        show: true, //开启显示
-                                        position: 'top', //在上方显示
-                                        textStyle: { //数值样式
-                                            color: 'black',
-                                            fontSize: 16
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                echartObj3: {
-
-                    title: {
-                        text: '漏斗图',
-                        subtext: '纯属虚构'
-                    },
+                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c}%"
-                    },
-                    // toolbox: {
-                    //     feature: {
-                    //         dataView: {readOnly: false},
-                    //         restore: {},
-                    //         saveAsImage: {}
-                    //     }
-                    // },
-                    yAxis: {
-                        show: false,
-                        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-                    },
-                    xAxis: {},
-                    legend: {
-                        data: ['展现', '点击', '访问', '咨询', '订单']
                     },
                     series: [
                         {
-                            name: '漏斗图',
-                            type: 'funnel',
+                            type:'funnel',
                             left: '10%',
-                            top: 60,
-                            //x2: 80,
-                            bottom: 60,
-                            width: '80%',
-                            // height: {totalHeight} - y - y2,
-                            min: 0,
-                            max: 100,
-                            minSize: '0%',
-                            maxSize: '100%',
-                            sort: 'descending',
-                            gap: 2,
+                            width: '60%',
+                            height: '60%',
+                            top: '20%',
+
                             label: {
-                                show: true,
+                                show: false,
                                 position: 'inside'
                             },
-                            labelLine: {
-                                length: 10,
-                                lineStyle: {
-                                    width: 1,
-                                    type: 'solid'
-                                }
-                            },
-                            itemStyle: {
-                                borderColor: '#fff',
-                                borderWidth: 1
-                            },
-                            emphasis: {
-                                label: {
-                                    fontSize: 20
-                                }
-                            },
+
                             data: [
                                 {value: 60, name: '访问'},
                                 {value: 40, name: '咨询'},
                                 {value: 20, name: '订单'},
-                                {value: 80, name: '点击'},
-                                {value: 100, name: '展现'}
                             ]
                         }
                     ]
                 },
+
+                /*在场与客流人数*/
+                presentNum: {
+                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            }
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['8:00', '9:00', '10:00', '11:00'],
+                        //设置坐标轴字体颜色和宽度
+                        axisLine:{
+                            lineStyle:{
+                                color:'#8E8E8E',
+                            }
+                        },
+                        splitLine: {
+                            lineStyle:{
+                                color:'#f4f4f4',
+                                width: 1
+                            }
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '客流趋势',   // y轴名称
+                        axisLine:{
+                            lineStyle:{
+                                color:'#8E8E8E',
+                            }
+                        },
+                    },
+                    grid:{
+                        top:"40px",
+                        left:"60px",
+                        right:"30px",
+                        bottom:"20px",
+                        width:"auto", //图例宽度
+                        height:"auto", //图例高度
+
+                    },
+                    series: [
+                        {
+
+                            name: '客流趋势',
+                            type: 'line',
+                            data: [110, 201, 150, 223],
+                        },
+                        {
+                            name: '在场人数',
+                            type: 'line',
+                            data: [431, 321, 335, 413],
+                        }
+                    ]
+                },
+
+                /*课程分析 团课*/
+                lessonGroup: {
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
+                    series: [
+                        {
+                            // name: '课程分析',
+                            left: '10%',
+                            width: '90%',
+                            height: '90%',
+                            top: '0%',
+
+                            type: 'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: '18',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                {value: 335, name: '上课人数'},
+                                {value: 310, name: '预约人数'},
+                            ]
+                        }
+                    ]
+                },
+
+                /*课程分析 私教课*/
+                lessonTrainer: {
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    color: ['#FF8A7E', '#FFBE00'], //自定义的颜色
+                    series: [
+                        {
+                            left: '10%',
+                            width: '90%',
+                            height: '90%',
+                            top: '0%',
+
+                            name: '课程分析',
+                            type: 'pie',
+                            radius: ['50%', '70%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: true,
+                                    textStyle: {
+                                        fontSize: '18',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: true,
+                                }
+                            },
+                            data: [
+                                {value: 335, name: '上课人数'},
+                                {value: 310, name: '预约人数'},
+                            ]
+                        }
+                    ]
+                },
+
+                /*收支趋势*/
+                comeIn:{
+                    color: ['#FF8A7E','#005AD4','#4CCBEB'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['09-02', '09-04', '09-06', '09-18'],
+                        axisLine:{
+                            lineStyle:{
+                                color:'#8E8E8E',
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#8E8E8E',
+                            }
+                        },
+                    },
+                    grid:{
+                        top:"30px",
+                        left:"60px",
+                        right:"30px",
+                        bottom:"40px",
+                        width:"auto", //图例宽度
+                        height:"80%", //图例高度
+
+                    },
+                    series: [
+                        {
+                            name: '团课营收',
+                            type: 'line',
+                            data: [910, 401, 850, 723],
+                        },
+                        {
+                            name: '私教营收',
+                            type: 'line',
+                            data: [431, 921, 435, 613],
+                        },
+                        {
+                            name: '会籍营收',
+                            type: 'line',
+                            data: [700, 321, 535, 413],
+                        }
+                    ]
+                },
+
             }
         },
 
@@ -396,8 +523,8 @@
 
             /*新增会员数据*/
             this.addVip.series[0].data = [
-                {value: 310, name: '潜在会员'},
-                {value: 234, name: '正式会员'},
+                {value: 510, name: '潜在会员'},
+                {value: 334, name: '正式会员'},
                 {value: 135, name: '私教会员'},
             ];
 
@@ -430,6 +557,7 @@
     .layoutR-main {
         padding: 20px;
     }
+
 
 </style>
 

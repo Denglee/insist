@@ -14,11 +14,17 @@
       height: 100vh;
       background-color: $color-blue;
       overflow-y: auto;
+      .img-logoBox{
+        min-height: 40px;
+        cursor: pointer;
+        margin: 24px 0 10px;
+      }
       .img-logo{
         display: block;
-        width: 60%;
-        margin: 40px auto;
+        max-width: 80%;
+        margin: 14px auto;
         cursor: pointer;
+        //min-height: 41px;
       }
       .el-menu--collapse{
         width: 100%;
@@ -160,7 +166,7 @@ $headerHeight:70px;
   .userHeader{
     width: 50px;
     height: 50px;
-    border-radius: 50px;
+    border-radius: 50%;
     display: block;
     margin: 10px;
   }
@@ -212,7 +218,7 @@ $headerHeight:70px;
   height: 36px;
   /*padding: 10px;*/
   background: $color-linghtBlue;
-  border-bottom: 1px solid #ddd;
+  //border-bottom: 1px solid #ddd;
   box-shadow: 0 1px 2px #f2f2f2;
   box-sizing: border-box;
   .tag-nav-item{
@@ -223,9 +229,11 @@ $headerHeight:70px;
     background-color:  $color-linghtBlue;
     text-decoration: none;
     border-right: solid 1px rgba(37,57,84,.1);
+    border-bottom: solid 1px rgba(37,57,84,.1);
     &:hover {
       background-color: $color-linghtWhite;
       color: $color-black;
+      cursor: pointer;
     }
     & > i{
       line-height: 36px;
@@ -239,6 +247,7 @@ $headerHeight:70px;
   & .cur{
     background-color: $color-linghtWhite;
     color: $color-black;
+    border-bottom: solid 1px $color-linghtWhite;
   }
 }
 

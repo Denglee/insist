@@ -18,8 +18,9 @@
             /*console.log(this.$route);
             console.log(this.localUrl);
             console.log(this.$route.fullPath);*/
-            console.log(this.localUrl + '/Admin' + this.$route.fullPath);
-            this.localSrc = this.localUrl + '/Admin' + this.$route.fullPath;
+            let nextUrl = this.localUrl + '/Admin' + this.$route.fullPath;
+            console.log(nextUrl);
+            this.localSrc = nextUrl;
         },
     }
 </script>

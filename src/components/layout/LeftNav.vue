@@ -1,8 +1,10 @@
 <template>
     <aside class="layoutLeft-nav">
         <!--logo-->
-        <img @click="goIndex()" src="~@/assets/img/logo.png" alt="" class="img-logo">
-
+        <div class="img-logoBox" @click="goIndex()">
+            <img src="http://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="img-logo">
+            <!--<img class="img-logo" :src='localUrl+"/"+UserInfo.logo' alt="">-->
+        </div>
         <el-menu class="Menu-LeftNav-Box"
                  :collapse="isCollapse"
                  background-color="#253954"
@@ -52,7 +54,7 @@
         name: "LeftNav",
         data() {
             return {
-
+                localUrl:this.GLOBAL.localUrl,
                 isCollapse: true,
                 isRouterAlive: false,   //控制视图是否显示的变量
             };
@@ -115,8 +117,8 @@
             //获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
             ...mapGetters({
                 StateNavList: "StoreTagNav/getNavList",
+                UserInfo:'StoreTagNav/getsUserInfo'
             }),
-
         }
     };
 </script>

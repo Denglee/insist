@@ -12,11 +12,11 @@
         props: {
             width: {
                 type: String,
-                default: "200px"
+                // default: "200px"
             },
             height: {
                 type: String,
-                default: "400px"
+                // default: "400px"
             },
             eChartObj: {
                 type: Object,
@@ -64,39 +64,45 @@
                 /*获取echars 容器*/
                 this.eCharts = this.$echarts.init(this.$refs.echartsBox);
                 /*参数*/
-                this.eCharts.setOption({
+                this.eCharts.setOption(this.eChartObj);
+
+                   /* {
                     color:[ //自定义的颜色
                         '#FF8A7E',
                         '#4CCBEB',
                         '#005AD4',
-                    ],
+                   ],
 
-                    /*标题*/
+                    /!*标题*!/
                     title: {
                         text: this.eChartObj.title.text || '',
                         show:this.eChartObj.title.show ||false,
                     },
 
-                    /*提示框鼠标悬浮时的信息提示*/
+                    /!*提示框鼠标悬浮时的信息提示*!/
                     tooltip: {},
 
-                    /*x轴*/
+                    /!*x轴*!/
                     xAxis: {
                         // data: this.eChartObj.xAxis.data || {},
                         show:this.eChartObj.xAxis.show || false,
                     } ,
                     // yAxis:this.eChartObj.yAxis,
 
-                    /*y轴*/
+                    /!*y轴*!/
                     yAxis:{
                         show:this.eChartObj.yAxis.show  || false,
                         // data:this.eChartObj.yAxis.data || {},
                     },
 
-                    /*类型 和 数据*/
-                    series: this.eChartObj.series || [],
+                    /!*类型 和 数据*!/
+                    // series:{
+                    //     type:this.eChartObj.series[0].type,
+                    //     data:this.eChartObj.series[0].data,
+                    // }
+                    series: this.eChartObj.series,
                     // legend:this.eChartObj.legend || [],
-                },true)
+                })*/
             },
         }
     }

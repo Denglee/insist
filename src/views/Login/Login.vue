@@ -2,7 +2,9 @@
     <div class="login-main">
 
         <div class="login-box">
-            <img src="http://192.168.0.133:20000/assets/images/logo-daka.png" alt="" class="login-logo">
+
+            <img src="http://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="login-logo">
+<!--            <img src="http://192.168.0.133:20000/assets/images/logo-daka.png" alt="" class="login-logo">-->
             <b class="login-title">SAAS管理系统</b>
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm" v-show="!LoginWechat">
                 <el-form-item prop="username">
@@ -27,9 +29,9 @@
                 <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
                 <!--<el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
 
-                <el-divider>第三方登录</el-divider>
-
-                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
+                <!--口碑不需要第三方登录-->
+               <!-- <el-divider>第三方登录</el-divider>
+                <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">-->
 
             </el-form>
 
@@ -86,6 +88,7 @@
     import {ApiloginIn,ApiloginOut} from '@/assets/js/api'
     import {mapState,mapActions, mapGetters} from 'vuex'
     let btnStatusLogin = true;   //按钮是否可点击状态
+
     export default {
         inject:['reLoad'],
         data() {
@@ -285,7 +288,14 @@
                 mainDom.height = height;
 
                 /*绘图背景*/
-                let imgsrc = "http://192.168.0.133:20000/assets/images/bg_loginCanvas.png";
+                /*弹出 登录 cancas图片*/
+                let imgBg1 = 'http://swim.zmtek.net/assets/images/loginImgBg1.jpg';
+                let imgBg2 = 'http://swim.zmtek.net/assets/images/loginImgBg2.jpg';
+                let imgBg3 = 'http://swim.zmtek.net/assets/images/loginImgBg3.jpg';
+                let imgArr=[imgBg1, imgBg2, imgBg3,];
+                var imgsrc = imgArr[Math.round(Math.random()*(imgArr.length-1))];  //随机抽取一个值
+                console.log(imgsrc);
+
                 let img = document.createElement("img");
                 img.style.objectFit = "scale-down";
                 img.src = imgsrc;
@@ -334,7 +344,7 @@
 </script>
 <style lang="scss">
     .login-main{
-        background: url('http://192.168.0.133:20000/assets/images/bg-login.png') no-repeat  50% 50%;
+        background: url('http://swim.zmtek.net/assets/images/bg-login.png') no-repeat  50% 50%;
         background-size: cover;
         width: 100%;
         height: 100vh;
@@ -353,7 +363,7 @@
             padding: 20px 30px;
             .login-logo{
                 display: block;
-                margin: 0 auto 6px;
+                margin: 6px auto 6px;
                 width: 60%;
             }
             .login-title{
@@ -411,10 +421,10 @@
         .el-form-item{
             margin-bottom: 0;
         }
-        .el-popover{
+        .slidingPictures{
             position: fixed;
             right: 177px;
-            top: 205px;
+            top: 257px;
             width: 280px;
         }
     }
@@ -439,7 +449,6 @@
         width: 200px;
         margin: 20px auto 0;
     }
-
 
     /*该样式最终是以弹窗插入*/
     .sliding-pictures {
@@ -516,6 +525,18 @@
                     background: #e2e8f5;
                 }
             }
+        }
+    }
+
+
+    /*口碑*/
+    .login-main .login-ruleForm{
+        margin-top: 20px;
+        .btnLogin{
+            margin-top: 30px;
+        }
+        .el-input{
+            margin-top: 20px;
         }
     }
 </style>

@@ -38,9 +38,6 @@ require('echarts/lib/component/legendScroll')//图例滚动
 //vue全局注入echarts
 Vue.prototype.$echarts = echarts
 
-
-
-
 /*引入自己的全局的css*/
 import '@/assets/css/global.scss'
 import '@/assets/css/animate37.css'

@@ -42,9 +42,10 @@
             ...mapState('StoreActiveNav',[ //用mapGetters来获取collection.js里面的getters
                 'openedPageList',
             ]),
-            // tagNavList(){
-            //     return this.$store.state.tagNav.openedPageList
-            // }
+
+            tagNavList(){
+                return this.$store.state.StoreActiveNav.openedPageList
+            }
         },
         mounted(){
             // 首次加载时将默认页面加入缓存
@@ -94,6 +95,10 @@
             closeTheTag(item, index){
                 // 当关闭当前页面的Tag时，则自动加载前一个Tag所属的页面
                 // 如果没有前一个Tag，则加载默认页面
+
+                console.log(item);
+                console.log(index);
+                console.log(this.tagNavList);
 
                 this.$store.commit("StoreActiveNav/removeTagNav", item)
                 if(this.$route.path == item.path){

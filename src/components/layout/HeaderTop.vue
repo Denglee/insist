@@ -19,7 +19,7 @@
 
             <!--头部用户信息+退出+更换密码-->
             <div class="headerTop-userInfo">
-                <img class="userHeader" :src='"http://spt.zmtek.net/"+UserInfo.logo' alt="">
+                <img class="userHeader" :src='localUrl+"/"+UserInfo.logo' alt="">
                 <el-dropdown class="dropdown-header">
                     <div class="el-dropdown-link">
                         <div class="userName">
@@ -45,7 +45,7 @@
         <el-dialog title="更换密码"
                    :visible.sync="dialogFormVisible"
                    custom-class="passAlert"
-                   width="40%">
+                   width="600px">
             <el-form :model="changePassForm" status-icon :rules="changeRules" ref="changePassForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="旧密码" prop="oldPass">
                     <el-input type="password" :show-password="true" v-model="changePassForm.oldPass" autocomplete="off"  clearable></el-input>
@@ -114,6 +114,8 @@
             };
 
             return {
+                localUrl:this.GLOBAL.localUrl,
+
                 SearchVal:"",  //搜索框值
                 dialogFormVisible: false,   //修改密码弹出框状态
 

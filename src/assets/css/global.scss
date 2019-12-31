@@ -66,8 +66,6 @@ input,button{
     overflow: hidden;
 }
 
-
-
 /*element*/
 .el-button--small{
     font-size: 14px;
@@ -76,10 +74,19 @@ input,button{
     border-radius: 6px;
 }
 
-/*首页*/
-.index-row{
-    padding: 20px 0;
+/*环绕*/
+.flex-between{
+    display: flex;
+    justify-content: space-between;
 }
+/*.layoutR-main {
+    .index-row{
+        //padding: 0;
+    }
+}*/
+
+/*首页*/
+
 
 @mixin borBom($wid, $color){
     border-bottom: solid $wid $color,;
@@ -90,29 +97,36 @@ input,button{
 @mixin borRadis($wid){
     border-radius: $wid;
 }
+
+//$colorB{
+//    color:$color-vipG
+//}
+
 .index-item{
-    @include borBom(1px, $color-linghtWhite);
-    @include borRadis(8px);
+    @include borRadis(20px);
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 0;
     position: relative;
+    height: 320px;
+    margin-bottom: 35px;
 }
 .index-item-title{
     @include borBom(1px, $color-linghtWhite);
-    padding-bottom:10px;
     font-size: 20px;
     font-weight:500;
+    padding:0 27px 12px;
 }
 .index-item-tipUl{
-    margin-top: 16px;
+    margin-top: 20px;
+    padding-left: 27px;
     li{
         display: inline-block;
-        margin-right: 16px;
+        margin-right: 20px;
         color: $color-gray;
-        font-size: 12px;
+        font-size: 13px;
         img{
             height: 8px;
-            margin-right: 2px;
+            margin-right: 4px;
         }
         span{
             width: 12px;
@@ -130,6 +144,11 @@ input,button{
     position: absolute;
     right: 40px;
     bottom: 40px;
+    font-size: 18px;
+
+    li{
+        margin-top: 20px;
+    }
     .vipTipG{
         color: $color-vipG;
     }
@@ -150,4 +169,149 @@ input,button{
     background-color: $color-vipY;
 }
 
+.present-box{
+    padding: 0 27px;
+}
+.present-top{
+    .title{
+        font-size: 20px;
+    }
+    .num{
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+}
 
+.present-TopL{
+    .num{
+        color:$color-vipB;
+    }
+}
+.present-TopR{
+    .title{
+        color:$color-gray ;
+    }
+    .num{
+        color: $color-vipY;
+    }
+}
+
+/*更衣室使用情况*/
+.locker-room{
+    height: 262px;
+    margin-bottom: 35px;
+    .index-item{
+        height: 100%;
+    }
+}
+.lockerRoom-box{
+    .index-item-tipUl{
+        width: 30%;
+        li{
+            display: block;
+            &:first-child{
+                margin-bottom: 18px;
+            }
+        }
+    }
+}
+
+.lockerRoom-main{
+    width: 70%;
+    padding-right: 40px;
+    padding-top: 22px;
+}
+.lockerRoom-item{
+    margin-top: 30px;
+    .el-progress-bar__outer{
+        height: 16px;
+    }
+    .flex-between{
+        margin-top: 4px;
+    }
+    .used-room{
+        color: $color-gray;
+    }
+    .surplus-roomM{
+        color: $color-vipB;
+    }
+    .surplus-roomF{
+        color: $color-vipY;
+    }
+}
+
+/*课程分析*/
+.lesson-main{
+    width: 50%;
+    display: inline-block;
+    position: relative;
+    .vipNum{
+
+    }
+}
+.lesson-borR:after{
+    content: '';
+    height:105px;
+    border:solid 1px $color-linghtWhite;
+    position: absolute;
+    top: calc( 50% - 32px);
+    right: 0;
+}
+.lesson-main-title{
+    color: $color-gray;
+    padding: 20px 0 0 27px;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+
+/*收支统计*/
+.income-container{
+    height: 248px;
+}
+.income-total{
+    float: left;
+    width: 18%;
+    margin-right: 2%;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 50px;
+    position: relative;
+    .price{
+        color: $color-vipB;
+    }
+}
+.income-borR:after{
+    content: '';
+    height:101px;
+    border:solid 1px $color-linghtWhite;
+    position: absolute;
+    top: calc( 50% - 52px);
+    right: 0;
+}
+.income-box{
+    width: 78%;
+    display: inline-block;
+    padding: 0 2%;
+    margin-top: 24px;
+    .el-progress-circle{
+        height: 80px!important;
+        width: 80px!important;
+        line-height: 80px;
+    }
+}
+.income-item{
+    text-align: center;
+    font-size: 18px;
+}
+.income-type{
+    color: $color-gray;
+}
+
+/*收支趋势*/
+.comein-main{
+    margin-bottom: 15px;
+    height: 422px;
+}

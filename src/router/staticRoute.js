@@ -41,7 +41,12 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Membercheck_card" */ '@/views/Reception/Membercheck_card'),
                 meta: {title: '审核卡信息'},
             },
-
+            {
+                path: 'Alipay/index',  //口碑码管理
+                name: 'Alipayindex',
+                component: () => import(/* webpackChunkName: "Alipayindex" */ '@/views/Reception/Alipayindex'),
+                meta: {title: '口碑码管理'},
+            },
             /*会员*/
             {
                 path: 'Member/index',   //潜在会员
@@ -300,7 +305,7 @@ const staticRoute = [
 
             /*设置*/
             {
-                path: 'Groupi/ndex',  //角色管理
+                path: 'Group/index',  //角色管理
                 name: 'Groupindex',
                 component: () => import(/* webpackChunkName: "Groupindex" */ '@/views/Setup/Groupindex'),
                 meta: {title: "角色管理"},
@@ -413,7 +418,12 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Citymanagefeedback" */ '@/views/Setup/Citymanagefeedback'),
                 meta: {title: "场馆留言"},
             },
-
+            {
+                path: 'Membership/device_koubei',  //口碑终端
+                name: 'Membershipdevice_koubei',
+                component: () => import(/* webpackChunkName: "Membershipdevice_koubei" */ '@/views/Setup/Membershipdevice_koubei'),
+                meta: {title: "口碑终端"},
+            },
             /*终端*/
             {
                 path: 'Devicemanage/terminal', //前台一体机
