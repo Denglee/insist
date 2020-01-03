@@ -131,6 +131,7 @@ $headerHeight:70px;
   display: flex;
   justify-content: flex-end;
   padding: 0 30px;
+  position: relative;
   .el-submenu__title{
     height: $headerHeight !important;
     line-height: $headerHeight !important;
@@ -138,6 +139,23 @@ $headerHeight:70px;
   }
   .el-icon-arrow-down:before{
     content: "\E6DF";
+  }
+}
+.header-cityName{
+  position: absolute;
+  left: 20px;
+  top: 22px;
+  background-color: $color-blue;
+  color: #FFF;
+  padding: 4px 16px;
+  border-radius: 22px;
+  cursor:pointer;
+  & :hover{
+   color: $color-gray;
+  }
+  > i{
+    margin-right: 4px;
+    font-size: 16px;
   }
 }
 .search-form{
@@ -153,6 +171,25 @@ $headerHeight:70px;
     background:rgba(239,242,249,1);
     border-radius:24px;
   }
+}
+.search-content{
+  li{
+    border-bottom: solid 1px $color-linghtWhite;
+    padding:2px 0;
+    width: 92%;
+    margin: 0 auto;
+  }
+  li:last-child{
+    border-bottom: none;
+  }
+}
+.search-phone{
+  width: 70%;
+  display: inline-block;
+}
+.search-name{
+  width: 30%;
+  display: inline-block;
 }
 
 .headerTop-userInfo{

@@ -2,6 +2,9 @@
     <div class="echarts-box"  ref="echartsBox" :style="style"></div>
 </template>
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 <script>
     export default {
         data() {

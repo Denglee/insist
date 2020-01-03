@@ -24,13 +24,20 @@
                        console.log(this.$route.fullPath);*/
             let userId=this.$route.params.user_id;
             console.log(userId);
+            let iframeUrl = '';
             if(!userId){
-                userId = '';
+                iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/.html';
+            }else{
+                iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/'+userId+'.html';
             }
-            let iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/'+userId+'.html';
             console.log(iframeUrl);
             this.localSrc = iframeUrl;
-
+        },
+        watch: {
+            '$route' (to, from) {
+                console.log(from);
+                this.$router.go(0);
+            }
         },
     }
 </script>

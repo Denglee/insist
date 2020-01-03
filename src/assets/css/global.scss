@@ -97,6 +97,17 @@ input,button{
 @mixin borRadis($wid){
     border-radius: $wid;
 }
+.index-container{
+    .el-date-editor .el-range-separator{
+        width: 7%;
+        color: $color-gray;
+    }
+    .el-input__inner{
+        height: 38px;
+        line-height: 38px;
+        margin-top: 6px;
+    }
+}
 
 //$colorB{
 //    color:$color-vipG
@@ -105,16 +116,30 @@ input,button{
 .index-item{
     @include borRadis(20px);
     background-color: #fff;
-    padding: 20px 0;
+    padding-bottom: 20px;
     position: relative;
     height: 320px;
     margin-bottom: 35px;
+    .el-input__icon{
+        height: 50px;
+    }
 }
 .index-item-title{
     @include borBom(1px, $color-linghtWhite);
     font-size: 20px;
     font-weight:500;
-    padding:0 27px 12px;
+    padding:0 27px;
+    height: 50px;
+    //line-height: 50px;
+    .title{
+        height: 50px;
+        line-height: 50px;
+    }
+}
+.lesson-time{
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .index-item-tipUl{
     margin-top: 20px;
@@ -175,6 +200,7 @@ input,button{
 .present-top{
     .title{
         font-size: 20px;
+        margin-top: 10px;
     }
     .num{
         font-size: 36px;
@@ -195,6 +221,29 @@ input,button{
     }
     .num{
         color: $color-vipY;
+    }
+}
+.present-time{
+    position: absolute;
+    right: 30px;
+    top: 112px;
+    z-index: 1111;
+    & > div{
+        width: 125px!important;
+    }
+    .el-input--prefix .el-input__inner{
+        height: 30px;
+        line-height: 30px;
+        padding-left: 28px;
+        /* line-height: 0px; */
+        padding-right: 0;
+        margin-top: 0;
+    }
+    .el-input__prefix{
+        height: 30px;
+        line-height: 30px;
+        left: 0;
+        top: -9px;
     }
 }
 
@@ -314,4 +363,9 @@ input,button{
 .comein-main{
     margin-bottom: 15px;
     height: 422px;
+}
+
+.comeIn-title{
+    color: $color-gray;
+    margin-right: 38px;
 }

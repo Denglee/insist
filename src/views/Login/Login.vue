@@ -134,13 +134,11 @@
                 }
             },
 
-            '$route' (to, from) {
-                console.log(this.getStatus(this.$route.path))
-            }
+
         },
 
         created() {
-            console.log(this.getStatus(this.$route.path));
+
         },
 
         methods: {
@@ -339,7 +337,8 @@
                 ctx.globalCompositeOperation = "xor";
             }
 
-        }
+        },
+
     }
 </script>
 <style lang="scss">

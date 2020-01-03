@@ -53,12 +53,16 @@ const router = new Router({
     routes: staticRoute
 })
 
+
+
 // 路由跳转前验证
 router.beforeEach((to, from, next) => {
     console.log(permissionList);
     // 开启进度条
     NProgress.start();
+
     next();
+
     // console.log(Auth.login);
     // 判断用户是否处于登录状态
     // debugger
@@ -124,7 +128,11 @@ router.beforeEach((to, from, next) => {
     }*/
 })
 
-router.afterEach(() => {
+
+
+
+router.afterEach((to, from) => {
+
     NProgress.done(); // 结束Progress
 })
 

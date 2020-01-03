@@ -73,9 +73,6 @@ module.exports = {
         }*/
     },
 
-
-
-
     // 它支持webPack-dev-server的所有选项
     devServer: {
         host: "localhost",

@@ -56,14 +56,7 @@
             return {
                 localUrl:this.GLOBAL.localUrl,
                 isCollapse: true,
-                isRouterAlive: false,   //控制视图是否显示的变量
             };
-        },
-
-        provide () {    //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。
-            return {
-                reload: this.reload
-            }
         },
 
         methods: {
@@ -99,6 +92,7 @@
             goIndex(){
                 this.$router.push({path:'/index'});
             },
+
 
             goNext(e){
                 console.log(e);

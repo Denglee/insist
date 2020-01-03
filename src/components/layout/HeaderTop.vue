@@ -1,6 +1,11 @@
 <template>
     <div class="headerTop-box">
         <div class="headerTop-user">
+
+            <div class="header-cityName" @click="goIndex()">
+                <i class="el-icon-s-home"></i>{{UserInfo.city_name || "智迈科技"}} - 后台首页
+            </div>
+
             <!--头部搜索-->
             <el-form class="search-form">
                 <el-autocomplete
@@ -8,18 +13,20 @@
                         v-model="SearchVal"
                         :fetch-suggestions="querySearchAsync"
                         @select="handleSelect"
+                        popper-class="search-content"
                         >
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                    <template slot-scope="{ item }">
+                         <div class="search-phone">{{ item.phone }}</div>
+                         <span class="search-name">{{ item.true_name }}</span>
+                     </template>
                 </el-autocomplete>
-                <!--<template slot-scope="{ item }">
-                    <div class="name">{{ item.phone }}</div>
-                    <span class="addr">{{ item.true_name }}</span>
-                </template>-->
+
             </el-form>
 
-            <!--头部用户信息+退出+更换密码-->
+            <!--头部用户信息+退出+更换密码 -->
             <div class="headerTop-userInfo">
-                <img class="userHeader" :src='localUrl+"/"+UserInfo.logo' alt="">
+                <img class="userHeader" :src='localUrl+"/"+UserInfo.logo || "assets/images/logo-daka.png"' alt="">
                 <el-dropdown class="dropdown-header">
                     <div class="el-dropdown-link">
                         <div class="userName">
@@ -154,6 +161,7 @@
                     console.log(res);
                     this.ACTlogout();
                     if(res.status == 1){
+
                         this.$message({
                             type:'success',
                             duration:1500,
@@ -179,7 +187,7 @@
                     }).then(res=>{
                         if(res.value){
                             for(let i of res.value){
-                                i.value = i.phone + ' / ' + i.true_name;
+                                i.value = i.phone;
                             }
                             list = res.value;
                         } else{
@@ -263,11 +271,15 @@
                 this.$refs[changePassForm].resetFields();
             },
 
+            /*回到首页*/
+            goIndex(){
+                this.$router.push({path:'/index'});
+            },
+
         },
         created() {
             this.metUserInfo();
             console.log(this.UserInfo);
-
         },
 
         computed: {

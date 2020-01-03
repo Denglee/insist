@@ -11,12 +11,13 @@ import Axios from 'axios'
 
 /*引入 element*/
 import ElementUI from 'element-ui';
-/*更换 element 主题*/
-import '@/assets/css/element-variables.scss'
 
+import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI, {
   size: 'middle'
 });
+
+
 
 /*import echarts from'echarts'
 Vue.prototype.$echarts = echarts //将echarts注册成Vue的全局属性*/
@@ -81,6 +82,8 @@ if (process.env.NODE_ENV === 'production') {
   Axios.defaults.baseURL = '/api';
   // Axios.defaults.baseURL = 'http://vikily.f3322.net:10007';
 }
+
+
 
 new Vue({
   router,

@@ -64,6 +64,7 @@
         },
         methods: {
 
+            /*路由跳转 刷新*/
             reloadRouter(e) {
                 let path = e.target.getAttribute('Path');
                 console.log(path);
@@ -75,10 +76,11 @@
                 });
             },
 
-            // goPath(e){
-            //     let path = e.target.getAttribute('Path');
+            // reloadRouter(e){
+            //     let Path = e.target.getAttribute('Path');
             //     console.log(Path);
             //     this.$router.push({path:Path});
+            //     this.$forceUpdate();
             // },
 
             addTagNav(){

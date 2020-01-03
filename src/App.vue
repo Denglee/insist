@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <!--<router-view v-if="isRouterAlive"/>-->
+    <!--<router-view v-if="isRouterAlive" :key="key"/>-->
 
-      <router-view v-if="isRouterAlive" :key="key"></router-view>
+      <router-view v-if="isRouterAlive"></router-view>
 
   </div>
 </template>
@@ -30,14 +30,14 @@
     },
 
     computed: {
-      key() {
+      /*key() {
         return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
-      }
+      }*/
     },
 
-    activated: function() {
+    /*activated: function() {
       this.getCase();
-    }
+    }*/
   }
 
   /*
