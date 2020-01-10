@@ -9,7 +9,7 @@
 
 html, body {
     position: relative;
-    font-family:Source Han Sans CN ,PingFangSC-Regular,sans-serif,Helvetica Neue, Helvetica, Arial ;
+    font-family:  Source Han Sans CN,PingFangSC-Regular,sans-serif,Helvetica Neue, Helvetica, Arial;
     line-height: 1.5;
     color: #323232;
 }
@@ -46,6 +46,7 @@ input,button{
     border: none;
     outline: none;
 }
+input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 
 /*省略号*/
 .ellipsis{
@@ -182,6 +183,9 @@ input,button{
     }
     .vipTipY{
         color: $color-vipY;
+    }
+    .vipTipYellow{
+        color: $color-Yellow;
     }
 }
 .addVip-tagG{

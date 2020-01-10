@@ -1,11 +1,11 @@
 <template>
     <div class="layoutR-main index-container">
-        <!--<iframe src="http://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>-->
-        <!-- <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
+        <iframe src="https://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>
+<!--         <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
 
         <!--现有会员  新增会员 在场人数 -->
-        <el-row :gutter="20" class="index-row">
-            <!--现有会员-->
+        <!--<el-row :gutter="20" class="index-row">
+            &lt;!&ndash;现有会员&ndash;&gt;
             <el-col :md="12" :lg="8" >
                 <div class="index-item">
                     <header class="index-item-title" @click="changeData($event)">
@@ -27,7 +27,7 @@
                 </div>
             </el-col>
 
-            <!--今日新增会员-->
+            &lt;!&ndash;今日新增会员&ndash;&gt;
             <el-col :md="12" :lg="8" >
                 <div class="index-item">
                     <header class="index-item-title">
@@ -49,17 +49,17 @@
                 </div>
             </el-col>
 
-            <!--在场人数-->
+            &lt;!&ndash;在场人数&ndash;&gt;
             <el-col :md="12" :lg="8" >
                 <div class="index-item">
                     <div class="flex-between present-box">
                         <div class="present-top present-TopL">
                             <p class="title">在场人数</p>
-                            <p class="num">58</p>
+                            <p class="num">0</p>
                         </div>
                         <div class="present-top present-TopR">
                             <p class="title">客流人数</p>
-                            <p class="num">129</p>
+                            <p class="num">0</p>
                         </div>
                     </div>
                     <div class="present-time">
@@ -79,7 +79,7 @@
                 </div>
             </el-col>
 
-            <!--更衣室使用情况-->
+            &lt;!&ndash;更衣室使用情况&ndash;&gt;
             <el-col :md="12" :lg="8">
                 <div class="index-item">
                     <header class="index-item-title">
@@ -92,17 +92,17 @@
                         </ul>
                         <ul class="lockerRoom-main">
                             <li class="lockerRoom-item">
-                                <el-progress :percentage="50" :text-inside="true" :stroke-width="16" :color="progressColorMan"></el-progress>
+                                <el-progress :percentage="0" :text-inside="true" :stroke-width="16" :color="progressColorMan"></el-progress>
                                 <div class="flex-between">
-                                    <div class="used-room">占用45</div>
-                                    <div class="surplus-roomM">剩余5</div>
+                                    <div class="used-room">占用0</div>
+                                    <div class="surplus-roomM">剩余0</div>
                                 </div>
                             </li>
                             <li class="lockerRoom-item">
-                                <el-progress :percentage="50" :text-inside="true" :stroke-width="16" :color="progressColorFeman"></el-progress>
+                                <el-progress :percentage="0" :text-inside="true" :stroke-width="16" :color="progressColorFeman"></el-progress>
                                 <div class="flex-between">
-                                    <div class="used-room">占用20</div>
-                                    <div class="surplus-roomF">剩余15</div>
+                                    <div class="used-room">占用0</div>
+                                    <div class="surplus-roomF">剩余0</div>
                                 </div>
                             </li>
                         </ul>
@@ -110,7 +110,7 @@
                 </div>
             </el-col>
 
-            <!--课程分析-->
+            &lt;!&ndash;课程分析&ndash;&gt;
             <el-col :md="24" :lg="16">
                 <div class="index-item">
                     <header class="index-item-title flex-between">
@@ -139,8 +139,8 @@
                         <div class="lesson-item">
                             <eCharts :eChartObj="lessonTrainer" :style="styleLesson"></eCharts>
                             <ul class="vipNum">
-                                <li>上课人数： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
+                                <li>上课人数： <span class="vipTipY">{{addVip.series[0].data[0].value}}</span></li>
+                                <li>预约人数： <span class="vipTipYellow">{{addVip.series[0].data[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
             </el-col>
         </el-row>
 
-        <!--收支统计-->
+        &lt;!&ndash;收支统计&ndash;&gt;
         <div class="index-item income-container clearfix">
             <header class="index-item-title flex-between">
                 <div class="title">收支统计</div>
@@ -165,7 +165,7 @@
             </header>
             <div class="income-total">
                 <div class="income-borR">
-                    <div class='price'>￥140000</div>
+                    <div class='price'>￥0</div>
                     <div>总收入</div>
                 </div>
             </div>
@@ -180,7 +180,7 @@
             </div>
         </div>
 
-        <!--收入趋势-->
+        &lt;!&ndash;收入趋势&ndash;&gt;
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">收入趋势</div>
@@ -205,7 +205,7 @@
                 <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">会籍营收</li>
             </ul>
             <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
-        </div>
+        </div>-->
 
     </div>
 </template>
@@ -227,44 +227,44 @@
                 /*收入统计 模拟数据*/
                 incomeArr:[
                     {
-                        percentage:35,
+                        percentage:0,
                         name:'团课收入',
-                        price:'5200',
+                        price:'0',
                         class:"colorRed",
                         color:'#005AD4',
                     },
                     {
-                        percentage:40,
+                        percentage:0,
                         name:'私教收入',
-                        price:'1680',
+                        price:'0',
                         class:"colorBlueL",
                         color:'#FF8A7E',
                     },
                     {
-                        percentage:54,
+                        percentage:0,
                         name:'会籍收入',
-                        price:'1180',
+                        price:'0',
                         class:"colorYellow",
                         color:'#4CCBEB',
                     },
                     {
-                        percentage:35,
+                        percentage:0,
                         name:'定金',
-                        price:'5200',
+                        price:'0',
                         class:"colorBlue",
                         color:'#FFBE00',
                     },
                     {
-                        percentage:70,
+                        percentage:0,
                         name:'转让',
-                        price:'1680',
+                        price:'0',
                         class:"colorGreen",
                         color:'#1EAAA1',
                     },
                     {
-                        percentage:20,
+                        percentage:0,
                         name:'退还',
-                        price:'1680',
+                        price:'0',
                         class:"colorViolet",
                         color:'#B6A2DE',
                     },
@@ -365,7 +365,7 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['8:00', '9:00', '10:00', '11:00'],
+                        data: ['8:00', '12:00', '16:00', '20:00'],
                         //设置坐标轴字体颜色和宽度
                         axisLine:{
                             lineStyle:{
@@ -402,12 +402,12 @@
 
                             name: '客流趋势',
                             type: 'line',
-                            data: [110, 201, 150, 223],
+                            data: [0, 0, 0, 0],
                         },
                         {
                             name: '在场人数',
                             type: 'line',
-                            data: [431, 321, 335, 413],
+                            data: [0, 0, 0, 0],
                         }
                     ]
                 },
@@ -449,8 +449,8 @@
                                 }
                             },
                             data: [
-                                {value: 335, name: '上课人数'},
-                                {value: 310, name: '预约人数'},
+                                {value: 0, name: '上课人数'},
+                                {value: 0, name: '预约人数'},
                             ]
                         }
                     ]
@@ -492,8 +492,8 @@
                                 }
                             },
                             data: [
-                                {value: 335, name: '上课人数'},
-                                {value: 310, name: '预约人数'},
+                                {value: 0, name: '上课人数'},
+                                {value: 0, name: '预约人数'},
                             ]
                         }
                     ]
@@ -507,7 +507,7 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['09-02', '09-04', '09-06', '09-18'],
+                        data: ['01-02', '01-04', '01-06', '01-08'],
                         axisLine:{
                             lineStyle:{
                                 color:'#8E8E8E',
@@ -535,7 +535,7 @@
                         {
                             name: '团课营收',
                             type: 'line',
-                            data: [910, 401, 850, 723],
+                            data: [0, 0, 0, 0],
                             symbolSize: 8,   //设定实心点的大小
                             lineStyle: {
                                 normal: {
@@ -547,13 +547,13 @@
                             name: '私教营收',
                             type: 'line',
                             symbolSize: 8,   //设定实心点的大小
-                            data: [431, 921, 435, 613],
+                            data: [0, 0, 0, 0],
                         },
                         {
                             name: '会籍营收',
                             symbolSize: 8,   //设定实心点的大小
                             type: 'line',
-                            data: [700, 321, 535, 413],
+                            data: [0, 0, 0, 0],
                         }
                     ]
                 },
@@ -561,17 +561,13 @@
             }
         },
 
-        mounted() {
-
-        },
-
         methods: {
             changeData(e) {
                 console.log('11');
                 this.chartVip.series[0].data = [
-                    {value: 210, name: '潜在会员'},
-                    {value: 134, name: '正式会员'},
-                    {value: 235, name: '私教会员'},
+                    {value: 0, name: '潜在会员'},
+                    {value: 0, name: '正式会员'},
+                    {value: 0, name: '私教会员'},
                 ];
             },
 
@@ -601,16 +597,16 @@
 
             /*现有会员数据*/
             this.chartVip.series[0].data = [
-                {value: 310, name: '潜在会员'},
-                {value: 234, name: '正式会员'},
-                {value: 135, name: '私教会员'},
+                {value: 0, name: '潜在会员'},
+                {value: 0, name: '正式会员'},
+                {value: 0, name: '私教会员'},
             ];
 
             /*新增会员数据*/
             this.addVip.series[0].data = [
-                {value: 50, name: '潜在会员'},
-                {value: 34, name: '正式会员'},
-                {value: 15, name: '私教会员'},
+                {value: 0, name: '潜在会员'},
+                {value: 0, name: '正式会员'},
+                {value: 0, name: '私教会员'},
             ];
 
         },

@@ -29,10 +29,12 @@
                 <img class="userHeader" :src='localUrl+"/"+UserInfo.logo || "assets/images/logo-daka.png"' alt="">
                 <el-dropdown class="dropdown-header">
                     <div class="el-dropdown-link">
-                        <div class="userName">
+                        <div class="user-name">
                             {{UserInfo.username}}
-                            <i class="el-icon-caret-bottom"></i>
+                            <div>{{UserInfo.auth_name}}</div>
                         </div>
+                        <div><i class="el-icon-caret-bottom"></i></div>
+
                     </div>
                     <el-dropdown-menu slot="dropdown"
                                       hide-timeout="30000"
@@ -121,6 +123,7 @@
             };
 
             return {
+                // cityName:'',
                 localUrl:this.GLOBAL.localUrl,
 
                 SearchVal:"",  //搜索框值
@@ -151,7 +154,7 @@
         methods: {
             ...mapActions({
                 ACTlogout:'StoreTagNav/ACTlogout',   //store里 loginOut 退出登录方法
-                metUserInfo:'StoreTagNav/actUserInfo',
+                mutUserInfo:'StoreTagNav/actUserInfo',
             }),
 
             /*退出登录*/
@@ -278,8 +281,37 @@
 
         },
         created() {
-            this.metUserInfo();
+            /*获取用户信息*/
+            // this.mutUserInfo();
+
             console.log(this.UserInfo);
+
+            // let city_name = this.UserInfo.city_name;
+            // console.log(city_name);
+            // if(this.UserInfo == undefined){
+            //     console.log('asd');
+            //     // this.$message({
+            //     //     message: res.info,
+            //     //     type: 'success',
+            //     //     duration: 1500,
+            //     //     offset: 100,
+            //     // });
+            //     // // return false;
+            //     // setTimeout(() => {
+            //     //     that.$router.push({path: '/index'});
+            //     // }, 1500);
+            //     this.$message({
+            //         message:'登录过期',
+            //         // icon:'fail',
+            //         duration:2000,
+            //         type:'error',
+            //         offset:100,
+            //     });
+            //
+            //     setTimeout(() =>{
+            //         this.$router.push({path:'/login'});
+            //     },1500)
+            // }
         },
 
         computed: {

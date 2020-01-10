@@ -1,4 +1,3 @@
-
 import { Message } from 'element-ui';
 import router from '../router'
 
@@ -11,6 +10,7 @@ const getters = {
 
     /*获取用户信息*/
     getsUserInfo(){
+
         let userInfo =JSON.parse(localStorage.getItem('userInfo'));
         if(userInfo){
             if(userInfo.logo == 1){
@@ -19,6 +19,19 @@ const getters = {
             // console.log(userInfo);
             state.StateUserInfo = userInfo;
             return userInfo;
+        }else {
+            console.log('asdasdasdasdasdfadfasdf');
+            Message({
+                message:'登录过期,请重新登录。',
+                // icon:'fail',
+                duration:2000,
+                type:'error',
+                offset:100,
+            });
+
+            setTimeout(() =>{
+                router.push({path:'/login'});
+            },1500);
         }
     },
     /*获取 导航列表*/

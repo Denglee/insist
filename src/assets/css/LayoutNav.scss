@@ -1,5 +1,26 @@
 @import "public";
 /*layout*/
+
+@mixin scrollBar(){
+  & ::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width : 10px!important;  /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px!important;
+  }
+  & ::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius   : 4px!important;
+    background-color: #203047!important;
+  }
+  & ::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    //box-shadow   : inset 0 0 5px #223354;
+    //background   : #1c2b3f;
+    background   : #2c4362!important;
+    border-radius: 4px!important;
+  }
+}
+
 .layout-box {
   /*layout-left 左侧导航*/
   .layout-left{
@@ -8,6 +29,9 @@
     position: fixed;
     left: 0;
     top: 0;
+
+    @include scrollBar();
+
     .layoutLeft-nav {
       width: 100%;
       max-height:100vh;
@@ -31,32 +55,6 @@
         border: none;
       }
     }
-    & ::-webkit-scrollbar {
-      /*滚动条整体样式*/
-      width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
-      height: 4px;
-    }
-    & ::-webkit-scrollbar-thumb {
-      /*滚动条里面小方块*/
-      border-radius   : 4px;
-      background-color: #203047;
-      //background-image: -webkit-linear-gradient(45deg,
-      //                rgba(255, 255, 255, 0.2) 25%,
-      //                transparent 25%,
-      //                transparent 50%,
-      //                rgba(255, 255, 255, 0.2) 50%,
-      //                rgba(255, 255, 255, 0.2) 75%,
-      //                transparent 75%,
-      //                transparent
-      //);
-    }
-    & ::-webkit-scrollbar-track {
-      /*滚动条里面轨道*/
-      //box-shadow   : inset 0 0 5px #223354;
-      //background   : #1c2b3f;
-      background   : #2c4362;
-      border-radius: 4px;
-    }
   }
   /*layout-left 右边主题内容*/
   .layout-right{
@@ -77,15 +75,17 @@
 
 /*侧边 一级导航*/
 .Menu-LeftNav-Box{
-  .Menu-LeftNav {
-    max-height: 100vh !important;
-    overflow-y: auto !important;
-    left: 148px !important;
-    .el-menu--popup {
-      min-width: auto;
-      border-radius: 6px;
-    }
-  }
+  //.Menu-LeftNav {
+  //  max-height: 100vh !important;
+  //  overflow-y: auto !important;
+  //  left: 148px !important;
+  //  @include scrollBar();
+  //  .el-menu--popup {
+  //    min-width: auto;
+  //    border-radius: 6px;
+  //    margin-right: 0;
+  //  }
+  //}
   .el-submenu {
     text-align: center;
     padding:0 ;
@@ -101,9 +101,13 @@
 /*侧边 二级导航*/
 .Menu-LeftNav{
   left:150px!important;
+  @include scrollBar();
   .el-menu--popup{
-    min-width: auto;
+    overflow-y: auto;
+    max-height: 100vh;
+    min-width: 110px;
     border-radius: 6px;
+    margin-right: 0;
   }
   .el-menu-item,
   .el-submenu__title {
@@ -121,7 +125,10 @@
       padding: 10px 20px !important;
     }
   }
+
+
 }
+
 
 
 /*HeaderTop*/
@@ -194,11 +201,16 @@ $headerHeight:70px;
 
 .headerTop-userInfo{
   text-align: right;
-  display: flex;
+    display: flex;
+
   .el-dropdown-link{
     display: flex;
     height: 70px;
-    line-height: 70px;
+    align-items: center;
+    & :hover{
+        color: $color-blue;
+        cursor: pointer;
+      }
   }
   .userHeader{
     width: 50px;
@@ -207,9 +219,9 @@ $headerHeight:70px;
     display: block;
     margin: 10px;
   }
-  .userName:hover{
-    color: $color-blue;
-    cursor: pointer;
+  .user-name{
+    text-align: right;
+    margin-right: 10px;
   }
 }
 
@@ -222,7 +234,7 @@ $headerHeight:70px;
   box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
   position: fixed;
   right: 0;
-  top: 100px;
+  top: 60px!important;
   width: 100px;
   .el-dropdown-menu__item{
     padding: 0;
