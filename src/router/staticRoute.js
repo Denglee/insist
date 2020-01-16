@@ -642,7 +642,8 @@ const staticRoute = [
     {
         name: 'login',  //登录
         path: '/login',
-        component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/Login')
+        // component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/LoginSys')
+        component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/LoginSys')
     },
     {
         name: 'register', //注册

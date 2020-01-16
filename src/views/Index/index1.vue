@@ -1,6 +1,6 @@
 <template>
     <div class="layoutR-main">
-        <iframe src="http://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>
+        <iframe src="https://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>
        <!-- <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
     </div>
 </template>

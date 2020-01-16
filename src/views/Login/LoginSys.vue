@@ -1,8 +1,9 @@
 <template>
     <div class="login-main">
-        <img src="https://swim.zmtek.net/assets/images/logo-dakaB.png" alt="" class="login-logo">
+<!--        <img src="https://swim.zmtek.net/assets/images/logo-dakaB.png" alt="" class="login-logo">-->
         <div class="login-box">
-            <!--<img src="http://192.168.0.133:20000/assets/images/logo-daka.png" alt="" class="login-logo">-->
+            <img src="https://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="login-logo">
+            <!--<img src="~@/assets/images/logo-daka.png" alt="" class="login-logo">-->
             <div class="login-title">欢迎登陆</div>
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm"
                      v-show="!LoginWechat">
@@ -26,12 +27,11 @@
                     </el-input>
                 </el-form-item>
 
-                <el-button class="btnLogin" type="primary"  @click="submitForm('loginForm')">登录</el-button>
-                <!--<el-button class="btnLogin" type="primary"   @click="visible = !visible">立即登录</el-button>-->
+                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
 
                 <!--口碑不需要第三方登录-->
-                <!-- <el-divider>第三方登录</el-divider>
-                 <img src="~@/assets/img/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">-->
+                 <el-divider>第三方登录</el-divider>
+                 <img src="~@/assets/images/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
 
             </el-form>
 
@@ -354,251 +354,220 @@
 </script>
 <style lang="scss">
     .login-main {
-        background: url('https://swim.zmtek.net/assets/images/bg-login.png') no-repeat 50% 50%;
+        background: url(https://swim.zmtek.net/assets/images/bg-login2.png) no-repeat 50% 50%;
+        /*background: url('~@/assets/images/bg-login2.png') no-repeat 50% 50%;*/
         background-size: cover;
         width: 100%;
         height: 100vh;
-        position: relative;
+        position: relative
+    }
 
-        .login-logo {
-            display: block;
-            width: 200px;
-            position: absolute;
-            top: 37px;
-            right: 52px;
-        }
+    .login-main .login-box {
+        position: absolute;
+        right: 158px;
+        top: calc(50vh - 196px);
+        width: 340px;
+        min-height: 438px;
+        background: rgba(39, 61, 89, .9);
+        -webkit-box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+        box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px 30px
+    }
 
-        .login-box {
-            position: absolute;
-            right: 190px;
-            /*top: 378px;*/
-            top: 370px;
-            width: 386px;
+    .login-main .login-box .login-logo {
+        display: block;
+        margin: 6px auto 6px;
+        width: 60%
+    }
 
-            /*background:rgba(39,61,89,.9);*/
-            /*          <!--box-shadow:-1px 2px 8px 0px rgba(12,22,36,0.79);-->*/
-            /*border-radius:10px;*/
-            text-align: center;
-            padding: 0;
+    .login-main .login-box .login-title {
+        display: block;
+        margin: 0 auto;
+        color: #fff;
+        font-size: 16px
+    }
 
-            .login-title {
-                display: block;
-                margin: 0 auto;
-                font-size: 47px;
-                color: #1761A6;
-                /*font-weight: 100;*/
-            }
+    .login-main .login-box .el-input {
+        margin-top: 15px;
+        font-size: 16px
+    }
 
-            .el-input {
-                margin-top: 60px;
-                font-size: 16px;
-                color: #1761A6;
-            }
+    .login-main .login-box .el-input--small .el-input__icon {
+        color: #fff
+    }
 
-            .el-input__inner:hover {
-                border: 2px solid rgba(23, 97, 166, 0.5);
-            }
+    .login-main .login-box .el-input__inner {
+        background: hsla(0, 0%, 100%, .4);
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff
+    }
 
-            .el-input__inner {
-                /*height: 40px;*/
-                /*line-height: 40px;*/
-                background: #fff;
-                font-size: 26px;
-                font-weight: 400;
-                color: #1761A6;
-                height: 54px;
-                line-height: 54px;
-                border: 2px solid rgba(23, 97, 166, 1);
-                border-radius: 10px;
-                padding-left: 56px;
-                /*color:#333;*/
-            }
+    .login-main .login-box .btnLogin {
+        width: 100%;
+        margin-top: 15px;
+        background-color: #fff;
+        color: #273d59
+    }
 
-            .el-input__icon {
-                color: #1761A6;
-                width: 50px;
-                font-size: 30px;
-            }
+    .login-main .login-box .btnLogin:hover {
+        background-color: #273d59;
+        color: #fff
+    }
 
-            .btnLogin {
-                width: 386px;
-                height: 54px;
-                background: rgba(23, 97, 166, 1);
-                box-shadow: -1px 2px 8px 0px rgba(9, 40, 69, 0.51);
-                border-radius: 10px;
-                font-size: 25px;
-                border: none;
-            }
+    .login-main .login-box .el-divider__text {
+        background: #273d59;
+        color: #fff;
+        font-size: 16px
+    }
 
-            .btnLogin:hover {
-                background-color: rgba(23, 97, 166, 0.9);
-                color: #fff;
-            }
+    .login-main .login-box .logo-wechat {
+        width: 35px;
+        margin: 0 auto;
+        display: block;
+        cursor: pointer
+    }
 
-            .el-divider__text {
-                background: rgba(39, 61, 89, 1);
-                color: #fff;
-                font-size: 16px;
-            }
+    .login-main .login-box .LoginWechat-tip {
+        text-align: center;
+        color: #fff
+    }
 
-            .logo-wechat {
-                width: 35px;
-                margin: 0 auto;
-                display: block;
-                cursor: pointer;
-            }
+    .login-main .el-form-item__content {
+        margin-left: 0 !important
+    }
 
-            .LoginWechat-tip {
-                text-align: center;
-                color: #fff;
-            }
-        }
+    .login-main .el-form-item {
+        margin-bottom: 0
+    }
 
-        .el-form-item__content {
-            margin-left: 0 !important;
-        }
-
-        .el-form-item {
-            margin-bottom: 0;
-        }
-
-        .slidingPictures {
-            position: fixed;
-            right: 242px;
-            top: 350px;
-            width: 280px;
-        }
+    .login-main .slidingPictures {
+        position: fixed;
+        right: 188px;
+        top: 257px;
+        width: 280px
     }
 
     .login {
-        text-align: center;
+        text-align: center
     }
 
-    .login input {
+    .login button, .login input {
         display: block;
-        border: solid 1px #ddd;
+        border: 1px solid #ddd;
         border-radius: 4px;
         padding: 10px;
         width: 200px;
-        margin: 20px auto 0;
+        margin: 20px auto 0
     }
 
-    .login button {
-        display: block;
-        border: solid 1px #ddd;
-        border-radius: 4px;
-        padding: 10px;
-        width: 200px;
-        margin: 20px auto 0;
-    }
-
-    /*该样式最终是以弹窗插入*/
     .sliding-pictures {
         width: 100%;
-        position: relative;
-
-        .vimg {
-            width: 100%;
-            height: 170px;
-
-            #codeImg,
-            #sliderBlock {
-                /*padding: 7px 7px 0 7px;*/
-                width: inherit;
-                height: inherit;
-            }
-
-            #codeImg {
-                //display: none;
-            }
-
-            #sliderBlock {
-                position: absolute;
-                z-index: 4000;
-            }
-        }
-
-        .slider {
-            width: 100%;
-            height: 65px;
-            border-bottom: #c7c9d0 1px solid;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-
-            .track {
-                margin-left: 7px;
-                width: 286px;
-                height: 38px;
-                background: rgba(28, 136, 188, 0.5);
-                border-radius: 25px;
-                font-size: 14px;
-                line-height: 38px;
-                padding-right: 15px;
-                padding-left: 62px;
-            }
-
-            .pintuTrue {
-                background: #67c23a;
-                color: #ffffff;
-            }
-
-            .button {
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                line-height: 48px;
-                background: #ffffff;
-                box-shadow: #b9bdc8 0 0 3px;
-                border-radius: 50%;
-                left: 7px;
-                text-align: center;
-                font-size: 28px;
-                color: #3e5d8b;
-
-                &:hover {
-                    color: #2181bd;
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .operation {
-            width: 100%;
-            height: 40px;
-
-            > span {
-                color: #9fa3ac;
-                display: inline-block;
-                width: 40px;
-                font-size: 25px;
-                line-height: 40px;
-                text-align: center;
-
-                &:hover {
-                    background: #e2e8f5;
-                }
-            }
-        }
+        position: relative
     }
 
+    .sliding-pictures .vimg {
+        width: 100%;
+        height: 170px
+    }
 
-    /*口碑*/
+    .sliding-pictures .vimg #codeImg,
+    .sliding-pictures .vimg #sliderBlock {
+        width: inherit;
+        height: inherit
+    }
+
+    .sliding-pictures .vimg #sliderBlock {
+        position: absolute;
+        z-index: 4000
+    }
+
+    .sliding-pictures .slider {
+        width: 100%;
+        height: 65px;
+        border-bottom: 1px solid #c7c9d0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start
+    }
+
+    .sliding-pictures .slider .track {
+        margin-left: 7px;
+        width: 286px;
+        height: 38px;
+        background: rgba(28, 136, 188, .5);
+        border-radius: 25px;
+        font-size: 14px;
+        line-height: 38px;
+        padding-right: 15px;
+        padding-left: 62px
+    }
+
+    .sliding-pictures .slider .pintuTrue {
+        background: #67c23a;
+        color: #fff
+    }
+
+    .sliding-pictures .slider .button {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        line-height: 48px;
+        background: #fff;
+        -webkit-box-shadow: #b9bdc8 0 0 3px;
+        box-shadow: 0 0 3px #b9bdc8;
+        border-radius: 50%;
+        left: 7px;
+        text-align: center;
+        font-size: 28px;
+        color: #3e5d8b
+    }
+
+    .sliding-pictures .slider .button:hover {
+        color: #2181bd;
+        cursor: pointer
+    }
+
+    .sliding-pictures .operation {
+        width: 100%;
+        height: 40px
+    }
+
+    .sliding-pictures .operation > span {
+        color: #9fa3ac;
+        display: inline-block;
+        width: 40px;
+        font-size: 25px;
+        line-height: 40px;
+        text-align: center
+    }
+
+    .sliding-pictures .operation > span:hover {
+        background: #e2e8f5
+    }
+
     .login-main .login-ruleForm {
-        margin-top: 0;
-
-        .btnLogin {
-            margin-top: 40px;
-        }
-
-        .el-input {
-            margin-top: 40px;
-        }
-
-        .el-input .el-input__clear {
-            font-size: 20px;
-            width: 40px;
-            color: rgba(23, 97, 166, 0.8);
-        }
+        margin-top: 10px;
+        /*input:-webkit-autofill {*/
+        /*    box-shadow: 0 0 0px 1000px #7F8FA1 inset !important;*/
+        /*    color: #fff!important;*/
+        /*}*/
     }
+
+    .login-main .login-ruleForm .btnLogin {
+        margin-top: 30px
+    }
+
+    .login-main .login-ruleForm .el-input {
+        margin-top: 20px
+    }
+
 </style>

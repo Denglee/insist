@@ -34,3 +34,8 @@ export const ApiChangePass = params => post('admin/Web/update_password', params)
 export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params);
 
 
+/* ==-- 首页 --== */
+/*1、首页数据*/
+export const ApiIndex = params => post('admin/Member/getMemberInfo', params);
+
+

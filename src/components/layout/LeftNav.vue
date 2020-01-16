@@ -2,7 +2,7 @@
     <aside class="layoutLeft-nav">
         <!--logo-->
         <div class="img-logoBox" @click="goIndex()">
-            <img src="http://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="img-logo">
+            <img src="https://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="img-logo">
             <!--<img class="img-logo" :src='localUrl+"/"+UserInfo.logo' alt="">-->
         </div>
         <el-menu class="Menu-LeftNav-Box"
