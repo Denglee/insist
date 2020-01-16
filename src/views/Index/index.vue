@@ -19,211 +19,31 @@
                     <div class="flex-between">
                         <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
                         <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{chartVip.series[0].data[2].value}}</span></li>
+                            <li>潜在会员： <span class="vipTipG">{{chartVipData[0].value}}</span></li>
+                            <li>正式会员： <span class="vipTipG">{{chartVipData[1].value}}</span></li>
+<!--                            <li>私教会员： <span class="vipTipG">{{chartVipData.data[2].personal_members}}</span></li>-->
+<!--                            <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>-->
+<!--                            <li>私教会员： <span class="vipTipY">{{chartVip.series[0].data[2].value}}</span></li>-->
                         </ul>
-                    </div>
-                </div>
-            </el-col>
-
-            <!--今日新增会员-->
-            <el-col :md="12" :lg="8">
-                <div class="index-item">
-                    <header class="index-item-title">
-                        <div class="title">今日新增会员</div>
-                    </header>
-                    <ul class="index-item-tipUl">
-                        <li><span class="addVip-tagG"></span>潜在会员</li>
-                        <li><span class="addVip-tagB"></span>正式会员</li>
-                        <li><span class="addVip-tagY"></span>私教会员</li>
-                    </ul>
-                    <div class="flex-between">
-                        <eCharts :eChartObj="addVip" :style="styleAddVip"></eCharts>
-                        <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{addVip.series[0].data[2].value}}</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </el-col>
-
-            <!--在场人数-->
-            <el-col :md="12" :lg="8">
-                <div class="index-item">
-                    <div class="flex-between present-box">
-                        <div class="present-top present-TopL">
-                            <p class="title">在场人数</p>
-                            <p class="num">{{presentNo}}</p>
-                        </div>
-                        <div class="present-top present-TopR">
-                            <p class="title">客流人数</p>
-                            <p class="num">{{customerNo}}</p>
-                        </div>
-                    </div>
-
-                    <!--<div class="present-time">
-                        <el-date-picker
-                                @change="truePresent"
-                                v-model="datePresent"
-                                type="date"
-                                placeholder="选择日期"
-                                value-format="yyyy-MM-dd"
-                                format="yyyy-MM-dd">
-                        </el-date-picker>
-                    </div>-->
-
-                    <div class="flex-between">
-                        <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>
-                    </div>
-                </div>
-            </el-col>
-
-            <!--更衣室使用情况-->
-            <el-col :md="12" :lg="8">
-                <div class="index-item">
-                    <header class="index-item-title">
-                        <div class="title">更衣室使用情况</div>
-                    </header>
-                    <div class="lockerRoom-box flex-between">
-                        <ul class="index-item-tipUl">
-                            <li><span class="addVip-tagB"></span>男更</li>
-                            <li><span class="addVip-tagY"></span>女更</li>
-                        </ul>
-                        <ul class="lockerRoom-main">
-                            <li class="lockerRoom-item">
-                                <el-progress :percentage="roomMan" :text-inside="true" :stroke-width="16"
-                                             :color="progressColorMan" ></el-progress>
-                                <div class="flex-between">
-                                    <div class="used-room">占用{{roomManUsed}}</div>
-                                    <div class="surplus-roomM">剩余{{roomSurplus}}</div>
-                                </div>
-                            </li>
-                            <li class="lockerRoom-item">
-                                <el-progress :percentage="roomFeman" :text-inside="true" :stroke-width="16"
-                                             :color="progressColorFeman"></el-progress>
-                                <div class="flex-between">
-                                    <div class="used-room">占用{{roomFemanUsed}}</div>
-                                    <div class="surplus-roomF">剩余{{roomFemanSurplus}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </el-col>
-
-            <!--课程分析-->
-            <el-col :md="24" :lg="16">
-                <div class="index-item">
-                    <header class="index-item-title flex-between">
-                        <div class="title">课程分析</div>
-                        <!--<el-date-picker
-                                @change="trueLesson"
-                                v-model="dateLesson"
-                                type="date"
-                                placeholder="选择日期"
-                                value-format="yyyy-MM-dd"
-                                format="yyyy 年 MM 月 dd 日">
-                        </el-date-picker>-->
-                    </header>
-                    <div class="lesson-main lesson-borR">
-                        <h4 class="lesson-main-title">团课</h4>
-                        <div class="lesson-item">
-                            <eCharts :eChartObj="lessonGroup" :style="styleLesson"></eCharts>
-                            <ul class="vipNum">
-                                <li>上课人数： <span class="vipTipG">{{lessonGroup.series[0].data[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipB">{{lessonGroup.series[0].data[1].value}}</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="lesson-main">
-                        <h4 class="lesson-main-title">私教课</h4>
-                        <div class="lesson-item">
-                            <eCharts :eChartObj="lessonTrainer" :style="styleLesson"></eCharts>
-                            <ul class="vipNum">
-                                <li>上课人数： <span class="vipTipY">{{lessonTrainer.series[0].data[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipYellow">{{lessonTrainer.series[0].data[1].value}}</span>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </el-col>
         </el-row>
-
-        <!--收支统计-->
-        <div class="index-item income-container clearfix">
-            <header class="index-item-title flex-between">
-                <div class="title">收支统计</div>
-               <!-- <div>
-                    <el-date-picker
-                            @change="trueComeinTotal"
-                            v-model="dateComeinTotal"
-                            type="date"
-                            placeholder="选择日期"
-                            value-format="yyyy-MM-dd"
-                            format="yyyy年MM月dd日">
-                    </el-date-picker>
-                </div>-->
-            </header>
-            <div class="income-total">
-                <div class="income-borR">
-                    <div class='price'>￥{{incomeTotal}}</div>
-                    <div>总收入</div>
-                </div>
-            </div>
-            <div class="income-box">
-                <ul class="flex-between">
-                    <li class="income-item" v-for="(item,index) in incomeArr" :key="index">
-                        <el-progress type="circle" :percentage="item.percentage" :stroke-width="16"
-                                     :color="item.color"></el-progress>
-                        <div :class="item.class">￥{{item.price}}</div>
-                        <div class="income-type">{{item.name}}</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!--收入趋势-->
-        <div class="index-item comein-main">
-            <header class="index-item-title flex-between">
-                <div class="title">收入趋势</div>
-                <!--<div>
-                    <span class="comeIn-title">日期筛选</span>
-                    <el-date-picker
-                            @change="trueComein"
-                            v-model="dateComein"
-                            type="daterange"
-                            align="right"
-                            value-format="yyyy-MM-dd"
-                            range-separator="至"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期"
-                            :default-time="['12:00:00', '08:00:00']">
-                    </el-date-picker>
-                </div>-->
-            </header>
-            <ul class="index-item-tipUl">
-                <li><img src="~@/assets/icon/icon_comeinTK.png" alt="">其他营收</li>
-                <li><img src="~@/assets/icon/icon_comeinSJ.png" alt="">私教营收</li>
-                <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">会籍营收</li>
-            </ul>
-            <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
-        </div>
-
     </div>
 </template>
 
 <script>
     import eCharts from '@/components/Echarts/Echarts'
-    import {ApiIndex} from '@/assets/js/api'   /*引用 首页 接口*/
+    import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
     export default {
         name: "index",
         inject: ['reLoad'],
 
         data() {
             return {
+
+                chartVipData:[],
+                progerssStroke:'square',  /*progress*/
                 presentNo:'20',  /*在场人数*/
                 customerNo:'20',  /*客流人数*/
 
@@ -232,79 +52,13 @@
                 dateComeinTotal: '',   /*收入统计 时间选择*/
                 dateComein: '',        /*收入趋势 时间选择*/
 
-                /*收入统计 模拟数据 */
-                incomeArr: [
-                    {
-                        percentage: 0,
-                        name: '团课收入',
-                        price: '0',
-                        class: "colorRed",
-                        color: '#005AD4',
-                    }, {
-                        percentage: 0,
-                        name: '私教收入',
-                        price: '0',
-                        class: "colorBlueL",
-                        color: '#FF8A7E',
-                    }, {
-                        percentage: 0,
-                        name: '会籍收入',
-                        price: '0',
-                        class: "colorYellow",
-                        color: '#4CCBEB',
-                    }, {
-                        percentage: 0,
-                        name: '定金',
-                        price: '0',
-                        class: "colorBlue",
-                        color: '#FFBE00',
-                    }, {
-                        percentage: 0,
-                        name: '转让',
-                        price: '0',
-                        class: "colorGreen",
-                        color: '#1EAAA1',
-                    }, {
-                        percentage: 0,
-                        name: '退还',
-                        price: '0',
-                        class: "colorViolet",
-                        color: '#B6A2DE',
-                    },
-                ],
-                incomeTotal:'1500',
-
-                /*更衣室数据*/
-                progressColorMan: '#005AD4', /*男更进度条 颜色*/
-                progressColorFeman: '#FF8A7E', /*女更进度条 颜色*/
-                roomMan: "",       /*比例*/
-                roomManUsed: '',   /*已使用 占用*/
-                roomSurplus: '',   /*剩余*/
-                roomFemanUsed: '',
-                roomFemanSurplus: '',
-
                 roomFeman: "",
                 /*eCharts 对应宽高*/
                 styleVip: {
                     height: '220px',
                     width: '220px',
                 },
-                styleAddVip: {
-                    height: '220px',
-                    width: '70%',
-                },
-                stylePresent: {
-                    height: '180px',
-                    width: '100%',
-                },
-                styleLesson: {
-                    height: '180px',
-                    width: '220px',
-                },
-                styleComeIN: {
-                    height: '310px',
-                    width: '100%',
-                },
+
 
                 /*现有会员*/
                 chartVip: {
@@ -335,385 +89,58 @@
                     }],
                 },
 
-                /*新增会员*/
-                addVip: {
-                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    series: [
-                        {
-                            type: 'funnel',
-                            left: '10%',
-                            width: '60%',
-                            height: '60%',
-                            top: '20%',
-
-                            label: {
-                                show: false,
-                                position: 'inside'
-                            },
-
-                            data: [
-                                {value: 60, name: '访问'},
-                                {value: 40, name: '咨询'},
-                                {value: 20, name: '订单'},
-                            ]
-                        }
-                    ]
-                },
-
-                /*在场与客流人数*/
-                presentNum: {
-                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'cross',
-                            label: {
-                                backgroundColor: '#6a7985'
-                            }
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        // data: ['8:00', '12:00', '16:00', '20:00'],
-                        //设置坐标轴字体颜色和宽度
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                color: '#f4f4f4',
-                                width: 1
-                            }
-                        }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        name: '客流趋势',   // y轴名称
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-                    grid: {
-                        top: "40px",
-                        left: "60px",
-                        right: "40px",
-                        bottom: "20px",
-                        width: "auto", //图例宽度
-                        height: "auto", //图例高度
-
-                    },
-                    series: [
-                        {
-
-                            name: '客流趋势',
-                            type: 'line',
-                            // data: [0, 0, 0, 0],
-                        },
-                        {
-                            name: '在场人数',
-                            type: 'line',
-                            // data: [0, 0, 0, 0],
-                        }
-                    ]
-                },
-
-                /*课程分析 团课*/
-                lessonGroup: {
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
-                    series: [
-                        {
-                            left: '20%',
-                            width: '90%',
-                            height: '90%',
-                            top: '0%',
-
-                            /*name: '课程分析',*/
-                            type: 'pie',
-                            radius: ['50%', '70%'],
-
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '18',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: true
-                                }
-                            },
-                        }
-                    ]
-                },
-
-                /*课程分析 私教课*/
-                lessonTrainer: {
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    color: ['#FF8A7E', '#FFBE00'], //自定义的颜色
-                    series: [
-                        {
-                            left: '20%',
-                            width: '90%',
-                            height: '90%',
-                            top: '0%',
-
-                            /*name: '课程分析',*/
-                            type: 'pie',
-                            radius: ['50%', '70%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '18',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: true,
-                                }
-                            },
-                        }
-                    ]
-                },
-
-                /*收入趋势*/
-                comeIn: {
-                    color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'axis',
-                    },
-                    xAxis: {
-                        type: 'category',
-                        // data: ['01-02', '01-04', '01-06', '01-08'],
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-                    grid: {
-                        top: "30px",
-                        left: "60px",
-                        right: "40px",
-                        bottom: "40px",
-                        width: "auto", //图例宽度
-                        height: "80%", //图例高度
-
-                    },
-                    series: [
-                        {
-                            name: '团课营收',
-                            type: 'line',
-                            data: [0, 0, 0, 0],
-                            symbolSize: 8,   //设定实心点的大小
-                            lineStyle: {
-                                normal: {
-                                    type: 'dashed',
-                                }
-                            },
-                        },
-                        {
-                            name: '私教营收',
-                            type: 'line',
-                            symbolSize: 8,   //设定实心点的大小
-                            data: [0, 0, 0, 0],
-                        },
-                        {
-                            name: '会籍营收',
-                            symbolSize: 8,   //设定实心点的大小
-                            type: 'line',
-                            data: [0, 0, 0, 0],
-                        }
-                    ]
-                },
-
             }
         },
 
         methods: {
-
-            /*获取数据*/
-            getIndex(){
-                ApiIndex().then(res => {
+            /*获取  数据*/
+            getTotal(){
+                let that = this;
+                IndexTotal_membership().then(res => {
                     console.log(res);
+                    /*现有会员  数据*/
+                    // this.$nextTick(()=>{
+                        this.chartVipData = res;
+                        console.log(that.chartVipData[0].value);
+                        console.log(that.chartVipData[1].value);
+                    // });
                 }).catch(res =>{
                    console.log(res);
                 });
             },
 
-
-            /*修改数据*/
-            changeData(e) {
-                console.log('11');
-                /*this.chartVip.series[0].data = [
-                    {value: 100, name: '潜在会员'},
-                    {value: 200, name: '正式会员'},
-                    {value: 150, name: '私教会员'},
-                ];*/
-            },
-
-            /*在场人数 时间选中*/
-            truePresent() {
-                console.log(this.datePresent);
-            },
-
-            /*课程分析 时间选中*/
-            trueLesson() {
-                console.log(this.dateLesson);
-            },
-
-            /*收入趋势 时间选中*/
-            trueComeinTotal() {
-                console.log(this.dateComeinTotal);
-            },
-
-            /*收入趋势 时间选中*/
-            trueComein() {
-                console.log(this.dateComein[0]);
-                console.log(this.dateComein[1]);
-            },
-
+        },
+        mounted(){
+            /*调用 获取收数据接口 方法*/
+            // this.getTotal();
         },
         created() {
 
-            /*调用 获取收数据接口 方法*/
-            this.getIndex();
+            let that =this;
 
-            /*现有会员  数据*/
+            /*调用 获取收数据接口 方法*/
+            this.getTotal();
+
             this.chartVip.series[0].data = [
-                {value: 0, name: '潜在会员'},
-                {value: 0, name: '正式会员'},
-                {value: 0, name: '私教会员'},
+                // {value: 335, name: '直接访问'},
+                // {value: 310, name: '邮件营销'},
+                // {value: 234, name: '联盟广告'},
+                {
+                    name:'1',
+                    value:'20',
+                },{
+                    name:'2',
+                    value:'10',
+                }
             ];
 
             /*新增会员  数据*/
-            this.addVip.series[0].data = [
-                {value: 0, name: '潜在会员'},
-                {value: 0, name: '正式会员'},
-                {value: 0, name: '私教会员'},
-            ];
+            // that.addVip.series[0].data = [
+            //     {value: 0, name: '潜在会员'},
+            //     {value: 0, name: '正式会员'},
+            //     {value: 0, name: '私教会员'},
+            // ];
 
-
-            /*在场人数  数据*/
-            this.presentNum.xAxis. data=['8:00', '12:00', '18:00', '20:00'];
-            this.presentNum.series[0].data = [
-                {value: 40, name: '潜在会员'},
-                {value: 80, name: '正式会员'},
-                {value: 60, name: '私教会员'},
-            ];
-            this.presentNum.series[1].data = [
-                {value: 60, name: '潜在会员'},
-                {value: 40, name: '正式会员'},
-                {value: 80, name: '私教会员'},
-            ];
-
-            /*更衣室   数据*/
-            this.roomManUsed = 10;
-            this.roomSurplus = 30;
-            this.roomMan = ((parseInt(this.roomManUsed) / parseInt(this.roomSurplus)).toFixed(4) * 100);
-            console.log(parseInt(this.roomManUsed));
-            console.log(parseInt(this.roomSurplus));
-            console.log(parseInt(this.roomManUsed) / parseInt(this.roomSurplus));
-            this.roomFemanUsed = 10;
-            this.roomFemanSurplus = 40;
-            this.roomFeman = (this.roomFemanUsed / this.roomFemanSurplus * 100);
-
-            /*课程分析 私教 数据*/
-            this.lessonGroup.series[0].data = [
-                {value: 60, name: '上课人数'},
-                {value: 40, name: '预约人数'},
-            ];
-
-            /*课程分析 团课 数据*/
-            this.lessonTrainer.series[0].data = [
-                {value: 60, name: '上课人数'},
-                {value: 80, name: '预约人数'},
-            ];
-
-            /*收入趋势*/
-            this.comeIn.xAxis.data=['01-11', '01-04', '01-06', '01-08'];
-            this.comeIn.series[0].data = [
-                {value: 40, name: '潜在会员'},
-                {value: 50, name: '正式会员'},
-                {value: 60, name: '私教会员'},
-            ];
-            this.comeIn.series[1].data = [
-                {value: 70, name: '潜在会员'},
-                {value: 80, name: '正式会员'},
-                {value: 150, name: '私教会员'},
-            ];
-            this.comeIn.series[2].data = [
-                {value: 60, name: '潜在会员'},
-                {value: 90, name: '正式会员'},
-                {value: 120, name: '私教会员'},
-            ];
-
-            /*收支统计*/
-            let incomeData = [
-                {
-                    percentage: 60,
-                    name: '团课收入',
-                    price: '60',
-                }, {
-                    percentage: 50,
-                    name: '私教收入',
-                    price: '50',
-                }, {
-                    percentage: 40,
-                    name: '会籍收入',
-                    price: '40',
-                }, {
-                    percentage: 30,
-                    name: '定金',
-                    price: '30',
-                }, {
-                    percentage: 20,
-                    name: '其他',
-                    price: '20',
-                }, {
-                    percentage: 10,
-                    name: '退还',
-                    price: '100',
-                }
-            ];
-            this.incomeArr = this.incomeArr.map((item, index) => {
-                return {...item, ...incomeData[index]};
-            });
 
         },
         components: {

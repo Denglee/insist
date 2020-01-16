@@ -618,37 +618,37 @@ const staticRoute = [
         children: [
             {
                 path: '401',
-                component: () => import(/* webpackChunkName: "401" */ '@/views/Error/401')
+                component: () => import(/* webpackChunkName: "401" */ '@/views/Error/401'),
             },
             {
                 path: '403',
-                component: () => import(/* webpackChunkName: "403" */ '@/views/Error/403')
+                component: () => import(/* webpackChunkName: "403" */ '@/views/Error/403'),
             },
             {
                 path: '404',
-                component: () => import(/* webpackChunkName: "404" */ '@/views/Error/404')
+                component: () => import(/* webpackChunkName: "404" */ '@/views/Error/404'),
             },
             {
                 path: '500',
-                component: () => import(/* webpackChunkName: "500" */ '@/views/Error/500')
+                component: () => import(/* webpackChunkName: "500" */ '@/views/Error/500'),
             }
         ]
     },
     {
         name: 'redirect',  //空白页面
         path: '/redirect',
-        component: () => import(/* webpackChunkName: "redirect" */ '@/components/redirect/redirect')
+        component: () => import(/* webpackChunkName: "redirect" */ '@/components/redirect/redirect'),
     },
     {
         name: 'login',  //登录
         path: '/login',
-        // component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/LoginSys')
-        component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/LoginSys')
+        // component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/Login')
+        component: () => import(/* webpackChunkName: "Login" */ '@/views/Login/LoginSys'),
     },
     {
         name: 'register', //注册
         path: '/register',
-        component: () => import(/* webpackChunkName: "Register" */ '@/views/Login/Register')
+        component: () => import(/* webpackChunkName: "Register" */ '@/views/Login/Register'),
     },
     {
         name: '*',
@@ -656,6 +656,6 @@ const staticRoute = [
         redirect: '/error/404'
     }
 
-]
+];
 
 export default staticRoute
