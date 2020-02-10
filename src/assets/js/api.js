@@ -38,10 +38,10 @@ export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params)
 /*1、首页数据*/
 export const IndexTotal_membership = params => post('admin/Web/total_membership', params);      /*现有会员*/
 export const IndexNew_membership   = params => post('admin/Web/new_membership', params);        /*新增会员*/
-export const IndexStatistics       = params => post('admin/Web/statistics', params);            /*客流*/
+export const IndexStatistics       = params => post('admin/Web/statistics', params);            /*客流 在场人数*/
 export const IndexDrawer           = params => post('admin/Web/drawer', params);                /*更衣柜使用*/
-export const IndexCurriculum       = params => post('admin/Web/curriculum', params);            /*预约上课*/
-export const IndexPerformance      = params => post('admin/Web/performance', params);           /*营收业绩*/
-export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /**/
+export const IndexCurriculum       = params => post('admin/Web/curriculum', params);            /*预约上课 课程分析*/
+export const IndexPerformance      = params => post('admin/Web/performance', params);           /*营收业绩 收支统计*/
+export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /*收支趋势*/
 
 

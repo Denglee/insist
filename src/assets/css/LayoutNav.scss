@@ -136,7 +136,7 @@ $headerHeight:70px;
 .headerTop-user{
   height: $headerHeight;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 30px;
   position: relative;
   .el-submenu__title{
@@ -149,14 +149,20 @@ $headerHeight:70px;
   }
 }
 .header-cityName{
-  position: absolute;
-  left: 20px;
-  top: 22px;
+  //position: absolute;
+  //left: 20px;
+  //top: 22px;
+  max-width: 350px;
   background-color: $color-blue;
   color: #FFF;
-  padding: 4px 16px;
+  padding: 0 16px;
   border-radius: 22px;
   cursor:pointer;
+  height: 30px;
+  line-height: 30px;
+  margin: 20px 20px 0 0;
+  display: block;
+  float: left;
   & :hover{
    color: $color-gray;
   }
@@ -164,6 +170,13 @@ $headerHeight:70px;
     margin-right: 4px;
     font-size: 16px;
   }
+}
+//.goOldUrl{
+//
+//}
+.header-rMain{
+  display: flex;
+  justify-content: flex-end;
 }
 .search-form{
   height: $headerHeight;

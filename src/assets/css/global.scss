@@ -316,7 +316,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     color: $color-gray;
     padding: 20px 0 0 27px;
     font-size: 20px;
-    font-weight: 100;
+    //font-weight: 100;
 }
 
 
@@ -334,6 +334,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     position: relative;
     .price{
         color: $color-vipB;
+        font-weight: bold;
     }
 }
 .income-borR:after{
