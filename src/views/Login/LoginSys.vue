@@ -1,0 +1,573 @@
+<template>
+    <div class="login-main">
+<!--        <img src="https://swim.zmtek.net/assets/images/logo-dakaB.png" alt="" class="login-logo">-->
+        <div class="login-box">
+            <img src="https://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="login-logo">
+            <!--<img src="~@/assets/images/logo-daka.png" alt="" class="login-logo">-->
+            <div class="login-title">欢迎登陆</div>
+            <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm"
+                     v-show="!LoginWechat">
+                <el-form-item prop="username">
+                    <el-input
+                            v-model="loginForm.username"
+                            placeholder="账号"
+                            clearable>
+                        <i slot="prefix" class="el-input__icon el-icon-user"></i>
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item prop="password">
+                    <el-input v-model="loginForm.password"
+                              placeholder="账号"
+                              type="password"
+                              clearable
+                              :show-password=true
+                              @keyup.enter.native="submitForm('loginForm')">
+                        <i slot="prefix" class="el-input__icon el-icon-unlock"></i>
+                    </el-input>
+                </el-form-item>
+
+                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
+
+                <!--口碑不需要第三方登录-->
+                 <el-divider>第三方登录</el-divider>
+                 <img src="~@/assets/images/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
+
+            </el-form>
+
+            <!--微信扫码登录-->
+            <div class="login-wechat" v-if="LoginWechat">
+                <img src="" alt="">
+                <div class="LoginWechat-tip">
+                    请使用微信扫描二维码登录
+                    <br>
+                    “健身房管理系统”
+                </div>
+                <el-button class="btnLogin" type="primary" @click="goCodeLogin()">返回账号密码登录</el-button>
+            </div>
+
+        </div>
+
+        <!--验证码弹窗-->
+        <el-popover
+                popper-class="slidingPictures"
+                ref="popover"
+                trigger="manual"
+                v-model="visible"
+        >
+            <div class="sliding-pictures">
+                <div class="vimg">
+                    <canvas id="sliderBlock"></canvas>
+                    <canvas id="codeImg"></canvas>
+                </div>
+                <div class="slider">
+                    <div class="track" :class="{ pintuTrue: puzzle }">
+                        {{ tips }}
+                    </div>
+                    <div class="button el-icon-s-grid" @mousedown.prevent="drag"></div>
+                </div>
+                <div class="operation">
+                   <span
+                           title="关闭验证码"
+                           @click="visible = false"
+                           class="el-icon-circle-close"
+                   ></span>
+                    <span
+                            title="刷新验证码"
+                            @click="canvasInit"
+                            class="el-icon-refresh-left"
+                    ></span>
+                </div>
+            </div>
+        </el-popover>
+
+    </div>
+</template>
+
+<script>
+    import {ApiloginIn} from '@/assets/js/api'
+    import {mapActions} from 'vuex'
+
+    let btnStatusLogin = true;   //按钮是否可点击状态
+
+    export default {
+        inject: ['reLoad'],
+        data() {
+            return {
+                LoginWechat: false, //登录方式切换 显隐状态
+                loginForm: {
+                    username: '',
+                    password: '',
+                },
+                loginRules: {  //验证规则
+                    username: [
+                        {required: true, message: '姓名不能为空', trigger: 'blur'}
+                    ],
+                    password: [
+                        {required: true, message: '密码不能为空', trigger: 'blur'}
+                    ],
+                },
+
+                tips: "拖动左边滑块完成上方拼图",
+
+                visible: false,  //登录验证滑动框 显隐状态
+                //滑块x轴数据
+                slider: {
+                    mx: 0,
+                    bx: 0
+                },
+                //拼图是否正确
+                puzzle: false,
+
+            }
+        },
+        computed: {
+            /*       ...mapState({
+                       lang: state => state.lang,
+                       theme: state => state.theme
+                   })*/
+        },
+        watch: {
+            visible(e) {
+                if (e === true) {
+                    this.canvasInit();
+                    this.puzzle = false;
+                }
+            },
+
+
+        },
+
+        created() {
+
+        },
+
+        methods: {
+            ...mapActions({
+                ACTLogin: 'StoreTagNav/ACTLogin',   //store里 login登录方法 并 保存用户信息
+            }),
+
+            getStatus(urlStr) {
+                var urlStrArr = urlStr.split('/');
+                return urlStrArr[urlStrArr.length - 1]
+            },
+
+            /*二维码登录*/
+            goCodeLogin() {
+                this.LoginWechat = !this.LoginWechat;
+                this.visible = false;
+            },
+
+            /*提交*/
+            submitForm(loginForm) {
+                this.$refs[loginForm].validate((valid) => {
+                    if (valid && btnStatusLogin) {
+                        this.tips = "拖动左边滑块完成上方拼图";
+                        console.log(`${btnStatusLogin}`);
+                        /*弹出验证框*/
+                        this.visible = !this.visible;
+                        btnStatusLogin = false;
+                        setTimeout(() => {
+                            btnStatusLogin = true;
+                        }, 500);
+                    } else {
+                        console.error('登录提交失败!!');
+                        return false;
+                    }
+                });
+            },
+
+            //拼图验证码初始化
+            canvasInit() {
+                //生成指定区间的随机数
+                const random = (min, max) => {
+                    return Math.floor(Math.random() * (max - min + 1) + min);
+                };
+                //x: 254, y: 109
+                let mx = random(100, 200),
+                    bx = random(10, 100),
+                    y = random(10, 99);
+                this.slider = {mx, bx};
+                this.draw(mx, bx, y);
+            },
+            //鼠标按下
+            drag(e) {
+                console.log("鼠标按下", e);
+                let dom = e.target; //dom元素
+                let slider = document.querySelector("#sliderBlock"); //滑块dom
+                const downCoordinate = {x: e.x, y: e.y};
+                //正确的滑块数据
+                let checkx = Number(this.slider.mx) - Number(this.slider.bx);
+                //x轴数据
+                let x = 0;
+                const move = moveEV => {
+                    x = moveEV.x - downCoordinate.x;
+                    //y = moveEV.y - downCoordinate.y;
+                    if (x >= 251 || x <= 0) return false;
+                    dom.style.left = x + "px";
+                    //dom.style.top = y + "px";
+                    slider.style.left = x + "px";
+                };
+                const up = () => {
+                    document.removeEventListener("mousemove", move);
+                    document.removeEventListener("mouseup", up);
+                    dom.style.left = "";
+                    let max = checkx + 5;  //最大值
+                    let min = checkx - 17;  //最小值
+                    console.log('x:' + x, 'checkx:' + checkx, 'max:' + max, 'min:' + min);
+                    //允许正负误差1
+                    if ((max >= x && x >= min) || x === checkx) {
+                        console.log("滑动解锁成功");
+                        this.puzzle = true;
+                        this.tips = "验证成功";
+
+                        // return false;
+
+                        let that = this;
+                        let username = that.loginForm.username;
+                        let password = that.loginForm.password;
+                        ApiloginIn({
+                            username: username,
+                            password: password,
+                        }).then(res => {
+                            console.log(res);
+                            if (res.status == 1) {
+                                let loginData = res.data;
+                                console.log(loginData);
+                                that.ACTLogin(loginData);
+                                this.$message({
+                                    message: res.info,
+                                    type: 'success',
+                                    duration: 1500,
+                                    offset: 100,
+                                });
+                                // return false;
+                                setTimeout(() => {
+                                    /* this.$router.replace({
+                                         path: "/redirect",
+                                         query: {
+                                             nextPath: '/index'
+                                         }
+                                     });*/
+                                    that.$router.push({path: '/index'});
+                                }, 1500);
+
+                            }
+                            if (res.status == 0) {
+                                this.$message({
+                                    message: res.info,
+                                    type: 'error',
+                                    duration: 3000,
+                                    offset: 40,
+                                });
+                            }
+                        });
+
+
+                        setTimeout(() => {
+                            this.visible = false;
+                        }, 500);
+                    } else {
+                        console.log("拼图位置不正确");
+                        this.tips = "验证失败，请重试";
+                        this.puzzle = false;
+                        this.canvasInit();
+                    }
+                };
+                document.addEventListener("mousemove", move);
+                document.addEventListener("mouseup", up);
+            },
+            draw(mx = 200, bx = 20, y = 50) {
+                let mainDom = document.querySelector("#codeImg");
+                let bg = mainDom.getContext("2d");
+                let width = mainDom.width;
+                let height = mainDom.height;
+                let blockDom = document.querySelector("#sliderBlock");
+                let block = blockDom.getContext("2d");
+                //重新赋值，让canvas进行重新绘制
+                blockDom.height = height;
+                mainDom.height = height;
+
+                /*绘图背景*/
+                /*弹出 登录 cancas图片*/
+                let imgBg1 = 'https://swim.zmtek.net/assets/images/loginImgBg1.jpg';
+                let imgBg2 = 'https://swim.zmtek.net/assets/images/loginImgBg2.jpg';
+                let imgBg3 = 'https://swim.zmtek.net/assets/images/loginImgBg3.jpg';
+                let imgArr = [imgBg1, imgBg2, imgBg3,];
+                var imgsrc = imgArr[Math.round(Math.random() * (imgArr.length - 1))];  //随机抽取一个值
+                console.log(imgsrc);
+
+                let img = document.createElement("img");
+                img.style.objectFit = "scale-down";
+                img.src = imgsrc;
+                img.onload = function () {
+                    bg.drawImage(img, 0, 0, width, height);
+                    block.drawImage(img, 0, 0, width, height);
+                };
+                let mainxy = {x: mx, y: y, r: 9};
+                let blockxy = {x: bx, y: y, r: 9};
+                this.drawBlock(bg, mainxy, "fill");
+                this.drawBlock(block, blockxy, "clip");
+            },
+            //绘制拼图
+            drawBlock(ctx, xy = {x: 254, y: 109, r: 9}, type) {
+                let x = xy.x,
+                    y = xy.y,
+                    r = xy.r,
+                    w = 44;
+                let PI = Math.PI;
+                //绘制
+                ctx.beginPath();
+                //left
+                ctx.moveTo(x, y);
+                //top
+                ctx.arc(x + (w + 5) / 2 + 6, y, r + 0.5, -PI, 0, true);
+
+                ctx.lineTo(x + w + 14, y);     //A
+
+                //right
+                ctx.arc(x + w + 14, y + w / 2 - 5, r - 2, 1.5 * PI, 0.5 * PI, false);
+
+                ctx.lineTo(x + w + 14, y + w - 10);   //B
+
+                //bottom
+                ctx.arc(x + (w + 5) / 2 + 4, y + w - 9, r, 0, PI, false);
+
+                ctx.lineTo(x, y + w - 10);         //C
+
+                ctx.arc(x, y + w / 2 - 5, r, 0.5 * PI, 1.5 * PI, true);
+
+                ctx.lineTo(x, y);     //D
+
+                //修饰，没有会看不出效果
+                ctx.lineWidth = 3;
+                ctx.fillStyle = "rgba(255, 255, 255, 1)";
+                ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+                ctx.stroke();
+                ctx[type]();
+                ctx.globalCompositeOperation = "xor";
+            }
+
+        },
+
+    }
+</script>
+<style lang="scss">
+    .login-main {
+        background: url(https://swim.zmtek.net/assets/images/bg-login2.png) no-repeat 50% 50%;
+        /*background: url('~@/assets/images/bg-login2.png') no-repeat 50% 50%;*/
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+        position: relative
+    }
+
+    .login-main .login-box {
+        position: absolute;
+        right: 158px;
+        top: calc(50vh - 196px);
+        width: 340px;
+        min-height: 438px;
+        background: rgba(39, 61, 89, .9);
+        -webkit-box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+        box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px 30px
+    }
+
+    .login-main .login-box .login-logo {
+        display: block;
+        margin: 6px auto 6px;
+        width: 60%
+    }
+
+    .login-main .login-box .login-title {
+        display: block;
+        margin: 0 auto;
+        color: #fff;
+        font-size: 16px
+    }
+
+    .login-main .login-box .el-input {
+        margin-top: 15px;
+        font-size: 16px
+    }
+
+    .login-main .login-box .el-input--small .el-input__icon {
+        color: #fff
+    }
+
+    .login-main .login-box .el-input__inner {
+        background: hsla(0, 0%, 100%, .4);
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff
+    }
+
+    .login-main .login-box .btnLogin {
+        width: 100%;
+        margin-top: 15px;
+        background-color: #fff;
+        color: #273d59
+    }
+
+    .login-main .login-box .btnLogin:hover {
+        background-color: #273d59;
+        color: #fff
+    }
+
+    .login-main .login-box .el-divider__text {
+        background: #273d59;
+        color: #fff;
+        font-size: 16px
+    }
+
+    .login-main .login-box .logo-wechat {
+        width: 35px;
+        margin: 0 auto;
+        display: block;
+        cursor: pointer
+    }
+
+    .login-main .login-box .LoginWechat-tip {
+        text-align: center;
+        color: #fff
+    }
+
+    .login-main .el-form-item__content {
+        margin-left: 0 !important
+    }
+
+    .login-main .el-form-item {
+        margin-bottom: 0
+    }
+
+    .login-main .slidingPictures {
+        position: fixed;
+        right: 188px;
+        top: 257px;
+        width: 280px
+    }
+
+    .login {
+        text-align: center
+    }
+
+    .login button, .login input {
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        width: 200px;
+        margin: 20px auto 0
+    }
+
+    .sliding-pictures {
+        width: 100%;
+        position: relative
+    }
+
+    .sliding-pictures .vimg {
+        width: 100%;
+        height: 170px
+    }
+
+    .sliding-pictures .vimg #codeImg,
+    .sliding-pictures .vimg #sliderBlock {
+        width: inherit;
+        height: inherit
+    }
+
+    .sliding-pictures .vimg #sliderBlock {
+        position: absolute;
+        z-index: 4000
+    }
+
+    .sliding-pictures .slider {
+        width: 100%;
+        height: 65px;
+        border-bottom: 1px solid #c7c9d0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start
+    }
+
+    .sliding-pictures .slider .track {
+        margin-left: 7px;
+        width: 286px;
+        height: 38px;
+        background: rgba(28, 136, 188, .5);
+        border-radius: 25px;
+        font-size: 14px;
+        line-height: 38px;
+        padding-right: 15px;
+        padding-left: 62px
+    }
+
+    .sliding-pictures .slider .pintuTrue {
+        background: #67c23a;
+        color: #fff
+    }
+
+    .sliding-pictures .slider .button {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        line-height: 48px;
+        background: #fff;
+        -webkit-box-shadow: #b9bdc8 0 0 3px;
+        box-shadow: 0 0 3px #b9bdc8;
+        border-radius: 50%;
+        left: 7px;
+        text-align: center;
+        font-size: 28px;
+        color: #3e5d8b
+    }
+
+    .sliding-pictures .slider .button:hover {
+        color: #2181bd;
+        cursor: pointer
+    }
+
+    .sliding-pictures .operation {
+        width: 100%;
+        height: 40px
+    }
+
+    .sliding-pictures .operation > span {
+        color: #9fa3ac;
+        display: inline-block;
+        width: 40px;
+        font-size: 25px;
+        line-height: 40px;
+        text-align: center
+    }
+
+    .sliding-pictures .operation > span:hover {
+        background: #e2e8f5
+    }
+
+    .login-main .login-ruleForm {
+        margin-top: 10px;
+        /*input:-webkit-autofill {*/
+        /*    box-shadow: 0 0 0px 1000px #7F8FA1 inset !important;*/
+        /*    color: #fff!important;*/
+        /*}*/
+    }
+
+    .login-main .login-ruleForm .btnLogin {
+        margin-top: 30px
+    }
+
+    .login-main .login-ruleForm .el-input {
+        margin-top: 20px
+    }
+
+</style>

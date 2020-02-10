@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service build --mode test"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.7.7",
+    "@babel/runtime": "^7.0.0",
     "axios": "^0.19.0",
+<<<<<<< HEAD
     "core-js": "^2.6.11",
     "echarts": "^4.5.0",
     "element-ui": "^2.13.0",
@@ -20,6 +24,30 @@
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-service": "^3.10.0",
     "sass": "^1.23.7",
+=======
+    "babel-loader": "^7.1.5",
+    "core-js": "^2.6.11",
+    "echarts": "^4.6.0",
+    "element-ui": "^2.13.0",
+    "nprogress": "^0.2.0",
+    "qs": "^6.9.1",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.7",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-preset-mobx": "^2.0.0",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
+    "babel-plugin-component": "^1.1.1",
+    "sass": "^1.24.0",
+>>>>>>> d3f98db673a1797913d3ff0640dd4f39f19f5a62
     "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.11"
   },

@@ -1,5 +1,6 @@
 /*** api接口统一管理 */
 import { get, post } from './axios';
+import HeaderTop from "../../components/layout/HeaderTop";
 
 /**
  *
@@ -14,11 +15,40 @@ import { get, post } from './axios';
  * 最后通过export导出topics。
  */
 
+/*
+* =======================正式
+* */
+/*获取侧边栏 nav*/
+export const ApiLayoutNav = params => get('admin/Web/indexMenu', params);
 
+<<<<<<< HEAD
 export const index = params => post('Applet/Index/index/', params); // 首页
 export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', {
     name:'留夫鸭',
 });
+=======
+/*登录*/
+export const ApiloginIn = params => post('admin/Web/login', params);
 
-export const navIndex = params => post('', params); // 导航首页
+/*退出*/
+export const ApiloginOut = params => post('admin/Web/login_out', params);
+
+/*修改密码*/
+export const ApiChangePass = params => post('admin/Web/update_password', params);
+
+/*HeaderTop 头部搜索*/
+export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params);
+
+
+/* ==-- 首页 --== */
+/*1、首页数据*/
+export const IndexTotal_membership = params => post('admin/Web/total_membership', params);      /*现有会员*/
+export const IndexNew_membership   = params => post('admin/Web/new_membership', params);        /*新增会员*/
+export const IndexStatistics       = params => post('admin/Web/statistics', params);            /*客流*/
+export const IndexDrawer           = params => post('admin/Web/drawer', params);                /*更衣柜使用*/
+export const IndexCurriculum       = params => post('admin/Web/curriculum', params);            /*预约上课*/
+export const IndexPerformance      = params => post('admin/Web/performance', params);           /*营收业绩*/
+export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /**/
+>>>>>>> d3f98db673a1797913d3ff0640dd4f39f19f5a62
+
 
