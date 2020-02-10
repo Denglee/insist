@@ -15,7 +15,7 @@ import { get, post } from './axios';
  */
 
 
-export const index = params => post('/Applet/make/index/', params); // 首页
+export const index = params => post('Applet/Index/index/', params); // 首页
 export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', {
     name:'留夫鸭',
 });

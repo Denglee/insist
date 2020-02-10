@@ -34,7 +34,7 @@
             // 获取数据
             onLoad() {
                 index({
-                    city_id:17,
+                    city_id:'17',
                     day:'2019-09-16',
                 }).then( res=> {
                     console.log(res)   // 成功回调

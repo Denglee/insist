@@ -9,7 +9,8 @@ if (process.env.NODE_ENV === 'production') {
       if (process.env.VUE_APP_FLAG === 'pro') { //production 生产环境发布 地址  .env
 
         // axios.defaults.baseURL = 'http://www.gddcdz.cn:10009/';//路径
-        axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
+        // axios.defaults.baseURL = 'https://www.easy-mock.com/mock/5d5bb688d3464d21642b18e0/ld.com';//路径
+        axios.defaults.baseURL = 'https://spt.zmtek.net';//路径
 
       } else {//test 测试环境  .env.text
         // axios.defaults.baseURL = 'http://vikily.f3322.net:10007';//路径
