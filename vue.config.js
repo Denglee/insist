@@ -20,13 +20,6 @@ module.exports = {
     // 则设置 baseUrl 为 /my-app/。
     //baseUrl 从 Vue CLI 3.3 起已弃用，请使用publicPath
     //baseUrl: process.env.NODE_ENV === "production" ? "./" : "/",
-<<<<<<< HEAD
-    publicPath: '',
-
-    //用于放置生成的静态资源 (js、css、img、fonts) 的；（项目打包之后，静态资源会放在这个文件夹下）
-    assetsDir: 'assets',
-
-=======
     // publicPath: process.env.NODE_ENV === "production" ? "http://192.168.0.133:20000/" : "/",
     publicPath: './',
     runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
@@ -34,7 +27,6 @@ module.exports = {
     outputDir: '/src/assets',
     //用于放置生成的静态资源 (js、css、img、fonts) 的；（项目打包之后，静态资源会放在这个文件夹下）
     assetsDir: 'assets',
->>>>>>> d3f98db673a1797913d3ff0640dd4f39f19f5a62
     //指定生成的 index.html 的输出路径  (打包之后，改变系统默认的index.html的文件名)
     // indexPath: "myIndex.html",
     //默认情况下，生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。你可以通过将这个选项设为 false 来关闭文件名哈希。
@@ -42,12 +34,7 @@ module.exports = {
     filenameHashing: false,
 
     //   lintOnSave：{ type:Boolean default:true } 问你是否使用eslint
-<<<<<<< HEAD
-    lintOnSave: true,
-
-=======
     lintOnSave: false,
->>>>>>> d3f98db673a1797913d3ff0640dd4f39f19f5a62
     //如果你想要在生产构建时禁用 eslint-loader，你可以用如下配置
     // lintOnSave: process.env.NODE_ENV !== 'production',
 
@@ -97,8 +84,8 @@ module.exports = {
         // 配置多个代理
         proxy: {
             "/api": {
-                target: "http://192.168.0.133:20000",// 测试答咔访问的接口域名
-                // target: "http://spt.zmtek.net",// 正式答咔系统访问的接口域名
+                // target: "http://192.168.0.133:20000",// 测试答咔访问的接口域名
+                target: "http://spt.zmtek.net",// 正式答咔系统访问的接口域名
                 // target: "https://swim.zmtek.net",// 正式游泳馆访问的接口域名
                 ws: true,// 是否启用websockets
                 changeOrigin: true, //开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题

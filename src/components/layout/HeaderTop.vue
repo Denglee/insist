@@ -2,52 +2,61 @@
     <div class="headerTop-box">
         <div class="headerTop-user">
 
-            <div class="header-cityName" @click="goIndex()">
-                <i class="el-icon-s-home"></i>{{UserInfo.city_name || "智迈科技"}} - 后台首页
+            <div class="clearfix">
+                <div class="header-cityName ellipsis" @click="goIndex()" :title="UserInfo.city_name">
+                    <i class="el-icon-s-home"></i>{{UserInfo.city_name  || "智迈科技"}} - 后台首页
+                </div>
+
+                <a :href="localUrl+ '/admin/index/index.html'" title="旧版地址" class="header-cityName goOldUrl">回到旧版</a>
             </div>
 
-            <!--头部搜索-->
-            <el-form class="search-form">
-                <el-autocomplete
-                        placeholder="请输入姓名、卡号、会员卡号"
-                        v-model="SearchVal"
-                        :fetch-suggestions="querySearchAsync"
-                        @select="handleSelect"
-                        popper-class="search-content"
-                        >
-                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                    <template slot-scope="{ item }">
-                         <div class="search-phone">{{ item.phone }}</div>
-                         <span class="search-name">{{ item.true_name }}</span>
-                     </template>
-                </el-autocomplete>
 
-            </el-form>
 
-            <!--头部用户信息+退出+更换密码 -->
-            <div class="headerTop-userInfo">
-                <img class="userHeader" :src='localUrl+"/"+UserInfo.logo || "assets/images/logo-daka.png"' alt="">
-                <el-dropdown class="dropdown-header">
-                    <div class="el-dropdown-link">
-                        <div class="user-name">
-                            {{UserInfo.username}}
-                            <div>{{UserInfo.auth_name}}</div>
+            <div class="header-rMain">
+                <!--头部搜索-->
+                <el-form class="search-form">
+                    <el-autocomplete
+                            placeholder="请输入姓名、卡号、会员卡号"
+                            v-model="SearchVal"
+                            :fetch-suggestions="querySearchAsync"
+                            @select="handleSelect"
+                            popper-class="search-content"
+                    >
+                        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        <template slot-scope="{ item }">
+                            <div class="search-phone">{{ item.phone }}</div>
+                            <span class="search-name">{{ item.true_name }}</span>
+                        </template>
+                    </el-autocomplete>
+
+                </el-form>
+
+                <!--头部用户信息+退出+更换密码 -->
+                <div class="headerTop-userInfo">
+                    <img class="userHeader" :src='localUrl+"/"+UserInfo.logo || "assets/images/logo-daka.png"' alt="">
+                    <el-dropdown class="dropdown-header">
+                        <div class="el-dropdown-link">
+                            <div class="user-name">
+                                {{UserInfo.username}}
+                                <div>{{UserInfo.auth_name}}</div>
+                            </div>
+                            <div><i class="el-icon-caret-bottom"></i></div>
+
                         </div>
-                        <div><i class="el-icon-caret-bottom"></i></div>
-
-                    </div>
-                    <el-dropdown-menu slot="dropdown"
-                                      hide-timeout="30000"
-                                      class="dropdown-HeaderTop">
-                        <el-dropdown-item command="a">
-                            <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
-                        </el-dropdown-item>
-                        <el-dropdown-item command="b">
-                            <el-button type="text" @click="loginOut()">退出</el-button>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+                        <el-dropdown-menu slot="dropdown"
+                                          hide-timeout="30000"
+                                          class="dropdown-HeaderTop">
+                            <el-dropdown-item command="a">
+                                <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
+                            </el-dropdown-item>
+                            <el-dropdown-item command="b">
+                                <el-button type="text" @click="loginOut()">退出</el-button>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
             </div>
+
         </div>
 
         <!--更换密码弹出-->
@@ -148,7 +157,7 @@
                     checkPass: [  //确认密码
                         { validator: validateCheckPass, trigger: 'blur' }
                     ],
-                }
+                },
             }
         },
         methods: {

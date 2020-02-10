@@ -48,6 +48,7 @@ import global from  '@/assets/js/global.js'
 Vue.prototype.GLOBAL = global
 
 
+
 /*注册全局组件*/
 // import topTabbar from '@/components/topTabbar'
 // Vue.component(topTabbar.name,topTabbar);

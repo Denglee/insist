@@ -1,12 +1,13 @@
 <template>
     <div class="login-main">
-<!--        <img src="https://swim.zmtek.net/assets/images/logo-dakaB.png" alt="" class="login-logo">-->
+        <!--        <img src="https://swim.zmtek.net/assets/images/logo-dakaB.png" alt="" class="login-logo">-->
         <div class="login-box">
             <img src="https://swim.zmtek.net/assets/images/logo-daka.png" alt="" class="login-logo">
             <!--<img src="~@/assets/images/logo-daka.png" alt="" class="login-logo">-->
-            <div class="login-title">欢迎登陆</div>
+
             <el-form :model="loginForm" :rules="loginRules" ref="loginForm" label-width="100px" class="login-ruleForm"
                      v-show="!LoginWechat">
+                <div class="login-title">欢迎登陆</div>
                 <el-form-item prop="username">
                     <el-input
                             v-model="loginForm.username"
@@ -30,20 +31,22 @@
                 <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
 
                 <!--口碑不需要第三方登录-->
-                 <el-divider>第三方登录</el-divider>
-                 <img src="~@/assets/images/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
+                <el-divider>第三方登录</el-divider>
+                <img src="~@/assets/images/logo-wechat.png" alt="" class="logo-wechat" @click="goCodeLogin()">
 
             </el-form>
 
             <!--微信扫码登录-->
             <div class="login-wechat" v-if="LoginWechat">
-                <img src="" alt="">
+                <!--                <img src="" alt="">-->
+                <wxlogin :href="wx.href" :appid="wx.appid" :scope="wx.scope"
+                         :redirect_uri="wx.redirect_uri" class="login-wechat"></wxlogin>
                 <div class="LoginWechat-tip">
                     请使用微信扫描二维码登录
                     <br>
                     “健身房管理系统”
                 </div>
-                <el-button class="btnLogin" type="primary" @click="goCodeLogin()">返回账号密码登录</el-button>
+                <el-button class="btnLogin btnLogin2" type="primary" @click="goCodeLogin()">返回账号密码登录</el-button>
             </div>
 
         </div>
@@ -84,9 +87,13 @@
     </div>
 </template>
 
+<!--import configLogin from  '@/assets/js/configLogin.js'-->
+
 <script>
     import {ApiloginIn} from '@/assets/js/api'
     import {mapActions} from 'vuex'
+
+    import wxlogin from 'vue-wxlogin';
 
     let btnStatusLogin = true;   //按钮是否可点击状态
 
@@ -94,6 +101,19 @@
         inject: ['reLoad'],
         data() {
             return {
+                /*登录参数*/
+                wx: {
+                    self_redirect: false,
+                    id: "wxqrcode",
+                    appid: "wx4e2180b044892be7",
+                    scope: "snsapi_login",
+                    redirect_uri: "http://spt.zmtek.net/Admin/login/authorization/type/2.html",
+                    // state: state,
+                    style: "black",
+                    // href:'http://spt.zmtek.net/assets/css/Login.css',
+                    href: "data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9"
+                },
+
                 LoginWechat: false, //登录方式切换 显隐状态
                 loginForm: {
                     username: '',
@@ -349,6 +369,9 @@
             }
 
         },
+        components: {
+            wxlogin,
+        }
 
     }
 </script>
@@ -359,95 +382,99 @@
         background-size: cover;
         width: 100%;
         height: 100vh;
-        position: relative
-    }
+        position: relative;
 
-    .login-main .login-box {
-        position: absolute;
-        right: 158px;
-        top: calc(50vh - 196px);
-        width: 340px;
-        min-height: 438px;
-        background: rgba(39, 61, 89, .9);
-        -webkit-box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
-        box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
-        border-radius: 10px;
-        text-align: center;
-        padding: 20px 30px
-    }
+        .login-box {
+            position: absolute;
+            right: 158px;
+            top: calc(50vh - 196px);
+            width: 340px;
+            min-height: 440px;
+            background: rgba(39, 61, 89, .9);
+            -webkit-box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+            box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px 30px;
 
-    .login-main .login-box .login-logo {
-        display: block;
-        margin: 6px auto 6px;
-        width: 60%
-    }
+            .login-logo {
+                display: block;
+                margin: 6px auto 6px;
+                width: 60%
+            }
 
-    .login-main .login-box .login-title {
-        display: block;
-        margin: 0 auto;
-        color: #fff;
-        font-size: 16px
-    }
+            .login-title {
+                display: block;
+                margin: 0 auto;
+                color: #fff;
+                font-size: 16px
+            }
 
-    .login-main .login-box .el-input {
-        margin-top: 15px;
-        font-size: 16px
-    }
+            .el-input {
+                margin-top: 15px;
+                font-size: 16px
+            }
 
-    .login-main .login-box .el-input--small .el-input__icon {
-        color: #fff
-    }
+            .el-input--small .el-input__icon {
+                color: #fff
+            }
 
-    .login-main .login-box .el-input__inner {
-        background: hsla(0, 0%, 100%, .4);
-        font-size: 16px;
-        font-weight: 400;
-        color: #fff
-    }
+            .el-input__inner {
+                background: hsla(0, 0%, 100%, .4);
+                font-size: 16px;
+                font-weight: 400;
+                color: #fff
+            }
 
-    .login-main .login-box .btnLogin {
-        width: 100%;
-        margin-top: 15px;
-        background-color: #fff;
-        color: #273d59
-    }
+            .btnLogin {
+                width: 100%;
+                margin-top: 8px;
+                margin-bottom: 10px;
+                background-color: #fff;
+                color: #273d59
+            }
 
-    .login-main .login-box .btnLogin:hover {
-        background-color: #273d59;
-        color: #fff
-    }
+            .btnLogin:hover {
+                background-color: #273d59;
+                color: #fff
+            }
 
-    .login-main .login-box .el-divider__text {
-        background: #273d59;
-        color: #fff;
-        font-size: 16px
-    }
+            .btnLogin2{
+                margin-bottom: 0;
+            }
+            .el-divider__text {
+                background: #273d59;
+                color: #fff;
+                font-size: 16px
+            }
 
-    .login-main .login-box .logo-wechat {
-        width: 35px;
-        margin: 0 auto;
-        display: block;
-        cursor: pointer
-    }
+            .logo-wechat {
+                width: 35px;
+                margin: 0 auto;
+                display: block;
+                cursor: pointer
+            }
 
-    .login-main .login-box .LoginWechat-tip {
-        text-align: center;
-        color: #fff
-    }
+            .LoginWechat-tip {
+                text-align: center;
+                color: #fff
+            }
+        }
 
-    .login-main .el-form-item__content {
-        margin-left: 0 !important
-    }
+        .el-form-item__content {
+            margin-left: 0 !important
+        }
 
-    .login-main .el-form-item {
-        margin-bottom: 0
-    }
+        .el-form-item {
+            margin-bottom: 0
+        }
 
-    .login-main .slidingPictures {
-        position: fixed;
-        right: 188px;
-        top: 257px;
-        width: 280px
+        .slidingPictures {
+            position: fixed;
+            right: 188px;
+            top: 257px;
+            width: 280px
+        }
     }
 
     .login {
@@ -568,6 +595,27 @@
 
     .login-main .login-ruleForm .el-input {
         margin-top: 20px
+    }
+
+    .login-wechat {
+        width: 100%;
+
+        iframe {
+            height: 226px;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+
+            .impowerBox .qrcode {
+                width: 160px;
+            }
+
+            .impowerBox .status p {
+                font-size: 13px;
+                color: #fff;
+            }
+        }
+
     }
 
 </style>
