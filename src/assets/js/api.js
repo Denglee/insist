@@ -21,6 +21,12 @@ import HeaderTop from "../../components/layout/HeaderTop";
 /*获取侧边栏 nav*/
 export const ApiLayoutNav = params => get('admin/Web/indexMenu', params);
 
+<<<<<<< HEAD
+export const index = params => post('Applet/Index/index/', params); // 首页
+export const index2 = params => post('http://www.gddcdz.cn:10009/index.php?c=eqs&a=search', {
+    name:'留夫鸭',
+});
+=======
 /*登录*/
 export const ApiloginIn = params => post('admin/Web/login', params);
 
@@ -43,5 +49,6 @@ export const IndexDrawer           = params => post('admin/Web/drawer', params);
 export const IndexCurriculum       = params => post('admin/Web/curriculum', params);            /*预约上课*/
 export const IndexPerformance      = params => post('admin/Web/performance', params);           /*营收业绩*/
 export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /**/
+>>>>>>> d3f98db673a1797913d3ff0640dd4f39f19f5a62
 
 
