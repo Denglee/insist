@@ -1,0 +1,293 @@
+.login-main {
+  background: url(https://swim.zmtek.net/assets/images/bg-login2.png) no-repeat 50% 50%;
+  /*background: url('~@/assets/images/bg-login2.png') no-repeat 50% 50%;*/
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  .login-box {
+    position: absolute;
+    right: 158px;
+    top: calc(50vh - 196px);
+    width: 340px;
+    min-height: 440px;
+    background: rgba(39, 61, 89, .9);
+    -webkit-box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+    box-shadow: -1px 2px 8px 0 rgba(12, 22, 36, .79);
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px 30px;
+
+    .login-logo {
+      display: block;
+      margin: 6px auto 6px;
+      width: 60%
+    }
+
+    .login-title {
+      display: block;
+      margin: 0 auto;
+      color: #fff;
+      font-size: 16px
+    }
+
+    .el-input {
+      margin-top: 15px;
+      font-size: 16px
+    }
+
+    .el-input--small .el-input__icon {
+      color: #fff
+    }
+
+    .el-input__inner {
+      background: hsla(0, 0%, 100%, .4);
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff
+    }
+
+    .btnLogin {
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      background-color: #fff;
+      color: #273d59
+    }
+
+    .btnLogin:hover {
+      background-color: #273d59;
+      color: #fff
+    }
+
+    .btnLogin2 {
+      margin-bottom: 0;
+    }
+
+    .el-divider__text {
+      background: #273d59;
+      color: #fff;
+      font-size: 16px
+    }
+
+    .logo-wechat {
+      width: 35px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer
+    }
+
+    .LoginWechat-tip {
+      text-align: center;
+      color: #fff
+    }
+  }
+
+  .el-form-item__content {
+    margin-left: 0 !important
+  }
+
+  .el-form-item {
+    margin-bottom: 0
+  }
+
+  .login-ruleForm {
+    margin-top: 10px;
+    /*input:-webkit-autofill {*/
+    /*    box-shadow: 0 0 0px 1000px #7F8FA1 inset !important;*/
+    /*    color: #fff!important;*/
+    /*}*/
+  }
+
+  .login-ruleForm .btnLogin {
+    margin-top: 30px
+  }
+
+  .login-ruleForm .el-input {
+    margin-top: 20px
+  }
+}
+
+.login {
+  text-align: center
+}
+
+.login button,
+.login input {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  width: 200px;
+  margin: 20px auto 0
+}
+
+.slidingPictures {
+  position: absolute;
+  right: 188px;
+  top: 248px;
+  width: 280px
+}
+
+.sliding-pictures {
+  width: 100%;
+  position: relative;
+
+  .vimg {
+    width: 100%;
+    height: 170px;
+
+    #codeImg, #sliderBlock {
+      width: inherit;
+      height: inherit
+    }
+
+    #sliderBlock {
+      position: absolute;
+      z-index: 4000
+    }
+
+  }
+
+  .slider {
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid #c7c9d0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+
+    .track {
+      margin-left: 7px;
+      width: 286px;
+      height: 38px;
+      background: rgba(28, 136, 188, .5);
+      border-radius: 25px;
+      font-size: 14px;
+      line-height: 38px;
+      padding-right: 15px;
+      padding-left: 62px
+    }
+
+    .pintuTrue {
+      background: #67c23a;
+      color: #fff
+    }
+
+    .button {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      line-height: 48px;
+      background: #fff;
+      -webkit-box-shadow: #b9bdc8 0 0 3px;
+      box-shadow: 0 0 3px #b9bdc8;
+      border-radius: 50%;
+      left: 7px;
+      text-align: center;
+      font-size: 28px;
+      color: #3e5d8b;
+
+      &:hover {
+        color: #2181bd;
+        cursor: pointer;
+      }
+
+    }
+  }
+
+  .operation {
+    width: 100%;
+    height: 40px;
+
+    > span {
+      color: #9fa3ac;
+      display: inline-block;
+      width: 40px;
+      font-size: 25px;
+      line-height: 40px;
+      text-align: center;
+
+      &:hover {
+        background: #e2e8f5;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.login-wechat {
+  width: 100%;
+
+  iframe {
+    height: 226px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+
+    .impowerBox .qrcode {
+      width: 160px;
+    }
+
+    .impowerBox .status p {
+      font-size: 13px;
+      color: #fff;
+    }
+  }
+}
+
+
+#btnShowM {
+  display: none;
+}
+
+#btnShow {
+  display: block;
+}
+
+/*手机端*/
+@media screen and (max-width: 769px) {
+  #btnShowM {
+    display: block;
+  }
+  #btnShow {
+    display: none;
+  }
+  .login-main {
+    .login-box {
+      right: 4%;
+      width: 92%;
+    }
+
+    .slidingPictures {
+      width: 76%;
+      left: 12%;
+      position: absolute;
+      top: calc(50vh - 220px);
+      background: no-repeat;
+      border: none;
+      padding: 0;
+    }
+
+    .sliding-pictures {
+      width: 100%;
+      position: relative;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px 20px 0;
+
+      .track {
+        padding-left: 32px;
+        font-size: 13px;
+        padding-right: 0;
+      }
+    }
+  }
+}

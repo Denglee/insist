@@ -1,0 +1,214 @@
+@import "public";
+
+.layoutR-box {
+  padding: 20px;
+  background-color: $color-White !important;
+}
+
+/* 会员总览 选项卡*/
+$tabMarR: 20px;
+$tabHei: 70px;
+
+.vip-tabBox {
+
+  /* ~~这是分割线~~ 导航头部 ==*/
+  .el-tabs__header {
+    margin: 70px 0 0;
+
+    .el-tabs__nav-wrap::after {
+      height: 0;
+    }
+
+    .el-tabs__item {
+      background: $color-MediumBlue;
+      border-radius: 20px 20px 0 0;
+      width: 210px;
+      margin-right: $tabMarR;
+      text-align: center;
+      height: $tabHei;
+      line-height: $tabHei;
+      font-size: 18px;
+      font-weight: 500;
+      color: $color-White;
+      padding: 0;
+
+      &:hover {
+        color: $color-linghtBlue;
+      }
+    }
+
+    /*tab选中样式*/
+    .el-tabs__active-bar {
+      width: 0 !important;
+    }
+
+    .is-active {
+      //background-color: $color-linghtWhite;
+      background-color: $color-GrayE5;
+      color: $color-Black;
+
+      &:hover {
+        color: $color-MediumBlue;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: -$tabMarR;
+        width: $tabMarR;
+        height: 40px;
+        background: $color-GrayE5;
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: -$tabMarR;
+        width: $tabMarR;
+        height: 80px;
+        background: $color-White;
+        border-radius: 0 0 0 20px;
+        z-index: 11111;
+      }
+    }
+
+  }
+
+
+
+  /* ~~这是分割线~~ 导航 中间主体  box  ==*/
+  .el-tab-pane {
+    background-color: $color-GrayE5;
+    min-height: 80vh;
+    border-radius: 0 20px 20px;
+    padding: 30px;
+  }
+
+
+  /*  ~~这是分割线~~  第一个tab tabItem1会员总览   ==*/
+  #pane-VipTotal {
+    .comein-main {
+      margin-bottom: 35px;
+    }
+  }
+
+  /* A11  会员数量*/
+  .vip-item-num {
+    position: relative;
+  }
+
+  /*  A12  私教会员 */
+  .vip-pt-num {
+    padding: 20px;
+    background-color: $color-MediumBlue;
+    height: 184px;
+    box-shadow: 0px 2px 11px 0px rgba(2, 40, 91, 0.9);
+    border-radius: 15px;
+    width: 86%;
+    margin: 40px auto 0;
+
+    .num {
+      font-size: 68px;
+      font-weight: 500;
+      color: $color-White;
+    }
+
+
+  }
+
+  .vipT-addCard{
+    height: auto;
+  }
+
+
+  /* =+= 第二个tab tabItem2 私教 == */
+  #pane-VipPT {
+    .pt-sales {
+      height: auto;
+    }
+    .index-item .el-input__icon {
+      height: auto;
+    }
+    .el-date-editor .el-range-separator{
+      padding: 0;
+    }
+  }
+
+  .icon-PTtotal{
+    height: 14px;
+  }
+
+  /*B21 销售额 查询*/
+  .pt-screen {
+    padding: 20px 20px 0;
+  }
+
+  .pt-screen-item {
+    margin-right: 20px;
+  }
+
+  .pt-screen-input {
+    width: 320px;
+    .el-input-group__append{
+      background-color: $color-MediumBlue;
+      border: solid 1px $color-MediumBlue;
+    }
+    .el-icon-search{
+      width: 16px;
+      color: #fff;
+    }
+  }
+
+  /*B22 销售额表格*/
+  .pt-table {
+    width: calc(100% - 40px) !important;
+    margin: 20px auto;
+    border-radius: 15px;
+    th {
+      background-color: #FCFBFE;
+      font-size: 16px;
+      font-weight: 500;
+      color: $color-Black;
+      &:last-child{
+        border-top-right-radius: 15px;
+      }
+    }
+    tr:last-child{
+      td:first-child{
+        border-bottom-left-radius: 15px;
+      }
+      td:last-child{
+        border-bottom-right-radius: 15px;
+      }
+    }
+
+    /*#EFF2F9*/
+  }
+
+  .btn-ptMore{
+    width:127px;
+    height:37px;
+    line-height: 37px;
+    background:$color-GrayE5;
+    border:1px solid $color-GrayE5;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+    color:rgba(151,151,151,1);
+    padding: 0;
+    margin-left: 20px;
+  }
+
+
+
+  /* ~~这是分割线~~ 第三个tab  tabItem3 会籍 == */
+  #pane-VipMembership{
+    .el-date-editor .el-range-separator {
+      padding: 0;
+    }
+  }
+}

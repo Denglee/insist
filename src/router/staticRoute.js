@@ -12,7 +12,7 @@ const staticRoute = [
             {
                 path: '',
                 name:'index',
-                component: () => import(/* webpackChunkName: "Receptionindex" */ '@/views/Index/index'),
+                component: () => import(/* webpackChunkName: "index" */ '@/views/Index/index'),
                 meta: {title: '首页'}
             },
         ]
@@ -182,6 +182,18 @@ const staticRoute = [
             },
 
             /*统计*/
+            {
+                path: 'Reception/table',  //销售额表格
+                name: 'ReceptionTable',
+                component: () => import(/* webpackChunkName: "ReceptionTable" */ '@/views/Total/ReceptionTable'),
+                meta: {title: '销售额查询'},
+            },
+            {
+                path: 'Statis/index',  //会员总览
+                name: 'Receptionoverview',
+                component: () => import(/* webpackChunkName: "Receptionoverview" */ '@/views/Total/Receptionoverview'),
+                meta: {title: '会员总览'},
+            },
             {
                 path: 'Reception/card_log',  //会员卡记录
                 name: 'Receptioncard_log',

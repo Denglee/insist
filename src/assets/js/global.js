@@ -49,8 +49,8 @@ function getToday() {
 
 
 // 全局 js
-// const localUrl = 'http://192.168.0.133:20000';  //测试
-const localUrl = 'http://spt.zmtek.net';  //系统正式
+const localUrl = 'http://vikily.f3322.net:20000';  //测试
+// const localUrl = 'https://spt.zmtek.net';  //系统正式
 
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式
 

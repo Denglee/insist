@@ -1,10 +1,33 @@
+<!--<template>-->
+<!--    <div>-->
+<!--        -->
+<!--    </div>-->
+<!--</template>-->
+
+<!--<script>-->
+<!--    export default {-->
+<!--        name: "Receptionoverview",-->
+<!--        data() {-->
+<!--            return {}-->
+<!--        },-->
+<!--        methods: {},-->
+<!--        created() {-->
+
+<!--        },-->
+<!--    }-->
+<!--</script>-->
+
+<!--<style scoped lang="scss">-->
+
+<!--</style>-->
+
 <template>
     <div class="layoutR-main layoutR-box">
         <!--会员卡记录-->
-        <publicIframe/>
+        <!--<publicIframe/>-->
 
         <!--选项卡-->
-        <el-tabs v-model="activeName" @tab-click="handleClick" class="vip-tabBox" style="display: none;">
+        <el-tabs v-model="activeName" @tab-click="handleClick" class="vip-tabBox">
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane label="会员总览" name="VipTotal">
@@ -12,75 +35,75 @@
                 <!-- A1  会员数量-->
                 <el-row :gutter="30" class="index-row">
 
-                        <!--会员数量-->
-                        <el-col :md="16" :lg="16">
-                            <div class="index-item">
-                                <header class="index-item-title">
-                                    <div class="title">会员数量</div>
-                                </header>
+                    <!--会员数量-->
+                    <el-col :md="16" :lg="16">
+                        <div class="index-item">
+                            <header class="index-item-title">
+                                <div class="title">会员数量</div>
+                            </header>
 
-                                <el-row >
-                                    <!--潜在会员-->
-                                    <el-col :md="12" class="vip-item-num">
-                                        <ul class="index-item-tipUl">
-                                            <li><img src="~@/assets/icon/vipTotal/vipT-potential.png" alt="">潜在会员</li>
-                                            <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">正式会员</li>
+                            <el-row >
+                                <!--潜在会员-->
+                                <el-col :md="12" class="vip-item-num">
+                                    <ul class="index-item-tipUl">
+                                        <li><img src="~@/assets/icon/vipTotal/vipT-potential.png" alt="">潜在会员</li>
+                                        <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">正式会员</li>
+                                    </ul>
+                                    <div class="flex-between">
+                                        <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                        <ul class="vipNum">
+                                            <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
+                                            <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
                                         </ul>
-                                        <div class="flex-between">
-                                            <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
-                                            <ul class="vipNum">
-                                                <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                                                <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
-                                            </ul>
-                                        </div>
-                                    </el-col>
+                                    </div>
+                                </el-col>
 
-                                    <!--有效会员-->
-                                    <el-col :md="12"  class="vip-item-num">
-                                        <ul class="index-item-tipUl">
-                                            <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">有效会员</li>
-                                            <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
+                                <!--有效会员-->
+                                <el-col :md="12"  class="vip-item-num">
+                                    <ul class="index-item-tipUl">
+                                        <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">有效会员</li>
+                                        <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
+                                    </ul>
+                                    <div class="flex-between">
+                                        <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                        <ul class="vipNum">
+                                            <li>有效会员： <span class="colorRed">{{chartVip.series[0].data[0].value}}</span></li>
+                                            <li>过期会员： <span class="colorYellow">{{chartVip.series[0].data[1].value}}</span></li>
                                         </ul>
-                                        <div class="flex-between">
-                                            <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
-                                            <ul class="vipNum">
-                                                <li>有效会员： <span class="colorRed">{{chartVip.series[0].data[0].value}}</span></li>
-                                                <li>过期会员： <span class="colorYellow">{{chartVip.series[0].data[1].value}}</span></li>
-                                            </ul>
-                                        </div>
-                                    </el-col>
-                                </el-row>
-                            </div>
-                        </el-col>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-col>
 
-                        <!--私教会员-->
-                        <el-col :md="8" :lg="8">
-                            <div class="index-item">
-                                <header class="index-item-title">
-                                    <div class="title">私教会员</div>
-                                </header>
+                    <!--私教会员-->
+                    <el-col :md="8" :lg="8">
+                        <div class="index-item">
+                            <header class="index-item-title">
+                                <div class="title">私教会员</div>
+                            </header>
 
-                                <div class="vip-pt-num">
-                                    <span class="num">59</span>
-                                    <img src="" alt="">
-                                </div>
+                            <div class="vip-pt-num">
+                                <span class="num">59</span>
+                                <img src="" alt="">
                             </div>
-                        </el-col>
-                    </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
 
                 <!-- A2 新增会员走势-->
                 <div class="index-item comein-main">
                     <header class="index-item-title flex-between">
                         <div class="title">新增会员走势</div>
-<!--                        <div>-->
-<!--                            <el-date-picker-->
-<!--                                    v-model="value2"-->
-<!--                                    align="right"-->
-<!--                                    type="date"-->
-<!--                                    placeholder="选择日期"-->
-<!--                                    :picker-options="pickerOptions">-->
-<!--                            </el-date-picker>-->
-<!--                        </div>-->
+                        <!--                        <div>-->
+                        <!--                            <el-date-picker-->
+                        <!--                                    v-model="value2"-->
+                        <!--                                    align="right"-->
+                        <!--                                    type="date"-->
+                        <!--                                    placeholder="选择日期"-->
+                        <!--                                    :picker-options="pickerOptions">-->
+                        <!--                            </el-date-picker>-->
+                        <!--                        </div>-->
                     </header>
                     <ul class="index-item-tipUl">
                         <li><img src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="" class="vipT-addCard">办卡人数</li>
@@ -238,7 +261,7 @@
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
-                            style="width: 150px;">
+                                   style="width: 150px;">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -827,9 +850,10 @@
 
     import eCharts from '@/components/Echarts/Echarts'
     import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
+    import {totalMember_number,totalMember_trend,totalSub_card_trend,totalPassenger_trend,totalRefund_trend} from '@/assets/js/api'   /*引用 会员总览 接口*/
 
     export default {
-        name: "Receptioncard_log",  //会员总览
+        name: "Receptionoverview",  //会员总览
         data() {
             return {
                 activeName: 'VipMembership', //VipTotal VipPT VipMembership
@@ -952,25 +976,25 @@
                     money:'574889',
                     day:'2020-02-14',
                 },
-                //     {
-                //     department: '市场部',
-                //     pt: '王小虎',
-                //     tel: '17688829466',
-                //     money:'574889',
-                //     day:'2020-02-14',
-                // }, {
-                //     department: '市场部',
-                //     pt: '王小虎',
-                //     tel: '17688829466',
-                //     money:'574889',
-                //     day:'2020-02-14',
-                // }, {
-                //     department: '市场部',
-                //     pt: '王小虎',
-                //     tel: '17688829466',
-                //     money:'574889',
-                //     day:'2020-02-14',
-                // },
+                    //     {
+                    //     department: '市场部',
+                    //     pt: '王小虎',
+                    //     tel: '17688829466',
+                    //     money:'574889',
+                    //     day:'2020-02-14',
+                    // }, {
+                    //     department: '市场部',
+                    //     pt: '王小虎',
+                    //     tel: '17688829466',
+                    //     money:'574889',
+                    //     day:'2020-02-14',
+                    // }, {
+                    //     department: '市场部',
+                    //     pt: '王小虎',
+                    //     tel: '17688829466',
+                    //     money:'574889',
+                    //     day:'2020-02-14',
+                    // },
                 ],
 
                 PTNumTable:[{
@@ -1039,7 +1063,7 @@
             },
 
             searchPT(){
-              console.log(this.input3);
+                console.log(this.input3);
             },
         },
         created() {

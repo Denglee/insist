@@ -101,7 +101,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 .index-container{
     .el-date-editor .el-range-separator{
         width: 7%;
-        color: $color-gray;
+        color: $color-Gray;
     }
     .el-input__inner{
         height: 38px;
@@ -111,7 +111,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 }
 
 //$colorB{
-//    color:$color-vipG
+//    color:$color-LigntBlue
 //}
 
 .index-item{
@@ -127,7 +127,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 }
 .index-item-title{
     @include borBom(1px, $color-linghtWhite);
-    font-size: 20px;
+    font-size: 18px;
     font-weight:500;
     padding:0 27px;
     height: 50px;
@@ -148,7 +148,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     li{
         display: inline-block;
         margin-right: 20px;
-        color: $color-gray;
+        color: $color-Gray;
         font-size: 13px;
         img{
             height: 8px;
@@ -166,36 +166,36 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     }
 }
 .vipNum{
-    color: $color-gray;
+    color: $color-Gray;
     position: absolute;
     right: 40px;
     bottom: 40px;
-    font-size: 18px;
+    font-size: 16px;
 
     li{
         margin-top: 20px;
     }
     .vipTipG{
-        color: $color-vipG;
+        color: $color-LigntBlue;
     }
     .vipTipB{
-        color: $color-vipB;
+        color: $color-MediumBlue;
     }
     .vipTipY{
-        color: $color-vipY;
+        color: $color-Pink;
     }
     .vipTipYellow{
         color: $color-Yellow;
     }
 }
 .addVip-tagG{
-    background-color: $color-vipG;
+    background-color: $color-LigntBlue;
 }
 .addVip-tagB{
-    background-color: $color-vipB;
+    background-color: $color-MediumBlue;
 }
 .addVip-tagY{
-    background-color: $color-vipY;
+    background-color: $color-Pink;
 }
 
 .present-box{
@@ -216,15 +216,15 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 
 .present-TopL{
     .num{
-        color:$color-vipB;
+        color:$color-MediumBlue;
     }
 }
 .present-TopR{
     .title{
-        color:$color-gray ;
+        color:$color-Gray ;
     }
     .num{
-        color: $color-vipY;
+        color: $color-Pink;
     }
 }
 .present-time{
@@ -285,13 +285,13 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
         margin-top: 4px;
     }
     .used-room{
-        color: $color-gray;
+        color: $color-Gray;
     }
     .surplus-roomM{
-        color: $color-vipB;
+        color: $color-MediumBlue;
     }
     .surplus-roomF{
-        color: $color-vipY;
+        color: $color-Pink;
     }
 }
 
@@ -300,9 +300,6 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     width: 50%;
     display: inline-block;
     position: relative;
-    .vipNum{
-
-    }
 }
 .lesson-borR:after{
     content: '';
@@ -313,7 +310,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     right: 0;
 }
 .lesson-main-title{
-    color: $color-gray;
+    color: $color-Gray;
     padding: 20px 0 0 27px;
     font-size: 20px;
     //font-weight: 100;
@@ -333,7 +330,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     margin-top: 50px;
     position: relative;
     .price{
-        color: $color-vipB;
+        color: $color-MediumBlue;
         font-weight: bold;
     }
 }
@@ -361,7 +358,7 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     font-size: 18px;
 }
 .income-type{
-    color: $color-gray;
+    color: $color-Gray;
 }
 
 /*收支趋势*/
@@ -371,6 +368,6 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
 }
 
 .comeIn-title{
-    color: $color-gray;
+    color: $color-Gray;
     margin-right: 38px;
 }

@@ -36,7 +36,7 @@
       width: 100%;
       max-height:100vh;
       height: 100vh;
-      background-color: $color-blue;
+      background-color: $color-DarkBlue;
       overflow-y: auto;
       .img-logoBox{
         min-height: 40px;
@@ -70,6 +70,7 @@
       overflow-y: auto;
       background-color: $color-linghtWhite;
     }
+
   }
 }
 
@@ -98,6 +99,7 @@
     }
   }
 }
+
 /*侧边 二级导航*/
 .Menu-LeftNav{
   left:150px!important;
@@ -153,7 +155,7 @@ $headerHeight:70px;
   //left: 20px;
   //top: 22px;
   max-width: 350px;
-  background-color: $color-blue;
+  background-color: $color-DarkBlue;
   color: #FFF;
   padding: 0 16px;
   border-radius: 22px;
@@ -164,7 +166,7 @@ $headerHeight:70px;
   display: block;
   float: left;
   & :hover{
-   color: $color-gray;
+   color: $color-Gray;
   }
   > i{
     margin-right: 4px;
@@ -221,7 +223,7 @@ $headerHeight:70px;
     height: 70px;
     align-items: center;
     & :hover{
-        color: $color-blue;
+        color: $color-DarkBlue;
         cursor: pointer;
       }
   }
@@ -240,8 +242,8 @@ $headerHeight:70px;
 
 /*头部导航下拉*/
 .dropdown-HeaderTop{
-  background-color: $color-blue;
-  border: 1px solid $color-blue;
+  background-color: $color-DarkBlue;
+  border: 1px solid $color-DarkBlue;
   border-radius: 4px;
   -webkit-box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
   box-shadow: 0 2px 12px 0 rgba(37, 57, 84, 1);
@@ -254,9 +256,9 @@ $headerHeight:70px;
     .el-button--text{
       padding: 10px 20px;
       width: 100%;
-      color: $color-white;
+      color: $color-White;
       &:hover{
-        color: $color-gray;
+        color: $color-Gray;
       }
     }
   }
@@ -265,10 +267,10 @@ $headerHeight:70px;
     background: none;
   }
   .popper__arrow{
-    border-bottom-color: $color-blue!important;
+    border-bottom-color: $color-DarkBlue!important;
   }
   .popper__arrow::after{
-    border-bottom-color: $color-blue!important;
+    border-bottom-color: $color-DarkBlue!important;
   }
 }
 
@@ -294,21 +296,21 @@ $headerHeight:70px;
     border-bottom: solid 1px rgba(37,57,84,.1);
     &:hover {
       background-color: $color-linghtWhite;
-      color: $color-black;
+      color: $color-Black;
       cursor: pointer;
     }
     & > i{
       line-height: 36px;
       padding: 0 8px;
-      color: $color-blue;
+      color: $color-DarkBlue;
       &:hover {
-        color: $color-black;
+        color: $color-Black;
       }
     }
   }
   & .cur{
     background-color: $color-linghtWhite;
-    color: $color-black;
+    color: $color-Black;
     border-bottom: solid 1px $color-linghtWhite;
   }
 }

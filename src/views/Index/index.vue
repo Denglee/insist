@@ -678,7 +678,7 @@
                 });
             },
 
-            /*获取  营收走势 数据*/
+            /*获取  营收走势 收入趋势 数据*/
             getRevenue_trend(){
                 IndexRevenue_trend().then(res => {
                     // console.log(res);
@@ -700,6 +700,8 @@
                     console.log(res);
                 });
             },
+
+
 
             /*修改数据*/
             changeData(e) {

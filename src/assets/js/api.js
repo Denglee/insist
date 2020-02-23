@@ -45,3 +45,11 @@ export const IndexPerformance      = params => post('admin/Web/performance', par
 export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /*收支趋势*/
 
 
+/* ==-- 统计 会员总览 --== */
+/*1、会员总览*/
+export const totalMember_number   = params => post('admin/statis/member_number', params);         /* 会员数量*/
+export const totalMember_trend    = params => post('admin/statis/member_trend', params);          /* 新增会员走势*/
+export const totalSub_card_trend  = params => post('admin/statis/sub_card_trend', params);        /* 消耗趋势*/
+export const totalPassenger_trend = params => post('admin/statis/passenger_trend', params);       /* 客流走势*/
+export const totalRefund_trend    = params => post('admin/statis/refund_transfer_trend', params); /* 退款,转让走势*/
+
