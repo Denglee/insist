@@ -1,25 +1,3 @@
-<!--<template>-->
-<!--    <div>-->
-<!--        -->
-<!--    </div>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--    export default {-->
-<!--        name: "Receptionoverview",-->
-<!--        data() {-->
-<!--            return {}-->
-<!--        },-->
-<!--        methods: {},-->
-<!--        created() {-->
-
-<!--        },-->
-<!--    }-->
-<!--</script>-->
-
-<!--<style scoped lang="scss">-->
-
-<!--</style>-->
 
 <template>
     <div class="layoutR-main layoutR-box">
@@ -30,7 +8,7 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" class="vip-tabBox">
 
             <!--  tabItem1 会员总览 -->
-            <el-tab-pane label="会员总览" name="VipTotal">
+            <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal">
 
                 <!-- A1  会员数量-->
                 <el-row :gutter="30" class="index-row">
@@ -50,10 +28,10 @@
                                         <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">正式会员</li>
                                     </ul>
                                     <div class="flex-between">
-                                        <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                        <eCharts :eChartObj="totalVipNum" :style="styleVip"></eCharts>
                                         <ul class="vipNum">
-                                            <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                                            <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
+                                            <li>潜在会员： <span class="vipTipG">{{totalVipNum.series[0].data[0].value}}</span></li>
+                                            <li>正式会员： <span class="vipTipB">{{totalVipNum.series[0].data[1].value}}</span></li>
                                         </ul>
                                     </div>
                                 </el-col>
@@ -65,10 +43,10 @@
                                         <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
                                     </ul>
                                     <div class="flex-between">
-                                        <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                        <eCharts :eChartObj="totalVipOverdue" :style="styleVip"></eCharts>
                                         <ul class="vipNum">
-                                            <li>有效会员： <span class="colorRed">{{chartVip.series[0].data[0].value}}</span></li>
-                                            <li>过期会员： <span class="colorYellow">{{chartVip.series[0].data[1].value}}</span></li>
+                                            <li>有效会员： <span class="colorYellow">{{totalVipOverdue.series[0].data[0].value}}</span></li>
+                                            <li>过期会员： <span class="colorRed">{{totalVipOverdue.series[0].data[1].value}}</span></li>
                                         </ul>
                                     </div>
                                 </el-col>
@@ -84,7 +62,7 @@
                             </header>
 
                             <div class="vip-pt-num">
-                                <span class="num">59</span>
+                                <span class="num">{{totalVipPT}}</span>
                                 <img src="" alt="">
                             </div>
                         </div>
@@ -109,7 +87,7 @@
                         <li><img src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="" class="vipT-addCard">办卡人数</li>
                         <li><img src="~@/assets/icon/vipTotal/vipT-addPT.png" alt="">私教人数</li>
                     </ul>
-                    <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+                    <eCharts :eChartObj="totalNewAdd" :style="styleComeIN"></eCharts>
                 </div>
 
                 <!--A3 消耗趋势-->
@@ -135,7 +113,7 @@
                         <li><img src="~@/assets/icon/vipTotal/vipT-xhOnce.png" alt="">次卡</li>
                         <li><img src="~@/assets/icon/vipTotal/vipT-xhPT.png" class="vipT-addCard" alt="">私教</li>
                     </ul>
-                    <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+                    <eCharts :eChartObj="totalConsumeTrend" :style="styleComeIN"></eCharts>
                 </div>
 
                 <!--A4 转卡退款人数走势-->
@@ -163,7 +141,7 @@
                         <li><img class="vipT-addCard" src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="">私教退款</li>
                         <li><img class="vipT-addCard" src="~@/assets/icon/vipTotal/vipT-zkPT.png" alt="">私教转卡</li>
                     </ul>
-                    <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+                    <eCharts :eChartObj="totalRefundTrend" :style="styleComeIN"></eCharts>
                 </div>
 
                 <!--A5 每日客流走势-->
@@ -189,20 +167,19 @@
                         <li><img src="~@/assets/icon/icon_comeinTK.png" alt="">办卡人数</li>
                         <li><img src="~@/assets/icon/icon_comeinSJ.png" alt="">私教人数</li>
                     </ul>-->
-                    <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+                    <eCharts :eChartObj="totalPassengerTrend" :style="styleComeIN"></eCharts>
                 </div>
 
             </el-tab-pane>
 
             <!-- tabItem2 私教 -->
-            <el-tab-pane label="私教" name="VipPT">
+            <el-tab-pane :lazy='tabLazy' label="私教" name="VipPT">
 
                 <!--B1 私教统计-->
                 <div class="index-item">
                     <header class="index-item-title">
                         <div class="title">私教统计</div>
                     </header>
-
                     <el-row >
                         <!--B11 上课-->
                         <el-col :md="8" class="vip-item-num">
@@ -211,10 +188,10 @@
                                 <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未上课</li>
                             </ul>
                             <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                <eCharts :eChartObj="PTLesson" :style="styleVip"></eCharts>
                                 <ul class="vipNum">
-                                    <li>已上课节数： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>未上课节数： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
+                                    <li>已上课节数： <span class="vipTipG">{{PTLesson.series[0].data[0].value}}</span></li>
+                                    <li>未上课节数： <span class="vipTipB">{{PTLesson.series[0].data[1].value}}</span></li>
                                 </ul>
                             </div>
                         </el-col>
@@ -226,10 +203,10 @@
                                 <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">续课</li>
                             </ul>
                             <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                <eCharts :eChartObj="PTAdd" :style="styleVip"></eCharts>
                                 <ul class="vipNum">
-                                    <li>新增私教： <span class="colorYellow">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>续课： <span class="colorRed">{{chartVip.series[0].data[1].value}}</span></li>
+                                    <li>新增私教： <span class="colorYellow">{{PTAdd.series[0].data[0].value}}</span></li>
+                                    <li>续课： <span class="colorRed">{{PTAdd.series[0].data[1].value}}</span></li>
                                 </ul>
                             </div>
                         </el-col>
@@ -238,13 +215,13 @@
                         <el-col :md="8"  class="vip-item-num">
                             <ul class="index-item-tipUl">
                                 <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">未跟进</li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未跟进</li>
                             </ul>
                             <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                                <eCharts :eChartObj="PTFollow" :style="styleVip"></eCharts>
                                 <ul class="vipNum">
-                                    <li>有效会员： <span class="colorRed">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>过期会员： <span class="colorBlue">{{chartVip.series[0].data[1].value}}</span></li>
+                                    <li>已跟进： <span class="colorRed">{{PTFollow.series[0].data[0].value}}</span></li>
+                                    <li>未跟进： <span class="colorBlue">{{PTFollow.series[0].data[1].value}}</span></li>
                                 </ul>
                             </div>
                         </el-col>
@@ -301,9 +278,7 @@
                     <!--销售额表格-->
                     <el-table
                             class="pt-table"
-                            :data="PTtable"
-                            border
-                            :header-cell-style="tableHeaderColor">>
+                            :data="PTtable">
                         <el-table-column
                                 prop="department"
                                 label="部门"
@@ -386,8 +361,7 @@
                     <el-table
                             class="pt-table"
                             :data="PTNumTable"
-                            border
-                            :header-cell-style="tableHeaderColor">
+                            border>
                         <el-table-column
                                 prop="department"
                                 label="部门"
@@ -480,9 +454,8 @@
                     <!-- PT会员上课详情 表格-->
                     <el-table
                             class="pt-table"
-                            :data="PptVipTable"
-                            border
-                            :header-cell-style="tableHeaderColor">>
+                            :data="PTVipTable"
+                            border>
                         <el-table-column
                                 prop="vipName"
                                 label="姓名"
@@ -524,7 +497,7 @@
             </el-tab-pane>
 
             <!-- tabItem3 会籍 -->
-            <el-tab-pane label="会籍" name="VipMembership">
+            <el-tab-pane :lazy='tabLazy' label="会籍" name="VipMembership">
 
                 <!-- C1 会籍销售额查询-->
                 <div class="index-item pt-sales">
@@ -577,8 +550,7 @@
                     <el-table
                             class="pt-table"
                             :data="PTtable"
-                            border
-                            :header-cell-style="tableHeaderColor">>
+                            border>
                         <el-table-column
                                 prop="department"
                                 label="部门"
@@ -715,8 +687,7 @@
                     <el-table
                             class="pt-table"
                             :data="PTNumTable"
-                            border
-                            :header-cell-style="tableHeaderColor">
+                            border>
                         <el-table-column
                                 prop="department"
                                 label="部门"
@@ -797,9 +768,8 @@
                     <!-- C4 会员上课详情 表格-->
                     <el-table
                             class="pt-table"
-                            :data="PptVipTable"
-                            border
-                            :header-cell-style="tableHeaderColor">>
+                            :data="PTVipTable"
+                            border>
                         <el-table-column
                                 prop="vipName"
                                 label="姓名"
@@ -842,8 +812,8 @@
 
         </el-tabs>
 
-
     </div>
+
 </template>
 
 <script>
@@ -851,15 +821,16 @@
     import eCharts from '@/components/Echarts/Echarts'
     import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
     import {totalMember_number,totalMember_trend,totalSub_card_trend,totalPassenger_trend,totalRefund_trend} from '@/assets/js/api'   /*引用 会员总览 接口*/
+    import {PTprivateMember} from '@/assets/js/api'   /*引用 会员总览 接口*/
 
     export default {
         name: "Receptionoverview",  //会员总览
         data() {
             return {
-                activeName: 'VipMembership', //VipTotal VipPT VipMembership
+                activeName: 'VipPT', //VipTotal VipPT VipMembership
 
-                /* == 会员总览 == */
-                /*eCharts 对应宽高*/
+                tabLazy:true,
+                /* == 会员总览 eCharts 对应宽高 == */
                 styleVip: {
                     height: '220px',
                     width: '220px',
@@ -869,8 +840,7 @@
                     width: '100%',
                 },
 
-                /*现有会员*/
-                chartVip: {
+                chartVip:{
                     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
@@ -901,7 +871,422 @@
                     }],
                 },
 
-                /*新增会员走势*/
+                /*会员总览1  会员数量 潜在 正式*/
+                totalVipNum: {
+                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    series: [{
+                        // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
+                        type: 'pie',
+                        data: [
+                            {value:'',name:""},
+                            {value:'',name:""},
+                        ],
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false,
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }],
+                },
+
+                /*会员总览1  会员数量 有效  过期*/
+                totalVipOverdue: {
+                    color: ['#FFBE00','#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    series: [{
+                        // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
+                        type: 'pie',
+                        data: [
+                            {value:'',name:""},
+                            {value:'',name:""},
+                        ],
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false,
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }],
+                },
+                totalVipPT:0,
+
+                /*会员总览2 新增会员走势*/
+                totalNewAdd: {
+                    color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+                    grid: {
+                        // show:true,//是否显示直角坐标系网格。[ default: false ]
+                        // borderColor:"#c45455",//网格的边框颜色
+                        top: "30px",
+                        left: "80px",
+                        right: "60px",
+                        bottom: "40px",
+                        width: "auto", //图例宽度
+                        height: "80%", //图例高度
+                    },
+
+                    xAxis: {
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        type: 'category',
+                        data: [],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                        //设置字体倾斜
+                        axisLabel:{
+                            // interval:0,
+                            // rotate:10,//倾斜度 -90 至 90 默认为0
+                            // margin:15,
+                            textStyle:{
+                                color:"#8E8E8E"
+                            }
+                        },
+                    },
+
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+
+                    series: [
+                        {
+                            name: '办卡人数',
+                            type: 'line',
+                            data: [],
+                            symbolSize: 12,   //设定实心点的大小
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed',
+                                }
+                            },
+                        },
+                        {
+                            name: '私教人数',
+                            type: 'line',
+                            symbolSize: 12,   //设定实心点的大小
+                            data: [],
+                        },
+
+                    ]
+                },
+
+                /*会员总览3 消耗趋势*/
+                totalConsumeTrend: {
+                    color: ['#4CCBEB','#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+
+                    xAxis: {
+                        type: 'category',
+                        data: [],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+
+                    grid: {
+                        top: "30px",
+                        left: "80px",
+                        right: "60px",
+                        bottom: "40px",
+                        width: "auto", //图例宽度
+                        height: "80%", //图例高度
+
+                    },
+                    series: [
+
+                        {
+                            name: '次卡',
+                            type: 'line',
+                            data: [],
+                            symbolSize: 12,   //设定实心点的大小
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed',
+                                }
+                            },
+                        },
+                        {
+                            name: '私教',
+                            type: 'line',
+                            symbolSize: 12,   //设定实心点的大小
+                            data: [],
+                        },
+
+                    ]
+                },
+
+                /*会员总览4 转卡退款人数走势*/
+                totalRefundTrend: {
+                    color: ['#4CCBEB','#005AD4','#FF8A7E','#FFBE00' ], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+
+                    xAxis: {
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        type: 'category',
+                        data: [],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                        //设置字体倾斜
+                        axisLabel:{
+                            // interval:0,
+                            // rotate:10,//倾斜度 -90 至 90 默认为0
+                            // margin:15,
+                            textStyle:{
+                                color:"#000000"
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+
+                    grid: {
+                        top: "30px",
+                        left: "80px",
+                        right: "60px",
+                        bottom: "40px",
+                        width: "auto", //图例宽度
+                        height: "80%", //图例高度
+
+                    },
+                    series: [
+                        {
+                            name: '会籍退款',
+                            type: 'line',
+                            data: [],
+                            symbolSize: 12,   //设定实心点的大小
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed',
+                                }
+                            },
+                        },
+                        {
+                            name: '会籍转卡',
+                            type: 'line',
+                            symbolSize: 12,   //设定实心点的大小
+                            data: [],
+                        },
+                        {
+                            name: '私教退款',
+                            symbolSize: 12,   //设定实心点的大小
+                            type: 'line',
+                            data: [],
+                        },
+                        {
+                            name: '私教转卡',
+                            symbolSize: 12,   //设定实心点的大小
+                            type: 'line',
+                            data: [],
+                        },
+                    ]
+                },
+
+                /*会员总览5 每日客流走势*/
+                totalPassengerTrend: {
+                    color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+
+                    xAxis: {
+                        type: 'category',
+                        data: [],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+
+                    grid: {
+                        top: "30px",
+                        left: "80px",
+                        right: "60px",
+                        bottom: "40px",
+                        width: "auto", //图例宽度
+                        height: "80%", //图例高度
+
+                    },
+                    series: [
+                        {
+                            name: '客流趋势',
+                            type: 'line',
+                            data: [],
+                            symbolSize: 12,   //设定实心点的大小
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed',
+                                }
+                            },
+                        },
+                    ]
+                },
+
+                /*私教1、私教统计 */
+                PTLesson:{
+                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    series: [{
+                        // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
+                        type: 'pie',
+                        data: [
+                            {value:'',name:""},
+                            {value:'',name:""},
+                            {value:'',name:""},
+                        ],
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false,
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }],
+                },
+
+                PTAdd:{
+                    color: ['#FFBE00','#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    series: [{
+                        // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
+                        type: 'pie',
+                        data: [
+                            {value:'',name:""},
+                            {value:'',name:""},
+                            {value:'',name:""},
+                        ],
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false,
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }],
+                },
+
+                PTFollow:{
+                    color: ['#FF8A7E', '#005AD4',], //自定义的颜色
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    series: [{
+                        // name: '现有会员',
+                        height: '90%',
+                        width: '90%',
+                        left: '10%',
+                        top: 0,
+                        radius: ['43%', '57%'],
+                        type: 'pie',
+                        data: [
+                            {value:'',name:""},
+                            {value:'',name:""},
+                            {value:'',name:""},
+                        ],
+                        label: {
+                            normal: {
+                                position: 'inner',
+                                show: false,
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        }
+                    }],
+                },
+
                 comeIn: {
                     color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
                     tooltip: {
@@ -1009,7 +1394,7 @@
                     ptNewAdd:'0',
                     ptTotal:'2',
                 },],
-                PptVipTable:[{
+                PTVipTable:[{
                     vipName: '王小虎',
                     tel:"176888294666",
                     lessonName :'1',
@@ -1017,6 +1402,8 @@
                     PT:'8',
                     vipSex:'3',
                 },],
+
+                options:'',
 
                 /*  == 会籍 == */
 
@@ -1026,18 +1413,158 @@
 
             /*tab切换*/
             handleClick(tab, event) {
-                console.log(tab, event);
+                // console.log(tab, event);
             },
 
-            /*获取  现有会员 数据*/
-            getTotal(){
-                IndexTotal_membership().then(res => {
-                    // console.log(res);
-                    this.chartVip.series[0].data = res;
+            /* ==== 会员总览 ==== 接口1 获取数量 totalMember_number*/
+            getTotalMember_number(){
+                totalMember_number().then(res => {
+
+                    /*潜在 与 正式 会员*/
+                    let MemberNum= [];
+                    let MemberNum1 = res[0];
+                    let MemberNum2 = res[1];
+                    MemberNum.push(MemberNum1,MemberNum2);
+                    // console.log(MemberNum);
+                    this.totalVipNum.series[0].data =MemberNum;
+
+                    /*有效 与 过期 会员*/
+                    let OverdueNum= [];
+                    let OverdueNum1 = res[2];
+                    let OverdueNum2 = res[3];
+                    OverdueNum.push(OverdueNum1,OverdueNum2);
+                    this.totalVipOverdue.series[0].data =OverdueNum;
+
+                    /*私教会员*/
+                    this.totalVipPT = res[4].value;
+
                 }).catch(res =>{
                     console.log(res);
                 });
             },
+
+            /*会员总览 接口2 新增会员走势 totalMember_trend*/
+            getTotalMember_trend(){
+                totalMember_trend().then(res => {
+                    // console.log(res);
+
+                    this.totalNewAdd.xAxis.data = res[0].value.split(',');
+                    this.totalNewAdd.series[0].name = res[1].name;
+                    this.totalNewAdd.series[0].data =  res[1].value.split(',');
+
+                    this.totalNewAdd.series[1].name = res[2].name;
+                    this.totalNewAdd.series[1].data = res[2].value.split(',');
+
+                    // let conmArr11 = '100,200,400,100,255,700,800,688,454,1547,145,448,859,664,771,954,147,548,1974,1475,1457,114,784,800,688,454,1547,145,448,859';
+                    // let conmArr12 = '744,1445,100,200,400,100,255,700,800,688,454,1547,145,448,859,664,771,954,147,548,1974,1475,1457,800,688,454,1547,145,448,859';
+                    // let conmArr1 = conmArr11.split(',');
+                    // let conmArr2 = conmArr12.split(',');
+
+
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+            /*会员总览 接口3 消耗趋势 totalSub_card_trend*/
+            getTotalSub_card_trend(){
+                totalSub_card_trend().then(res => {
+                    // console.log(res);
+
+                    this.totalConsumeTrend.xAxis.data = res[0].value.split(',');
+                    this.totalConsumeTrend.series[0].name = res[1].name;
+                    this.totalConsumeTrend.series[0].data =  res[1].value.split(',');
+
+                    this.totalConsumeTrend.series[1].name = res[2].name;
+                    this.totalConsumeTrend.series[1].data = res[2].value.split(',');
+
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+            /*会员总览 接口4 退款,转让走势 totalRefund_trend*/
+            getTotalRefund_trend(){
+                totalRefund_trend().then(res => {
+                    // console.log(res);
+                    this.totalRefundTrend.xAxis.data = res[0].value.split(',');
+                    this.totalRefundTrend.series[0].name = res[1].name;
+                    this.totalRefundTrend.series[0].data =  res[1].value.split(',');
+
+                    this.totalRefundTrend.series[1].name = res[2].name;
+                    this.totalRefundTrend.series[1].data = res[2].value.split(',');
+
+                    this.totalRefundTrend.series[2].name = res[3].name;
+                    this.totalRefundTrend.series[2].data = res[3].value.split(',');
+
+                    this.totalRefundTrend.series[3].name = res[4].name;
+                    this.totalRefundTrend.series[3].data = res[4].value.split(',');
+
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+            /*会员总览 接口5 客流走势 totalPassenger_trend*/
+            getTotalPassenger_trend(){
+                totalPassenger_trend().then(res => {
+                    // console.log(res);
+
+                    this.totalPassengerTrend.xAxis.data = res[0].value.split(',');
+                    this.totalPassengerTrend.series[0].name = res[1].name;
+                    this.totalPassengerTrend.series[0].data =  res[1].value.split(',');
+
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+
+
+            /* ==== 私教 接口1 私教统计 ==== */
+            getPTprivateMember(){
+                PTprivateMember().then(res => {
+                    // console.log(res);
+
+                    /* 已上课 与 未上课 */
+                    let ptLesson= [];
+                    let ptHasLesson = res[0];
+                    let ptNoLesson = res[1];
+                    ptLesson.push(ptHasLesson,ptNoLesson);
+                    // console.log(ptLesson);
+                    this.PTLesson.series[0].data = ptLesson;
+
+                    /*新增私教 与 续课*/
+                    let ptAdd= [];
+                    let ptNewAdd1 = res[2];
+                    let ptContinue = res[3];
+                    ptAdd.push(ptNewAdd1,ptContinue);
+                    // console.log(ptLesson);
+                    this.PTAdd.series[0].data = ptLesson;
+
+                    /*已跟进 与 未跟进*/
+                    let ptFollow= [];
+                    let ptHaveFollow = res[4];
+                    let ptNoFollow = res[5];
+                    ptFollow.push(ptHaveFollow,ptNoFollow);
+                    // console.log(ptFollow);
+                    this.PTFollow.series[0].data = ptFollow;
+
+
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+            /*获取  现有会员 数据*/
+            // getTotal(){
+            //     IndexTotal_membership().then(res => {
+            //         // console.log(res);
+            //         this.chartVip.series[0].data = res;
+            //     }).catch(res =>{
+            //         console.log(res);
+            //     });
+            // },
 
             /*获取  营收走势 新增会员走势 数据*/
             getRevenue_trend(){
@@ -1067,12 +1594,31 @@
             },
         },
         created() {
+            /*调用 ==== 会员总览1 ==== 会员数量*/
+            this.getTotalMember_number();
 
-            /*调用 现有会员 数据接口 方法*/
+            /*调用 会员总览2 新增会员走势*/
+            this.getTotalMember_trend();
+
+            /*调用 会员总览3 消耗趋势*/
+            this.getTotalSub_card_trend();
+
+            /*调用 会员总览4 退款,转让走势*/
+            this.getTotalRefund_trend();
+
+            /*调用 会员总览5 客流走势*/
+            this.getTotalPassenger_trend();
+
+
+            /*调用 ==== 私教1 ==== 私教统计*/
+            this.getPTprivateMember();
+
+
+           /* /!*调用 现有会员 数据接口 方法*!/
             this.getTotal();
 
-            /*新增会员走势 调用*/
-            this.getRevenue_trend();
+            /!*新增会员走势 调用*!/
+            this.getRevenue_trend();*/
 
         },
 

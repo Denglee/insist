@@ -7,6 +7,9 @@
 
         <!--右侧主体内容-->
         <el-col :span="22" class="layout-right">
+            
+            <el-backtop></el-backtop>
+
             <header class="layoutR-header">
                 <!-- 头部 -->
                 <header-top/>
@@ -17,6 +20,8 @@
 
             <!--右边主体内容-->
             <router-view></router-view>
+
+
 
         </el-col>
     </el-row>
@@ -68,4 +73,5 @@
 </script>
 <style lang="scss">
     @import "~@/assets/css/LayoutNav.scss";
+
 </style>

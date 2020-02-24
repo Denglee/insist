@@ -50,6 +50,9 @@ export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', p
 export const totalMember_number   = params => post('admin/statis/member_number', params);         /* 会员数量*/
 export const totalMember_trend    = params => post('admin/statis/member_trend', params);          /* 新增会员走势*/
 export const totalSub_card_trend  = params => post('admin/statis/sub_card_trend', params);        /* 消耗趋势*/
-export const totalPassenger_trend = params => post('admin/statis/passenger_trend', params);       /* 客流走势*/
 export const totalRefund_trend    = params => post('admin/statis/refund_transfer_trend', params); /* 退款,转让走势*/
+export const totalPassenger_trend = params => post('admin/statis/passenger_trend', params);       /* 客流走势*/
 
+
+/* 2、私教 */
+export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 会员数量*/
