@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main index-container">
+    <div class="index-container">
         <!--        <iframe src="https://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>-->
         <!--         <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
 
@@ -775,10 +775,6 @@
     iframe {
         width: 100%;
         min-height: 100vh;
-    }
-
-    .layoutR-main {
-        padding: 20px;
     }
 </style>
 

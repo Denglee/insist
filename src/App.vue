@@ -2,9 +2,8 @@
   <div id="app">
     <!--<router-view v-if="isRouterAlive" :key="key"/>-->
 
+
     <router-view v-if="isRouterAlive"></router-view>
-
-
 
   </div>
 </template>
@@ -17,9 +16,11 @@
         reLoad:this.reLoad,
       }
     },
+
     data(){
       return {
         isRouterAlive:true,
+
       }
     },
     methods:{
@@ -54,5 +55,8 @@
   * */
 </script>
 <style lang="scss">
+  #app{
+    min-height: 100vh;
+  }
 
 </style>

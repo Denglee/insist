@@ -7,8 +7,6 @@
 
         <!--右侧主体内容-->
         <el-col :span="22" class="layout-right">
-            
-            <el-backtop></el-backtop>
 
             <header class="layoutR-header">
                 <!-- 头部 -->
@@ -18,9 +16,16 @@
                 <tag-nav></tag-nav>
             </header>
 
-            <!--右边主体内容-->
-            <router-view></router-view>
+            <div class="back-top">
+                <el-backtop :bottom="20">
+                    <el-tooltip class="item" effect="dark" content="回到顶部" placement="right-start">
+                        <el-button class="back-content">up</el-button>
+                    </el-tooltip>
+                </el-backtop>
 
+                <!--右边主体内容-->
+                <router-view></router-view>
+            </div>
 
 
         </el-col>

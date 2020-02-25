@@ -60,17 +60,35 @@
   .layout-right{
     width: calc(100% - 150px);
     margin-left: 150px;
+    //height: calc(100vh - 106px);
     .layoutR-header{
       width: 100%;
     }
     .layoutR-main{
       width: 100%;
-      height: calc(100vh - 106px);
+      min-height: calc(100vh - 106px);
       box-sizing: border-box;
       overflow-y: auto;
       background-color: $color-linghtWhite;
     }
+  }
 
+  /*回到顶部*/
+  .back-top{
+    width: 100%;
+    min-height: calc(100vh - 140px);
+    .el-backtop{
+      z-index: 2020;
+    }
+    .back-content{
+      height: 100%;
+      width: 100%;
+      background-color: #f2f5f6;
+      box-shadow: 0 0 6px rgba(0,0,0, .12);
+      text-align: center;
+      line-height: 40px;
+      color: #1989fa;
+    }
   }
 }
 

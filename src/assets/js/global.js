@@ -49,9 +49,23 @@ function getToday() {
 
 
 // 全局 js
-const localUrl = 'http://vikily.f3322.net:20000';  //测试
-// const localUrl = 'https://spt.zmtek.net';  //系统正式
+let localUrl = '';  //全局路径
+var test = window.location.host;
+if( test == 'http://vikily.f3322.net:20000'){
+    localUrl = 'http://vikily.f3322.net:20000';
+}
+else if(test == 'https://spt.zmtek.net'){
+    localUrl = 'https://spt.zmtek.net';
+}
+else if(test == 'https://swim.zmtek.net'){
+    localUrl = 'https://swim.zmtek.net';
+} else {
+    localUrl = 'https://spt.zmtek.net';
+}
+console.log(localUrl);
 
+// const localUrl = 'http://vikily.f3322.net:20000';  //测试
+// const localUrl = 'https://spt.zmtek.net';  //系统正式
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式
 
 export default {

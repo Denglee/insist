@@ -1,11 +1,10 @@
-
 <template>
-    <div class="layoutR-main layoutR-box">
+    <div class="total-vipBox">
         <!--会员卡记录-->
         <!--<publicIframe/>-->
 
         <!--选项卡-->
-        <el-tabs v-model="activeName" @tab-click="handleClick" class="vip-tabBox">
+        <el-tabs v-model="activeName" @tab-click="handleClick" class="vip-tabBox pubWidth" v-show="tabPaneState">
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal">
@@ -20,7 +19,7 @@
                                 <div class="title">会员数量</div>
                             </header>
 
-                            <el-row >
+                            <el-row>
                                 <!--潜在会员-->
                                 <el-col :md="12" class="vip-item-num">
                                     <ul class="index-item-tipUl">
@@ -30,14 +29,16 @@
                                     <div class="flex-between">
                                         <eCharts :eChartObj="totalVipNum" :style="styleVip"></eCharts>
                                         <ul class="vipNum">
-                                            <li>潜在会员： <span class="vipTipG">{{totalVipNum.series[0].data[0].value}}</span></li>
-                                            <li>正式会员： <span class="vipTipB">{{totalVipNum.series[0].data[1].value}}</span></li>
+                                            <li>潜在会员： <span
+                                                    class="vipTipG">{{totalVipNum.series[0].data[0].value}}</span></li>
+                                            <li>正式会员： <span
+                                                    class="vipTipB">{{totalVipNum.series[0].data[1].value}}</span></li>
                                         </ul>
                                     </div>
                                 </el-col>
 
                                 <!--有效会员-->
-                                <el-col :md="12"  class="vip-item-num">
+                                <el-col :md="12" class="vip-item-num">
                                     <ul class="index-item-tipUl">
                                         <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">有效会员</li>
                                         <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
@@ -45,8 +46,11 @@
                                     <div class="flex-between">
                                         <eCharts :eChartObj="totalVipOverdue" :style="styleVip"></eCharts>
                                         <ul class="vipNum">
-                                            <li>有效会员： <span class="colorYellow">{{totalVipOverdue.series[0].data[0].value}}</span></li>
-                                            <li>过期会员： <span class="colorRed">{{totalVipOverdue.series[0].data[1].value}}</span></li>
+                                            <li>有效会员： <span class="colorYellow">{{totalVipOverdue.series[0].data[0].value}}</span>
+                                            </li>
+                                            <li>过期会员： <span
+                                                    class="colorRed">{{totalVipOverdue.series[0].data[1].value}}</span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </el-col>
@@ -180,12 +184,14 @@
                     <header class="index-item-title">
                         <div class="title">私教统计</div>
                     </header>
-                    <el-row >
-                        <!--B11 上课-->
+                    <el-row>
+                        <!--B11 私教上课-->
                         <el-col :md="8" class="vip-item-num">
                             <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">已上课</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未上课</li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">已上课
+                                </li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未上课
+                                </li>
                             </ul>
                             <div class="flex-between">
                                 <eCharts :eChartObj="PTLesson" :style="styleVip"></eCharts>
@@ -196,11 +202,13 @@
                             </div>
                         </el-col>
 
-                        <!-- B12 新增 -->
-                        <el-col :md="8"  class="vip-item-num">
+                        <!-- B12 私教新增 -->
+                        <el-col :md="8" class="vip-item-num">
                             <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">新增私教</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">续课</li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">新增私教
+                                </li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">续课
+                                </li>
                             </ul>
                             <div class="flex-between">
                                 <eCharts :eChartObj="PTAdd" :style="styleVip"></eCharts>
@@ -211,14 +219,16 @@
                             </div>
                         </el-col>
 
-                        <!--B13  已跟进-->
-                        <el-col :md="8"  class="vip-item-num">
+                        <!--B13  私教已跟进-->
+                        <el-col :md="8" class="vip-item-num">
                             <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未跟进</li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进
+                                </li>
+                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未跟进
+                                </li>
                             </ul>
                             <div class="flex-between">
-                                <eCharts :eChartObj="PTFollow" :style="styleVip"></eCharts>
+                                <eCharts :eChartObj="PTFollow" :style="stylePTFollow" class="echart-ptFpllow"></eCharts>
                                 <ul class="vipNum">
                                     <li>已跟进： <span class="colorRed">{{PTFollow.series[0].data[0].value}}</span></li>
                                     <li>未跟进： <span class="colorBlue">{{PTFollow.series[0].data[1].value}}</span></li>
@@ -228,13 +238,13 @@
                     </el-row>
                 </div>
 
-                <!-- B2 销售额查询 -->
+                <!-- B2 私教销售额查询 -->
                 <div class="index-item pt-sales">
                     <header class="index-item-title">
                         <div class="title">销售额查询</div>
                     </header>
 
-                    <!--销售额筛选-->
+                    <!--私教销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
@@ -247,8 +257,8 @@
                             </el-option>
                         </el-select>
 
-                        <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <!--私教教练-->
+                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -278,16 +288,15 @@
                     <!--销售额表格-->
                     <el-table
                             class="pt-table"
+                            border
                             :data="PTtable">
                         <el-table-column
                                 prop="department"
-                                label="部门"
-                                width="180">
+                                label="部门">
                         </el-table-column>
                         <el-table-column
                                 prop="pt"
-                                label="教练"
-                                width="180">
+                                label="教练">
                         </el-table-column>
                         <el-table-column
                                 prop="tel"
@@ -304,9 +313,15 @@
                         </el-table-column>
                     </el-table>
 
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
+                    <div class="ptTable-assist">
+                        <el-pagination
+                                background
+                                layout="prev, pager, next,total"
+                                :total="20">
+                        </el-pagination>
+
+                        <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">查看更多</el-button>
+                    </div>
 
                 </div>
 
@@ -330,7 +345,7 @@
                         </el-select>
 
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -364,13 +379,11 @@
                             border>
                         <el-table-column
                                 prop="department"
-                                label="部门"
-                                width="180">
+                                label="部门">
                         </el-table-column>
                         <el-table-column
                                 prop="pt"
-                                label="教练"
-                                width="180">
+                                label="教练">
                         </el-table-column>
                         <el-table-column
                                 prop="ptContinuation"
@@ -407,13 +420,21 @@
                         </el-table-column>
                     </el-table>
 
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
+                    <div class="ptTable-assist">
+                        <el-pagination
+                                background
+                                layout="prev, pager, next,total"
+                                :total="20">
+                        </el-pagination>
+
+
+                        <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptNumD')">查看更多</el-button>
+
+                    </div>
 
                 </div>
 
-                <!-- B4 PT上课查询-->
+                <!-- B4 私教上课查询-->
                 <div class="index-item pt-sales">
                     <header class="index-item-title">
                         <div class="title">上课查询</div>
@@ -425,20 +446,18 @@
 
                 </div>
 
-                <!-- B5 PT会员上课详情-->
+                <!-- B5 私教会员上课详情-->
                 <div class="index-item pt-sales">
                     <header class="index-item-title">
                         <div class="title">会员上课详情</div>
                     </header>
-
-                    <!-- PT会员上课详情 筛选-->
+                    <!-- 私教会员上课详情 筛选-->
                     <div class="pt-screen flex-between">
-
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3"
+                                  class="pt-screen-item pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
-
                         <!--日期选择-->
                         <el-date-picker
                                 class=""
@@ -448,7 +467,6 @@
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期">
                         </el-date-picker>
-
                     </div>
 
                     <!-- PT会员上课详情 表格-->
@@ -458,13 +476,11 @@
                             border>
                         <el-table-column
                                 prop="vipName"
-                                label="姓名"
-                                width="180">
+                                label="姓名">
                         </el-table-column>
                         <el-table-column
                                 prop="tel"
-                                label="电话"
-                                width="180">
+                                label="电话">
                         </el-table-column>
                         <el-table-column
                                 prop="tel"
@@ -488,27 +504,39 @@
                         </el-table-column>
                     </el-table>
 
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
+                    <div class="ptTable-assist">
+                        <el-pagination
+                                background
+                                layout="prev, pager, next,total"
+                                :total="20">
+                        </el-pagination>
+
+
+                        <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptLessonD')">查看更多</el-button>
+
+                    </div>
 
                 </div>
 
             </el-tab-pane>
 
-            <!-- tabItem3 会籍 -->
-            <el-tab-pane :lazy='tabLazy' label="会籍" name="VipMembership">
 
-                <!-- C1 会籍销售额查询-->
-                <div class="index-item pt-sales">
+        </el-tabs>
+
+        <!--私教销售额查询 表格 详情-->
+        <div v-show="ptSalesD">
+            <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                <!-- B2 销售额查询 -->
+                <div class="index-item ">
                     <header class="index-item-title">
-                        <div class="title">会籍销售额查询</div>
+                        <div class="title">私教销售额查询</div>
                     </header>
-
                     <!--销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择部门"
+                                   class="pt-screen-item"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -517,9 +545,9 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练"
+                                   class="pt-screen-item"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -528,7 +556,6 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-
                         <!--日期选择-->
                         <el-date-picker
                                 class="pt-screen-item"
@@ -538,14 +565,11 @@
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期">
                         </el-date-picker>
-
                         <!--搜索-->
                         <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
-
                     </div>
-
                     <!--销售额表格-->
                     <el-table
                             class="pt-table"
@@ -553,13 +577,11 @@
                             border>
                         <el-table-column
                                 prop="department"
-                                label="部门"
-                                width="180">
+                                label="部门">
                         </el-table-column>
                         <el-table-column
                                 prop="pt"
-                                label="教练"
-                                width="180">
+                                label="教练">
                         </el-table-column>
                         <el-table-column
                                 prop="tel"
@@ -575,74 +597,45 @@
                                 label="日期">
                         </el-table-column>
                     </el-table>
-
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
+                    <div class="ptTable-assist">
+                        <el-pagination
+                                background
+                                layout="prev, pager, next,total"
+                                :total="20">
+                        </el-pagination>
+                        <!--<router-link to="/Reception/table">走吧</router-link>-->
+                    </div>
 
                 </div>
+            </div>
+        </div>
 
-                <!--C2 会籍统计-->
-                <div class="index-item">
+        <!--私教数量查询 表格 详情-->
+        <div v-show="ptNumD">
+            <navBread @GoBack="goBack('VipPT','ptNumD')" breadTitle="私教" breadContent1="销售数量查询"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                私教数量查询
+            </div>
+        </div>
+
+        <!--私教会员上课详情 表格 详情-->
+        <div v-show="ptLessonD">
+            <navBread @GoBack="goBack('VipPT','ptLessonD')" breadTitle="私教" breadContent1="会员上课详情"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                私教会员上课
+            </div>
+        </div>
+
+        <!--会籍销售额查询 表格 详情-->
+        <div v-show="vSalesD">
+            <navBread @GoBack="goBack('VipMembership','vSalesD')" breadTitle="会籍" breadContent1="销售额查询详情"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                <!-- B2 销售额查询 -->
+                <div class="index-item ">
                     <header class="index-item-title">
-                        <div class="title">会籍统计</div>
+                        <div class="title">会籍销售额查询</div>
                     </header>
-
-                    <el-row >
-                        <!--B11 上课-->
-                        <el-col :md="8" class="vip-item-num">
-                            <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">已上课</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未上课</li>
-                            </ul>
-                            <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
-                                <ul class="vipNum">
-                                    <li>已上课节数： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>未上课节数： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
-                                </ul>
-                            </div>
-                        </el-col>
-
-                        <!-- B12 新增 -->
-                        <el-col :md="8"  class="vip-item-num">
-                            <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">新增私教</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">续课</li>
-                            </ul>
-                            <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
-                                <ul class="vipNum">
-                                    <li>新增私教： <span class="colorYellow">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>续课： <span class="colorRed">{{chartVip.series[0].data[1].value}}</span></li>
-                                </ul>
-                            </div>
-                        </el-col>
-
-                        <!--B13  已跟进-->
-                        <el-col :md="8"  class="vip-item-num">
-                            <ul class="index-item-tipUl">
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进</li>
-                                <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">未跟进</li>
-                            </ul>
-                            <div class="flex-between">
-                                <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
-                                <ul class="vipNum">
-                                    <li>有效会员： <span class="colorRed">{{chartVip.series[0].data[0].value}}</span></li>
-                                    <li>过期会员： <span class="colorBlue">{{chartVip.series[0].data[1].value}}</span></li>
-                                </ul>
-                            </div>
-                        </el-col>
-                    </el-row>
-                </div>
-
-                <!-- C3 会籍数量查询-->
-                <div class="index-item pt-sales">
-                    <header class="index-item-title">
-                        <div class="title">会籍数量查询</div>
-                    </header>
-
-                    <!-- C3会籍数量查询 筛选-->
+                    <!--销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
@@ -654,9 +647,8 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -665,7 +657,6 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-
                         <!--日期选择-->
                         <el-date-picker
                                 class="pt-screen-item"
@@ -675,142 +666,67 @@
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期">
                         </el-date-picker>
-
                         <!--搜索-->
                         <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
-
                     </div>
-
-                    <!--  C3会籍数量查询 表格-->
+                    <!--销售额表格-->
                     <el-table
                             class="pt-table"
-                            :data="PTNumTable"
+                            :data="PTtable"
                             border>
                         <el-table-column
                                 prop="department"
-                                label="部门"
-                                width="180">
+                                label="部门">
                         </el-table-column>
                         <el-table-column
                                 prop="pt"
-                                label="教练"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptContinuation"
-                                label="续课">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptTransfer"
-                                label="转课">
-                            <!--<template slot-scope="scope">￥{{ scope.row.money }}</template>-->
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptRefund"
-                                label="退款">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptOverdue"
-                                label="过期">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptFollow"
-                                label="跟进">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptNoFollow"
-                                label="未跟进">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptNewAdd"
-                                label="新增私教">
-                        </el-table-column>
-                        <el-table-column
-                                prop="ptTotal"
-                                label="总会员数">
-                        </el-table-column>
-                    </el-table>
-
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
-
-                </div>
-
-                <!-- C4 会员上课详情-->
-                <div class="index-item pt-sales">
-                    <header class="index-item-title">
-                        <div class="title">会员上课详情</div>
-                    </header>
-
-                    <!-- C4 会员上课详情 筛选-->
-                    <div class="pt-screen flex-between">
-
-                        <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
-                            <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                        </el-input>
-
-                        <!--日期选择-->
-                        <el-date-picker
-                                class=""
-                                v-model="value1"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                        </el-date-picker>
-
-                    </div>
-
-                    <!-- C4 会员上课详情 表格-->
-                    <el-table
-                            class="pt-table"
-                            :data="PTVipTable"
-                            border>
-                        <el-table-column
-                                prop="vipName"
-                                label="姓名"
-                                width="180">
-                        </el-table-column>
-                        <el-table-column
-                                prop="tel"
-                                label="电话"
-                                width="180">
+                                label="教练">
                         </el-table-column>
                         <el-table-column
                                 prop="tel"
                                 label="电话">
                         </el-table-column>
                         <el-table-column
-                                prop="lessonName"
-                                label="课程名称">
+                                prop="money"
+                                label="金额">
+                            <template slot-scope="scope">￥{{ scope.row.money }}</template>
                         </el-table-column>
                         <el-table-column
-                                prop="lessonTotal"
-                                label="总上课节数">
-                        </el-table-column>
-                        <el-table-column
-                                prop="PT"
-                                label="教练">
-                        </el-table-column>
-                        <el-table-column
-                                prop="vipSex"
-                                label="性别">
+                                prop="day"
+                                label="日期">
                         </el-table-column>
                     </el-table>
-
-                    <router-link to='/Reception/table'>
-                        <el-button  class="btn-ptMore">查看更多</el-button>
-                    </router-link>
+                    <div class="ptTable-assist">
+                        <el-pagination
+                                background
+                                layout="prev, pager, next,total"
+                                :total="20">
+                        </el-pagination>
+                        <!--<router-link to="/Reception/table">走吧</router-link>-->
+                    </div>
 
                 </div>
+            </div>
+        </div>
 
-            </el-tab-pane>
+        <!--会籍数量查询 表格 详情-->
+        <div v-show="vNumD">
+            <navBread @GoBack="goBack('VipMembership','vNumD')" breadTitle="会籍" breadContent1="数量查询"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                会籍数量查询
+            </div>
+        </div>
 
-        </el-tabs>
+        <!--会籍会员上课详情 表格 详情-->
+        <div v-show="vLessonD">
+            <navBread @GoBack="goBack('VipMembership','vLessonD')" breadTitle="会籍" breadContent1="会员上课详情"></navBread>
+            <div class="ptTable-detail vip-tabBox pubWidth">
+                会籍会员上课
+            </div>
+        </div>
+
 
     </div>
 
@@ -819,9 +735,15 @@
 <script>
 
     import eCharts from '@/components/Echarts/Echarts'
-    import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
-    import {totalMember_number,totalMember_trend,totalSub_card_trend,totalPassenger_trend,totalRefund_trend} from '@/assets/js/api'   /*引用 会员总览 接口*/
-    import {PTprivateMember} from '@/assets/js/api'   /*引用 会员总览 接口*/
+    import navBread from '@/components/Echarts/navBread'
+    import {
+        PTprivateMember,
+        totalMember_number,
+        totalMember_trend,
+        totalPassenger_trend,
+        totalRefund_trend,
+        totalSub_card_trend
+    } from '@/assets/js/api' /*引用 会员总览 接口*/ /*引用 会员总览 接口*/
 
     export default {
         name: "Receptionoverview",  //会员总览
@@ -829,18 +751,22 @@
             return {
                 activeName: 'VipPT', //VipTotal VipPT VipMembership
 
-                tabLazy:true,
+                tabLazy: true,
                 /* == 会员总览 eCharts 对应宽高 == */
                 styleVip: {
-                    height: '220px',
-                    width: '220px',
+                    height: '180px',
+                    width: '180px',
+                },
+                stylePTFollow: {
+                    height: '130px',
+                    width: '130px',
                 },
                 styleComeIN: {
                     height: '310px',
                     width: '100%',
                 },
 
-                chartVip:{
+                chartVip: {
                     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
@@ -853,9 +779,9 @@
                         top: 0,
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -885,8 +811,8 @@
                         top: 0,
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -904,7 +830,7 @@
 
                 /*会员总览1  会员数量 有效  过期*/
                 totalVipOverdue: {
-                    color: ['#FFBE00','#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    color: ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
                     },
@@ -916,8 +842,8 @@
                         top: 0,
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -932,7 +858,7 @@
                         }
                     }],
                 },
-                totalVipPT:0,
+                totalVipPT: 0,
 
                 /*会员总览2 新增会员走势*/
                 totalNewAdd: {
@@ -963,12 +889,12 @@
                             }
                         },
                         //设置字体倾斜
-                        axisLabel:{
+                        axisLabel: {
                             // interval:0,
                             // rotate:10,//倾斜度 -90 至 90 默认为0
                             // margin:15,
-                            textStyle:{
-                                color:"#8E8E8E"
+                            textStyle: {
+                                color: "#8E8E8E"
                             }
                         },
                     },
@@ -1006,7 +932,7 @@
 
                 /*会员总览3 消耗趋势*/
                 totalConsumeTrend: {
-                    color: ['#4CCBEB','#005AD4'], //自定义的颜色
+                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
                     },
@@ -1063,7 +989,7 @@
 
                 /*会员总览4 转卡退款人数走势*/
                 totalRefundTrend: {
-                    color: ['#4CCBEB','#005AD4','#FF8A7E','#FFBE00' ], //自定义的颜色
+                    color: ['#4CCBEB', '#005AD4', '#FF8A7E', '#FFBE00'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
@@ -1083,12 +1009,12 @@
                             }
                         },
                         //设置字体倾斜
-                        axisLabel:{
+                        axisLabel: {
                             // interval:0,
                             // rotate:10,//倾斜度 -90 至 90 默认为0
                             // margin:15,
-                            textStyle:{
-                                color:"#000000"
+                            textStyle: {
+                                color: "#000000"
                             }
                         },
                     },
@@ -1193,22 +1119,30 @@
                 },
 
                 /*私教1、私教统计 */
-                PTLesson:{
+                tabPaneState: true,    //tab 显隐
+                ptSalesD: false,  //销售查询表格 显隐
+                ptNumD: false,
+                ptLessonD: false,
+                vSalesD: false,
+                vNumD: false,
+                vLessonD: false,
+
+                PTLesson: {
                     color: ['#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
                     },
                     series: [{
                         // name: '现有会员',
-                        height: '90%',
-                        width: '90%',
-                        left: '10%',
-                        top: 0,
+                        height: '100%',
+                        width: '100%',
+                        left: '0%',
+                        top: '0%',
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -1224,22 +1158,22 @@
                     }],
                 },
 
-                PTAdd:{
-                    color: ['#FFBE00','#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                PTAdd: {
+                    color: ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
                     },
                     series: [{
                         // name: '现有会员',
-                        height: '90%',
-                        width: '90%',
-                        left: '10%',
-                        top: 0,
+                        height: '100%',
+                        width: '100%',
+                        left: '0%',
+                        top: '0%',
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -1255,23 +1189,23 @@
                     }],
                 },
 
-                PTFollow:{
+                PTFollow: {
                     color: ['#FF8A7E', '#005AD4',], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
                     },
                     series: [{
                         // name: '现有会员',
-                        height: '90%',
-                        width: '90%',
-                        left: '10%',
-                        top: 0,
-                        radius: ['43%', '57%'],
+                        height: '100%',
+                        width: '100%',
+                        left: '0%',
+                        top: '0%',
+                        radius: ['100%', '80%'],
                         type: 'pie',
                         data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
-                            {value:'',name:""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
+                            {value: '', name: ""},
                         ],
                         label: {
                             normal: {
@@ -1349,61 +1283,43 @@
                 },
 
                 /*  == 私教 == */
-                value:'',
-                value1:"",
-                input3:'',
+                value: '',
+                value1: "",
+                input3: '',
 
                 //销售额表格
                 PTtable: [{
                     department: '市场部',
                     pt: '王小虎',
                     tel: '17688829466',
-                    money:'574889',
-                    day:'2020-02-14',
+                    money: '574889',
+                    day: '2020-02-14',
                 },
-                    //     {
-                    //     department: '市场部',
-                    //     pt: '王小虎',
-                    //     tel: '17688829466',
-                    //     money:'574889',
-                    //     day:'2020-02-14',
-                    // }, {
-                    //     department: '市场部',
-                    //     pt: '王小虎',
-                    //     tel: '17688829466',
-                    //     money:'574889',
-                    //     day:'2020-02-14',
-                    // }, {
-                    //     department: '市场部',
-                    //     pt: '王小虎',
-                    //     tel: '17688829466',
-                    //     money:'574889',
-                    //     day:'2020-02-14',
-                    // },
                 ],
 
-                PTNumTable:[{
+                PTNumTable: [{
                     department: '市场部',
                     pt: '王小虎',
-                    ptContinuation:"1",
-                    ptTransfer :'1',
-                    ptRefund:'1',
-                    ptOverdue:'8',
-                    ptFollow:'3',
-                    ptNoFollow:'8',
-                    ptNewAdd:'0',
-                    ptTotal:'2',
+                    ptContinuation: "1",
+                    ptTransfer: '1',
+                    ptRefund: '1',
+                    ptOverdue: '8',
+                    ptFollow: '3',
+                    ptNoFollow: '8',
+                    ptNewAdd: '0',
+                    ptTotal: '2',
                 },],
-                PTVipTable:[{
+                PTVipTable: [{
                     vipName: '王小虎',
-                    tel:"176888294666",
-                    lessonName :'1',
-                    lessonTotal:'1',
-                    PT:'8',
-                    vipSex:'3',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
                 },],
 
-                options:'',
+                options: [],
+                value: '',
 
                 /*  == 会籍 == */
 
@@ -1417,40 +1333,40 @@
             },
 
             /* ==== 会员总览 ==== 接口1 获取数量 totalMember_number*/
-            getTotalMember_number(){
+            getTotalMember_number() {
                 totalMember_number().then(res => {
 
                     /*潜在 与 正式 会员*/
-                    let MemberNum= [];
+                    let MemberNum = [];
                     let MemberNum1 = res[0];
                     let MemberNum2 = res[1];
-                    MemberNum.push(MemberNum1,MemberNum2);
+                    MemberNum.push(MemberNum1, MemberNum2);
                     // console.log(MemberNum);
-                    this.totalVipNum.series[0].data =MemberNum;
+                    this.totalVipNum.series[0].data = MemberNum;
 
                     /*有效 与 过期 会员*/
-                    let OverdueNum= [];
+                    let OverdueNum = [];
                     let OverdueNum1 = res[2];
                     let OverdueNum2 = res[3];
-                    OverdueNum.push(OverdueNum1,OverdueNum2);
-                    this.totalVipOverdue.series[0].data =OverdueNum;
+                    OverdueNum.push(OverdueNum1, OverdueNum2);
+                    this.totalVipOverdue.series[0].data = OverdueNum;
 
                     /*私教会员*/
                     this.totalVipPT = res[4].value;
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
             /*会员总览 接口2 新增会员走势 totalMember_trend*/
-            getTotalMember_trend(){
+            getTotalMember_trend() {
                 totalMember_trend().then(res => {
                     // console.log(res);
 
                     this.totalNewAdd.xAxis.data = res[0].value.split(',');
                     this.totalNewAdd.series[0].name = res[1].name;
-                    this.totalNewAdd.series[0].data =  res[1].value.split(',');
+                    this.totalNewAdd.series[0].data = res[1].value.split(',');
 
                     this.totalNewAdd.series[1].name = res[2].name;
                     this.totalNewAdd.series[1].data = res[2].value.split(',');
@@ -1461,35 +1377,35 @@
                     // let conmArr2 = conmArr12.split(',');
 
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
             /*会员总览 接口3 消耗趋势 totalSub_card_trend*/
-            getTotalSub_card_trend(){
+            getTotalSub_card_trend() {
                 totalSub_card_trend().then(res => {
                     // console.log(res);
 
                     this.totalConsumeTrend.xAxis.data = res[0].value.split(',');
                     this.totalConsumeTrend.series[0].name = res[1].name;
-                    this.totalConsumeTrend.series[0].data =  res[1].value.split(',');
+                    this.totalConsumeTrend.series[0].data = res[1].value.split(',');
 
                     this.totalConsumeTrend.series[1].name = res[2].name;
                     this.totalConsumeTrend.series[1].data = res[2].value.split(',');
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
-            /*会员总览 接口4 退款,转让走势 totalRefund_trend*/
-            getTotalRefund_trend(){
+            /*会员总览 接口4 退款,转让走势  totalRefund_trend*/
+            getTotalRefund_trend() {
                 totalRefund_trend().then(res => {
                     // console.log(res);
                     this.totalRefundTrend.xAxis.data = res[0].value.split(',');
                     this.totalRefundTrend.series[0].name = res[1].name;
-                    this.totalRefundTrend.series[0].data =  res[1].value.split(',');
+                    this.totalRefundTrend.series[0].data = res[1].value.split(',');
 
                     this.totalRefundTrend.series[1].name = res[2].name;
                     this.totalRefundTrend.series[1].data = res[2].value.split(',');
@@ -1500,98 +1416,86 @@
                     this.totalRefundTrend.series[3].name = res[4].name;
                     this.totalRefundTrend.series[3].data = res[4].value.split(',');
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
             /*会员总览 接口5 客流走势 totalPassenger_trend*/
-            getTotalPassenger_trend(){
+            getTotalPassenger_trend() {
                 totalPassenger_trend().then(res => {
                     // console.log(res);
 
                     this.totalPassengerTrend.xAxis.data = res[0].value.split(',');
                     this.totalPassengerTrend.series[0].name = res[1].name;
-                    this.totalPassengerTrend.series[0].data =  res[1].value.split(',');
+                    this.totalPassengerTrend.series[0].data = res[1].value.split(',');
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
 
-
             /* ==== 私教 接口1 私教统计 ==== */
-            getPTprivateMember(){
+            getPTprivateMember() {
                 PTprivateMember().then(res => {
                     // console.log(res);
 
                     /* 已上课 与 未上课 */
-                    let ptLesson= [];
+                    let ptLesson = [];
                     let ptHasLesson = res[0];
                     let ptNoLesson = res[1];
-                    ptLesson.push(ptHasLesson,ptNoLesson);
+                    ptLesson.push(ptHasLesson, ptNoLesson);
                     // console.log(ptLesson);
                     this.PTLesson.series[0].data = ptLesson;
 
                     /*新增私教 与 续课*/
-                    let ptAdd= [];
+                    let ptAdd = [];
                     let ptNewAdd1 = res[2];
                     let ptContinue = res[3];
-                    ptAdd.push(ptNewAdd1,ptContinue);
+                    ptAdd.push(ptNewAdd1, ptContinue);
                     // console.log(ptLesson);
                     this.PTAdd.series[0].data = ptLesson;
 
                     /*已跟进 与 未跟进*/
-                    let ptFollow= [];
+                    let ptFollow = [];
                     let ptHaveFollow = res[4];
                     let ptNoFollow = res[5];
-                    ptFollow.push(ptHaveFollow,ptNoFollow);
+                    ptFollow.push(ptHaveFollow, ptNoFollow);
                     // console.log(ptFollow);
                     this.PTFollow.series[0].data = ptFollow;
 
 
-                }).catch(res =>{
+                }).catch(res => {
                     console.log(res);
                 });
             },
 
-            /*获取  现有会员 数据*/
-            // getTotal(){
-            //     IndexTotal_membership().then(res => {
-            //         // console.log(res);
-            //         this.chartVip.series[0].data = res;
-            //     }).catch(res =>{
-            //         console.log(res);
-            //     });
-            // },
-
-            /*获取  营收走势 新增会员走势 数据*/
-            getRevenue_trend(){
-                IndexRevenue_trend().then(res => {
-                    // console.log(res);
-                    let xArr= res[0].value.split(',');
-                    this.comeIn.xAxis.data = xArr;
-
-                    let conmArr1 = res[1].value.split(',');
-                    let conmArr2 = res[2].value.split(',');
-                    let conmArr3 = res[3].value.split(',');
-
-                    this.comeIn.series[0].name = res[1].name;
-                    this.comeIn.series[0].data = conmArr1;
-                    this.comeIn.series[1].name = res[2].name;
-                    this.comeIn.series[1].data = conmArr2;
-                    this.comeIn.series[2].name = res[3].name;
-                    this.comeIn.series[2].data = conmArr3;
-
-                }).catch(res =>{
-                    console.log(res);
-                });
-            },
-
-            searchPT(){
+            /*搜索*/
+            searchPT() {
                 console.log(this.input3);
             },
+
+            /* 查看更多 */
+            btnTotalMore(e1, e2) {
+                console.log(e1);
+
+                this[e1] = false;    //tab隐藏
+                this[e2] = true;  //表格显示
+            },
+
+            /* 返回上一页 */
+            goBack(e1, e2) {
+                console.log(e1);
+
+                this[e2] = false;   //隐藏当前 表格详情
+                this.tabPaneState = true; //显示对应tab
+                this.activeName = e1; //VipTotal VipPT VipMembership
+            },
+
+            /* ==== 会籍 接口1 销售额查询 ==== */
+
+
         },
         created() {
             /*调用 ==== 会员总览1 ==== 会员数量*/
@@ -1614,16 +1518,17 @@
             this.getPTprivateMember();
 
 
-           /* /!*调用 现有会员 数据接口 方法*!/
-            this.getTotal();
+            /* /!*调用 现有会员 数据接口 方法*!/
+             this.getTotal();
 
-            /!*新增会员走势 调用*!/
-            this.getRevenue_trend();*/
+             /!*新增会员走势 调用*!/
+             this.getRevenue_trend();*/
 
         },
 
         components: {
-            eCharts
+            eCharts,
+            navBread,
         },
     }
 </script>
@@ -1635,4 +1540,33 @@
     /*.vip-tabBox{*/
     /*    display: none;*/
     /*}*/
+    /*表格详情 查看更多*/
+    .ptTable-detail {
+        padding: 20px;
+        background-color: #efeef5;
+        min-height: calc(100vh - 200px);
+        border-radius: 20px;
+        margin-top: 2px;
+
+        .el-page-header {
+            margin-bottom: 20px;
+        }
+
+        .pt-sales {
+            padding: 20px;
+        }
+    }
+
+    @media all and (max-width: 1440px) {
+        .vip-tabBox {
+            .pt-screen-item {
+                width: 300px;
+            }
+
+            .pt-screen-input {
+                width: 260px;
+            }
+        }
+    }
+
 </style>

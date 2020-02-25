@@ -86,9 +86,40 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     }
 }*/
 
+
+/*面包屑 导航*/
+.nav-bread{
+    line-height: inherit;
+    padding:10px 20px;
+    background-color: $color-White;
+    margin-top: 16px;
+    .hover-bread{
+        &:hover{
+            cursor: pointer;
+            color:$color-MediumBlue;
+        }
+    }
+    .el-icon-back{
+        background-color: $color-DarkBlue;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 50%;
+        color: $color-White;
+        display: inherit;
+        margin-right: 8px;
+    }
+}
+
+.pubWidth{
+    width: calc(100% - 40px);
+    margin: 0 auto;
+}
+
+.layoutR-main {
+    padding: 20px;
+}
+
 /*首页*/
-
-
 @mixin borBom($wid, $color){
     border-bottom: solid $wid $color,;
 }
@@ -99,6 +130,12 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     border-radius: $wid;
 }
 .index-container{
+    padding: 20px;
+    width: 100%;
+    min-height: calc(100vh - 106px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: $color-linghtWhite;
     .el-date-editor .el-range-separator{
         width: 7%;
         color: $color-Gray;
