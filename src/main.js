@@ -76,7 +76,7 @@ if (process.env.NODE_ENV === 'production') {
   } else {
     //test 测试环境 测试地址 http://vikily.f3322.net:20000
     Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//路径
-    config.optimization.minimize(false)
+    // config.optimization.minimize(false)
   }
 } else {
   // dev 开发环境 本地 /api

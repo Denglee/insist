@@ -50,14 +50,15 @@ function getToday() {
 
 // 全局 js
 let localUrl = '';  //全局路径
-var test = window.location.host;
-if( test == 'http://vikily.f3322.net:20000'){
+var localOrigin = window.location.origin;
+console.log(localOrigin);
+if( localOrigin == 'http://vikily.f3322.net:20000'){
     localUrl = 'http://vikily.f3322.net:20000';
 }
-else if(test == 'https://spt.zmtek.net'){
+else if(localOrigin == 'https://spt.zmtek.net'){
     localUrl = 'https://spt.zmtek.net';
 }
-else if(test == 'https://swim.zmtek.net'){
+else if(localOrigin == 'https://swim.zmtek.net'){
     localUrl = 'https://swim.zmtek.net';
 } else {
     localUrl = 'https://spt.zmtek.net';

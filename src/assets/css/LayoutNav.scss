@@ -69,7 +69,7 @@
       min-height: calc(100vh - 106px);
       box-sizing: border-box;
       overflow-y: auto;
-      background-color: $color-linghtWhite;
+      background-color: $color-GrayE5;
     }
   }
 
@@ -79,6 +79,12 @@
     min-height: calc(100vh - 140px);
     .el-backtop{
       z-index: 2020;
+      bottom: 100px!important;
+      background: none;
+      img{
+        width: 40px;
+        //box-shadow: 6px 6px 6px rgba(0,0,0, .12);
+      }
     }
     .back-content{
       height: 100%;
@@ -113,7 +119,7 @@
       visibility: visible;
       overflow: auto;
       width: auto;
-      font-size: 16px;
+      font-size: 15px;
     }
   }
 }
@@ -128,6 +134,7 @@
     min-width: 110px;
     border-radius: 6px;
     margin-right: 0;
+    padding: 0;
   }
   .el-menu-item,
   .el-submenu__title {
@@ -143,6 +150,7 @@
       color: inherit;
       display: block;
       padding: 10px 20px !important;
+      font-size: 13px;
     }
   }
 

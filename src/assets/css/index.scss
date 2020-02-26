@@ -1,0 +1,321 @@
+@import "public";
+
+/*面包屑 导航*/
+.nav-bread{
+  line-height: inherit;
+  padding:10px 20px;
+  background-color: $color-White;
+  margin-top: 16px;
+  .hover-bread{
+    &:hover{
+      cursor: pointer;
+      color:$color-MediumBlue;
+    }
+  }
+  .el-icon-back{
+    background-color: $color-DarkBlue;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    color: $color-White;
+    display: inherit;
+    margin-right: 8px;
+  }
+}
+
+
+
+.layoutR-main {
+  padding: 20px;
+}
+
+/*首页*/
+@mixin borBom($wid, $color){
+  border-bottom: solid $wid $color,;
+}
+@mixin bor($wid, $color){
+  border: solid $wid $color,;
+}
+@mixin borRadis($wid){
+  border-radius: $wid;
+}
+.index-container{
+  padding: 20px;
+  width: 100%;
+  min-height: calc(100vh - 106px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: $color-linghtWhite;
+  .el-date-editor .el-range-separator{
+    width: 7%;
+    color: $color-Gray;
+  }
+  .el-input__inner{
+    height: 38px;
+    line-height: 38px;
+    margin-top: 6px;
+  }
+}
+
+//$colorB{
+//    color:$color-LigntBlue
+//}
+
+.index-item{
+  @include borRadis(20px);
+  background-color: #fff;
+  padding-bottom: 20px;
+  position: relative;
+  height: 320px;
+  margin-bottom: 30px;
+  .el-input__icon{
+    height: 50px;
+  }
+}
+.index-item-title{
+  @include borBom(1px, $color-linghtWhite);
+  font-size: 16px;
+  font-weight:500;
+  padding:0 27px;
+  height: 50px;
+  //line-height: 50px;
+  .title{
+    height: 50px;
+    line-height: 50px;
+  }
+}
+.lesson-time{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.index-item-tipUl{
+  margin-top: 20px;
+  padding-left: 27px;
+  li{
+    display: inline-block;
+    margin-right: 20px;
+    color: $color-Gray;
+    font-size: 12px;
+    img{
+      height: 8px;
+      margin-right: 4px;
+    }
+    span{
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+      margin-top: -2px;
+    }
+  }
+}
+.vipNum{
+  color: $color-Gray;
+  position: absolute;
+  right: 64px;
+  bottom: 40px;
+  font-size: 14px;
+
+  li{
+    margin-top: 20px;
+  }
+  .vipTipG{
+    color: $color-LigntBlue;
+  }
+  .vipTipB{
+    color: $color-MediumBlue;
+  }
+  .vipTipY{
+    color: $color-Pink;
+  }
+  .vipTipYellow{
+    color: $color-Yellow;
+  }
+}
+.addVip-tagG{
+  background-color: $color-LigntBlue;
+}
+.addVip-tagB{
+  background-color: $color-MediumBlue;
+}
+.addVip-tagY{
+  background-color: $color-Pink;
+}
+
+.present-box{
+  padding: 0 27px;
+}
+.present-top{
+  .title{
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  .num{
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+}
+
+.present-TopL{
+  .num{
+    color:$color-MediumBlue;
+  }
+}
+.present-TopR{
+  .title{
+    color:$color-Gray ;
+  }
+  .num{
+    color: $color-Pink;
+  }
+}
+.present-time{
+  position: absolute;
+  right: 30px;
+  top: 112px;
+  z-index: 1111;
+  & > div{
+    width: 125px!important;
+  }
+  .el-input--prefix .el-input__inner{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 28px;
+    /* line-height: 0px; */
+    padding-right: 0;
+    margin-top: 0;
+  }
+  .el-input__prefix{
+    height: 30px;
+    line-height: 30px;
+    left: 0;
+    top: -9px;
+  }
+}
+
+/*更衣室使用情况*/
+.locker-room{
+  height: 262px;
+  margin-bottom: 35px;
+  .index-item{
+    height: 100%;
+  }
+}
+.lockerRoom-box{
+  .index-item-tipUl{
+    width: 30%;
+    li{
+      display: block;
+      &:first-child{
+        margin-bottom: 18px;
+      }
+    }
+  }
+}
+
+.lockerRoom-main{
+  width: 70%;
+  padding-right: 40px;
+  padding-top: 22px;
+}
+.lockerRoom-item{
+  margin-top: 30px;
+  .el-progress-bar__outer{
+    height: 16px;
+  }
+  .flex-between{
+    margin-top: 4px;
+  }
+  .used-room{
+    color: $color-Gray;
+  }
+  .surplus-roomM{
+    color: $color-MediumBlue;
+  }
+  .surplus-roomF{
+    color: $color-Pink;
+  }
+}
+
+/*课程分析*/
+.lesson-main{
+  width: 50%;
+  display: inline-block;
+  position: relative;
+}
+.lesson-borR:after{
+  content: '';
+  height:105px;
+  border:solid 1px $color-linghtWhite;
+  position: absolute;
+  top: calc( 50% - 32px);
+  right: 0;
+}
+.lesson-main-title{
+  color: $color-Gray;
+  padding: 20px 0 0 27px;
+  font-size: 14px;
+  //font-weight: 100;
+}
+
+
+/*收支统计*/
+.income-container{
+  height: 248px;
+}
+.income-total{
+  float: left;
+  width: 18%;
+  margin-right: 2%;
+  text-align: center;
+  font-size: 26px;
+  margin-top: 50px;
+  position: relative;
+  .price{
+    color: $color-MediumBlue;
+    font-weight: bold;
+  }
+}
+.income-borR:after{
+  content: '';
+  height:101px;
+  border:solid 1px $color-linghtWhite;
+  position: absolute;
+  top: calc( 50% - 52px);
+  right: 0;
+}
+.income-box{
+  width: 78%;
+  display: inline-block;
+  padding: 0 2%;
+  margin-top: 24px;
+  .el-progress-circle{
+    height: 80px!important;
+    width: 80px!important;
+    line-height: 80px;
+  }
+}
+.income-item{
+  text-align: center;
+  font-size: 18px;
+}
+.income-type{
+  color: $color-Gray;
+  font-size: 14px;
+}
+
+/*收支趋势*/
+.comein-main{
+  margin-bottom: 15px;
+  height: 422px;
+}
+
+.comeIn-title{
+  color: $color-Gray;
+  margin-right: 38px;
+}

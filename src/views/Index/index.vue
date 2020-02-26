@@ -772,6 +772,7 @@
 </script>
 
 <style scoped lang="scss">
+    @import "@/assets/css/index.scss";
     iframe {
         width: 100%;
         min-height: 100vh;

@@ -55,8 +55,5 @@
   * */
 </script>
 <style lang="scss">
-  #app{
-    min-height: 100vh;
-  }
-
+  /*@import "@/assets/css/global.scss";*/
 </style>

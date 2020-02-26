@@ -165,7 +165,8 @@ const staticRoute = [
             {
                 path: 'Staff/index',   //员工列表
                 name: 'Staffindex',
-                component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/Staffindex'),
+                // component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/Staffindex'),
+                component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/StaffIndex2'),
                 meta: {title: '员工列表'},
             },
             {

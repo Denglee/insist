@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<video class="pv-video" preload="preload" autoplay="autoplay" src="http://ms.dewx.net/6657379a-8256-4558-abe9-2826b62e895f"></video>
+
+<script>
+
+    var localHost = window.location;
+    console.log(localHost);
+
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        // var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-';
+        var D = date.getDate()<10 ? '0'+date.getDate():date.getDate();
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        // return Y+M+D
+        return M+D
+    };
+    var dateTime = Date.parse(new Date())/1000; //获取当前日期
+    var dateList=[];
+    //var NowDate = timestampToTime(dateTime );
+    for(var i=29;i>=0;i--){
+        dateList[i] = timestampToTime(dateTime );
+        dateTime = dateTime -86400;
+    }
+
+    console.log(dateList);
+</script>
+</body>
+</html>

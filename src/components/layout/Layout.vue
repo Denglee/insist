@@ -18,9 +18,7 @@
 
             <div class="back-top">
                 <el-backtop :bottom="20">
-                    <el-tooltip class="item" effect="dark" content="回到顶部" placement="right-start">
-                        <el-button class="back-content">up</el-button>
-                    </el-tooltip>
+                    <img :src="localUrl+'/assets/images/icon_goTop.png'" alt="">
                 </el-backtop>
 
                 <!--右边主体内容-->

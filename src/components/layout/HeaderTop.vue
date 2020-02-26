@@ -258,7 +258,7 @@
                                 setTimeout(()=>{
                                     this.dialogFormVisible = false;
                                     /*刷新页面*/
-                                    this.reLoad();
+
                                 },1500)
                             }
                             if(res.status == 0){

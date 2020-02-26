@@ -1,0 +1,14 @@
+@import "public";
+.staff-tabBox{
+  .el-tab-pane{
+    background-color: $color-White;
+  }
+  .el-tabs__header{
+    .is-active {
+      //background-color: $color-linghtWhite;
+      background-color: $color-GrayE5;
+      color: $color-Black;
+    }
+  }
+
+}
