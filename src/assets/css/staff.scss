@@ -1,14 +1,32 @@
 @import "public";
-.staff-tabBox{
+
+/*员工工资切换*/
+#staff-tabBox{
   .el-tab-pane{
     background-color: $color-White;
   }
+
   .el-tabs__header{
     .is-active {
-      //background-color: $color-linghtWhite;
-      background-color: $color-GrayE5;
+      background-color: $color-White;
       color: $color-Black;
+      &:hover {
+        color: $color-MediumBlue;
+      }
+      &:before {
+        background: $color-White;
+      }
+      &:after {
+        background: $color-GrayE5;
+      }
     }
   }
+}
 
+/*员工列表*/
+.staffList-box{
+  background-color: $color-White;
+  border-radius: 20px;
+  padding-bottom: 20px;
+  margin: 20px auto;
 }

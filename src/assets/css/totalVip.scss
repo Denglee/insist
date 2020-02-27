@@ -22,6 +22,14 @@ $tabHei: 68px;
   .index-item{
     height: auto;
   }
+  .total-row{
+    .index-item{
+      padding-bottom: 0;
+    }
+    .index-item2{
+      padding-bottom: 10px;
+    }
+  }
 
   /*input*/
   .el-input__inner,
@@ -33,7 +41,13 @@ $tabHei: 68px;
     padding: 0;
     line-height: 34px;
     height: 34px;
+    width: 6%;
   }
+  .el-input.is-active .el-input__inner,
+  .el-input__inner:focus{
+    border-color:$color-MediumBlue;
+  }
+
 
   .el-table {
     th{
@@ -42,20 +56,19 @@ $tabHei: 68px;
       color: $color-Black;
     }
     td{
-      font-size: 12px;
+      font-size: 13px;
     }
     .cell{
       line-height: 18px;
-
+    }
+    .price{
+      font-size: 10px;
+    }
+    tr:hover>td{
+      background-color:#fafafa ;
     }
   }
-  .btn-search{
-    background-color: $color-MediumBlue;
-    height: 34px;
-    line-height: 34px;
-    padding: 0 20px;
-    color: #fff;
-  }
+
   /*分页*/
   .el-pager li{
     height: 22px;
@@ -65,11 +78,45 @@ $tabHei: 68px;
     padding: 0;
     font-weight: 400;
   }
+  .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: $color-MediumBlue!important;
+  }
+  .el-pagination.is-background .el-pager li:not(.disabled):hover{
+    color: $color-MediumBlue!important;
+  }
   .el-pagination button,
   .el-pagination span:not([class*=suffix]){
     height: 22px;
     line-height: 22px;
     min-width: 24px!important;
+  }
+  .el-pagination__editor.el-input .el-input__inner {
+    height: 22px;
+    line-height: 22px;
+  }
+  .el-date-table td.end-date span,
+  .el-date-table td.start-date span{
+    background-color: #005AD4!important;
+  }
+  .el-date-table td.today span{
+    color: #005AD4!important;
+  }
+  .el-date-editor{
+    width: 260px;
+  }
+
+}
+
+  .btn-search{
+  background-color: $color-MediumBlue;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 10px;
+  color: #fff;
+  border: solid 1px $color-MediumBlue;
+}
+  .btn-export{
+    float: right;
   }
 
   /* ~~这是分割线~~ 导航头部 ==*/
@@ -106,6 +153,7 @@ $tabHei: 68px;
     .is-active {
       //background-color: $color-linghtWhite;
       background-color: $color-GrayE5;
+      //background-color: red;
       color: $color-Black;
 
       &:hover {
@@ -119,19 +167,21 @@ $tabHei: 68px;
         bottom: 0;
         right: -$tabMarR;
         width: $tabMarR;
-        height: 40px;
+        height: 68px;
         background: $color-GrayE5;
+        //background: red;
       }
 
       &:after {
         content: "";
         display: block;
         position: absolute;
-        bottom: 0;
+        bottom: 1px;
         right: -$tabMarR;
         width: $tabMarR;
-        height: 80px;
+        height: 68px;
         background: $color-White;
+        //background: green;
         border-radius: 0 0 0 20px;
         z-index: 11111;
       }
@@ -140,11 +190,10 @@ $tabHei: 68px;
   }
 
 
-
   /* ~~这是分割线~~ 导航 中间主体  box  ==*/
   .el-tab-pane {
     background-color: $color-GrayE5;
-    min-height: 80vh;
+    min-height: 70vh;
     border-radius: 0 20px 20px;
     padding: 30px 30px 1px;
   }
@@ -203,7 +252,6 @@ $tabHei: 68px;
   }
 
 
-
   /* =+= 第二个tab tabItem2 私教 == */
   #pane-VipPT {
     .index-item .el-input__icon {
@@ -221,11 +269,17 @@ $tabHei: 68px;
   }
 
   .pt-screen-item {
-    margin-right: 20px;
+    margin-right: 14px;
+  }
+  .ptSel-class{
+    width: 150px;
+  }
+  .ptSel-trainer{
+    width: 130px;
   }
 
   .pt-screen-input {
-    width: 320px;
+    width: 220px;
     .el-input-group__append{
       background-color: $color-MediumBlue;
       border: solid 1px $color-MediumBlue;
@@ -270,7 +324,7 @@ $tabHei: 68px;
   }
 
   .btn-ptMore{
-    width:100px;
+    width:80px;
     height:34px;
     line-height: 34px;
     background:$color-GrayE5;
@@ -291,7 +345,7 @@ $tabHei: 68px;
       padding: 0;
     }
   }
-}
+
 
 
 
@@ -312,15 +366,4 @@ $tabHei: 68px;
   }
 }
 
-@media all and (max-width: 1440px) {
-  .vip-tabBox {
-    .pt-screen-item {
-      width: 300px;
-    }
-
-    .pt-screen-input {
-      width: 260px;
-    }
-  }
-}
 

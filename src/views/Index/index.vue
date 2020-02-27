@@ -349,7 +349,14 @@
                             width: '60%',
                             height: '60%',
                             top: '20%',
-
+                            label: {
+                                normal: {
+                                    show: false,
+                                },
+                                emphasis: {
+                                    show: false,
+                                }
+                            },
                             itemStyle : {
                                 normal : {
                                     label : {
@@ -467,7 +474,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    show: true
+                                    show: false,
                                 }
                             },
 
@@ -510,7 +517,7 @@
                             },
                             labelLine: {
                                 normal: {
-                                    show: true,
+                                    show: false,
                                 }
                             },
 

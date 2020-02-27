@@ -15,7 +15,7 @@
                                  v-for="(item, index) in openedPageList" :to="item.path" :key="index"
                             :Path="item.path" @click="reloadRouter($event)">
                         {{item.title}}
-                        <i class="el-icon-circle-close"  @click.prevent.stop="closeTheTag(item, index)"></i>
+                        <i class="el-icon-close"  @click.prevent.stop="closeTheTag(item, index)"></i>
                     </div>
 
         <!--        <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">-->

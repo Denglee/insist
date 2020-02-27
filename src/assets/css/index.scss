@@ -24,7 +24,6 @@
 }
 
 
-
 .layoutR-main {
   padding: 20px;
 }
@@ -96,7 +95,7 @@
     display: inline-block;
     margin-right: 20px;
     color: $color-Gray;
-    font-size: 12px;
+    font-size: 13px;
     img{
       height: 8px;
       margin-right: 4px;
@@ -117,10 +116,14 @@
   position: absolute;
   right: 64px;
   bottom: 40px;
-  font-size: 14px;
+  font-size: 15px;
 
   li{
     margin-top: 20px;
+    span{
+      font-size:18px ;
+      font-weight: 600;
+    }
   }
   .vipTipG{
     color: $color-LigntBlue;
@@ -260,7 +263,7 @@
   color: $color-Gray;
   padding: 20px 0 0 27px;
   font-size: 14px;
-  //font-weight: 100;
+  font-weight: 500;
 }
 
 

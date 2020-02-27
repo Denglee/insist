@@ -17,9 +17,18 @@
             </header>
 
             <div class="back-top">
-                <el-backtop :bottom="20">
-                    <img :src="localUrl+'/assets/images/icon_goTop.png'" alt="">
-                </el-backtop>
+
+                    <el-backtop :bottom="20">
+                        <el-tooltip content="回到顶部" placement="right">
+                            <span></span>
+<!--                            <el-button>Dark</el-button>-->
+                        </el-tooltip>
+<!--                        <el-tooltip content="回到顶部" placement="tight">-->
+<!--                            回到顶部-->
+<!--                        </el-tooltip>-->
+<!--                        回到顶部-->
+<!--                            <span></span>-->
+                    </el-backtop>
 
                 <!--右边主体内容-->
                 <router-view></router-view>

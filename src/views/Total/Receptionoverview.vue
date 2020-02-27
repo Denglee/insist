@@ -10,7 +10,7 @@
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal">
 
                 <!-- A1  会员数量-->
-                <el-row :gutter="30" class="index-row">
+                <el-row :gutter="30" class="total-row">
 
                     <!--会员数量-->
                     <el-col :md="16" :lg="16">
@@ -58,7 +58,7 @@
 
                     <!--私教会员-->
                     <el-col :md="8" :lg="8">
-                        <div class="index-item">
+                        <div class="index-item index-item2">
                             <header class="index-item-title">
                                 <div class="title">私教会员</div>
                             </header>
@@ -90,14 +90,14 @@
                     <header class="index-item-title flex-between">
                         <div class="title">新增会员走势</div>
                         <div>
-                            <el-date-picker
-                                    style="margin-top: 8px;"
-                                    v-model="value2"
-                                    align="right"
-                                    type="date"
-                                    placeholder="选择日期"
-                                    :picker-options="pickerOptions">
-                            </el-date-picker>
+<!--                            <el-date-picker-->
+<!--                                    style="margin-top: 8px;"-->
+<!--                                    v-model="value2"-->
+<!--                                    align="right"-->
+<!--                                    type="date"-->
+<!--                                    placeholder="选择日期"-->
+<!--                                    :picker-options="pickerOptions">-->
+<!--                            </el-date-picker>-->
                         </div>
                     </header>
                     <ul class="index-item-tipUl">
@@ -298,8 +298,7 @@
                         <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
                           </el-input>
 
-                        <el-button class="btn-search" icon="el-icon-search" @click="searchPT"></el-button>
-
+                        <el-button class="btn-search" icon="el-icon-search" @click="searchPT">搜索</el-button>
 
                     </div>
 
@@ -323,7 +322,7 @@
                         <el-table-column
                                 prop="money"
                                 label="金额">
-                            <template slot-scope="scope">￥{{ scope.row.money }}</template>
+                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
                         </el-table-column>
                         <el-table-column
                                 prop="day"
@@ -334,7 +333,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
                     </div>
@@ -353,8 +352,8 @@
                     <!-- 私教数量查询 筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
-                                   style="width: 150px;">
+                        <el-select v-model="value" placeholder="请选择部门"
+                                   class="pt-screen-item ptSel-class">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -364,8 +363,8 @@
                         </el-select>
 
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
-                                   style="width: 130px;">
+                        <el-select v-model="value" placeholder="请选择教练"
+                                   class="pt-screen-item ptSel-trainer">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -389,7 +388,6 @@
                         <!--搜索-->
                         <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
 
-
                     </div>
 
                     <!--私教数量查询 表格-->
@@ -412,7 +410,7 @@
                         <el-table-column
                                 prop="ptTransfer"
                                 label="转课">
-                            <!--<template slot-scope="scope">￥{{ scope.row.money }}</template>-->
+                            <!--<template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>-->
                         </el-table-column>
                         <el-table-column
                                 prop="ptRefund"
@@ -443,7 +441,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
                     </div>
@@ -464,25 +462,31 @@
 
                 <!-- B5 私教会员上课详情-->
                 <div class="index-item pt-sales">
-                    <header class="index-item-title">
+                    <header class="index-item-title flex-between">
                         <div class="title">会员上课详情</div>
-                    </header>
+                        <div class="flex-between">
+                            <!--日期选择-->
+                            <el-date-picker
+                                    class=""
+                                    v-model="value1"
+                                    type="daterange"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期">
+                            </el-date-picker>
+
+                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptLessonD')">查看更多</el-button>
+
+                        </div>
+                     </header>
                     <!-- 私教会员上课详情 筛选-->
-                    <div class="pt-screen flex-between">
+                    <div class="pt-screen">
+
+                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input"></el-input>
+
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3"
-                                  class="pt-screen-item pt-screen-input">
-                            <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                        </el-input>
-                        <!--日期选择-->
-                        <el-date-picker
-                                class=""
-                                v-model="value1"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                        </el-date-picker>
+                        <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
+
                     </div>
 
                     <!-- PT会员上课详情 表格-->
@@ -523,12 +527,9 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
-
-                        <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptLessonD')">查看更多</el-button>
-
                     </div>
 
                 </div>
@@ -606,7 +607,7 @@
                         <el-table-column
                                 prop="money"
                                 label="金额">
-                            <template slot-scope="scope">￥{{ scope.row.money }}</template>
+                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
                         </el-table-column>
                         <el-table-column
                                 prop="day"
@@ -617,7 +618,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
 
@@ -748,7 +749,7 @@
                         <el-table-column
                                 prop="ptTransfer"
                                 label="转课">
-                            <!--<template slot-scope="scope">￥{{ scope.row.money }}</template>-->
+                            <!--<template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>-->
                         </el-table-column>
                         <el-table-column
                                 prop="ptRefund"
@@ -779,7 +780,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
 
@@ -854,7 +855,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
 
@@ -911,9 +912,11 @@
                                 end-placeholder="结束日期">
                         </el-date-picker>
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
-                            <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                        </el-input>
+                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input"></el-input>
+
+                        <el-button slot="append" icon="el-icon-search" @click="searchPT">搜索</el-button>
+
+                        <el-button slot="append" icon="el-icon-search" @click="searchPT">导出</el-button>
                     </div>
                     <!--销售额表格-->
                     <el-table
@@ -935,7 +938,7 @@
                         <el-table-column
                                 prop="money"
                                 label="金额">
-                            <template slot-scope="scope">￥{{ scope.row.money }}</template>
+                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
                         </el-table-column>
                         <el-table-column
                                 prop="day"
@@ -945,13 +948,13 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
                         <!--<router-link to="/Reception/table">走吧</router-link>-->
                     </div>
 
-                    <button @click="btnRefush()">刷新</button>
+<!--                    <button @click="btnRefush()">刷新</button>-->
                 </div>
             </div>
         </div>
@@ -1037,7 +1040,7 @@
                         <el-table-column
                                 prop="money"
                                 label="金额">
-                            <template slot-scope="scope">￥{{ scope.row.money }}</template>
+                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
                         </el-table-column>
                         <el-table-column
                                 prop="day"
@@ -1047,7 +1050,7 @@
                     <div class="ptTable-assist">
                         <el-pagination
                                 background
-                                layout="prev, pager, next,total"
+                                 layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
                         <!--<router-link to="/Reception/table">走吧</router-link>-->
@@ -1181,24 +1184,31 @@
                     tooltip: {
                         trigger: 'item',
                     },
-                    series: [{
+                    series: [
+                        {
                         height: '100%',
                         width: '100%',
                         left: '0%',
                         top: '0%',
                         radius: ['60%', '75%'],
                         type: 'pie',
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '14',
+                                }
+                            }
+                        },
                         data: [
                             {value: '', name: ""},
                             {value: '', name: ""},
                             {value: '', name: ""},
                         ],
-                        label: {
-                            normal: {
-                                position: 'inner',
-                                show: false,
-                            }
-                        },
                         labelLine: {
                             normal: {
                                 show: false
@@ -1209,7 +1219,7 @@
 
                 /*会员总览1  会员数量  私教 有效  过期*/
                 totalVipPT: {
-                    color: ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                    color: ['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
                     },
@@ -1228,8 +1238,14 @@
                         ],
                         label: {
                             normal: {
-                                position: 'inner',
                                 show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '14',
+                                }
                             }
                         },
                         labelLine: {
@@ -1246,6 +1262,23 @@
                     color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
+                        textStyle: {
+                            fontSize:12,
+                        },
+                        formatter : function (params) {
+                            console.log(params);
+                            var rec = '';
+                            for(var i = 0;i < params.length;i++){
+                                var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                                    ''+ params[i].axisValue + '</div>';
+                                var reb = '<div style="margin: 4px">'+
+                                    '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                                    '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                                    '</div>';
+                                rec= rec + reb;
+                            }
+                            return rea + rec;
+                        },
                     },
                     grid: {
                         // show:true,//是否显示直角坐标系网格。[ default: false ]
@@ -1254,7 +1287,7 @@
                         left: "80px",
                         right: "60px",
                         bottom: "40px",
-                        width: "auto", //图例宽度
+                        width: "90%", //图例宽度
                         height: "80%", //图例高度
                     },
 
@@ -1316,6 +1349,23 @@
                     color: ['#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
+                        textStyle: {
+                            fontSize:12,
+                        },
+                        formatter : function (params) {
+                            console.log(params);
+                            var rec = '';
+                            for(var i = 0;i < params.length;i++){
+                                var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                                    ''+ params[i].axisValue + '</div>';
+                                var reb = '<div style="margin: 4px">'+
+                                    '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                                    '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                                    '</div>';
+                                rec= rec + reb;
+                            }
+                            return rea + rec;
+                        },
                     },
 
                     xAxis: {
@@ -1382,9 +1432,23 @@
                     color: ['#4CCBEB', '#005AD4', '#FF8A7E', '#FFBE00'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
-                        axisPointer: {
-                            type: 'cross'
-                        }
+                        textStyle: {
+                            fontSize:12,
+                        },
+                        formatter : function (params) {
+                            console.log(params);
+                            var rec = '';
+                            for(var i = 0;i < params.length;i++){
+                                var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                                    ''+ params[i].axisValue + '</div>';
+                                var reb = '<div style="margin: 4px">'+
+                                    '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                                    '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                                    '</div>';
+                                rec= rec + reb;
+                            }
+                            return rea + rec;
+                        },
                     },
 
                     xAxis: {
@@ -1464,6 +1528,23 @@
                     color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
                     tooltip: {
                         trigger: 'axis',
+                        textStyle: {
+                            fontSize:12,
+                        },
+                        formatter : function (params) {
+                            console.log(params);
+                            var rec = '';
+                            for(var i = 0;i < params.length;i++){
+                                var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                                    ''+ params[i].axisValue + '</div>';
+                                var reb = '<div style="margin: 4px">'+
+                                    '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                                    '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                                    '</div>';
+                                rec= rec + reb;
+                            }
+                            return rea + rec;
+                        },
                     },
 
                     xAxis: {
@@ -1608,8 +1689,14 @@
                         ],
                         label: {
                             normal: {
-                                position: 'inner',
                                 show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '14',
+                                }
                             }
                         },
                         labelLine: {
@@ -1693,6 +1780,30 @@
                     tel: '17688829466',
                     money: '574889',
                     day: '2020-02-14',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    tel: '17688829466',
+                    money: '574889',
+                    day: '2020-02-14',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    tel: '17688829466',
+                    money: '574889',
+                    day: '2020-02-14',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    tel: '17688829466',
+                    money: '574889',
+                    day: '2020-02-14',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    tel: '17688829466',
+                    money: '574889',
+                    day: '2020-02-14',
                 },
                 ],
 
@@ -1707,8 +1818,77 @@
                     ptNoFollow: '8',
                     ptNewAdd: '0',
                     ptTotal: '2',
-                },],
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    ptContinuation: "1",
+                    ptTransfer: '1',
+                    ptRefund: '1',
+                    ptOverdue: '8',
+                    ptFollow: '3',
+                    ptNoFollow: '8',
+                    ptNewAdd: '0',
+                    ptTotal: '2',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    ptContinuation: "1",
+                    ptTransfer: '1',
+                    ptRefund: '1',
+                    ptOverdue: '8',
+                    ptFollow: '3',
+                    ptNoFollow: '8',
+                    ptNewAdd: '0',
+                    ptTotal: '2',
+                },{
+                    department: '市场部',
+                    pt: '王小虎',
+                    ptContinuation: "1",
+                    ptTransfer: '1',
+                    ptRefund: '1',
+                    ptOverdue: '8',
+                    ptFollow: '3',
+                    ptNoFollow: '8',
+                    ptNewAdd: '0',
+                    ptTotal: '2',
+                },
+                ],
                 PTVipTable: [{
+                    vipName: '王小虎',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
+                },{
+                    vipName: '王小虎',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
+                },{
+                    vipName: '王小虎',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
+                },{
+                    vipName: '王小虎',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
+                },{
+                    vipName: '王小虎',
+                    tel: "176888294666",
+                    lessonName: '1',
+                    lessonTotal: '1',
+                    PT: '8',
+                    vipSex: '3',
+                },{
                     vipName: '王小虎',
                     tel: "176888294666",
                     lessonName: '1',
@@ -1766,6 +1946,7 @@
                     this.totalVipOverdue.series[0].data = OverdueNum;
 
                     /*私教会员*/
+                    console.log(OverdueNum);
                     this.totalVipPT.series[0].data = OverdueNum;
                     // this.totalVipPT = res[4].value;
 
