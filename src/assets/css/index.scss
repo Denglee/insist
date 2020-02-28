@@ -71,16 +71,21 @@
     height: 50px;
   }
 }
+.indexItem-hei250{
+  height: 250px;
+}
+
+$indexTitleHei:44px;
 .index-item-title{
   @include borBom(1px, $color-linghtWhite);
   font-size: 16px;
   font-weight:500;
   padding:0 27px;
-  height: 50px;
+  height: $indexTitleHei;
   //line-height: 50px;
   .title{
-    height: 50px;
-    line-height: 50px;
+    height: $indexTitleHei;
+    line-height: $indexTitleHei;
   }
 }
 .lesson-time{
@@ -269,7 +274,9 @@
 
 /*收支统计*/
 .income-container{
-  height: 248px;
+  //height: 248px;
+  height: auto;
+  padding-bottom: 20px;
 }
 .income-total{
   float: left;

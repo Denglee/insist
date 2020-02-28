@@ -84,7 +84,7 @@
 
             <!--更衣室使用情况-->
             <el-col :md="12" :lg="8">
-                <div class="index-item">
+                <div class="index-item indexItem-hei250">
                     <header class="index-item-title">
                         <div class="title">更衣室使用情况</div>
                     </header>
@@ -117,7 +117,7 @@
 
             <!--课程分析-->
             <el-col :md="24" :lg="16">
-                <div class="index-item">
+                <div class="index-item indexItem-hei250">
                     <header class="index-item-title flex-between">
                         <div class="title">课程分析</div>
                         <!--<el-date-picker

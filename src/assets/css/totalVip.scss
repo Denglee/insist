@@ -7,7 +7,7 @@
 
 /* 会员总览 选项卡*/
 $tabMarR: 20px;
-$tabHei: 68px;
+$tabHei: 46px;
 .total-vipBox{
   margin-bottom: 20px;
   .index-item-tipUl li img{
@@ -43,10 +43,10 @@ $tabHei: 68px;
     height: 34px;
     width: 6%;
   }
-  .el-input.is-active .el-input__inner,
-  .el-input__inner:focus{
-    border-color:$color-MediumBlue;
-  }
+  //.el-input.is-active .el-input__inner,
+  //.el-input__inner:focus{
+  //  border-color:$color-MediumBlue;
+  //}
 
 
   .el-table {
@@ -94,13 +94,17 @@ $tabHei: 68px;
     height: 22px;
     line-height: 22px;
   }
+  .el-pagination__editor.el-input{
+    width: 40px;
+    font-size: 13px;
+  }
   .el-date-table td.end-date span,
-  .el-date-table td.start-date span{
-    background-color: #005AD4!important;
-  }
-  .el-date-table td.today span{
-    color: #005AD4!important;
-  }
+  //.el-date-table td.start-date span{
+  //  background-color: #005AD4!important;
+  //}
+  //.el-date-table td.today span{
+  //  color: #005AD4!important;
+  //}
   .el-date-editor{
     width: 260px;
   }
@@ -109,11 +113,17 @@ $tabHei: 68px;
 
   .btn-search{
   background-color: $color-MediumBlue;
-  height: 34px;
-  line-height: 34px;
+  height: 33px;
+  line-height: 33px;
   padding: 0 10px;
   color: #fff;
   border: solid 1px $color-MediumBlue;
+    &:hover,
+    &:focus{
+      color: #fff;
+      border-color: #1c78f4;
+      background-color: #1c78f4;
+    }
 }
   .btn-export{
     float: right;
@@ -130,12 +140,12 @@ $tabHei: 68px;
     .el-tabs__item {
       background: $color-MediumBlue;
       border-radius: 20px 20px 0 0;
-      width: 220px;
+      width: 170px;
       margin-right: $tabMarR;
       text-align: center;
       height: $tabHei;
       line-height: $tabHei;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 500;
       color: $color-White;
       padding: 0;
@@ -324,7 +334,7 @@ $tabHei: 68px;
   }
 
   .btn-ptMore{
-    width:80px;
+    width:70px;
     height:34px;
     line-height: 34px;
     background:$color-GrayE5;

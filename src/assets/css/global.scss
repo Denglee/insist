@@ -48,7 +48,7 @@ input,button{
     border: none;
     outline: none;
 }
-input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+input:-webkit-autofill { box-shadow: 0 0 0 1000px white inset !important;}
 
 /*省略号*/
 .ellipsis{
@@ -92,4 +92,5 @@ input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
     width: calc(100% - 40px);
     margin: 0 auto;
 }
+
 

@@ -256,7 +256,7 @@
                     <header class="index-item-title flex-between">
                         <div class="title">销售额查询</div>
                         <div class="vipNav-btnBox">
-                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">更多</el-button>
+                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')" icon="el-icon-arrow-right">更多</el-button>
                         </div>
                     </header>
 

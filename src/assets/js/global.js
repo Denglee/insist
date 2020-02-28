@@ -52,13 +52,16 @@ function getToday() {
 let localUrl = '';  //全局路径
 var localOrigin = window.location.origin;
 console.log(localOrigin);
-if( localOrigin == 'http://vikily.f3322.net:20000'){
+if( localOrigin == 'http://vikily.f3322.net:20000'){  /*测试 域名*/
     localUrl = 'http://vikily.f3322.net:20000';
+
+}else if(localOrigin = 'http://192.168.0.133:20000'){
+    localUrl = 'http://192.168.0.133:20000';
 }
-else if(localOrigin == 'https://spt.zmtek.net'){
+else if(localOrigin == 'https://spt.zmtek.net'){   /*正式 */
     localUrl = 'https://spt.zmtek.net';
 }
-else if(localOrigin == 'https://swim.zmtek.net'){
+else if(localOrigin == 'https://swim.zmtek.net'){   /*游泳馆*/
     localUrl = 'https://swim.zmtek.net';
 } else {
     localUrl = 'https://spt.zmtek.net';

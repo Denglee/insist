@@ -165,8 +165,8 @@ const staticRoute = [
             {
                 path: 'Staff/index',   //员工列表
                 name: 'Staffindex',
-                // component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/Staffindex'),
-                component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/StaffIndex2'),
+                component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/Staffindex'),
+
                 meta: {title: '员工列表'},
             },
             {
@@ -178,7 +178,8 @@ const staticRoute = [
             {
                 path: 'Reception/entrance_staff',   //入场查询
                 name: 'Receptionentrance_staff',
-                component: () => import(/* webpackChunkName: "Receptionentrance_staff" */ '@/views/Staff/Receptionentrance_staff'),
+                component: () => import(/* webpackChunkName: "Receptionentrance_staff" */ '@/views/Staff/StaffIndex2'),
+                // component: () => import(/* webpackChunkName: "Receptionentrance_staff" */ '@/views/Staff/Receptionentrance_staff'),
                 meta: {title: '入场查询'},
             },
 

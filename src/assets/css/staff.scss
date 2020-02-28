@@ -21,12 +21,23 @@
       }
     }
   }
+
+  .pt-screen{
+    padding: 0;
+  }
+  .pt-table{
+    width: 100% !important;
+  }
+  .ptTable-assist{
+    padding-left: 0;
+  }
 }
 
 /*员工列表*/
 .staffList-box{
-  background-color: $color-White;
-  border-radius: 20px;
-  padding-bottom: 20px;
-  margin: 20px auto;
+  //background-color: $color-White;
+  //border-radius: 20px;
+  //padding-bottom: 20px;
+  //margin: 20px auto;
+
 }
