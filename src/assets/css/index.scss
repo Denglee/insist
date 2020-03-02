@@ -1,29 +1,5 @@
 @import "public";
 
-/*面包屑 导航*/
-.nav-bread{
-  line-height: inherit;
-  padding:10px 20px;
-  background-color: $color-White;
-  margin-top: 16px;
-  .hover-bread{
-    &:hover{
-      cursor: pointer;
-      color:$color-MediumBlue;
-    }
-  }
-  .el-icon-back{
-    background-color: $color-DarkBlue;
-    height: 24px;
-    line-height: 24px;
-    border-radius: 50%;
-    color: $color-White;
-    display: inherit;
-    margin-right: 8px;
-  }
-}
-
-
 .layoutR-main {
   padding: 20px;
 }

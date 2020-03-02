@@ -48,5 +48,27 @@
 </script>
 
 <style scoped lang="scss">
+    /*面包屑 导航*/
+    .nav-bread{
+        line-height: inherit;
+        padding:10px 20px;
+        background-color: #fff;
+        margin-top: 16px;
+        .hover-bread{
+            &:hover{
+                cursor: pointer;
+                color:#005AD4;
+            }
+        }
+        .el-icon-back{
+            background-color:  #253954;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            color: #fff;
+            display: inherit;
+            margin-right: 8px;
+        }
+    }
 
 </style>

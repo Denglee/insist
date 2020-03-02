@@ -36,6 +36,12 @@ a:active{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
 /*清楚浮动*/
 .clearfix:after {
     content: "";

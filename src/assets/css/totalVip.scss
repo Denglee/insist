@@ -8,41 +8,48 @@
 /* 会员总览 选项卡*/
 $tabMarR: 20px;
 $tabHei: 46px;
-.total-vipBox{
+.total-vipBox {
   margin-bottom: 20px;
-  .index-item-tipUl li img{
+
+  .index-item-tipUl li img {
     height: 12px;
   }
-  .vipT-addCard{
-    height: auto!important;
+
+  .vipT-addCard {
+    height: auto !important;
   }
 
 }
+
 .vip-tabBox {
-  .index-item{
+  .index-item {
     height: auto;
   }
-  .total-row{
-    .index-item{
+
+  .total-row {
+    .index-item {
       padding-bottom: 0;
     }
-    .index-item2{
+
+    .index-item2 {
       padding-bottom: 10px;
     }
   }
 
   /*input*/
   .el-input__inner,
-  .el-input__icon{
+  .el-input__icon {
     height: 34px;
     line-height: 34px;
   }
-  .el-date-editor .el-range-separator{
+
+  .el-date-editor .el-range-separator {
     padding: 0;
     line-height: 34px;
     height: 34px;
     width: 6%;
   }
+
   //.el-input.is-active .el-input__inner,
   //.el-input__inner:focus{
   //  border-color:$color-MediumBlue;
@@ -50,313 +57,337 @@ $tabHei: 46px;
 
 
   .el-table {
-    th{
+    th {
       font-size: 14px;
       font-weight: 400;
       color: $color-Black;
     }
-    td{
+
+    td {
       font-size: 13px;
     }
-    .cell{
+
+    .cell {
       line-height: 18px;
     }
-    .price{
+
+    .price {
       font-size: 10px;
     }
-    tr:hover>td{
-      background-color:#fafafa ;
+
+    tr:hover > td {
+      background-color: #fafafa;
     }
   }
 
   /*分页*/
-  .el-pager li{
+  .el-pager li {
     height: 22px;
     line-height: 22px;
-    min-width: auto!important;
+    min-width: auto !important;
     width: 22px;
     padding: 0;
     font-weight: 400;
   }
-  .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color: $color-MediumBlue!important;
+
+  .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: $color-MediumBlue !important;
   }
-  .el-pagination.is-background .el-pager li:not(.disabled):hover{
-    color: $color-MediumBlue!important;
+
+  .el-pagination.is-background .el-pager li:not(.disabled):hover {
+    color: $color-MediumBlue !important;
   }
+
   .el-pagination button,
-  .el-pagination span:not([class*=suffix]){
+  .el-pagination span:not([class*=suffix]) {
     height: 22px;
     line-height: 22px;
-    min-width: 24px!important;
+    min-width: 24px !important;
   }
+
   .el-pagination__editor.el-input .el-input__inner {
     height: 22px;
     line-height: 22px;
   }
-  .el-pagination__editor.el-input{
+
+  .el-pagination__editor.el-input {
     width: 40px;
     font-size: 13px;
   }
+
   .el-date-table td.end-date span,
-  //.el-date-table td.start-date span{
-  //  background-color: #005AD4!important;
-  //}
-  //.el-date-table td.today span{
-  //  color: #005AD4!important;
-  //}
-  .el-date-editor{
+    //.el-date-table td.start-date span{
+    //  background-color: #005AD4!important;
+    //}
+    //.el-date-table td.today span{
+    //  color: #005AD4!important;
+    //}
+  .el-date-editor {
     width: 260px;
   }
 
 }
 
-  .btn-search{
+.btn-search {
   background-color: $color-MediumBlue;
   height: 33px;
   line-height: 33px;
   padding: 0 10px;
   color: #fff;
   border: solid 1px $color-MediumBlue;
-    &:hover,
-    &:focus{
-      color: #fff;
-      border-color: #1c78f4;
-      background-color: #1c78f4;
-    }
+  &:hover,
+  &:focus {
+    color: #fff;
+    border-color: #1c78f4;
+    background-color: #1c78f4;
+  }
 }
-  .btn-export{
-    float: right;
+.btn-add{
+  margin:20px;
+}
+
+.btn-export {
+  float: right;
+}
+
+/* ~~这是分割线~~ 导航头部 ==*/
+.el-tabs__header {
+  margin: 50px 0 0;
+
+  .el-tabs__nav-wrap::after {
+    height: 0;
   }
 
-  /* ~~这是分割线~~ 导航头部 ==*/
-  .el-tabs__header {
-    margin: 50px 0 0;
-
-    .el-tabs__nav-wrap::after {
-      height: 0;
-    }
-
-    .el-tabs__item {
-      background: $color-MediumBlue;
-      border-radius: 20px 20px 0 0;
-      width: 170px;
-      margin-right: $tabMarR;
-      text-align: center;
-      height: $tabHei;
-      line-height: $tabHei;
-      font-size: 17px;
-      font-weight: 500;
-      color: $color-White;
-      padding: 0;
-
-      &:hover {
-        color: $color-linghtBlue;
-      }
-    }
-
-    /*tab选中样式*/
-    .el-tabs__active-bar {
-      width: 0 !important;
-    }
-
-    .is-active {
-      //background-color: $color-linghtWhite;
-      background-color: $color-GrayE5;
-      //background-color: red;
-      color: $color-Black;
-
-      &:hover {
-        color: $color-MediumBlue;
-      }
-
-      &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: 0;
-        right: -$tabMarR;
-        width: $tabMarR;
-        height: 68px;
-        background: $color-GrayE5;
-        //background: red;
-      }
-
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: 1px;
-        right: -$tabMarR;
-        width: $tabMarR;
-        height: 68px;
-        background: $color-White;
-        //background: green;
-        border-radius: 0 0 0 20px;
-        z-index: 11111;
-      }
-    }
-
-  }
-
-
-  /* ~~这是分割线~~ 导航 中间主体  box  ==*/
-  .el-tab-pane {
-    background-color: $color-GrayE5;
-    min-height: 70vh;
-    border-radius: 0 20px 20px;
-    padding: 30px 30px 1px;
-  }
-
-
-  /*  ~~这是分割线~~  第一个tab tabItem1会员总览   ==*/
-  #pane-VipTotal {
-    .comein-main {
-      margin-bottom: 35px;
-    }
-  }
-
-  /* A11  会员数量*/
-  .echart-VipPT{
-    margin: 0px 0 10px 40px;
-  }
-  .vip-item-num {
-    position: relative;
-    min-height: 220px;
-    .echart-ptFpllow{
-      margin: 10px 0 0 10px;
-      //height: 170px;
-    }
-    .vipNum{
-      right: 170px;
-    }
-  }
-  .vip-item-num2{
-    padding-left: 50px;
-  }
-  @media all and (max-width: 1560px){
-    .vip-item-num{
-      .vipNum{
-        right: 40px;
-      }
-    }
-  }
-
-  /*  A12  私教会员 */
-  .vip-pt-num {
-    padding: 20px;
-    background-color: $color-MediumBlue;
-    height: 184px;
-    box-shadow: 0px 2px 11px 0px rgba(2, 40, 91, 0.9);
-    border-radius: 15px;
-    width: 86%;
-    margin: 40px auto 0;
-
-    .num {
-      font-size: 68px;
-      font-weight: 500;
-      color: $color-White;
-    }
-
-
-  }
-
-
-  /* =+= 第二个tab tabItem2 私教 == */
-  #pane-VipPT {
-    .index-item .el-input__icon {
-      height: auto;
-    }
-  }
-
-  .icon-PTtotal{
-    height: 14px;
-  }
-
-  /*B21 销售额 查询*/
-  .pt-screen {
-    padding: 20px 20px 0;
-  }
-
-  .pt-screen-item {
-    margin-right: 14px;
-  }
-  .ptSel-class{
-    width: 150px;
-  }
-  .ptSel-trainer{
-    width: 130px;
-  }
-
-  .pt-screen-input {
-    width: 220px;
-    .el-input-group__append{
-      background-color: $color-MediumBlue;
-      border: solid 1px $color-MediumBlue;
-    }
-    .el-icon-search{
-      width: 16px;
-      color: #fff;
-    }
-  }
-
-  /*B22 销售额表格*/
-  .pt-table {
-    width: calc(100% - 40px) !important;
-    margin: 20px auto;
-    border-radius: 15px;
-    th {
-      background-color: #FCFBFE;
-      padding: 9px 0;
-      &:last-child{
-        border-top-right-radius: 15px;
-      }
-    }
-    tr:last-child{
-      td:first-child{
-        border-bottom-left-radius: 15px;
-      }
-      td:last-child{
-        border-bottom-right-radius: 15px;
-      }
-    }
-
-    /*#EFF2F9*/
-  }
-
-  .ptTable-assist{
-    display: flex;
-    padding-left: 20px;
-  }
-
-  .vipNav-btnBox{
-    margin-top: 6px;
-  }
-
-  .btn-ptMore{
-    width:70px;
-    height:34px;
-    line-height: 34px;
-    background:$color-GrayE5;
-    border:1px solid $color-GrayE5;
-    border-radius:10px;
-    font-size:14px;
-    font-weight:500;
-    color:rgba(151,151,151,1);
+  .el-tabs__item {
+    background: $color-MediumBlue;
+    border-radius: 20px 20px 0 0;
+    width: 170px;
+    margin-right: $tabMarR;
+    text-align: center;
+    height: $tabHei;
+    line-height: $tabHei;
+    font-size: 17px;
+    font-weight: 500;
+    color: $color-White;
     padding: 0;
-    margin-left: 20px;
-  }
 
-
-
-  /* ~~这是分割线~~ 第三个tab  tabItem3 会籍 == */
-  #pane-VipMembership{
-    .el-date-editor .el-range-separator {
-      padding: 0;
+    &:hover {
+      color: $color-linghtBlue;
     }
   }
 
+  /*tab选中样式*/
+  .el-tabs__active-bar {
+    width: 0 !important;
+  }
 
+  .is-active {
+    //background-color: $color-linghtWhite;
+    background-color: $color-GrayE5;
+    //background-color: red;
+    color: $color-Black;
+
+    &:hover {
+      color: $color-MediumBlue;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: -$tabMarR;
+      width: $tabMarR;
+      height: 68px;
+      background: $color-GrayE5;
+      //background: red;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 1px;
+      right: -$tabMarR;
+      width: $tabMarR;
+      height: 68px;
+      background: $color-White;
+      //background: green;
+      border-radius: 0 0 0 20px;
+      z-index: 11111;
+    }
+  }
+
+}
+
+
+/* ~~这是分割线~~ 导航 中间主体  box  ==*/
+.el-tab-pane {
+  background-color: $color-GrayE5;
+  min-height: 70vh;
+  border-radius: 0 20px 20px;
+  padding: 30px 30px 1px;
+}
+
+
+/*  ~~这是分割线~~  第一个tab tabItem1会员总览   ==*/
+#pane-VipTotal {
+  .comein-main {
+    margin-bottom: 35px;
+  }
+}
+
+/* A11  会员数量*/
+.echart-VipPT {
+  margin: 0px 0 10px 40px;
+}
+
+.vip-item-num {
+  position: relative;
+  min-height: 220px;
+
+  .echart-ptFpllow {
+    margin: 10px 0 0 10px;
+    //height: 170px;
+  }
+
+  .vipNum {
+    right: 170px;
+  }
+}
+
+.vip-item-num2 {
+  padding-left: 50px;
+}
+
+@media all and (max-width: 1560px) {
+  .vip-item-num {
+    .vipNum {
+      right: 40px;
+    }
+  }
+}
+
+/*  A12  私教会员 */
+.vip-pt-num {
+  padding: 20px;
+  background-color: $color-MediumBlue;
+  height: 184px;
+  box-shadow: 0px 2px 11px 0px rgba(2, 40, 91, 0.9);
+  border-radius: 15px;
+  width: 86%;
+  margin: 40px auto 0;
+
+  .num {
+    font-size: 68px;
+    font-weight: 500;
+    color: $color-White;
+  }
+
+
+}
+
+
+/* =+= 第二个tab tabItem2 私教 == */
+#pane-VipPT {
+  .index-item .el-input__icon {
+    height: auto;
+  }
+}
+
+.icon-PTtotal {
+  height: 14px;
+}
+
+/*B21 销售额 查询*/
+.pt-screen {
+  padding: 20px 20px 0;
+}
+
+.pt-screen-item {
+  margin-right: 14px;
+}
+
+.ptSel-class {
+  width: 150px;
+}
+
+.ptSel-trainer {
+  width: 130px;
+}
+
+.pt-screen-input {
+  width: 220px;
+
+  .el-input-group__append {
+    background-color: $color-MediumBlue;
+    border: solid 1px $color-MediumBlue;
+  }
+
+  .el-icon-search {
+    width: 16px;
+    color: #fff;
+  }
+}
+
+/*B22 销售额表格*/
+.pt-table {
+  width: calc(100% - 40px) !important;
+  margin: 20px auto;
+  border-radius: 15px;
+
+  th {
+    background-color: #FCFBFE;
+    padding: 9px 0;
+
+    &:last-child {
+      border-top-right-radius: 15px;
+    }
+  }
+
+  tr:last-child {
+    td:first-child {
+      border-bottom-left-radius: 15px;
+    }
+
+    td:last-child {
+      border-bottom-right-radius: 15px;
+    }
+  }
+
+  /*#EFF2F9*/
+}
+
+.ptTable-assist {
+  display: flex;
+  padding-left: 20px;
+}
+
+.vipNav-btnBox {
+  margin-top: 6px;
+}
+
+.btn-ptMore {
+  width: 70px;
+  height: 34px;
+  line-height: 34px;
+  background: $color-GrayE5;
+  border: 1px solid $color-GrayE5;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(151, 151, 151, 1);
+  padding: 0;
+  margin-left: 20px;
+}
+
+
+/* ~~这是分割线~~ 第三个tab  tabItem3 会籍 == */
+#pane-VipMembership {
+  .el-date-editor .el-range-separator {
+    padding: 0;
+  }
+}
 
 
 /*表格详情 查看更多*/

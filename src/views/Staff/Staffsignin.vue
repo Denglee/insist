@@ -1,7 +1,7 @@
 <template>
     <div class="layoutR-main">
 
-        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staff-tabBox">
+        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox">
 
             <!--tab1 打卡记录-->
             <el-tab-pane :lazy='tabLazy' label="打卡记录" name="StaffSalary">
@@ -384,7 +384,7 @@
                     zip: 200333
                 },],
 
-                    editForm:{
+                editForm:{
                     name:"",
                     sex:"",
                     position:"",

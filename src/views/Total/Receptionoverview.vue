@@ -256,7 +256,9 @@
                     <header class="index-item-title flex-between">
                         <div class="title">销售额查询</div>
                         <div class="vipNav-btnBox">
-                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')" icon="el-icon-arrow-right">更多</el-button>
+                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">
+                                更多 <icon class="el-icon-arrow-right"></icon>
+                            </el-button>
                         </div>
                     </header>
 
@@ -311,14 +313,13 @@
                                 prop="department"
                                 label="部门">
                         </el-table-column>
-                        <el-table-column
-                                prop="pt"
-                                label="教练">
-                        </el-table-column>
+                        <el-table-column prop="pt" label="教练"></el-table-column>
+
                         <el-table-column
                                 prop="tel"
                                 label="电话">
                         </el-table-column>
+
                         <el-table-column
                                 prop="money"
                                 label="金额">
