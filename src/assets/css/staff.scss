@@ -8,7 +8,9 @@
 
   .el-tabs__header{
     .is-active {
-      background-color: $color-White;
+      //background-color: $color-White;
+      background: url("~@/assets/images/staff/elTab_white.png") no-repeat;
+      background-size: 100% 100%;
       color: $color-Black;
       &:hover {
         color: $color-MediumBlue;

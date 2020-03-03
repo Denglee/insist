@@ -276,7 +276,7 @@
         name: "StaffIndex2",
         data() {
             return {
-                activeName: 'StaffSalary', //StaffSalary StaffRoyalty StaffReward
+                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
                 formLabelWidth: '120px',
                 EditListForm:false,

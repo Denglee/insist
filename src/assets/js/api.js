@@ -56,3 +56,4 @@ export const totalPassenger_trend = params => post('admin/statis/passenger_trend
 
 /* 2、私教 */
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 会员数量*/
+export const PTClassRanking   = params => post('admin/statis/class_ranking', params);         /* 教练上课排名*/

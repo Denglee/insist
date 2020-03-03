@@ -354,7 +354,7 @@
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门"
-                                   class="pt-screen-item ptSel-class">
+                                   class="pt-screen-item ptSel-section">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -1092,7 +1092,8 @@
         totalMember_trend,
         totalPassenger_trend,
         totalRefund_trend,
-        totalSub_card_trend
+        totalSub_card_trend,
+        PTClassRanking
     } from '@/assets/js/api' /*引用 会员总览 接口*/ /*引用 会员总览 接口*/
 
     export default {
@@ -2067,6 +2068,15 @@
                     console.log(res);
                 });
             },
+            getPTClassRanking() {
+                PTClassRanking().then(res => {
+                    console.log(res);
+
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+
 
             /*搜索*/
             searchPT() {
@@ -2113,6 +2123,8 @@
 
             /*调用 ==== 私教1 ==== 私教统计*/
             this.getPTprivateMember();
+
+            this.getPTClassRanking();
 
 
             /* /!*调用 现有会员 数据接口 方法*!/
