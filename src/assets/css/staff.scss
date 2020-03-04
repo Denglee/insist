@@ -42,6 +42,9 @@
   background-color: $color-White;
   border-radius: 20px;
   padding-bottom: 20px;
+  .pt-table{
+    min-height: 482px;
+  }
 }
 
 /*添加员工 表单*/

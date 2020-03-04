@@ -164,8 +164,8 @@ const staticRoute = [
             /*员工*/
             {
                 path: 'Staff/index',   //员工列表
-                name: 'Staffindex',
-                component: () => import(/* webpackChunkName: "Staffindex" */ '@/views/Staff/Staffindex'),
+                name: 'StaffIndex',
+                component: () => import(/* webpackChunkName: "StaffIndex" */ '@/views/Staff/StaffIndex'),
 
                 meta: {title: '员工列表'},
             },
@@ -192,8 +192,8 @@ const staticRoute = [
             },
             {
                 path: 'Statis/index',  //会员总览
-                name: 'Receptionoverview',
-                component: () => import(/* webpackChunkName: "Receptionoverview" */ '@/views/Total/Receptionoverview'),
+                name: 'StatisIndex',
+                component: () => import(/* webpackChunkName: "StatisIndex" */ '@/views/Total/StatisIndex'),
                 meta: {title: '会员总览'},
             },
             {

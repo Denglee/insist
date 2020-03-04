@@ -455,7 +455,7 @@
                         <div class="title">上课查询</div>
                     </header>
 
-                    <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+                    <eCharts :eChartObj="PTclass" :style="styleComeIN"></eCharts>
 
                     <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
 
@@ -1098,10 +1098,10 @@
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
-        name: "Receptionoverview",  //会员总览
+        name: "StatisIndex",  //会员总览
         data() {
             return {
-                activeName: 'VipTotal', //VipTotal VipPT VipMembership
+                activeName: 'VipPT', //VipTotal VipPT VipMembership
 
                 tabLazy: true,
                 /* == 会员总览 eCharts 对应宽高 == */
@@ -1268,7 +1268,7 @@
                             fontSize:12,
                         },
                         formatter : function (params) {
-                            console.log(params);
+
                             var rec = '';
                             for(var i = 0;i < params.length;i++){
                                 var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
@@ -1355,7 +1355,7 @@
                             fontSize:12,
                         },
                         formatter : function (params) {
-                            console.log(params);
+
                             var rec = '';
                             for(var i = 0;i < params.length;i++){
                                 var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
@@ -1438,7 +1438,7 @@
                             fontSize:12,
                         },
                         formatter : function (params) {
-                            console.log(params);
+
                             var rec = '';
                             for(var i = 0;i < params.length;i++){
                                 var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
@@ -1534,7 +1534,7 @@
                             fontSize:12,
                         },
                         formatter : function (params) {
-                            console.log(params);
+
                             var rec = '';
                             for(var i = 0;i < params.length;i++){
                                 var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
@@ -1776,7 +1776,8 @@
                 input3: '',
 
                 //销售额表格
-                PTtable: [{
+                PTtable: [
+                    {
                     department: '市场部',
                     pt: '王小虎',
                     tel: '17688829466',
@@ -1809,7 +1810,8 @@
                 },
                 ],
 
-                PTNumTable: [{
+                PTNumTable: [
+                    {
                     department: '市场部',
                     pt: '王小虎',
                     ptContinuation: "1",
@@ -1855,7 +1857,8 @@
                     ptTotal: '2',
                 },
                 ],
-                PTVipTable: [{
+                PTVipTable: [
+                    {
                     vipName: '王小虎',
                     tel: "176888294666",
                     lessonName: '1',
@@ -1901,6 +1904,84 @@
 
                 options: [],
                 value: '',
+
+                /*私教上课查询*/
+                PTclass: {
+                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
+                    tooltip: {
+                        trigger: 'axis',
+                        textStyle: {
+                            fontSize:12,
+                        },
+                        formatter : function (params) {
+
+                            var rec = '';
+                            for(var i = 0;i < params.length;i++){
+                                var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                                    ''+ params[i].axisValue + '</div>';
+                                var reb = '<div style="margin: 4px">'+
+                                    '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                                    '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                                    '</div>';
+                                rec= rec + reb;
+                            }
+                            return rea + rec;
+                        },
+                    },
+
+                    xAxis: {
+                        type: 'category',
+                        data: [],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                        //设置字体倾斜
+                        axisLabel: {
+                            // interval:0,
+                            // rotate:10,//倾斜度 -90 至 90 默认为0
+                            margin:15,
+                            textStyle: {
+                                color: "#8E8E8E"
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8E8E8E',
+                            }
+                        },
+                    },
+
+                    grid: {
+                        top: "30px",
+                        left: "80px",
+                        right: "60px",
+                        bottom: "40px",
+                        width: "auto", //图例宽度
+                        height: "80%", //图例高度
+
+                    },
+                    series: [
+
+                        {
+                            name: '次卡',
+                            type: 'bar',
+                            data: [],
+                            symbolSize: 9,   //设定实心点的大小
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed',
+                                }
+                            },
+                        },
+
+
+                    ]
+                },
 
                 /*  == 会籍 == */
 
@@ -2070,8 +2151,14 @@
             },
             getPTClassRanking() {
                 PTClassRanking().then(res => {
-                    console.log(res);
-
+                    let xAata = [];
+                    let yAata = [];
+                    for(let i=0;i<res.length;i++){
+                        xAata.push(res[i].name);
+                        yAata.push(res[i].value);
+                    }
+                    this.PTclass.series[0].data = yAata;
+                    this.PTclass.xAxis.data = xAata;
                 }).catch(res => {
                     console.log(res);
                 });
@@ -2086,7 +2173,6 @@
             /* 查看更多 */
             btnTotalMore(e1, e2) {
                 console.log(e1);
-
                 this[e1] = false;    //tab隐藏
                 this[e2] = true;  //表格显示
             },

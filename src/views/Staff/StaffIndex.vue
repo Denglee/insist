@@ -53,7 +53,7 @@
                 <!--员工列表 表格-->
                 <el-table
                         class="pt-table"
-                        :data="PTNumTable2"
+                        :data="tableStaff"
                         border
                         @selection-change="checkedStaff">
 
@@ -69,18 +69,27 @@
                     <el-table-column
                             prop="sex"
                             label="性别">
+                        <template slot-scope="scope">
+                            <div v-if="scope.row.sex == 0 " class="status-connect">未知</div>
+                            <div v-if="scope.row.sex == 1 " class="status-break">男</div>
+                            <div v-if="scope.row.sex == 2 " class="status-break">女</div>
+                        </template>
                     </el-table-column>
                     <el-table-column
-                            prop="position"
+                            prop="user_type"
                             label="职位">
+                        <template slot-scope="scope">
+                            <div v-if="scope.row.user_type == 0 " class="status-connect">未知</div>
+                            <div v-else>{{scope.row.user_type}}</div>
+                        </template>
                     </el-table-column>
                     <el-table-column
-                            prop="tel"
+                            prop="phone"
                             label="电话"
                             width="120px">
                     </el-table-column>
                     <el-table-column
-                            prop="jobId"
+                            prop="user_no"
                             label="工号">
                     </el-table-column>
                     <el-table-column
@@ -88,15 +97,15 @@
                             label="提成方式">
                     </el-table-column>
                     <el-table-column
-                            prop="time"
+                            prop="register_time"
                             label="创建时间">
                     </el-table-column>
                     <el-table-column
-                            prop="state"
+                            prop="lock"
                             label="状态">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.state == 1 " class="status-connect">在职</div>
-                            <div v-if="scope.row.state == 0 " class="status-break">离职</div>
+                            <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
+                            <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -105,7 +114,11 @@
                     <el-pagination
                             background
                             layout="prev, pager, next,total,jumper"
-                            :total="20">
+                            :total="pageTotalRows"
+                            :page-size ="pageListRows"
+                            @current-change="PageCurrent"
+                            @prev-click="pagePrev"
+                            @next-click="pageNext">
                     </el-pagination>
                 </div>
             </div>
@@ -123,15 +136,15 @@
                 </el-form-item>
 
                 <el-form-item label="职位" :label-width="formLabelWidth">
-                    <el-input v-model="staffSelection.position" autocomplete="off"></el-input>
+                    <el-input v-model="staffSelection.user_type" autocomplete="off"></el-input>
                 </el-form-item>
 
                 <el-form-item label="电话号码" :label-width="formLabelWidth">
-                    <el-input v-model="staffSelection.tel" autocomplete="off"></el-input>
+                    <el-input v-model="staffSelection.phone" autocomplete="off"></el-input>
                 </el-form-item>
 
                 <el-form-item label="编号" :label-width="formLabelWidth">
-                    <el-input v-model="staffSelection.jobId" autocomplete="off"></el-input>
+                    <el-input v-model="staffSelection.user_no" autocomplete="off"></el-input>
                     <div>请输入编号，如：小惠，编号写：xh,便于后期快速查询</div>
                 </el-form-item>
 
@@ -149,7 +162,7 @@
 
                 <el-form-item label="创建时间" :label-width="formLabelWidth">
                     <el-date-picker
-                            v-model="staffSelection.time"
+                            v-model="staffSelection.register_time"
                             type="date"
                             placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日"
@@ -159,8 +172,8 @@
 
                 <el-form-item label="状态" :label-width="formLabelWidth">
                     <template>
-                        <el-radio v-model="staffSelection.state" label="0">离职</el-radio>
-                        <el-radio v-model="staffSelection.state" label="1">在职</el-radio>
+                        <el-radio v-model="staffSelection.lock" label="0">在职</el-radio>
+                        <el-radio v-model="staffSelection.lock" label="1">离职</el-radio>
                     </template>
                 </el-form-item>
 
@@ -176,8 +189,31 @@
             <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
                       breadContent1="添加员工"></navBread>
             <el-form :model="editForm" class="addForm-box">
-                <el-form-item label="员工头像" :label-width="formLabelWidth">
 
+                <el-form-item label="员工头像" :label-width="formLabelWidth">
+                    <el-upload
+                            action="#"
+                            :on-change='changeUpload'
+                            list-type="picture-card"
+                            :auto-upload="false">
+                        <i slot="default" class="el-icon-plus"></i>
+                        <div slot="file" slot-scope="{file}">
+                            <img class="el-upload-list__item-thumbnail"
+                                    :src="file.url" alt="">
+                            <span class="el-upload-list__item-actions">
+                                <span class="el-upload-list__item-preview" @click="staffCardPreview(file)">
+                                    <i class="el-icon-zoom-in"></i>
+                                </span>
+                                <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
+                                  <i class="el-icon-delete"></i>
+                                </span>
+                              </span>
+                        </div>
+                    </el-upload>
+                    <!--弹出放大效果-->
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt="">
+                    </el-dialog>
                 </el-form-item>
 
                 <el-form-item label="职位" :label-width="formLabelWidth">
@@ -240,12 +276,14 @@
 
                 <el-form-item :label-width="formLabelWidth">
 
+                    <el-button @click="postStaffAdd()">提交</el-button>
 
                 </el-form-item>
             </el-form>
 
-
         </div>
+
+
 
     </div>
 </template>
@@ -255,12 +293,16 @@
     import Editor from '@/components/wangEnduit/wangEnduit'
     import navBread from '@/components/Echarts/navBread'
 
+    import {staffAdd, staffIndex,} from '@/assets/js/api' /*引用 员工 接口*/
     export default {
-        name: "Staffindex",  //员工列表
+        name: "StaffIndex",  //员工列表
 
         data() {
             return {
-
+                dialogImageUrl: '',
+                dialogVisible: false,
+                disabled: false,
+                imgUrl:'',   //头像路径
 
                 options: [{
                     value: '选项1',
@@ -269,33 +311,14 @@
                 value:'',
                 input3:'',
 
-                PTNumTable2: [{
-                    id:"11",
-                    name: "李登",
-                    sex: "男",
-                    position: "教练",
-                    tel: "17688888444",
-                    jobId: "20136",
-                    Royalty: '教练提成',
-                    time: '2020-02-27',
-                    state: "1",
-                }, {
-                    id:"12",
-                    name: "小丽",
-                    sex: "女",
-                    position: "前台",
-                    tel: "17688888544",
-                    jobId: "20137",
-                    Royalty: '前台提成',
-                    time: '2020-01-27',
-                    state: "0",
-                    // caozuo: '操作',
-                }
-                ],
+                tableStaff: [], //员工列表数组
+                pageTotalRows:0,
+                pageListRows:0,
 
+                staffPage:1,
 
                 formLabelWidth: '120px',
-                EditListForm: false,
+                EditListForm: false, //员工编辑 块 显示状态
                 editForm: {
                     name: "",
                     sex: "",
@@ -310,16 +333,96 @@
                 staffListState: true,
 
                 /*添加员工*/
-                addStaffState: false,
+                addStaffState: false, //添加员工 块 显示状态
 
                 checkedRows: [],  //选中的值
                 staffSelection: [], //修改表单值
             }
         },
 
-
         methods: {
 
+            open() {
+                this.$alert("     <div class='alertTip-box'>\n" +
+                    "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
+                    "            <div class='alertTip-sub'>系统合同到期后，免费使用三个月。时间以合同到期日为准</div>\n" +
+                    "        </div>", {
+                    confirmButtonText: '加油',
+                    callback: action => {
+                        this.$message({
+                            type: 'info',
+                            message: `action: ${ action }`
+                        });
+                    }
+                });
+            },
+
+            /*员工列表 接口*/
+            getStaffIndex(page){
+                staffIndex({
+                    p:page,
+                    zmtek_ver:2,
+                }).then(res => {
+                    console.log(res.data.list);
+                    this.totalRows = Number(res.data.totalRows);
+                    this.listRows = res.data.listRows;
+                    this.tableStaff = res.data.list;
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+            /*分页*/
+            PageCurrent(page){
+                this.staffPage = page;
+                this.getStaffIndex(this.staffPage);
+            },
+            pagePrev(){
+                this.staffPage = this.staffPage-1;
+                console.log(this.staffPage);
+                this.getStaffIndex(this.staffPage);
+            },
+            pageNext(){
+                this.staffPage = this.staffPage+1;
+                console.log(this.staffPage);
+                this.getStaffIndex(this.staffPage);
+            },
+
+            /*上传 选中*/
+            changeUpload(file){
+                console.log(file);
+                this.GLOBAL.getEleBase64(file.raw).then(res => {
+                    console.log(res);
+                    this.imgUrl = res;
+                });
+            },
+
+
+            /*添加员工*/
+            postStaffAdd(){
+                let userimage = this.imgUrl;
+                console.log(userimage);
+                staffAdd({
+                    userimage:userimage,
+                    information:2,
+                    zmtek_ver:2,
+                }).then(res => {
+                    console.log(res);
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+
+            /*头像上传 删除*/
+            handleRemove(file) {
+                console.log(file);
+            },
+            /*放大*/
+            staffCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+
+            /*table 操作*/
             change(){
                 let checkedRows =  this.checkedRows;
                 console.log(checkedRows);
@@ -337,7 +440,6 @@
 
 
             delete2(){
-
 
             },
 
@@ -390,7 +492,8 @@
             },
         },
         created() {
-
+            // this.open();
+            this.getStaffIndex(this.staffPage);
         },
         components: {
             navBread,

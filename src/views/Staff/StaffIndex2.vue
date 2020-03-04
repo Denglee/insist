@@ -199,13 +199,42 @@
             </el-tab-pane>
 
             <!--tab3 奖惩设置-->
-            <el-tab-pane :lazy='tabLazy' label="奖惩设置" name="StaffReward ">
-
+            <el-tab-pane :lazy='tabLazy' label="奖惩设置" name="StaffReward">
+                <el-row gutter="20">
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            超额完成任务奖励方式
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            全勤奖励
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            为完成任务处罚
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            缺勤处罚
+                        </div>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
 
+            <el-table
+                    ref="multipleTable"
+                    :data="tableReword"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    @selection-change="rewordEdit">
+                <el-table-column type="index" ></el-table-column>
+                <el-table-column type="content"></el-table-column>
+                <el-table-column type="edit"></el-table-column>
+            </el-table>
         </el-tabs>
-
-
 
 
         <!--提成 编辑弹出-->
@@ -276,8 +305,9 @@
         name: "StaffIndex2",
         data() {
             return {
-                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
+                activeName: 'StaffReward', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
+
                 formLabelWidth: '120px',
                 EditListForm:false,
                 editForm:{
@@ -390,4 +420,14 @@
 <style lang="scss" >
     @import "@/assets/css/totalVip.scss";
     @import "@/assets/css/staff.scss";
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 80px;
+        background: #e5e9f2;
+        padding: 20px;
+    }
 </style>

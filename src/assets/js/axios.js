@@ -30,6 +30,9 @@ axios.interceptors.response.use(response => {
     if (response.data.status == 3) {
         console.log('重新授权');
     }
+    if (response.data.status == 0) {
+        console.log('重新授权');
+    }
     return response;
 }, error => {
     // 对响应错误做点什么

@@ -56,6 +56,11 @@ Vue.prototype.GLOBAL = global
 import publicIframe from '@/components/publicIframe/publicIframe'
 Vue.component(publicIframe.name,publicIframe);
 
+
+import VueCropper from 'vue-cropper'
+
+Vue.use(VueCropper)
+
 // import goTop from "@/components/goTop";
 // Vue.component(goTop.name,goTop)
 

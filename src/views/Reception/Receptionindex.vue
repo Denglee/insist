@@ -7,22 +7,17 @@
 </template>
 
 <script>
-
     export default {
         name: "Receptionindex",
         data() {
             return {
-
             }
         },
-
         methods: {},
         created() {
-
         }
     }
 </script>
 
 <style scoped>
-
 </style>

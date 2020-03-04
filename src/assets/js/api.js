@@ -57,3 +57,8 @@ export const totalPassenger_trend = params => post('admin/statis/passenger_trend
 /* 2、私教 */
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 会员数量*/
 export const PTClassRanking   = params => post('admin/statis/class_ranking', params);         /* 教练上课排名*/
+
+/*员工*/
+
+export const staffIndex   = params => post('admin/staff/index', params);         /* 员工列表*/
+export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/

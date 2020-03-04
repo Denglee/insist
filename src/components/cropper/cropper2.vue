@@ -3,7 +3,7 @@
         <div class="cropper-content">
             <!-- 剪裁框 -->
             <div class="cropper">
-                <vueCropper ref="cropper" :img="option.img" :outputSize="option.size" :outputType="option.outputType" :info="true" :full="option.full" :canMove="option.canMove" :canMoveBox="option.canMoveBox" :original="option.original" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight" :fixedBox="option.fixedBox" @realTime="realTime" :fixed="option.fixed" :fixedNumber="fixedNumber"></vueCropper>
+                <vueCropper ref="cropper" :img="imgFile" :outputSize="option.size" :outputType="option.outputType" :info="true" :full="option.full" :canMove="option.canMove" :canMoveBox="option.canMoveBox" :original="option.original" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight" :fixedBox="option.fixedBox" @realTime="realTime" :fixed="option.fixed" :fixedNumber="option.fixedNumber"></vueCropper>
                 <!-- <vueCropper ref="cropper" :img="option.img" :outputSize="option.size" :outputType="option.outputType"></vueCropper> -->
             </div>
             <!-- 预览框 -->
@@ -24,7 +24,7 @@
             <!-- 确认上传按钮 -->
             <div class="upload-btn">
                 <!-- <el-button type="primary" @click="uploadImg('blob')">上传</el-button> -->
-                <el-button type="primary" :disabled="isDisabled" @click="uploadImg('base64')">上传</el-button>
+                <el-button type="primary" :disabled="isDisabled" @click="uploadImg('blob')">上传</el-button>
             </div>
         </div>
     </div>
@@ -50,14 +50,22 @@
                     autoCropHeight: 320, // 默认生成截图框高度  (默认:80%)
                     fixedBox: false, // 固定截图框大小 不允许改变  (默认:false)
                     fixed: true, // 是否开启截图框宽高固定比例  (默认:true)
-                    fixedNumber: [1.5, 1], // 截图框比例  (默认:[1:1])
+                    fixedNumber: [1, 1], // 截图框比例  (默认:[1:1])
                     enlarge: 1
                 },
                 isDisabled: false,
                 downImg: '#'
             };
         },
-        props: ['imgFile', 'fixedNumber'],
+        props: ['imgFile','fixedNumber','skuname'],
+        watch: {
+            imgFile: function (file) {
+                this.imgFile = file;
+            },
+            skuname: function (val) {
+                this.skuname = val;
+            }
+        },
         methods: {
             changeScale (num) {
                 // 图片缩放
@@ -85,13 +93,14 @@
                 event.preventDefault();
                 this.isDisabled = true;
                 let that = this;
+                // console.log(this.skuname);
                 if (type === 'blob') {
                     this.$refs.cropper.getCropBlob(data => {
-                        that.$emit('upload', data);
+                        that.$emit('upload', data, that.skuname);
                     });
                 } else {
                     this.$refs.cropper.getCropData(data => {
-                        that.$emit('upload', data);
+                        that.$emit('upload', data, that.skuname);
                     });
                 }
             }

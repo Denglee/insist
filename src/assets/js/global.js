@@ -59,6 +59,57 @@ if(localOrigin == 'http://localhost:8282'){
     localUrl = localOrigin;
 }
 
+// $user_type_list[] = array(
+//     'id' => '3',
+//     'catname' => '教练'
+// );
+// $user_type_list[] = array(
+//     'id' => '1',
+//     'catname' => '店长'
+// );
+// $user_type_list[] = array(
+//     'id' => '2',
+//     'catname' => '顾问'
+// );
+// $user_type_list[] = array(
+//     'id' => '4',
+//     'catname' => '操课'
+// );
+// $user_type_list[] = array(
+//     'id' => '5',
+//     'catname' => '财务'
+// );
+// $user_type_list[] = array(
+//     'id' => '6',
+//     'catname' => '前台'
+// );
+// //==== 新添加 保洁员   ===
+// //      if($city_id == '16'){
+// $user_type_list[] = array(
+//     'id' => '7',
+//     'catname' => '保洁员'
+// );
+// $user_type_list[] = array(
+//     'id' => '8',
+//     'catname' => '后勤'
+// );
+// //      }
+// $user_type_list[] = array(
+//     'id' => '100',
+//     'catname' => '教练经理'
+// );
+// $user_type_list[] = array(
+//     'id' => '200',
+//     'catname' => '顾问经理'
+// );
+// $user_type_list[] = array(
+//     'id' => '9',
+//     'catname' => 'boss'
+// );
+// $user_type_list[] = array(
+//     'id' => '10',
+//     'catname' => '行政'
+// );
 
 console.log(localUrl);
 
@@ -66,7 +117,31 @@ console.log(localUrl);
 // const localUrl = 'https://spt.zmtek.net';  //系统正式
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式
 
+
+/*elementui把上传的图片转为base64
+https://blog.csdn.net/woshidamimi0/article/details/86082428
+页面  直接 this.GLOBAL.getEleBase64调用
+GLOBAL在main.js中声明了*/
+
+function getEleBase64(file) {
+    return new Promise(function (resolve, reject) {
+        let reader = new FileReader();
+        let imgResult = "";
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            imgResult = reader.result;
+        };
+        reader.onerror = function (error) {
+            reject(error);
+        };
+        reader.onloadend = function () {
+            resolve(imgResult);
+        };
+    });
+}
+
 export default {
     localUrl,
+    getEleBase64:getEleBase64,
     getToday:getToday(),
 }
