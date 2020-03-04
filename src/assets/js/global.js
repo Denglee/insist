@@ -58,64 +58,28 @@ if(localOrigin == 'http://localhost:8282'){
 } else {
     localUrl = localOrigin;
 }
-
-// $user_type_list[] = array(
-//     'id' => '3',
-//     'catname' => '教练'
-// );
-// $user_type_list[] = array(
-//     'id' => '1',
-//     'catname' => '店长'
-// );
-// $user_type_list[] = array(
-//     'id' => '2',
-//     'catname' => '顾问'
-// );
-// $user_type_list[] = array(
-//     'id' => '4',
-//     'catname' => '操课'
-// );
-// $user_type_list[] = array(
-//     'id' => '5',
-//     'catname' => '财务'
-// );
-// $user_type_list[] = array(
-//     'id' => '6',
-//     'catname' => '前台'
-// );
-// //==== 新添加 保洁员   ===
-// //      if($city_id == '16'){
-// $user_type_list[] = array(
-//     'id' => '7',
-//     'catname' => '保洁员'
-// );
-// $user_type_list[] = array(
-//     'id' => '8',
-//     'catname' => '后勤'
-// );
-// //      }
-// $user_type_list[] = array(
-//     'id' => '100',
-//     'catname' => '教练经理'
-// );
-// $user_type_list[] = array(
-//     'id' => '200',
-//     'catname' => '顾问经理'
-// );
-// $user_type_list[] = array(
-//     'id' => '9',
-//     'catname' => 'boss'
-// );
-// $user_type_list[] = array(
-//     'id' => '10',
-//     'catname' => '行政'
-// );
-
 console.log(localUrl);
-
 // const localUrl = 'http://vikily.f3322.net:20000';  //测试
 // const localUrl = 'https://spt.zmtek.net';  //系统正式
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式
+
+
+/*职位类型*/
+let userTypeList = [
+    {id:1, catname:'店长',},
+    {id:2, catname:'顾问',},
+    {id:3, catname:'教练',},
+    {id:4, catname:'操课',},
+    {id:5, catname:'财务',},
+    {id:6, catname:'前台',},
+    {id:7, catname:'保洁员',},
+    {id:8, catname:'后勤',},
+    {id:100, catname:'教练经理',},
+    {id:200, catname:'顾问经理',},
+    {id:9, catname:'boss',},
+    {id:9, catname:'行政',},
+];
+
 
 
 /*elementui把上传的图片转为base64
@@ -141,6 +105,7 @@ function getEleBase64(file) {
 }
 
 export default {
+    userTypeList,
     localUrl,
     getEleBase64:getEleBase64,
     getToday:getToday(),
