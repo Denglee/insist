@@ -265,7 +265,7 @@
                     <!--私教销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -276,7 +276,7 @@
                         </el-select>
 
                         <!--私教教练-->
-                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练" class="inp-mar14"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -288,7 +288,7 @@
 
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -297,7 +297,7 @@
                         </el-date-picker>
 
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
                           </el-input>
 
                         <el-button class="btn-search" icon="el-icon-search" @click="searchPT">搜索</el-button>
@@ -306,7 +306,7 @@
 
                     <!--销售额表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             border
                             :data="PTtable">
                         <el-table-column
@@ -354,7 +354,7 @@
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门"
-                                   class="pt-screen-item ptSel-section">
+                                   class="inp-mar14 ptSel-section">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -365,7 +365,7 @@
 
                         <!--教练-->
                         <el-select v-model="value" placeholder="请选择教练"
-                                   class="pt-screen-item ptSel-trainer">
+                                   class="inp-mar14 ptSel-trainer">
                             <el-option
                                     v-for="item in options"
                                     :key="item.value"
@@ -376,7 +376,7 @@
 
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -384,7 +384,7 @@
                                 end-placeholder="结束日期">
                         </el-date-picker>
 
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input"></el-input>
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
 
                         <!--搜索-->
                         <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
@@ -393,7 +393,7 @@
 
                     <!--私教数量查询 表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTNumTable"
                             border>
                         <el-table-column
@@ -483,7 +483,7 @@
                     <!-- 私教会员上课详情 筛选-->
                     <div class="pt-screen">
 
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input"></el-input>
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
 
                         <!--搜索-->
                         <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
@@ -492,7 +492,7 @@
 
                     <!-- PT会员上课详情 表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTVipTable"
                             border>
                         <el-table-column
@@ -549,7 +549,7 @@
                     <!--销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -560,7 +560,7 @@
                         </el-select>
 
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练"  class="inp-mar14"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -572,7 +572,7 @@
 
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -581,7 +581,7 @@
                         </el-date-picker>
 
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
 
@@ -589,7 +589,7 @@
 
                     <!--销售额表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             border
                             :data="PTtable"
                             border>
@@ -692,7 +692,7 @@
                     <!-- C3会籍数量查询 筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -703,7 +703,7 @@
                         </el-select>
 
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练"  class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练"  class="inp-mar14"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -715,7 +715,7 @@
 
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -724,7 +724,7 @@
                         </el-date-picker>
 
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
 
@@ -732,7 +732,7 @@
 
                     <!--  C3会籍数量查询 表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTNumTable"
                             border>
                         <el-table-column
@@ -802,7 +802,7 @@
                     <div class="pt-screen flex-between">
 
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
 
@@ -820,7 +820,7 @@
 
                     <!-- C4 会员上课详情 表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTVipTable"
                             border>
                         <el-table-column
@@ -883,7 +883,7 @@
                     <div class="pt-screen">
                         <!--部门-->
                         <el-select v-model="value" placeholder="请选择部门"
-                                   class="pt-screen-item"
+                                   class="inp-mar14"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -894,7 +894,7 @@
                         </el-select>
                         <!--教练-->
                         <el-select v-model="value" placeholder="请选择教练"
-                                   class="pt-screen-item"
+                                   class="inp-mar14"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -905,7 +905,7 @@
                         </el-select>
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -913,7 +913,7 @@
                                 end-placeholder="结束日期">
                         </el-date-picker>
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input"></el-input>
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
 
                         <el-button slot="append" icon="el-icon-search" @click="searchPT">搜索</el-button>
 
@@ -921,7 +921,7 @@
                     </div>
                     <!--销售额表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTtable"
                             border>
                         <el-table-column
@@ -988,7 +988,7 @@
                     <!--销售额筛选-->
                     <div class="pt-screen">
                         <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
                                    style="width: 150px;">
                             <el-option
                                     v-for="item in options"
@@ -998,7 +998,7 @@
                             </el-option>
                         </el-select>
                         <!--教练-->
-                        <el-select v-model="value" placeholder="请选择教练" class="pt-screen-item"
+                        <el-select v-model="value" placeholder="请选择教练" class="inp-mar14"
                                    style="width: 130px;">
                             <el-option
                                     v-for="item in options"
@@ -1009,7 +1009,7 @@
                         </el-select>
                         <!--日期选择-->
                         <el-date-picker
-                                class="pt-screen-item"
+                                class="inp-mar14"
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="至"
@@ -1017,13 +1017,13 @@
                                 end-placeholder="结束日期">
                         </el-date-picker>
                         <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="pt-screen-item pt-screen-input">
+                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
                             <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
                         </el-input>
                     </div>
                     <!--销售额表格-->
                     <el-table
-                            class="pt-table"
+                            class="pub-table"
                             :data="PTtable"
                             border>
                         <el-table-column
@@ -2231,7 +2231,6 @@
 
 <style lang="scss">
     /*引用css*/
-    @import "@/assets/css/index.scss";
     @import "@/assets/css/totalVip.scss";
     /*.vip-tabBox{*/
     /*    display: none;*/

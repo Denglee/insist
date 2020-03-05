@@ -5,10 +5,8 @@
   .el-tab-pane{
     background-color: $color-White;
   }
-
   .el-tabs__header{
     .is-active {
-      //background-color: $color-White;
       background: url("~@/assets/images/staff/elTab_white.png") no-repeat;
       background-size: 100% 100%;
       color: $color-Black;
@@ -23,16 +21,6 @@
       }
     }
   }
-
-  .pt-screen{
-    padding: 0;
-  }
-  .pt-table{
-    width: 100% !important;
-  }
-  .ptTable-assist{
-    padding-left: 0;
-  }
 }
 
 
@@ -41,9 +29,10 @@
 .staffList-box{
   background-color: $color-White;
   border-radius: 20px;
-  padding-bottom: 20px;
-  .pt-table{
-    min-height: 482px;
+  padding: 20px;
+  .pub-table{
+    min-height: 422px;
+    margin: 20px 0;
   }
 }
 
@@ -60,4 +49,57 @@
 }
 .inpStaffName{
   width: 180px;
+}
+
+/*考勤*/
+.staffSign-table{
+  width: 100%;
+  margin: 20px 0 10px;
+  border-collapse:collapse;
+  //border: solid 1px #EBEEF5;
+  min-height: 500px;
+  border-radius: 15px;
+  td{
+    border: solid 1px #EBEEF5;
+    white-space: nowrap;
+    text-align: center;
+    padding: 6px 0;
+  }
+  .thead th{
+    padding: 9px 0;
+    background-color: #9BBCEE;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 500;
+    &:not(:last-child){
+      border-right: solid 1px $color-White;
+    }
+    &:first-child{
+      border-top-left-radius: 15px;
+    }
+    &:last-child{
+      border-top-right-radius: 15px;
+    }
+  }
+  .sign-up{
+    color: $color-LigntBlue;
+    margin-bottom: 4px;
+  }
+  .sign-rest{
+    color:#A4C3EF ;
+    margin-bottom: 4px;
+  }
+  .sign-warn{
+    color: $color-Red;
+  }
+  .clock-in{
+    color: $color-Gray;
+    margin-bottom: 4px;
+  }
+  .clock-out{
+    color:$color-MediumBlue
+  }
+}
+.page-assist{
+  margin-bottom: 20px;
 }

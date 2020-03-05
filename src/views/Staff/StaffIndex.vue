@@ -15,16 +15,16 @@
                 <!--员工列表 筛选-->
                 <div class="pt-screen">
                     <!--在职-->
-                    <el-select v-model="lockStateVal" placeholder="在职" class="pt-screen-item ptSel-section">
+                    <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
                         <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                     </el-select>
 
                     <!--部门-->
-                    <el-select v-model="userTypeListVal" placeholder="职位" class="pt-screen-item ptSel-section">
+                    <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
                         <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                     </el-select>
 
-                    <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="pt-screen-item pt-screen-input"></el-input>
+                    <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
 
                     <!--搜索-->
                     <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
@@ -41,7 +41,7 @@
                 </div>
 
                 <!--员工列表 表格-->
-                <el-table class="pt-table" :data="tableStaff" border @selection-change="checkedStaff">
+                <el-table class="pub-table pub-table" :data="tableStaff" border @selection-change="checkedStaff">
                     <el-table-column type="selection" width="55"></el-table-column>
                     <el-table-column prop="name" label="姓名"></el-table-column>
                     <el-table-column prop="sex" label="性别">
@@ -53,14 +53,30 @@
                     </el-table-column>
                     <el-table-column prop="user_type" label="职位">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.user_type == 0 " class="status-connect">未知</div>
-                            <div v-else>{{scope.row.user_type}}</div>
+                            <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
+                            <div v-if="scope.row.user_type == 1 " class="status-connect">店长</div>
+                            <div v-if="scope.row.user_type == 2 " class="status-connect">顾问</div>
+                            <div v-if="scope.row.user_type == 3 " class="status-connect">教练</div>
+                            <div v-if="scope.row.user_type == 4 " class="status-connect">操课</div>
+                            <div v-if="scope.row.user_type == 5 " class="status-connect">财务</div>
+                            <div v-if="scope.row.user_type == 6 " class="status-connect">前台</div>
+                            <div v-if="scope.row.user_type == 7 " class="status-connect">保洁员</div>
+                            <div v-if="scope.row.user_type == 8 " class="status-connect">后勤</div>
+                            <div v-if="scope.row.user_type == 100 " class="status-connect">教练经理</div>
+                            <div v-if="scope.row.user_type == 200 " class="status-connect">顾问经理</div>
+                            <div v-if="scope.row.user_type == 9 " class="status-connect">boss</div>
+                            <div v-if="scope.row.user_type == 10 " class="status-connect">行政</div>
+                            <!--<div v-else>{{scope.row.user_type}}</div>-->
                         </template>
                     </el-table-column>
                     <el-table-column prop="phone" label="电话" width="120px"></el-table-column>
                     <el-table-column prop="user_no" label="工号"></el-table-column>
                     <el-table-column prop="Royalty" label="提成方式"></el-table-column>
-                    <el-table-column prop="register_time" label="创建时间"></el-table-column>
+                    <el-table-column prop="register_time" label="创建时间" >
+                        <template slot-scope="scope">
+                            <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="lock" label="状态">
                         <template slot-scope="scope">
                             <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
@@ -69,47 +85,50 @@
                     </el-table-column>
                 </el-table>
 
-                <div class="ptTable-assist">
-                    <el-pagination
-                            background
-                            layout="prev, pager, next,total,jumper"
-                            :total="pageTotalRows"
-                            :page-size ="pageListRows"
-                            @current-change="PageCurrent">
-                    </el-pagination>
-                </div>
+                <el-pagination
+                        background
+                        layout="prev, pager, next,total,jumper"
+                        :total="pageTotalRows"
+                        :page-size ="pageListRows"
+                        @current-change="PageCurrent">
+                </el-pagination>
             </div>
         </div>
 
         <!--提成 编辑弹出-->
-       <!-- <el-dialog title="员工编辑" :visible.sync="EditListForm">
-            <el-form :model="staffSelection[0]">
-                <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-dialog title="员工编辑" :visible.sync="EditListForm">
+            <el-form :model="staffSelection" :label-width="formLabelWidth">
+                <el-form-item label="姓名" >
                     <el-input v-model="staffSelection.name" autocomplete="off"></el-input>
                 </el-form-item>
 
-                <el-form-item label="性别" :label-width="formLabelWidth">
-                    <el-input v-model="staffSelection.sex" autocomplete="off"></el-input>
+                <el-form-item label="性别">
+                    <template>
+                        <el-radio v-model="staffSelection.sex" label="1">男</el-radio>
+                        <el-radio v-model="staffSelection.sex" label="2">女</el-radio>
+                    </template>
                 </el-form-item>
 
-                <el-form-item label="职位" :label-width="formLabelWidth">
-                    <el-input v-model="staffSelection.user_type" autocomplete="off"></el-input>
+                <el-form-item label="职位">
+                    <el-select v-model="staffSelection.user_type" placeholder="请选择职位" class="inp-mar14 ptSel-section">
+                        <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    </el-select>
                 </el-form-item>
 
-                <el-form-item label="电话号码" :label-width="formLabelWidth">
+                <el-form-item label="电话号码">
                     <el-input v-model="staffSelection.phone" autocomplete="off"></el-input>
                 </el-form-item>
 
-                <el-form-item label="编号" :label-width="formLabelWidth">
+                <el-form-item label="编号">
                     <el-input v-model="staffSelection.user_no" autocomplete="off"></el-input>
                     <div>请输入编号，如：小惠，编号写：xh,便于后期快速查询</div>
                 </el-form-item>
 
-                <el-form-item label="提成方式" :label-width="formLabelWidth">
+                <el-form-item label="提成方式">
 
                 </el-form-item>
 
-                <el-form-item label="创建时间" :label-width="formLabelWidth">
+                <el-form-item label="创建时间">
                     <el-date-picker
                             v-model="staffSelection.register_time"
                             type="date"
@@ -131,7 +150,7 @@
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click="sureEdit()">确 定</el-button>
             </div>
-        </el-dialog>-->
+        </el-dialog>
 
         <!--添加员工-->
         <!--<div v-show="addStaffState" class="vip-tabBox">
@@ -260,14 +279,13 @@
                     {lock:0,value:'在职'},
                     {lock:1,value:'离职'},
                 ],
-                lockStateVal:'',
+                lockStateVal:0,
 
                 /*筛选 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
-                userTypeListVal:'', /* 职位 选中值*/
+                userTypeListVal:10000, /* 职位 选中值*/
 
                 staffInpVal:'',
-
 
                 tableStaff: [], //员工列表数组
                 pageTotalRows:0,  /*分页总数*/
@@ -292,57 +310,47 @@
 
         methods: {
 
-            open() {
+            alertTip() {
                 this.$alert("     <div class='alertTip-box'>\n" +
                     "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
-                    "            <div class='alertTip-sub'>系统合同到期后，免费使用三个月。时间以合同到期日为准</div>\n" +
+                    "            <div class='alertTip-sub'>[系统合同到期后，免费使用三个月。时间以合同到期日为准]</div>\n" +
                     "        </div>", {
+                    dangerouslyUseHTMLString: true,
                     confirmButtonText: '加油',
-                    callback: action => {
-                        this.$message({
-                            type: 'info',
-                            message: `action: ${ action }`
-                        });
-                    }
-                });
+                }).then(() => {});
             },
 
             /*筛选 员工*/
             btnSeaStaff(){
-              console.log(this.staffInpVal);
-              console.log(this.userTypeListVal);
-              console.log(this.lockStateVal);
-
+                this.staffPage = 1;
+              this.getStaffIndex();
             },
+
             /*员工列表 接口*/
-            getStaffIndex(page){
+            getStaffIndex(){
                 staffIndex({
-                    p:page,
+                    p:this.staffPage,
                     zmtek_ver:2,
+                    user_type:this.userTypeListVal,
+                    phone:this.staffInpVal,
+                    lock:this.lockStateVal,
                 }).then(res => {
                     console.log(res.data.list);
-                    this.tableStaff = res.data.list;
-                    this.pageTotalRows = Number(res.data.totalRows);
-                    this.pageListRows = res.data.listRows;
+                    if(res.status ==1){
+                        this.tableStaff = res.data.list;
+                        this.pageTotalRows = Number(res.data.totalRows);
+                        this.pageListRows = res.data.listRows;
+                    }
                 }).catch(res => {
                     console.log(res);
                 });
             },
+
             /*分页*/
             PageCurrent(page){
                 this.staffPage = page;
-                this.getStaffIndex(this.staffPage);
+                this.getStaffIndex();
             },
-            // pagePrev(){
-            //     this.staffPage = this.staffPage-1;
-            //     console.log(this.staffPage);
-            //     this.getStaffIndex(this.staffPage);
-            // },
-            // pageNext(){
-            //     this.staffPage = this.staffPage+1;
-            //     console.log(this.staffPage);
-            //     this.getStaffIndex(this.staffPage);
-            // },
 
             /*上传 选中*/
             changeUpload(file){
@@ -352,7 +360,6 @@
                     this.imgUrl = res;
                 });
             },
-
 
             /*添加员工*/
             postStaffAdd(){
@@ -449,8 +456,11 @@
             },
         },
         created() {
-            // this.open();
-            this.getStaffIndex(this.staffPage);
+
+            // this.alertTip();
+
+            this.getStaffIndex();
+
         },
         components: {
             navBread,
@@ -461,6 +471,14 @@
 </script>
 
 <style lang="scss">
-    @import "@/assets/css/totalVip.scss";
+    /*@import "@/assets/css/totalVip.scss";*/
     @import "@/assets/css/staff.scss";
+    .alertTip-box{
+        font-size: 16px;
+        color: #333;
+    }
+    .alertTip-sub{
+        color: $color-Gray;
+        font-size: 14px;
+    }
 </style>

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 import Axios from 'axios'
 
@@ -18,26 +18,25 @@ Vue.use(ElementUI, {
 });
 
 
-
 /*import echarts from'echarts'
 Vue.prototype.$echarts = echarts //将echarts注册成Vue的全局属性*/
 
 // 引入 ECharts 主模块
 let echarts = require('echarts/lib/echarts');
 /*引入折线图/柱状图等组件*/
-require('echarts/lib/chart/line')  //折线
-require('echarts/lib/chart/bar')   //柱状
-require('echarts/lib/chart/funnel')  //漏斗
-require('echarts/lib/chart/pie')    //饼图
+require('echarts/lib/chart/line'); //折线
+require('echarts/lib/chart/bar');  //柱状
+require('echarts/lib/chart/funnel');//漏斗
+require('echarts/lib/chart/pie'); //饼图
 
 // 引入提示框和title组件，图例
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
-require('echarts/lib/component/legendScroll')//图例滚动
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
+require('echarts/lib/component/legend');
+require('echarts/lib/component/legendScroll');//图例滚动
 
 //vue全局注入echarts
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
 
 /*引入自己的全局的css*/
 import '@/assets/css/global.scss'
@@ -45,7 +44,7 @@ import '@/assets/css/animate37.css'
 
 /*引用全局js*/
 import global from  '@/assets/js/global.js'
-Vue.prototype.GLOBAL = global
+Vue.prototype.GLOBAL = global;
 
 
 /*注册全局组件*/
@@ -58,8 +57,7 @@ Vue.component(publicIframe.name,publicIframe);
 
 
 import VueCropper from 'vue-cropper'
-
-Vue.use(VueCropper)
+Vue.use(VueCropper);
 
 // import goTop from "@/components/goTop";
 // Vue.component(goTop.name,goTop)
@@ -87,6 +85,22 @@ if (process.env.NODE_ENV === 'production') {
   Axios.defaults.baseURL = '/api';
   // Axios.defaults.baseURL = 'http://vikily.f3322.net:10007';
 }
+
+/*凡是用的prototype   使用都要this.继承
+*   console.log(this.$moment().format("YYYY-MM"));*/
+import moment from 'moment'  //引用moment js
+Vue.prototype.$moment = moment;//赋值使用
+
+moment.locale('zh-cn');//需要汉化
+
+/*将时间戳转日期格式的 全局 过滤器*/
+Vue.filter('dateFormat', (dataStr) => {
+ return moment(dataStr*1000).format('YYYY-MM-DD')
+});
+
+Vue.filter('tempTme', (dataStr) => {
+  return dataStr*1000
+});
 
 
 

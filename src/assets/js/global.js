@@ -48,6 +48,7 @@ function getToday() {
 }
 
 
+
 // 全局 js
 let localUrl = '';  //全局路径
 var localOrigin = window.location.origin;
@@ -66,6 +67,7 @@ console.log(localUrl);
 
 /*职位类型*/
 let userTypeList = [
+    {id:10000, catname:'全部职位',},
     {id:1, catname:'店长',},
     {id:2, catname:'顾问',},
     {id:3, catname:'教练',},
@@ -77,7 +79,13 @@ let userTypeList = [
     {id:100, catname:'教练经理',},
     {id:200, catname:'顾问经理',},
     {id:9, catname:'boss',},
-    {id:9, catname:'行政',},
+    {id:10, catname:'行政',},
+];
+
+/*提成类型*/
+let royaltyType =[
+    {id:1, catname:'销售额百分比',},
+    {id:2, catname:'上课节数百分比',},
 ];
 
 
@@ -86,7 +94,6 @@ let userTypeList = [
 https://blog.csdn.net/woshidamimi0/article/details/86082428
 页面  直接 this.GLOBAL.getEleBase64调用
 GLOBAL在main.js中声明了*/
-
 function getEleBase64(file) {
     return new Promise(function (resolve, reject) {
         let reader = new FileReader();
@@ -106,6 +113,7 @@ function getEleBase64(file) {
 
 export default {
     userTypeList,
+    royaltyType,
     localUrl,
     getEleBase64:getEleBase64,
     getToday:getToday(),

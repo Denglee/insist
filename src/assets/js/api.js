@@ -59,6 +59,26 @@ export const PTprivateMember   = params => post('admin/statis/private_member_sta
 export const PTClassRanking   = params => post('admin/statis/class_ranking', params);         /* 教练上课排名*/
 
 /*员工*/
-
-export const staffIndex   = params => post('admin/staff/index', params);         /* 员工列表*/
+export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
+
+export const staffSignin   = params => get('admin/staff/signin', params);         /* 考勤 列表*/
+export const staffSigninExcel   = params => get('admin/staff/excel_sign', params);         /* 考勤 导出*/
+
+
+
+
+
+/*
+staffAdd({
+    userimage:userimage,
+    information:2,
+    zmtek_ver:2,
+}).then(res => {
+   console.log(res)
+    if(res.status ==1){
+
+    }
+}).catch(res => {
+    console.log(res);
+});*/

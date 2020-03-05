@@ -1,0 +1,329 @@
+<template>
+    <div class="layoutR-main">
+
+        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox">
+
+            <!--tab1 员工工资-->
+            <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
+                <!--员工工资筛选-->
+                <div class="pt-screen">
+
+                    <el-input placeholder="请输入会员姓名、电话" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
+
+                    <!--日期选择-->
+                    <el-date-picker
+                            class="inp-mar14"
+                            v-model="value1"
+                            type="date">
+                    </el-date-picker>
+
+                    <!--搜索-->
+                    <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
+
+                </div>
+
+                <!--员工工资 表格-->
+                <el-table
+                        class="pub-table"
+                        :data="PTNumTable"
+                        border>
+                    <el-table-column
+                            prop="department"
+                            label="序号">
+                    </el-table-column>
+                    <el-table-column
+                            prop="pt"
+                            label="姓名">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptContinuation"
+                            label="工号">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTransfer"
+                            label="岗位">
+                        <!--<template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>-->
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptRefund"
+                            label="基本工资">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptOverdue"
+                            label="提成">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptFollow"
+                            label="经理提成">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptNoFollow"
+                            label="总监提成">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptNewAdd"
+                            label="超额奖励">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTotal"
+                            label="未完成处罚">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTotal"
+                            label="全勤奖励">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTotal"
+                            label="缺勤处罚">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTotal"
+                            label="其他">
+                    </el-table-column>
+                    <el-table-column
+                            prop="ptTotal"
+                            label="合计">
+                    </el-table-column>
+                </el-table>
+
+                <div class="ptTable-assist">
+                    <el-pagination
+                            background
+                            layout="prev, pager, next,total,jumper"
+                            :total="20">
+                    </el-pagination>
+                </div>
+
+            </el-tab-pane>
+
+            <!--tab2 提成设置-->
+            <el-tab-pane :lazy='tabLazy' label="提成设置" name="StaffRoyalty">
+                <div class="staffList-box vip-tabBox">
+                    <div class="clearfix">
+                        <el-button type="primary" class="btn-add fr btn-search" @click="btnAddRoyalty">添加员工</el-button>
+                    </div>
+                </div>
+            </el-tab-pane>
+
+            <!--tab3 奖惩设置-->
+            <el-tab-pane :lazy='tabLazy' label="奖惩设置" name="StaffReward">
+                <el-row gutter="20">
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            超额完成任务奖励方式
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            全勤奖励
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            为完成任务处罚
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div class="grid-content">
+                            缺勤处罚
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-tab-pane>
+
+            <el-table
+                    ref="multipleTable"
+                    :data="tableReword"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    @selection-change="rewordEdit">
+                <el-table-column type="index" ></el-table-column>
+                <el-table-column type="content"></el-table-column>
+                <el-table-column type="edit"></el-table-column>
+            </el-table>
+        </el-tabs>
+
+
+        <!--提成 编辑弹出-->
+        <el-dialog title="员工编辑" :visible.sync="EditListForm">
+            <el-form :model="editForm">
+                <el-form-item label="姓名" :label-width="formLabelWidth">
+                    <el-input v-model="editForm.name" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sureEdit()">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <!--提成 设置 弹出-->
+        <el-dialog title="员工编辑" :visible.sync="dialogRoyalty">
+            <el-form :model="setupRoyalty" :label-width="formLabelWidth">
+                <el-form-item label="名称" >
+                    <el-input v-model="setupRoyalty.name" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-select v-model="setupRoyalty.royaltyType" placeholder="请选择提成类型" class="inp-mar14 ptSel-section">
+                    <el-option v-for="item in royaltyType" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                </el-select>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="sureEdit()">确 定</el-button>
+            </div>
+        </el-dialog>
+
+
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "StaffIndex2",
+        data() {
+            return {
+                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
+                tabLazy: true,
+
+                /* tab2 提成设置 */
+                royaltyType:this.GLOBAl.royaltyType,
+                dialogRoyalty:false,   //提成名称 设置 弹窗
+                setupRoyalty:[
+                    {
+                        name:'',
+                        royaltyType:''
+                    }
+                ],
+
+
+                formLabelWidth: '120px',
+                EditListForm:false,
+                editForm:{
+                    name:"",
+                    sex:"",
+                    position:"",
+                    tel:"",
+                    jobId:"",
+                    Royalty: '',
+                    time: '',
+                    state: "",
+                },
+                RoyaltyOptions: [{
+                    value: '教练1',
+                    label: '方式1教练'
+                }, {
+                    value: '销售2',
+                    label: '方式2销售2'
+                }, {
+                    value: '前台3',
+                    label: '方式3前台3'
+                }],
+                PTNumTable: [
+                    {
+                        department: '市场部',
+                        pt: '王小虎',
+                        ptContinuation: "1",
+                        ptTransfer: '1',
+                        ptRefund: '1',
+                        ptOverdue: '8',
+                        ptFollow: '3',
+                        ptNoFollow: '8',
+                        ptNewAdd: '0',
+                        ptTotal: '2',
+                    },
+                    {
+                        department: '市场部',
+                        pt: '王小虎',
+                        ptContinuation: "1",
+                        ptTransfer: '1',
+                        ptRefund: '1',
+                        ptOverdue: '8',
+                        ptFollow: '3',
+                        ptNoFollow: '8',
+                        ptNewAdd: '0',
+                        ptTotal: '2',
+                    },
+                ],
+                PTNumTable2: [{
+                    name:"李登",
+                    sex:"男",
+                    position:"教练",
+                    tel:"17688888444",
+                    jobId:"20136",
+                    Royalty: '教练提成',
+                    time: '2020-02-27',
+                    state: "1",
+                    // caozuo: '操作',
+                },{
+                    name:"小丽",
+                    sex:"女",
+                    position:"前台",
+                    tel:"17688888544",
+                    jobId:"20137",
+                    Royalty: '前台提成',
+                    time: '2020-01-27',
+                    state: "0",
+                    // caozuo: '操作',
+                }
+                ],
+            }
+        },
+        methods: {
+
+            /* === tab2  提成设置 ==*/
+            /*添加提成 弹窗*/
+            btnAddRoyalty(){
+                this.setupRoyalty = true
+            },
+
+            /*编辑*/
+            handleEdit(index, row) {
+                console.log(index, row);
+                console.log(row);
+                this.editForm = row;
+                this.EditListForm = true;
+            },
+
+            /*编辑确定*/
+            sureEdit(){
+                console.log(this.editForm);
+
+                this.$message({
+                    type:'success',
+                    duration:'1500',
+                    message:'更新成功'
+                });
+
+                this.EditListForm = false;
+            },
+
+            /*删除*/
+            handleDelete(index,row, rows) {
+                console.log(index);
+                console.log(row);
+
+                rows.splice(index, 1);
+
+            },
+        },
+        created() {
+
+        },
+    }
+</script>
+
+<style lang="scss" >
+    @import "@/assets/css/totalVip.scss";
+    @import "@/assets/css/staff.scss";
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 80px;
+        background: #e5e9f2;
+        padding: 20px;
+    }
+</style>
