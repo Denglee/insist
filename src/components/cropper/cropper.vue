@@ -3,7 +3,11 @@
         <div class="cropper-content">
             <!-- 剪裁框 -->
             <div class="cropper">
-                <vueCropper ref="cropper" :img="option.img" :outputSize="option.size" :outputType="option.outputType" :info="true" :full="option.full" :canMove="option.canMove" :canMoveBox="option.canMoveBox" :original="option.original" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight" :fixedBox="option.fixedBox" @realTime="realTime" :fixed="option.fixed" :fixedNumber="fixedNumber"></vueCropper>
+                <vueCropper ref="cropper" :img="option.img" :outputSize="option.size" :outputType="option.outputType"
+                            :info="true" :full="option.full" :canMove="option.canMove" :canMoveBox="option.canMoveBox"
+                            :original="option.original" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth"
+                            :autoCropHeight="option.autoCropHeight" :fixedBox="option.fixedBox"
+                            @realTime="realTime" :fixed="option.fixed" :fixedNumber="fixedNumber"></vueCropper>
                 <!-- <vueCropper ref="cropper" :img="option.img" :outputSize="option.size" :outputType="option.outputType"></vueCropper> -->
             </div>
             <!-- 预览框 -->

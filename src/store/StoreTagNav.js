@@ -4,13 +4,14 @@ import router from '../router'
 const state = {
     StateUserInfo:'', //用户信息
     StateNavList: [],  //路由集合
+
+    staffClasses:[],   //员工班次
 };
 
 const getters = {
 
     /*获取用户信息*/
     getsUserInfo(){
-
         let userInfo =JSON.parse(localStorage.getItem('userInfo'));
         if(userInfo){
             if(userInfo.logo == 1){
@@ -34,6 +35,7 @@ const getters = {
             },1500);
         }
     },
+
     /*获取 导航列表*/
     getNavList(state, StateNavList) {
         return state.StateNavList;
@@ -83,6 +85,19 @@ const mutations = {
     mutNavList: (state, data) => {
         state.StateNavList = data;
     },
+
+    /*保存班次*/
+    mutSaveStaffClasses(state, data) {
+        console.log(data);
+        state.staffClasses = data;
+    },
+
+    /*获取 员工班次*/
+    mutGetStaffClasses:(state, staffClasses)=>{
+        console.log('store 97 '+ state);
+        console.log(staffClasses);
+    }
+
 };
 
 const actions = {
@@ -139,6 +154,15 @@ const actions = {
     /*登出*/
     ACTlogout({commit}) {
         return commit('mutLOginOut');
+    },
+
+    /*保存班次*/
+    ActSaveStaffClasses({commit}) {
+        return commit('mutSaveStaffClasses');
+    },
+    /*调用 员工班次*/
+    ActGetStaffClasses({commit}) {
+        return commit('mutGetStaffClasses');
     },
 }
 

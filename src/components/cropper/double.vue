@@ -1,23 +1,12 @@
 <template>
     <div>
         <!-- 多图片上传 -->
-        <el-upload v-if="multiple" action='string' list-type="picture-card" accept="image/*" :on-preview="handlePreview" :auto-upload="false" :on-remove="handleRemove" :http-request="upload" :on-change="consoleFL" :file-list="uploadList">
+        <el-upload v-if="multiple" action='string' list-type="picture-card" accept="image/*" :on-preview="handlePreview"
+                   :auto-upload="false" :on-remove="handleRemove"
+                   :http-request="upload" :on-change="consoleFL" :file-list="uploadList">
             <i class="el-icon-plus"></i>
         </el-upload>
 
-        <!-- 单图片上传 -->
-        <el-upload v-else class="avatar-uploader" action="'string'" :auto-upload="false" :show-file-list="false" :on-change="handleCrop" :http-request="upload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" ref="singleImg" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{width:width+'px',height:height+'px'}">
-            <i v-else class="el-icon-plus avatar-uploader-icon" :style="{width:width+'px',height:height+'px','line-height':height+'px','font-size':height/6+'px'}"></i>
-            <!-- 单图片上传状态显示 -->
-            <!-- <div v-if="imageUrl" class="reupload" ref="reupload" @click.stop="handlePreviewSingle" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{width:reuploadWidth+'px',height:reuploadWidth+'px','line-height':reuploadWidth+'px','font-size':reuploadWidth/5+'px'}">重新上传</div> -->
-            <div id="uploadIcon" v-if="imageUrl" ref="reupload" @mouseenter="mouseEnter" @mouseleave="mouseLeave" :style="{width:'100%'}">
-                <i class="el-icon-zoom-in" @click.stop="handlePreviewSingle" :style="{color:'#2E2E2E',fontSize:'25px',display:'inline-block',paddingRight:'15px'}"></i>
-                <i class="el-icon-upload" :style="{color:'#2E2E2E',fontSize:'25px',display:'inline-block'}"></i>
-            </div>
-            <div class="reupload" ref="uploading" :style="{width:reuploadWidth+'px',height:reuploadWidth+'px','line-height':reuploadWidth+'px','font-size':reuploadWidth/5+'px'}">上传中..</div>
-            <div class="reupload" ref="failUpload" :style="{width:reuploadWidth+'px',height:reuploadWidth+'px','line-height':reuploadWidth+'px','font-size':reuploadWidth/5+'px'}">上传失败</div>
-        </el-upload>
 
         <!-- 多图片预览弹窗 -->
         <el-dialog :visible.sync="dialogVisible">
@@ -31,11 +20,14 @@
         </el-dialog>
     </div>
 </template>
+
 <script>
     import Cropper from '@/components/cropper/cropper';
+    // import Api from '@/js/api.js' //接口url配置文件
 
     export default {
-        name: 'uploader',
+        name:'Receptionindex',
+
         props: {
             targetUrl: {
                 // 上传地址
@@ -46,7 +38,7 @@
             multiple: {
                 // 多图开关
                 type: Boolean,
-                default: false
+                default: true
             },
             initUrl: {
                 // 初始图片链接
@@ -88,6 +80,7 @@
         },
         watch: {
             initUrl: function (val) {
+                console.log(val);
                 // 监听传入初始化图片
                 // console.info('watch');
                 if (val) {
@@ -110,6 +103,7 @@
         methods: {
             /** **************************** multiple多图情况 **************************************/
             handlePreview (file) {
+                console.log(file);
                 // 点击进行图片展示
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
@@ -121,6 +115,7 @@
                 // this.$emit('imgupload', this.formatImgArr(this.uploadList));
             },
             consoleFL (file, fileList) {
+                console.log(file);
                 // 弹出剪裁框，将当前文件设置为文件
                 this.cropperModel = true;
                 this.file = file;
@@ -128,33 +123,6 @@
             },
             /************************************************************************************/
 
-            /** **************************** single单图情况 **************************************/
-            handlePreviewSingle (file) { // 点击进行图片展示
-                console.log(file);
-                this.dialogImageUrl = this.file.url;
-                this.dialogVisible = true;
-            },
-            mouseEnter () { // 鼠标划入显示“重新上传”
-                this.$refs.reupload.style.display = 'block';
-                if (this.$refs.failUpload.style.display === 'block') {
-                    this.$refs.failUpload.style.display = 'none';
-                }
-                this.$refs.singleImg.style.opacity = '0.6';
-            },
-            mouseLeave () {
-                // 鼠标划出隐藏“重新上传”
-                this.$refs.reupload.style.display = 'none';
-                this.$refs.singleImg.style.opacity = '1';
-            },
-            handleCrop (file, files) {
-                console.log(file);
-                console.log(files);
-                // 点击弹出剪裁框
-                this.cropperModel = true;
-                this.file = file;
-                // this.imageUrl = file.url
-            },
-            /************************************************************************************/
 
             async upload (data) {
                 // 自定义upload事件
@@ -211,6 +179,7 @@
                 }
                 this.cropperModel = false;
             },
+
             formatImgArr (arr) {
                 const result = arr.map((item, index) => {
                     if (typeof item === 'string') {
@@ -224,11 +193,13 @@
                 });
                 return result;
             },
+
             beforeClose () {
                 // this.uploadList.pop();
                 console.log(this.uploadList);
                 this.cropperModel = false;
             },
+
             // 压缩图片
             compress(img) {
                 let canvas = document.createElement('canvas');
@@ -246,6 +217,7 @@
                 let ndata = canvas.toDataURL('image/jpeg', 0.8);
                 return ndata;
             },
+
             // base64转成bolb对象
             dataURItoBlob(base64Data) {
                 let byteString;
@@ -260,9 +232,12 @@
         },
         components: {
             Cropper
-        }
-    };
+        },
+
+    }
 </script>
+
+
 <style>
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;

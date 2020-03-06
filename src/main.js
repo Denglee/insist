@@ -94,9 +94,9 @@ Vue.prototype.$moment = moment;//赋值使用
 moment.locale('zh-cn');//需要汉化
 
 /*将时间戳转日期格式的 全局 过滤器*/
-Vue.filter('dateFormat', (dataStr) => {
- return moment(dataStr*1000).format('YYYY-MM-DD')
-});
+Vue.filter('dateFormat', (dataStr, pattern = 'YYYY-MM-DD') =>{
+  return moment(dataStr).format(pattern)
+})
 
 Vue.filter('tempTme', (dataStr) => {
   return dataStr*1000

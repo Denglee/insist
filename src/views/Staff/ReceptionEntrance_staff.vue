@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Receptionentrance_staff",
+        name: "ReceptionEntrance_staff",
         data() {
             return {}
         },

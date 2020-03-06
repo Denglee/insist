@@ -261,77 +261,77 @@
                             </el-button>
                         </div>
                     </header>
-
-                    <!--私教销售额筛选-->
-                    <div class="pt-screen">
-                        <!--部门-->
-                        <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
-                                   style="width: 150px;">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-
-                        <!--私教教练-->
-                        <el-select v-model="value" placeholder="请选择教练" class="inp-mar14"
-                                   style="width: 130px;">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-
-                        <!--日期选择-->
-                        <el-date-picker
-                                class="inp-mar14"
-                                v-model="value1"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                        </el-date-picker>
-
-                        <!--搜索-->
-                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
-                          </el-input>
-
-                        <el-button class="btn-search" icon="el-icon-search" @click="searchPT">搜索</el-button>
-
-                    </div>
-
-                    <!--销售额表格-->
-                    <el-table
-                            class="pub-table"
-                            border
-                            :data="PTtable">
-                        <el-table-column
-                                prop="department"
-                                label="部门">
-                        </el-table-column>
-                        <el-table-column prop="pt" label="教练"></el-table-column>
-
-                        <el-table-column
-                                prop="tel"
-                                label="电话">
-                        </el-table-column>
-
-                        <el-table-column
-                                prop="money"
-                                label="金额">
-                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
-                        </el-table-column>
-                        <el-table-column
-                                prop="day"
-                                label="日期">
-                        </el-table-column>
-                    </el-table>
-
                     <div class="ptTable-assist">
+
+                        <!--私教销售额筛选-->
+                        <div class="pt-screen">
+                            <!--部门-->
+                            <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
+                                       style="width: 150px;">
+                                <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                            <!--私教教练-->
+                            <el-select v-model="value" placeholder="请选择教练" class="inp-mar14"
+                                       style="width: 130px;">
+                                <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                            <!--日期选择-->
+                            <el-date-picker
+                                    class="inp-mar14"
+                                    v-model="value1"
+                                    type="daterange"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期">
+                            </el-date-picker>
+
+                            <!--搜索-->
+                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
+                              </el-input>
+
+                            <el-button class="btn-search" icon="el-icon-search" @click="searchPT">搜索</el-button>
+
+                        </div>
+
+                        <!--销售额表格-->
+                        <el-table
+                                class="pub-table"
+                                border
+                                :data="PTtable">
+                            <el-table-column
+                                    prop="department"
+                                    label="部门">
+                            </el-table-column>
+                            <el-table-column prop="pt" label="教练"></el-table-column>
+
+                            <el-table-column
+                                    prop="tel"
+                                    label="电话">
+                            </el-table-column>
+
+                            <el-table-column
+                                    prop="money"
+                                    label="金额">
+                                <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
+                            </el-table-column>
+                            <el-table-column
+                                    prop="day"
+                                    label="日期">
+                            </el-table-column>
+                        </el-table>
+
                         <el-pagination
                                 background
                                  layout="prev, pager, next,total,jumper"

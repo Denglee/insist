@@ -13,11 +13,9 @@
         },
         methods: {},
         created() {
-
         },
     }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

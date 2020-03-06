@@ -8,27 +8,21 @@
             <div class="clearfix">
                 <el-button type="primary" class="btn-add fr btn-search" @click="btnAddStaff">添加员工</el-button>
             </div>
-
             <!--员工列表-->
             <div class="staffList-box vip-tabBox pubWidth">
-
                 <!--员工列表 筛选-->
                 <div class="pt-screen">
                     <!--在职-->
                     <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
                         <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                     </el-select>
-
                     <!--部门-->
                     <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
                         <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                     </el-select>
-
                     <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
-
                     <!--搜索-->
                     <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
-
                     <div class="fr">
                         <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
                             <el-button icon="el-icon-search" @click="change()" class="btn-search"></el-button>
@@ -37,11 +31,9 @@
                             <el-button icon="el-icon-delete"  @click="delete2()" class="btn-search"></el-button>
                         </el-tooltip>
                     </div>
-
                 </div>
-
                 <!--员工列表 表格-->
-                <el-table class="pub-table pub-table" :data="tableStaff" border @selection-change="checkedStaff">
+                <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
                     <el-table-column type="selection" width="55"></el-table-column>
                     <el-table-column prop="name" label="姓名"></el-table-column>
                     <el-table-column prop="sex" label="性别">
@@ -153,7 +145,7 @@
         </el-dialog>
 
         <!--添加员工-->
-        <!--<div v-show="addStaffState" class="vip-tabBox">
+        <div v-show="addStaffState" class="vip-tabBox">
             <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
                       breadContent1="添加员工"></navBread>
             <el-form :model="editForm" class="addForm-box">
@@ -178,7 +170,7 @@
                               </span>
                         </div>
                     </el-upload>
-                    &lt;!&ndash;弹出放大效果&ndash;&gt;
+                    <!--弹出放大效果-->
                     <el-dialog :visible.sync="dialogVisible">
                         <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
@@ -236,7 +228,7 @@
                 </el-form-item>
 
                 <el-form-item label="备注" :label-width="formLabelWidth">
-                    &lt;!&ndash;                    <el-input v-model="editForm.jobId" autocomplete="off"></el-input>&ndash;&gt;
+                    <!--                    <el-input v-model="editForm.jobId" autocomplete="off"></el-input>-->
 
 
 
@@ -249,9 +241,7 @@
                 </el-form-item>
             </el-form>
 
-        </div>-->
-
-
+        </div>
 
     </div>
 </template>
@@ -271,9 +261,7 @@
                 dialogVisible: false,
                 disabled: false,
                 imgUrl:'',   //头像路径
-            /*    seaFormStaff:[
 
-                ],*/
                 /* 筛选 在职状态*/
                 lockState:[
                     {lock:0,value:'在职'},

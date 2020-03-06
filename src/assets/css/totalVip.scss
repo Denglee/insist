@@ -7,9 +7,6 @@
   .vipT-addCard {
     height: auto !important;
   }
-  .pt-screen{
-    margin: 20px;
-  }
 }
 
 /* 会员总览 选项卡*/
@@ -95,8 +92,10 @@ $tabHei: 46px;
 }
 
 .ptTable-assist {
-  display: flex;
-  padding-left: 20px;
+  padding:0 20px;
+  .pt-screen{
+    margin: 20px 0 0;
+  }
 }
 
 .vipNav-btnBox {

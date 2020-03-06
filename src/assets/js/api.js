@@ -63,8 +63,6 @@ export const staffIndex   = params => get('admin/staff/index', params);         
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
 
 export const staffSignin   = params => get('admin/staff/signin', params);         /* 考勤 列表*/
-export const staffSigninExcel   = params => get('admin/staff/excel_sign', params);         /* 考勤 导出*/
-
 
 
 
