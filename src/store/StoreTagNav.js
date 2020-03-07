@@ -40,6 +40,11 @@ const getters = {
     getNavList(state, StateNavList) {
         return state.StateNavList;
     },
+
+    /*获取 员工班次*/
+    GetStaffClasses:(state, staffClasses)=>{
+        return state.staffClasses;
+    }
 };
 
 const mutations = {
@@ -92,11 +97,7 @@ const mutations = {
         state.staffClasses = data;
     },
 
-    /*获取 员工班次*/
-    mutGetStaffClasses:(state, staffClasses)=>{
-        console.log('store 97 '+ state);
-        console.log(staffClasses);
-    }
+
 
 };
 
@@ -157,14 +158,11 @@ const actions = {
     },
 
     /*保存班次*/
-    ActSaveStaffClasses({commit}) {
-        return commit('mutSaveStaffClasses');
+    ActSaveStaffClasses({commit},res) {
+        return commit('mutSaveStaffClasses',res);
     },
-    /*调用 员工班次*/
-    ActGetStaffClasses({commit}) {
-        return commit('mutGetStaffClasses');
-    },
-}
+
+};
 
 
 export default {

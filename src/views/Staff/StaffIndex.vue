@@ -4,7 +4,6 @@
         <!--<publicIframe/>-->
 
         <div v-show="staffListState">
-
             <div class="clearfix">
                 <el-button type="primary" class="btn-add fr btn-search" @click="btnAddStaff">添加员工</el-button>
             </div>
@@ -61,7 +60,7 @@
                             <!--<div v-else>{{scope.row.user_type}}</div>-->
                         </template>
                     </el-table-column>
-                    <el-table-column prop="phone" label="电话" width="120px"></el-table-column>
+                    <el-table-column prop="phone" label="电话"></el-table-column>
                     <el-table-column prop="user_no" label="工号"></el-table-column>
                     <el-table-column prop="Royalty" label="提成方式"></el-table-column>
                     <el-table-column prop="register_time" label="创建时间" >
@@ -144,8 +143,9 @@
             </div>
         </el-dialog>
 
+
         <!--添加员工-->
-        <div v-show="addStaffState" class="vip-tabBox">
+        <!--<div v-show="addStaffState" class="vip-tabBox">
             <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
                       breadContent1="添加员工"></navBread>
             <el-form :model="editForm" class="addForm-box">
@@ -170,7 +170,7 @@
                               </span>
                         </div>
                     </el-upload>
-                    <!--弹出放大效果-->
+                    &lt;!&ndash;弹出放大效果&ndash;&gt;
                     <el-dialog :visible.sync="dialogVisible">
                         <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
@@ -228,7 +228,7 @@
                 </el-form-item>
 
                 <el-form-item label="备注" :label-width="formLabelWidth">
-                    <!--                    <el-input v-model="editForm.jobId" autocomplete="off"></el-input>-->
+                    &lt;!&ndash;                    <el-input v-model="editForm.jobId" autocomplete="off"></el-input>&ndash;&gt;
 
 
 
@@ -241,14 +241,14 @@
                 </el-form-item>
             </el-form>
 
-        </div>
+        </div>-->
 
     </div>
 </template>
 
 <script>
-    import Cropper from '@/components/cropper/cropper';
-    import Editor from '@/components/wangEnduit/wangEnduit'
+    import {mapState,mapActions, mapGetters} from 'vuex'
+
     import navBread from '@/components/Echarts/navBread'
 
     import {staffAdd, staffIndex,} from '@/assets/js/api' /*引用 员工 接口*/
@@ -297,16 +297,6 @@
         },
 
         methods: {
-
-            alertTip() {
-                this.$alert("     <div class='alertTip-box'>\n" +
-                    "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
-                    "            <div class='alertTip-sub'>[系统合同到期后，免费使用三个月。时间以合同到期日为准]</div>\n" +
-                    "        </div>", {
-                    dangerouslyUseHTMLString: true,
-                    confirmButtonText: '加油',
-                }).then(() => {});
-            },
 
             /*筛选 员工*/
             btnSeaStaff(){
@@ -417,13 +407,11 @@
             /*编辑确定*/
             sureEdit() {
                 // console.log(this.editForm);
-
                 this.$message({
                     type: 'success',
                     duration: '1500',
                     message: '更新成功'
                 });
-
                 this.EditListForm = false;
             },
 
@@ -431,9 +419,7 @@
             handleDelete(index, row, rows) {
                 console.log(index);
                 console.log(row);
-
                 rows.splice(index, 1);
-
             },
 
             /* 返回上一页 */
@@ -444,16 +430,19 @@
             },
         },
         created() {
-
-            // this.alertTip();
-
+            console.log(this.getStaffClasses.lock);
+            this.staffPage = this.getStaffClasses.lock;
             this.getStaffIndex();
+        },
 
+        computed:{
+            //获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
+            ...mapGetters({
+                getStaffClasses: "StoreTagNav/GetStaffClasses",
+            }),
         },
         components: {
             navBread,
-            Editor,
-            Cropper,
         },
     }
 </script>
@@ -461,12 +450,4 @@
 <style lang="scss">
     /*@import "@/assets/css/totalVip.scss";*/
     @import "@/assets/css/staff.scss";
-    .alertTip-box{
-        font-size: 16px;
-        color: #333;
-    }
-    .alertTip-sub{
-        color: $color-Gray;
-        font-size: 14px;
-    }
 </style>

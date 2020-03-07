@@ -241,7 +241,7 @@
                                     duration: 1500,
                                     offset: 100,
                                 });
-                                // return false;
+
                                 setTimeout(() => {
                                     /* this.$router.replace({
                                          path: "/redirect",

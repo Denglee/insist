@@ -10,7 +10,6 @@
                     <el-date-picker placeholder="请选择月份" class="inp-mar14 month-inp" v-model="staffMonth" type="month" value-format="yyyy-MM"></el-date-picker>
                     <el-button icon="el-icon-search" @click="btnSeaStaffSignin" class="btn-search">搜索</el-button>
 
-                    <a href=""></a>
                     <el-button icon="el-icon-notebook-1" @click="singExport" class="btn-search fr">导出</el-button>
                 </form>
                 <!--打卡记录 表格-->
@@ -83,7 +82,6 @@
                 </el-table>
             </el-tab-pane>
         </el-tabs>
-
 
         <!--时间设置 弹出-->
         <el-dialog title="班次编辑" :visible.sync="EditTimeForm">
@@ -182,7 +180,6 @@
         methods: {
 
             ...mapActions({
-                ActGetStaffClasses:'StoreTagNav/ActGetStaffClasses',
                 ActSaveStaffClasses:'StoreTagNav/ActSaveStaffClasses',
             }),
 
@@ -246,17 +243,16 @@
 
             /*去员工页面*/
             goStaffIndex(index,row){
-                console.log(index, row);
-                /*this.$router.push({
+                this.$router.push({
                     path:'/Staff/index'
-                });*/
+                });
 
-                let data = index;
+                let data = row;
                 this.ActSaveStaffClasses(data);
             },
         },
         created() {
-            this.ActGetStaffClasses();
+
             this.getStaffSignin();
         },
     }

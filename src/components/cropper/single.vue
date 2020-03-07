@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import Cropper from '@/components/cropper/cropper1';
+    import Cropper from '@/components/cropper/cropper';
 
     export default {
         name: 'uploader',

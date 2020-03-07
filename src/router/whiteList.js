@@ -3,7 +3,7 @@ const whiteList = [
     '/login',
     '/register',
     '/notice',
-    '/maintenance'
+    '/maintenance',
 ]
 
 export default whiteList

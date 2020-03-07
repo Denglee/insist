@@ -625,6 +625,15 @@ const staticRoute = [
                 meta: {title: '场馆设置'},
             },
 
+
+            /*场馆*/
+            {
+                path: 'edit/index',  //场馆设置
+                name: 'editIndex',
+                component: () => import(/* webpackChunkName: "editIndex" */ '@/views/Staff/editIndex'),
+                meta: {title: '场馆设置'},
+            },
+
         ]
     },
 

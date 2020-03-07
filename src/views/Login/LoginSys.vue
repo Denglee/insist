@@ -159,10 +159,26 @@
         },
 
         created() {
-
+            // this.alertTip();
         },
 
         methods: {
+            alertTip() {
+                this.$alert("     <div class='alertTip-box'>\n" +
+                    "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
+                    "            <div class='alertTip-sub'>[系统合同到期后，免费使用三个月。时间以合同到期日为准]</div>\n" +
+                    "        </div>", {
+                    dangerouslyUseHTMLString: true,
+                    customClass:'tipBox',
+                    confirmButtonText: '加油',
+                }).then(() => {
+                    this.$router.push({path: '/index'});
+                }).catch(() => {
+                    this.$router.push({path: '/index'});
+                });
+            },
+
+
             ...mapActions({
                 ACTLogin: 'StoreTagNav/ACTLogin',   //store里 login登录方法 并 保存用户信息
             }),
@@ -397,13 +413,17 @@
                                 let loginData = res.data;
                                 console.log(loginData);
                                 that.ACTLogin(loginData);
-                                this.$message({
-                                    message: res.info,
-                                    type: 'success',
-                                    duration: 1500,
-                                    offset: 100,
-                                });
-                                // return false;
+                                // this.$message({
+                                //     message: res.info,
+                                //     type: 'success',
+                                //     duration: 1500,
+                                //     offset: 100,
+                                // });
+
+
+                                this.alertTip();
+
+
                                 setTimeout(() => {
                                     /* this.$router.replace({
                                          path: "/redirect",
@@ -412,7 +432,7 @@
                                          }
                                      });*/
                                     that.$router.push({path: '/index'});
-                                }, 1500);
+                                }, 6000);
 
                             }
                             if (res.status == 0) {
@@ -521,4 +541,14 @@
 </script>
 <style lang="scss">
     @import "@/assets/css/login.scss";
+    .alertTip-box{
+        font-size: 16px;
+        color: #000;
+
+    }
+    .alertTip-sub{
+        margin-top: 4px;
+        color: #979797;
+        font-size: 14px;
+    }
 </style>
