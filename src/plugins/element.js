@@ -72,7 +72,10 @@ Vue.filter('tempTme', (dataStr) => {
 });
 
 
-
-
 /*7、 引用md5*/
 // import md5 from 'js-md5';
+
+
+/*8、引入v-charts*/
+import VCharts from 'v-charts'
+Vue.use(VCharts);

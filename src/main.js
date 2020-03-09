@@ -1,4 +1,8 @@
 import Vue from 'vue'
+
+// 引入插件，放在此处引用是为了下面的router和store中可能会用到某些插件的功能。
+import './plugins/index'
+
 import App from './App.vue'
 
 import router from './router'
@@ -10,8 +14,7 @@ import Axios from 'axios'
 
 // import '../mock/index.js'
 
-// 引入插件，放在此处引用是为了下面的router和store中可能会用到某些插件的功能。
-import './plugins/index'
+
 
 
 /*引用axios*/

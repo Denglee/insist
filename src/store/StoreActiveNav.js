@@ -12,12 +12,12 @@ const state = {
 const mutations = {
     addTagNav(state, data){
         console.log(data);
-        if (state.openedPageList.some(v => v.path === data.path)) return
+        if (state.openedPageList.some(v => v.path === data.path)) return;
         if(state.cachedPageName.includes(data.name)){
-            console.error(`${data.name} 组件出现命名重复，请检查组件中的name字段。当前组件所在的路由地址为：${data.path}`)
+            console.error(`${data.name} 组件出现命名重复，请检查组件中的name字段。当前组件所在的路由地址为：${data.path}`);
             return
         }
-        state.openedPageList.push(data)
+        state.openedPageList.push(data);
         state.cachedPageName.push(data)
 
     },
@@ -30,13 +30,13 @@ const mutations = {
             }
 
             if(state.cachePage){
-                let index = state.cachedPageName.indexOf(data.name)
+                let index = state.cachedPageName.indexOf(data.name);
                 if(index >= 0){
                     state.cachedPageName.splice(index, 1)
                 }
             }
         } else{
-            state.openedPageList = []
+            state.openedPageList = [];
             state.cachedPageName = []
         }
     }

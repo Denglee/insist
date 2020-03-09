@@ -10,8 +10,6 @@
                 <a :href="localUrl+ '/admin/index/index.html'" title="旧版地址" class="header-cityName goOldUrl">回到旧版</a>
             </div>
 
-
-
             <div class="header-rMain">
                 <!--头部搜索-->
                 <el-form class="search-form">

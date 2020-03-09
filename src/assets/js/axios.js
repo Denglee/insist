@@ -28,10 +28,10 @@ axios.interceptors.response.use(response => {
     // 对响应数据做点什么
     // console.log(response.data.status);
     if (response.data.status == 3) {
-        console.log('重新授权');
+        console.log(response +'status == 3');
     }
     if (response.data.status == 0) {
-        console.log('重新授权');
+        console.log(`${response.data}  status == 0`);
     }
     return response;
 }, error => {
@@ -58,8 +58,9 @@ export function get(url, params) {
             //  Message({message: '请求成功', type: 'success'});
         }).catch(err => {
             reject(err.data);
+            console.log(url,err);
             // Loading.service(true).close();
-            Message({message: '加载失败', type: 'error'});
+            // Message({message: '加载失败', type: 'error'});
         })
     });
 }
@@ -94,8 +95,9 @@ export function post(url, params) {
             })
             .catch(err => {
                 reject(err.data);
+                console.log(url,err);
                 // Loading.service(true).close();
-                Message({message: '加载失败', type: 'error'});
+                // Message({message: '加载失败', type: 'error'});
             })
     });
 }
