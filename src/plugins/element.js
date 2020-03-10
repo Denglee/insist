@@ -76,6 +76,20 @@ Vue.filter('tempTme', (dataStr) => {
 // import md5 from 'js-md5';
 
 
+
 /*8、引入v-charts*/
 import VCharts from 'v-charts'
+import VeLine from 'v-charts/lib/line.common'  //折线图
+import bar from 'v-charts/lib/bar.common' //条形图
+import histogram from 'v-charts/lib/histogram.common' //柱状图
+import pie from 'v-charts/lib/pie.common' //饼图
+import ring from 'v-charts/lib/ring.common' //环图
+import funnel from 'v-charts/lib/funnel.common' //环图
+
+Vue.component(VeLine.name, VeLine);
+Vue.component(VeLine.name, bar);
+Vue.component(VeLine.name, histogram);
+Vue.component(VeLine.name, pie);
+Vue.component(VeLine.name, ring);
+Vue.component(VeLine.name, funnel);
 Vue.use(VCharts);

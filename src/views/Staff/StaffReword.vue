@@ -123,10 +123,6 @@
                 </el-row>
             </el-tab-pane>
 
-            <!--提成设置-->
-            <div v-show="setStaffRoyalty">
-
-            </div>
 
         </el-tabs>
 

@@ -214,6 +214,8 @@ $headerHeight:70px;
   margin: 20px 20px 0 0;
   display: block;
   float: left;
+  position: relative;
+  z-index: -11;
   & :hover{
    color: $color-Gray;
   }

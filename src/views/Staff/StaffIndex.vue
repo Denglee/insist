@@ -3,90 +3,111 @@
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
-        <div v-show="staffListState">
-            <div class="clearfix">
-                <el-button type="primary" class="btn-add fr btn-search" @click="btnAddStaff">添加员工</el-button>
-            </div>
-            <!--员工列表-->
-            <div class="staffList-box vip-tabBox pubWidth">
-                <!--员工列表 筛选-->
-                <div class="pt-screen">
-                    <!--在职-->
-                    <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
-                        <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
-                    </el-select>
-                    <!--部门-->
-                    <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
-                        <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
-                    </el-select>
-                    <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
-                    <!--搜索-->
-                    <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
-                    <div class="fr">
-                        <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-                            <el-button icon="el-icon-search" @click="change()" class="btn-search"></el-button>
-                        </el-tooltip>
-                        <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-                            <el-button icon="el-icon-delete"  @click="delete2()" class="btn-search"></el-button>
-                        </el-tooltip>
-                    </div>
+        <el-tabs v-model="activeName" v-show="staffListState" class="vip-tabBox pubWidth" id="staffPay-tabBox">
+
+            <!--tab1 员工列表-->
+            <el-tab-pane :lazy='tabLazy' label="员工列表" name="StaffSalary">
+                <div class="clearfix">
+                    <el-button type="primary" class="btn-add fr btn-search" @click="btnAddStaff">添加员工</el-button>
                 </div>
-                <!--员工列表 表格-->
-                <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
-                    <el-table-column type="selection" width="55"></el-table-column>
-                    <el-table-column prop="name" label="姓名"></el-table-column>
-                    <el-table-column prop="sex" label="性别">
+                <!--员工列表-->
+                <div class="vip-tabBox">
+                    <!--员工列表 筛选-->
+                    <div class="pt-screen">
+                        <!--在职-->
+                        <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
+                            <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
+                        </el-select>
+                        <!--部门-->
+                        <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
+                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                        </el-select>
+                        <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
+                        <!--搜索-->
+                        <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
+                        <div class="fr">
+                            <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
+                                <el-button icon="el-icon-search" @click="change()" class="btn-search"></el-button>
+                            </el-tooltip>
+                            <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
+                                <el-button icon="el-icon-delete"  @click="delete2()" class="btn-search"></el-button>
+                            </el-tooltip>
+                        </div>
+                    </div>
+                    <!--员工列表 表格-->
+                    <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
+                        <el-table-column type="selection" width="55"></el-table-column>
+                        <el-table-column prop="name" label="姓名"></el-table-column>
+                        <el-table-column prop="sex" label="性别">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.sex == 0 " class="status-connect">未知</div>
+                                <div v-if="scope.row.sex == 1 " class="status-break">男</div>
+                                <div v-if="scope.row.sex == 2 " class="status-break">女</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="user_type" label="职位">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
+                                <div v-if="scope.row.user_type == 1 " class="status-connect">店长</div>
+                                <div v-if="scope.row.user_type == 2 " class="status-connect">顾问</div>
+                                <div v-if="scope.row.user_type == 3 " class="status-connect">教练</div>
+                                <div v-if="scope.row.user_type == 4 " class="status-connect">操课</div>
+                                <div v-if="scope.row.user_type == 5 " class="status-connect">财务</div>
+                                <div v-if="scope.row.user_type == 6 " class="status-connect">前台</div>
+                                <div v-if="scope.row.user_type == 7 " class="status-connect">保洁员</div>
+                                <div v-if="scope.row.user_type == 8 " class="status-connect">后勤</div>
+                                <div v-if="scope.row.user_type == 100 " class="status-connect">教练经理</div>
+                                <div v-if="scope.row.user_type == 200 " class="status-connect">顾问经理</div>
+                                <div v-if="scope.row.user_type == 9 " class="status-connect">boss</div>
+                                <div v-if="scope.row.user_type == 10 " class="status-connect">行政</div>
+                                <!--<div v-else>{{scope.row.user_type}}</div>-->
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="phone" label="电话"></el-table-column>
+                        <el-table-column prop="user_no" label="工号"></el-table-column>
+                        <el-table-column prop="Royalty" label="提成方式"></el-table-column>
+                        <el-table-column prop="register_time" label="创建时间" >
+                            <template slot-scope="scope">
+                                <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="lock" label="状态">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
+                                <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
+                    <el-pagination
+                            background
+                            layout="prev, pager, next,total,jumper"
+                            :total="pageTotalRows"
+                            :page-size ="pageListRows"
+                            @current-change="PageCurrent">
+                    </el-pagination>
+                </div>
+            </el-tab-pane>
+
+            <!--tab2 部门-->
+            <el-tab-pane :lazy='tabLazy' label="部门" name="StaffRoyalty">
+                <div class="clearfix">
+                    <el-button type="primary" class="btn-add fr btn-search" @click="btnAddSection">添加部门</el-button>
+                </div>
+                <el-table class="pub-table" :data="tableRoyalty" border>
+                    <el-table-column type="index"></el-table-column>
+                    <el-table-column prop="name" label="部门"></el-table-column>
+                    <el-table-column label="详情">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.sex == 0 " class="status-connect">未知</div>
-                            <div v-if="scope.row.sex == 1 " class="status-break">男</div>
-                            <div v-if="scope.row.sex == 2 " class="status-break">女</div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="user_type" label="职位">
-                        <template slot-scope="scope">
-                            <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
-                            <div v-if="scope.row.user_type == 1 " class="status-connect">店长</div>
-                            <div v-if="scope.row.user_type == 2 " class="status-connect">顾问</div>
-                            <div v-if="scope.row.user_type == 3 " class="status-connect">教练</div>
-                            <div v-if="scope.row.user_type == 4 " class="status-connect">操课</div>
-                            <div v-if="scope.row.user_type == 5 " class="status-connect">财务</div>
-                            <div v-if="scope.row.user_type == 6 " class="status-connect">前台</div>
-                            <div v-if="scope.row.user_type == 7 " class="status-connect">保洁员</div>
-                            <div v-if="scope.row.user_type == 8 " class="status-connect">后勤</div>
-                            <div v-if="scope.row.user_type == 100 " class="status-connect">教练经理</div>
-                            <div v-if="scope.row.user_type == 200 " class="status-connect">顾问经理</div>
-                            <div v-if="scope.row.user_type == 9 " class="status-connect">boss</div>
-                            <div v-if="scope.row.user_type == 10 " class="status-connect">行政</div>
-                            <!--<div v-else>{{scope.row.user_type}}</div>-->
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="phone" label="电话"></el-table-column>
-                    <el-table-column prop="user_no" label="工号"></el-table-column>
-                    <el-table-column prop="Royalty" label="提成方式"></el-table-column>
-                    <el-table-column prop="register_time" label="创建时间" >
-                        <template slot-scope="scope">
-                            <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="lock" label="状态">
-                        <template slot-scope="scope">
-                            <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
-                            <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
+                            <el-button size="mini" @click="EditRoyalty(scope.$index, scope.row)">设置</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
+            </el-tab-pane>
+        </el-tabs>
 
-                <el-pagination
-                        background
-                        layout="prev, pager, next,total,jumper"
-                        :total="pageTotalRows"
-                        :page-size ="pageListRows"
-                        @current-change="PageCurrent">
-                </el-pagination>
-            </div>
-        </div>
 
-        <!--提成 编辑弹出-->
+        <!-- tab1 员工编辑 编辑弹出-->
         <el-dialog title="员工编辑" :visible.sync="EditListForm">
             <el-form :model="staffSelection" :label-width="formLabelWidth">
                 <el-form-item label="姓名" >
@@ -144,7 +165,7 @@
         </el-dialog>
 
 
-        <!--添加员工-->
+        <!-- tab1 添加员工-->
         <!--<div v-show="addStaffState" class="vip-tabBox">
             <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
                       breadContent1="添加员工"></navBread>
@@ -243,6 +264,24 @@
 
         </div>-->
 
+
+
+        <!--tab2 部门 添加 弹窗-->
+        <el-dialog title="添加提成" :visible.sync="dialogRoyalty">
+            <el-form :model="setupRoyalty" :label-width="formLabelWidth">
+                <el-form-item label="部门名称" >
+                    <el-input v-model="setupRoyalty.name" autocomplete="off" class="month-inp"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
+                <el-button type="primary" @click="sureDialogRoyalty()">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <!-- 部门 设置 编辑-->
+
+
     </div>
 </template>
 
@@ -257,22 +296,22 @@
 
         data() {
             return {
-                dialogImageUrl: '',
-                dialogVisible: false,
-                disabled: false,
-                imgUrl:'',   //头像路径
+                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty
+                tabLazy: true,
 
-                /* 筛选 在职状态*/
+                /*员工 筛选*/
+                /* 1、在职状态*/
                 lockState:[
                     {lock:0,value:'在职'},
                     {lock:1,value:'离职'},
                 ],
                 lockStateVal:0,
 
-                /*筛选 职位*/
+                /* 2、 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
                 userTypeListVal:10000, /* 职位 选中值*/
 
+                /*3、输入*/
                 staffInpVal:'',
 
                 tableStaff: [], //员工列表数组
@@ -283,28 +322,53 @@
                 formLabelWidth: '120px',
                 EditListForm: false, //员工编辑 块 显示状态
 
-
                 staffListState: true,//员工列表 块 显示状态
 
                 /*添加员工*/
                 addStaffState: false, //添加员工 块 显示状态
+                dialogImageUrl: '',
+                dialogVisible: false,
+                disabled: false,
+                imgUrl:'',   //头像路径
 
                 checkedRows: [],  //选中的值
                 staffSelection: [], //修改表单值
 
                 editForm:[],
+
+                /*添加部门*/
+                /* tab2 提成添加 */
+                royaltyType:this.GLOBAL.royaltyType,
+                dialogRoyalty:false,   //提成名称 设置 弹窗
+                setupRoyalty: {
+                    name:'',
+                    royaltyType:''
+                },
+                tableRoyalty:[
+                    {id:1, name:'教练提成',type:'1'},
+                    {id:2, name:'教练提2',type:'2'},
+                ],
+
+                /*提成设置*/
+                tabStaffSalary:true,
+                setStaffRoyalty:false,  //设置页面显隐
+                setTableRoyalty:[
+                    {id:1, down:'0',up:'10000',bili:1},
+                    {id:2, down:'10000',up:'20000',bili:2},
+                ],
             }
         },
 
         methods: {
 
-            /*筛选 员工*/
+            /*员工列表*/
+            /*1.1、筛选 员工*/
             btnSeaStaff(){
                 this.staffPage = 1;
-              this.getStaffIndex();
+                this.getStaffIndex();
             },
 
-            /*员工列表 接口*/
+            /*1.2员工列表 接口*/
             getStaffIndex(){
                 staffIndex({
                     p:this.staffPage,
@@ -330,6 +394,7 @@
                 this.getStaffIndex();
             },
 
+            /*// 1、3  添加员工*/
             /*上传 选中*/
             changeUpload(file){
                 console.log(file);
@@ -338,7 +403,6 @@
                     this.imgUrl = res;
                 });
             },
-
             /*添加员工*/
             postStaffAdd(){
                 let userimage = this.imgUrl;
@@ -364,7 +428,7 @@
                 this.dialogVisible = true;
             },
 
-            /*table 操作*/
+            /*1、员工列表 table 操作*/
             change(){
                 let checkedRows =  this.checkedRows;
                 console.log(checkedRows);
@@ -390,11 +454,36 @@
                 this.checkedRows = val;
             },
 
+            /*添加员工*/
             /*添加员工显示*/
             btnAddStaff() {
                 this.staffListState = false;
                 this.addStaffState = true;
             },
+
+            btnAddSection(){
+                this.staffListState = false;
+                this.addStaffState = true;
+            },
+
+            /*部门*/
+            /*添加提成 弹窗*/
+            btnAddSection(){
+                this.dialogRoyalty = true;
+            },
+            /*添加提成 编辑确定*/
+            sureDialogRoyalty(){
+                console.log(this.setupRoyalty);
+                console.log(this.setupRoyalty.name);
+            },
+
+            /*提成设置*/
+            EditRoyalty(index, row){
+                console.log(index, row);
+                this.tabStaffSalary=false;
+                this.setStaffRoyalty=true;
+            },
+
 
             /*编辑*/
             handleEdit(index, row) {
@@ -403,6 +492,8 @@
                 // this.editForm = row;
                 this.EditListForm = true;
             },
+
+
 
             /*编辑确定*/
             sureEdit() {

@@ -15,9 +15,11 @@ $tabHei: 46px;
 
 
 /*  ~~这是分割线~~  第一个tab tabItem1会员总览   ==*/
-#pane-VipTotal {
+#pane-VipTotal,
+#pane-VipPT{
   .comein-main {
     margin-bottom: 35px;
+    padding-bottom: 40px;
   }
 }
 
@@ -144,5 +146,14 @@ $tabHei: 46px;
     padding: 20px;
   }
 }
-
-
+.ve-pie{
+  > div:first-child{
+    width: 220px !important;
+    height: 220px !important;
+  }
+}
+.ve-line{
+  > div:first-child{
+    height: 300px !important;
+  }
+}

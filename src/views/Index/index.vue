@@ -1,7 +1,5 @@
 <template>
     <div class="index-container">
-        <!--        <iframe src="https://swim.zmtek.net/admin/index/home.html" frameborder="0"></iframe>-->
-        <!--         <iframe src="http://192.168.0.133:20000" frameborder="0"></iframe>-->
 
         <!--现有会员  新增会员 在场人数 -->
         <el-row :gutter="20" class="index-row">

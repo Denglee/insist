@@ -169,10 +169,10 @@ const staticRoute = [
                 meta: {title: '员工列表'},
             },
             {
-                path: 'Staff/reword',   //员工工资
+                path: 'Staff/staff_wage',   //员工工资
                 name: 'StaffReword',
                 component: () => import(/* webpackChunkName: "StaffReword" */ '@/views/Staff/StaffReword'),
-                meta: {title: '员工列表'},
+                meta: {title: '员工工资'},
             },
             {
                 path: 'Staff/signin',   //员工签到
@@ -189,16 +189,16 @@ const staticRoute = [
 
             /*统计*/
             {
-                path: 'Reception/table',  //销售额表格
-                name: 'ReceptionTable',
-                component: () => import(/* webpackChunkName: "ReceptionTable" */ '@/views/Total/ReceptionTable'),
-                meta: {title: '销售额查询'},
-            },
-            {
                 path: 'Statis/index',  //会员总览
                 name: 'StatisIndex',
                 component: () => import(/* webpackChunkName: "StatisIndex" */ '@/views/Total/StatisIndex'),
                 meta: {title: '会员总览'},
+            },
+            {
+                path: 'Stat/revenue_statis',  //营收总览
+                name: 'StatisRevenue',
+                component: () => import(/* webpackChunkName: "StatisRevenue" */ '@/views/Total/StatisRevenue'),
+                meta: {title: '营收总览'},
             },
             {
                 path: 'Reception/card_log',  //会员卡记录
