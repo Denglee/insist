@@ -19,22 +19,22 @@
     data(){
       return {
         isRouterAlive:true,
-
       }
     },
+    computed: {
+      /*key() {
+        return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
+      }*/
+    },
+
     methods:{
+      /*刷新方法*/
       reLoad(){
         this.isRouterAlive = false;
         this.$nextTick(()=>{
           this.isRouterAlive = true;
         })
       },
-    },
-
-    computed: {
-      /*key() {
-        return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
-      }*/
     },
 
     /*activated: function() {

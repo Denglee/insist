@@ -64,13 +64,18 @@ moment.locale('zh-cn');//需要汉化
 
 // 6 moment 用法将时间戳转日期格式的 全局 过滤器
 Vue.filter('dateFormat', (dataStr, pattern = 'YYYY-MM-DD') =>{
-    return moment(dataStr).format(pattern)
+    return moment(dataStr*1000).format(pattern)
 })
 
 Vue.filter('tempTme', (dataStr) => {
     return dataStr*1000
 });
 
+
+Vue.filter('mathFloor', (math) => {
+    return Math.abs(Number(math))
+
+});
 
 /*7、 引用md5*/
 // import md5 from 'js-md5';
@@ -84,7 +89,7 @@ import bar from 'v-charts/lib/bar.common' //条形图
 import histogram from 'v-charts/lib/histogram.common' //柱状图
 import pie from 'v-charts/lib/pie.common' //饼图
 import ring from 'v-charts/lib/ring.common' //环图
-import funnel from 'v-charts/lib/funnel.common' //环图
+import funnel from 'v-charts/lib/funnel.common' //图
 
 Vue.component(VeLine.name, VeLine);
 Vue.component(VeLine.name, bar);

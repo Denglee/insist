@@ -3,7 +3,7 @@
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
-        <el-tabs v-model="activeName" v-show="staffListState" class="vip-tabBox pubWidth" id="staffPay-tabBox">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal"  v-show="staffListState" class="vip-tabBox pubWidth" id="staffPay-tabBox">
 
             <!--tab1 员工列表-->
             <el-tab-pane :lazy='tabLazy' label="员工列表" name="StaffSalary">
@@ -63,10 +63,24 @@
                                 <!--<div v-else>{{scope.row.user_type}}</div>-->
                             </template>
                         </el-table-column>
+                        <el-table-column label="部门" prop="sex">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.sex == 1 " class="status-break">男</div>
+                                <div v-if="scope.row.sex == 2 " class="status-break">女</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="班次" prop="classes">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.classes == 0">正班</div>
+                                <div v-if="scope.row.classes == 1">早班</div>
+                                <div v-if="scope.row.classes == 2">中班</div>
+                                <div v-if="scope.row.classes == 3">晚班</div>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="phone" label="电话"></el-table-column>
                         <el-table-column prop="user_no" label="工号"></el-table-column>
                         <el-table-column prop="Royalty" label="提成方式"></el-table-column>
-                        <el-table-column prop="register_time" label="创建时间" >
+                        <el-table-column prop="register_time" label="创建时间">
                             <template slot-scope="scope">
                                 <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
                             </template>
@@ -92,14 +106,15 @@
             <!--tab2 部门-->
             <el-tab-pane :lazy='tabLazy' label="部门" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="btn-add fr btn-search" @click="btnAddSection">添加部门</el-button>
+                    <el-button type="primary" class="btn-add fr btn-search" @click="btnAddGroup()">添加部门</el-button>
                 </div>
-                <el-table class="pub-table" :data="tableRoyalty" border>
-                    <el-table-column type="index"></el-table-column>
+                <el-table class="pub-table" :data="groupArr" border>
+                    <el-table-column type="index" width="200px"></el-table-column>
                     <el-table-column prop="name" label="部门"></el-table-column>
                     <el-table-column label="详情">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="EditRoyalty(scope.$index, scope.row)">设置</el-button>
+                            <el-button size="mini" @click="EditGroup(scope.$index, scope.row)">编辑</el-button>
+                            <el-button size="mini" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -127,6 +142,21 @@
                     </el-select>
                 </el-form-item>
 
+                <el-form-item label="部门">
+                    <template>
+                        <el-radio v-model="staffSelection.sex" label="1">男</el-radio>
+                        <el-radio v-model="staffSelection.sex" label="2">女</el-radio>
+                    </template>
+                </el-form-item>
+                <el-form-item label="班次">
+                    <template>
+                        <el-radio v-model="staffSelection.classes" label="0">正班</el-radio>
+                        <el-radio v-model="staffSelection.classes" label="1">早班</el-radio>
+                        <el-radio v-model="staffSelection.classes" label="2">中班</el-radio>
+                        <el-radio v-model="staffSelection.classes" label="3">晚班</el-radio>
+                    </template>
+                </el-form-item>
+
                 <el-form-item label="电话号码">
                     <el-input v-model="staffSelection.phone" autocomplete="off"></el-input>
                 </el-form-item>
@@ -141,11 +171,12 @@
                 </el-form-item>
 
                 <el-form-item label="创建时间">
+
                     <el-date-picker
                             v-model="staffSelection.register_time"
                             type="date"
                             placeholder="选择日期"
-                            format="yyyy 年 MM 月 dd 日"
+                            format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd">
                     </el-date-picker>
                 </el-form-item>
@@ -267,15 +298,15 @@
 
 
         <!--tab2 部门 添加 弹窗-->
-        <el-dialog title="添加提成" :visible.sync="dialogRoyalty">
-            <el-form :model="setupRoyalty" :label-width="formLabelWidth">
+        <el-dialog :title="diaGroupTitle" :visible.sync="diaGroup" width="600px">
+            <el-form :model="setupGroup" class="dia-form" :label-width="formLabelRoyalty">
                 <el-form-item label="部门名称" >
-                    <el-input v-model="setupRoyalty.name" autocomplete="off" class="month-inp"></el-input>
+                    <el-input v-model="setupGroup.name" placeholder="请输入部门名字" class="dia-inp" autocomplete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDialogRoyalty()">确 定</el-button>
+                <el-button @click="diaGroup = false" plain>取 消</el-button>
+                <el-button type="primary" @click="sureDiaGropu()">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -287,79 +318,74 @@
 
 <script>
     import {mapState,mapActions, mapGetters} from 'vuex'
-
     import navBread from '@/components/Echarts/navBread'
+    import {staffAdd, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
 
-    import {staffAdd, staffIndex,} from '@/assets/js/api' /*引用 员工 接口*/
     export default {
-        name: "StaffIndex",  //员工列表
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法
 
+        name: "StaffIndex",  //员工列表
         data() {
             return {
-                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty
+                activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
 
-                /*员工 筛选*/
-                /* 1、在职状态*/
+                /*  == 员工 筛选 ==*/
+                /* 1.0、在职状态*/
                 lockState:[
                     {lock:0,value:'在职'},
                     {lock:1,value:'离职'},
                 ],
                 lockStateVal:0,
 
-                /* 2、 职位*/
+                /* 1.2、 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
                 userTypeListVal:10000, /* 职位 选中值*/
 
-                /*3、输入*/
+                /* 1.3、输入*/
                 staffInpVal:'',
 
                 tableStaff: [], //员工列表数组
                 pageTotalRows:0,  /*分页总数*/
                 pageListRows:0,  /*分页 每页数*/
                 staffPage:1,     /*分页 页码*/
-
                 formLabelWidth: '120px',
                 EditListForm: false, //员工编辑 块 显示状态
-
                 staffListState: true,//员工列表 块 显示状态
 
-                /*添加员工*/
+                /* == 添加员工 ==*/
                 addStaffState: false, //添加员工 块 显示状态
                 dialogImageUrl: '',
                 dialogVisible: false,
                 disabled: false,
                 imgUrl:'',   //头像路径
-
                 checkedRows: [],  //选中的值
                 staffSelection: [], //修改表单值
-
                 editForm:[],
 
-                /*添加部门*/
-                /* tab2 提成添加 */
-                royaltyType:this.GLOBAL.royaltyType,
-                dialogRoyalty:false,   //提成名称 设置 弹窗
-                setupRoyalty: {
-                    name:'',
-                    royaltyType:''
-                },
-                tableRoyalty:[
-                    {id:1, name:'教练提成',type:'1'},
-                    {id:2, name:'教练提2',type:'2'},
-                ],
 
-                /*提成设置*/
-                tabStaffSalary:true,
-                setStaffRoyalty:false,  //设置页面显隐
-                setTableRoyalty:[
-                    {id:1, down:'0',up:'10000',bili:1},
-                    {id:2, down:'10000',up:'20000',bili:2},
-                ],
+                /* tab2 部门 */
+                // 2.1 部门添加
+                formLabelRoyalty:'90px',
+                diaGroup:false,
+                diaGroupTitle:'',
+                groupType:1,   //# 1 = 获取组列表信息 2 = 添加组信息 3 = 修改组信息 4 = 删除
+                setupGroup: {
+                    name:'',
+                    id:'',
+                },
+                groupArr:[],  /*部门信息*/
+
             }
         },
 
         methods: {
+
+            /* 0、tab切换*/
+            tabTotal(tab, event) {
+                let tabName = tab.name;
+                this.callTabApi(tabName);
+            },
 
             /*员工列表*/
             /*1.1、筛选 员工*/
@@ -367,7 +393,24 @@
                 this.staffPage = 1;
                 this.getStaffIndex();
             },
+            /*1、员工列表 table 操作*/
+            change(){
+                let checkedRows =  this.checkedRows;
+                console.log(checkedRows);
+                console.log(checkedRows.length);
+                if(checkedRows.length == 0){
+                    this.$message.error('至少选一个操作对象');
+                } else if(checkedRows.length == 1){
+                    console.log(checkedRows[0]);
 
+                    this.staffSelection = checkedRows[0];
+
+                    this.EditListForm = true;
+                }else{
+                    this.$message.error('只能选一个');
+                }
+
+            },
             /*1.2员工列表 接口*/
             getStaffIndex(){
                 staffIndex({
@@ -387,15 +430,14 @@
                     console.log(res);
                 });
             },
-
             /*分页*/
             PageCurrent(page){
                 this.staffPage = page;
                 this.getStaffIndex();
             },
 
-            /*// 1、3  添加员工*/
-            /*上传 选中*/
+            /*  ======= // 3  添加员工 开始 ====== =*/
+            /*3.1、上传 选中*/
             changeUpload(file){
                 console.log(file);
                 this.GLOBAL.getEleBase64(file.raw).then(res => {
@@ -403,7 +445,11 @@
                     this.imgUrl = res;
                 });
             },
-            /*添加员工*/
+            /* 3.1 去添加页面*/
+            btnAddStaff() {
+                this.staffListState = false;
+                this.addStaffState = true;
+            },
             postStaffAdd(){
                 let userimage = this.imgUrl;
                 console.log(userimage);
@@ -417,113 +463,126 @@
                     console.log(res);
                 });
             },
-
-            /*头像上传 删除*/
+            /*3.1、头像上传 删除*/
             handleRemove(file) {
                 console.log(file);
             },
-            /*放大*/
+            /*3. 1、头像 放大*/
             staffCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
-
-            /*1、员工列表 table 操作*/
-            change(){
-                let checkedRows =  this.checkedRows;
-                console.log(checkedRows);
-                console.log(checkedRows.length);
-                if(checkedRows.length == 0){
-                    this.$message.error('至少选一个操作对象');
-                } else if(checkedRows.length == 1){
-                    this.staffSelection = checkedRows[0];
-                    this.EditListForm = true;
-                }else{
-                    this.$message.error('只能选一个');
-                }
-
-            },
-
-
-            delete2(){
-
-            },
-
+            /* 1、 编辑选中*/
             checkedStaff(val) {
                 console.log(val);
                 this.checkedRows = val;
             },
-
-            /*添加员工*/
-            /*添加员工显示*/
-            btnAddStaff() {
-                this.staffListState = false;
-                this.addStaffState = true;
-            },
-
-            btnAddSection(){
-                this.staffListState = false;
-                this.addStaffState = true;
-            },
-
-            /*部门*/
-            /*添加提成 弹窗*/
-            btnAddSection(){
-                this.dialogRoyalty = true;
-            },
-            /*添加提成 编辑确定*/
-            sureDialogRoyalty(){
-                console.log(this.setupRoyalty);
-                console.log(this.setupRoyalty.name);
-            },
-
-            /*提成设置*/
-            EditRoyalty(index, row){
-                console.log(index, row);
-                this.tabStaffSalary=false;
-                this.setStaffRoyalty=true;
-            },
-
-
-            /*编辑*/
-            handleEdit(index, row) {
-                console.log(index, row);
-                console.log(row);
-                // this.editForm = row;
-                this.EditListForm = true;
-            },
-
-
-
-            /*编辑确定*/
-            sureEdit() {
-                // console.log(this.editForm);
-                this.$message({
-                    type: 'success',
-                    duration: '1500',
-                    message: '更新成功'
-                });
-                this.EditListForm = false;
-            },
-
-            /*删除*/
-            handleDelete(index, row, rows) {
-                console.log(index);
-                console.log(row);
-                rows.splice(index, 1);
-            },
-
-            /* 返回上一页 */
+            /* 3.1 返回上一页 添加员工 =》 员工列表 */
             goBack(e1, e2) {
                 console.log(e1);
                 this[e1] = true;   //显示 列表
                 this[e2] = false;   //隐藏当前
             },
+
+
+            /*   ================== 部门 开始 ==============*/
+            getStaffGroup(groupName,groupId){
+                staffGroup({
+                    zmtek_ver:2,
+                    type:this.groupType,     //1 = 获取组列表信息 2 = 添加组信息 3 = 修改组信息 4 = 删除
+                    name:groupName || '',      //添加必传
+                    id:groupId || '',        //删除必传
+                }).then(res => {
+                    console.log(res.data);
+                    console.log(this.groupType);
+
+                    if(res.status ==1){
+                        if(this.groupType == 1){
+                            this.groupArr = res.data;
+                        }else {
+                            this.$message.success(res.info);
+                            setTimeout(()=>{
+                                this.diaGroup = false;
+
+                                this.reLoad();
+                            },1000);
+                        }
+                    }
+                    if(res.status == 0){
+                        console.log(res.info);
+                    }
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+
+            /*部门 弹窗 确定*/
+            sureDiaGropu(){
+                let groupName = this.setupGroup.name;
+                console.log(groupName);
+                if(groupName == ''){
+                    this.$message.error('部门名称 不能为空')
+                }else {
+                    let groupId = this.setupGroup.id;
+                    this.getStaffGroup(groupName,groupId);
+                }
+            },
+
+            /*添加部门*/
+            btnAddGroup(){
+                this.diaGroupTitle = '添加部门';
+                this.groupType = 2;
+                this.diaGroup = true;
+            },
+
+            /*部门编辑*/
+            EditGroup(index, row){
+                console.log(index, row);
+                this.setupGroup.id = row.id;
+                this.setupGroup.name = row.name;
+                this.diaGroupTitle = '部门编辑';
+                this.groupType = 3;
+
+                this.diaGroup = true;
+            },
+
+            /*删除部门*/
+            deleteGroup(index, row){
+                this.$confirm('确定删除该部门？？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.groupType = 4;
+                    let groupId = row.id;
+                    console.log(groupId);
+                    this.getStaffGroup('',groupId);
+                }).catch(() => {});
+            },
+
+
+
+
+
+            /* 0 接口调用*/
+            callTabApi(tabName){
+                console.log(tabName);
+
+                if(tabName == 'StaffSalary'){
+                    console.log(this.getStaffClasses.lock);
+                    this.staffPage = this.getStaffClasses.lock;
+                    this.getStaffIndex();
+                };
+                if(tabName == 'StaffRoyalty'){
+                    this.getStaffGroup();
+                };
+
+            },
+
         },
         created() {
-            console.log(this.getStaffClasses.lock);
-            this.staffPage = this.getStaffClasses.lock;
-            this.getStaffIndex();
+            let tabName =this.activeTabName;
+            this.callTabApi(tabName);
         },
 
         computed:{

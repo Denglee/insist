@@ -6,7 +6,7 @@
             <!--现有会员-->
             <el-col :md="12" :lg="8">
                 <div class="index-item">
-                    <header class="index-item-title" @click="changeData($event)">
+                    <header class="index-item-title">
                         <div class="title">现有会员</div>
                     </header>
                     <ul class="index-item-tipUl">
@@ -287,7 +287,7 @@
                 },
                 styleAddVip: {
                     height: '220px',
-                    width: '70%',
+                    width: '60%',
                 },
                 stylePresent: {
                     height: '180px',

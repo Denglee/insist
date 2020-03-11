@@ -1,27 +1,7 @@
 @import "public";
 
 /*员工工资切换*/
-#staffPay-tabBox{
-  .el-tab-pane{
-    background-color: $color-White;
-  }
-  .el-tabs__header{
-    .is-active {
-      background: url("~@/assets/images/staff/elTab_white.png") no-repeat;
-      background-size: 100% 100%;
-      color: $color-Black;
-      &:hover {
-        color: $color-MediumBlue;
-      }
-      &:before {
-        background: $color-White;
-      }
-      &:after {
-        background: $color-GrayE5;
-      }
-    }
-  }
-}
+
 
 
 

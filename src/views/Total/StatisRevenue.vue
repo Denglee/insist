@@ -1,26 +1,103 @@
 <template>
-    <div>
-        <ve-line
-                :data="totalNewAdd"
-                :legend-visible="false"
-                :colors="totalColor"
-                :style="lineStyle"
-                :extend = 'extend'
-               ></ve-line>
+    <div class="layoutR-main">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth" id="staffPay-tabBox" v-show="showState.tabRevenueState">
+            <!--营收总览-->
+            <el-tab-pane :lazy='tabLazy' label="营收总览" name="revenueTotal">
+                <el-row :gutter="20">
+                    <el-col :span="8">
+                        <div class="index-item revenue-item">
+                            <header class="index-item-title">
+                                <div class="title">总收入</div>
+                            </header>
+                            <ul class="index-item-tipUl">
+                                <li><span class="addVip-tagY"></span>本月</li>
+                                <li><span class="addVip-tagB"></span>上月</li>
+                            </ul>
+                            <div class="flex-between revenueRatio-tip clearfix">
+                                <ve-funnel :data="revenueTotal"
+                                        :legend-visible="false"
+                                        :colors="totalColor"
+                                        :style="funnelStyle"
+                                        :settings="funnelSettings"></ve-funnel>
+                                <ul class="vipNum">
+                                    <li>上月：<span class="vipTipY">{{revenueTotal.rows[0].value}}</span>
+                                        <span v-if="revenueRatio.lastMonth > 0" class="vipTipG revenue-tip">
+                                            <i class="el-icon-top"></i>
+                                            {{revenueRatio.lastMonth}}
+                                        </span>
+                                        <span v-else class="vipTipY revenue-tip">
+                                              <i class="el-icon-bottom"></i>{{revenueRatio.lastMonth | mathFloor}}
+                                        </span>
+                                    </li>
+                                    <li>本月：<span class="vipTipB">{{revenueTotal.rows[1].value}}</span>
+                                        <span v-if="revenueRatio.nowMonth > 0" class="vipTipB revenue-tip">
+                                             <i class="el-icon-top"></i>{{revenueRatio.nowMonth}}
+                                        </span>
+                                        <span v-else class="vipTipB revenue-tip">
+                                             <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="index-item revenue-item">
+                            <header class="index-item-title" @click="changeData($event)">
+                                <div class="title">现有会员</div>
+                            </header>
+                            <ul class="index-item-tipUl">
+                                <li><img src="~@/assets/icon/icon_indexVipG.png" alt="">潜在会员</li>
+                                <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
+                                <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
+                            </ul>
+                            <div class="flex-between">
+                                <ul class="vipNum">
+                                    <li>潜在会员： <span class="vipTipG"></span></li>
+                                    <li>正式会员： <span class="vipTipB"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="index-item revenue-item">
+                            <header class="index-item-title" @click="changeData($event)">
+                                <div class="title">现有会员</div>
+                            </header>
+                            <ul class="index-item-tipUl">
+                                <li><img src="~@/assets/icon/icon_indexVipG.png" alt="">潜在会员</li>
+                                <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
+                                <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
+                            </ul>
+                            <div class="flex-between">
+                                <ul class="vipNum">
+                                    <li>潜在会员： <span class="vipTipG"></span></li>
+                                    <li>正式会员： <span class="vipTipB"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-tab-pane>
+
+            <!--营收详细-->
+            <el-tab-pane :lazy='tabLazy' label="营收详细" name="revenueDetails">
+
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
 <script>
     import eCharts from '@/components/Echarts/Echarts'
     import navBread from '@/components/Echarts/navBread'
-    import {
-        PTprivateMember, totalMember_number, totalMember_trend, totalPassenger_trend, totalRefund_trend, totalSub_card_trend,
-        PTClassRanking, PTMemberClass,
-        VipMemberTkClass, VipSalerStatis,} from '@/assets/js/api' /*引用 会员总览 接口*/
+    import {revenueTotal} from '@/assets/js/api' /*引用 营收总览 接口*/
     export default {
         name: "StatisRevenue",
         data() {
-            this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
+
+
+            this.totalColor = ['#FF8A7E', '#005AD4']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
             this.extend = {
@@ -105,49 +182,33 @@
                 bottom: "40px",
                 width: "90%", //图例宽度
                 height: "80%", //图例高度
-            }
+            };
 
-
-            this.linexAxis= {
-                axisTick: {
-                    alignWithLabel: true
-                },
-                type: 'category',
-                data: [],
-                axisLine: {
-                    lineStyle: {
-                        color: '#8E8E8E',
-                    }
-                },
-                //设置字体倾斜
-                axisLabel: {
-                    // interval:0,
-                    // rotate:10,//倾斜度 -90 至 90 默认为0
-                    margin:15,
-                    textStyle: {
-                        color: "#8E8E8E"
-                    }
-                },
-            }
-
-            this.lineyAxis= {
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-                        color: '#8E8E8E',
-                    }
-                },
-            }
 
             return {
-                picStyle: {
-                    height: '180px',
-                    width: '180px',
+                activeTabName: 'revenueTotal', //revenueTotal revenueDetails
+                tabLazy: true,
+
+                /*显影状态  集合*/
+                showState:{
+                    tabRevenueState:true,  //tab 显影
                 },
-                picSettings : {
+
+
+                picStyle: {
+                    height: '200px',
+                    width: '200px',
+                },
+                funnelStyle:{
+                    height: '200px',
+                    width: '200px',
+                },
+                funnelSettings : {
                     offsetY: 80,
                     offsetX: 10,
-                    radius: 70,
+                    width:'100%',
+
+                    // radius: 70,
                     label: {
                         normal: {
                             position: 'inner',
@@ -162,152 +223,60 @@
                 },
 
 
-
                 lineStyle:{
                     height: '180px',
                     width: '100%',
                 },
-                // lineTool:{
-                //     // trigger: 'axis',
-                //     // textStyle: {
-                //     //     fontSize:12,
-                //     // },
-                //     formatter : function (params) {
-                //
-                //         var rec = '';
-                //         for(var i = 0;i < params.length;i++){
-                //             var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
-                //                 ''+ params[i].axisValue + '</div>';
-                //             var reb = '<div style="margin: 4px">'+
-                //                 '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
-                //                 '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
-                //                 '</div>';
-                //             rec= rec + reb;
-                //         }
-                //         return rea + rec;
-                //     },
-                // },
 
 
-                judgeWidth:true,
-
-                activeTabName: 'VipTotal', //VipTotal VipPT VipMembership
-
-                tabLazy: true,
-                tabPaneState: true,    //tab 显隐
-
-                totalVipNum: {
+                /*A、营收总览*/
+                /*1.0 、总收入*/
+                revenueTotal: {
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
                         {name:'',value:0}],
                 },
-                totalVipOverdue: {
-                    columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0}],
-                },
-                totalVipPT: {
-                    columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0}],
-                },
-
-                totalNewAdd: {
-                    columns: ['dayTime', 'user1', 'user2'],
-                    rows: [],
+                revenueRatio:{
+                    lastMonth:0.00,   //上月增长比例
+                    nowMonth:0.00,    //本月增长比例
                 },
 
             }
         },
         methods: {
 
-            btnRefush(){
-                //销售额表格
-                this.PTtable=[{
-                    department: '市场部1',
-                    pt: '王小虎11',
-                    tel: '17688829466',
-                    money: '574889',
-                    day: '2020-02-14',
-                },
-                ];
-                /*强制刷新 div*/
-                this.$forceUpdate();
-                // this.reLoad();
-            },
-
-            /*tab切换*/
+            /* 零、 tab切换*/
             tabTotal(tab, event) {
                 let tabName = tab.name;
                 this.callTabApi(tabName);
             },
 
-            /* ==== 会员总览 ==== 接口1 获取数量 totalMember_number*/
-            getTotalMember_number() {
-                totalMember_number().then(res => {
-
-                    console.log(res)
-
-                    /*潜在 与 正式 会员*/
+            /* 一、营收总览 */
+            /*1.1、总收入*/
+            getRevenueTotal() {
+                revenueTotal().then(res => {
+                    console.log(res);
                     let MemberNum = [];
-                    let MemberNum1 = res[0];
-                    let MemberNum2 = res[1];
+                    let MemberNum1 = res[1];
+                    let MemberNum2 = res[2];
                     MemberNum.push(MemberNum1, MemberNum2);
-                    this.totalVipNum.rows = MemberNum;
+                    this.revenueTotal.rows = MemberNum;
+                    let lastMonth2 = res[0].value;
+                    let lastMonth = res[1].value;
+                    let nowtMonth = res[2].value;
+                    console.log((lastMonth));
+                    console.log((lastMonth2));
+                    console.log((nowtMonth));
 
 
-                    /*有效 与 过期 会员*/
-                    let OverdueNum = [];
-                    let OverdueNum1 = res[2];
-                    let OverdueNum2 = res[3];
-                    OverdueNum.push(OverdueNum1, OverdueNum2);
-                    this.totalVipOverdue.rows = OverdueNum;
+                    let RatioLast = lastMonth - lastMonth2;
+                    let RatioNow  = nowtMonth - lastMonth;
+                    console.log(RatioLast);
+                    console.log(RatioNow);
+                    this.revenueRatio.lastMonth = RatioLast;
+                    this.revenueRatio.nowMonth = RatioNow;
 
-
-
-                    /*私教会员*/
-                    let totalPt =[];
-                    let totalPt1 = res[4];
-                    let totalPt2 = res[5];
-                    // let totalPt1 =   {name:'过期会员',value:100};
-                    // let totalPt2 =   {name:'过期会员',value:80};
-                    totalPt.push(totalPt1,totalPt2);
-                    this.totalVipPT.rows = totalPt;
-
-                }).catch(res => {
-                    console.log(res);
-                });
-            },
-
-            /*会员总览 接口2 新增会员走势 totalMember_trend*/
-            getTotalMember_trend() {
-                totalMember_trend().then(res => {
-                    console.log(res);
-
-                    // this.totalNewAdd.xAxis.data = res[0].value.split(',');
-                    var t = this;
-                    //折线1
-                    console.log(res[0].value.split(','));
-                    console.log(res[1].value.split(','));
-                    console.log(res[2].value.split(','));
-
-                    let time = res[0].value.split(',');
-                    let user1 = res[1].value.split(',');
-                    let zOldChannel1 = res[2].value.split(',');
-
-                    for(let i=0;i < time.length;i++){
-                        this.totalNewAdd.rows.push({
-                            'dayTime':time[i],
-                            'user1':user1[i],
-                            'user2':zOldChannel1[i],
-                        })
-                    }
-
-
-                    console.log(this.totalNewAdd.rows);
                 }).catch(res => {
                     console.log(res);
                 });
@@ -318,11 +287,11 @@
             /*接口调用*/
             callTabApi(tabName){
                 console.log(tabName);
-                if(tabName == 'VipTotal'){
-                    /*调用 ==== 会员总览1 ==== 会员数量*/
-                    this.getTotalMember_number();
-                    /*调用 会员总览2 新增会员走势*/
-                    this.getTotalMember_trend();
+                if(tabName == 'revenueTotal'){
+                    this.getRevenueTotal();   //总收入
+                };
+                if(tabName == 'revenueDetails'){
+
                 };
             },
         },
@@ -338,6 +307,6 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 </style>

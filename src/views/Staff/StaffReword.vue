@@ -1,12 +1,12 @@
 <template>
     <div class="layoutR-main">
 
-        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox" v-show="tabStaffSalary">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth" id="staffPay-tabBox" v-show="tabStaffSalary">
 
             <!--tab1 员工工资-->
             <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
                 <div class="">
-                    <!--员工列表 筛选-->
+                    <!--员工工资 筛选-->
                     <div class="pt-screen">
                         <!--在职-->
                         <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
@@ -21,7 +21,7 @@
                         <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
                     </div>
 
-                    <!--员工列表 表格-->
+                    <!--员工工资 表格-->
                     <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
@@ -79,19 +79,22 @@
             <el-tab-pane :lazy='tabLazy' label="提成设置" name="StaffRoyalty">
                 <div class="clearfix">
                     <el-button type="primary" class="fr btn-search" @click="btnAddRoyalty">添加提成</el-button>
+                    <el-button type="primary" class="fr btn-search" @click="btnAddRoyalty">提成设置</el-button>
                 </div>
+
                 <el-table class="pub-table" :data="tableRoyalty" border>
-                    <el-table-column type="index"></el-table-column>
-                    <el-table-column prop="name" label="名称"></el-table-column>
-                    <el-table-column prop="sex" label="性别">
+                    <el-table-column type="index" width="100px"></el-table-column>
+                    <el-table-column prop="deduction_name" label="名称"></el-table-column>
+                    <el-table-column prop="deduction_type" label="性别">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.type == 1 " class="status-connect">销售额百分比</div>
-                            <div v-if="scope.row.type == 2 " class="status-break">上课节数百分比</div>
+                            <div v-if="scope.row.deduction_type == 1 " class="status-connect">个人销售比</div>
+                            <div v-if="scope.row.deduction_type == 2 " class="status-break">部门销售比</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="详情">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="EditRoyalty(scope.$index, scope.row)">设置</el-button>
+                            <el-button size="mini" @click="EditGroup(scope.$index, scope.row)">编辑</el-button>
+                            <el-button size="mini" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -99,7 +102,7 @@
 
             <!--tab3 奖惩设置-->
             <el-tab-pane :lazy='tabLazy' label="奖惩设置" name="StaffReward">
-                <el-row gutter="20">
+                <el-row :gutter="20">
                     <el-col :span="6">
                         <div class="grid-content">
                             超额完成任务奖励方式
@@ -127,20 +130,20 @@
         </el-tabs>
 
         <!--提成 添加 弹窗-->
-        <el-dialog title="添加提成" :visible.sync="dialogRoyalty">
-            <el-form :model="setupRoyalty" :label-width="formLabelWidth">
+        <el-dialog :title="deductInfo.RoyaltyTitle" :visible.sync="dialogRoyalty" width="600px">
+            <el-form :model="deductInfo" :label-width="formLabelRoyalty" class="dia-form">
                 <el-form-item label="提成名称" >
-                    <el-input v-model="setupRoyalty.name" autocomplete="off" class="month-inp"></el-input>
+                    <el-input v-model="deductInfo.deduction_name" autocomplete="off" class="dia-inp"></el-input>
                 </el-form-item>
                 <el-form-item label="提成类型" >
-                    <el-select v-model="setupRoyalty.royaltyType" placeholder="请选择提成类型" class="month-inp">
-                        <el-option v-for="item in royaltyType" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    <el-select v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
+                        <el-option v-for="item in deductInfo.deduction_type" :key="item.index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDialogRoyalty()">确 定</el-button>
+                <el-button type="primary" @click="sureDiaRoyalty()">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -151,7 +154,7 @@
                       breadContent1="提成编辑"></navBread>
             <div class="addForm-box">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-search" @click="btnAddSetRoyalty">添加设置</el-button>
+                    <el-button type="primary" class="fr btn-search"  @click="btnAddSetRoyalty">添加设置</el-button>
                 </div>
                 <el-table class="pub-table" :data="setTableRoyalty" border>
                     <el-table-column type="index" label="序号" width="200px"></el-table-column>
@@ -182,11 +185,15 @@
 
 <script>
     import navBread from '@/components/Echarts/navBread'
+
+    import {staffDeduct} from '@/assets/js/api'
+
     export default {
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "StaffReword",
         data() {
             return {
-                activeName: 'StaffSalary', //StaffSalary StaffRoyalty StaffReward
+                activeTabName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
 
                 /*tab1 员工工资*/
@@ -209,19 +216,27 @@
                 staffPage:1,     /*分页 页码*/
 
                 /* tab2 提成添加 */
-                royaltyType:this.GLOBAL.royaltyType,
                 dialogRoyalty:false,   //提成名称 设置 弹窗
                 formLabelWidth: '120px',
-                setupRoyalty: {
-                    name:'',
-                    royaltyType:''
+
+                deductInfo:{
+                    RoyaltyTitle:'',  //弹窗名称
+                    zmtek_ver:2,
+                    type:1,     //1 = 获取组列表信息 2 = 添加组信息 3 = 修改组信息 4 = 删除
+                    deduction_name:'',      //添加必传
+                    deductionType:1,
+                    deduction_type:[
+                        {id:1,name:'个人销售比'},
+                        {id:2,name:'部门销售比'},
+                        // {id:3,name:'上课节数'},
+                    ],      //添加必传
+                    id : '',        //删除必传
                 },
-                tableRoyalty:[
-                    {id:1, name:'教练提成',type:'1'},
-                    {id:2, name:'教练提2',type:'2'},
-                ],
+
 
                 /*提成设置*/
+                formLabelRoyalty:'90px',
+                tableRoyalty:[],
                 tabStaffSalary:true,
                 setStaffRoyalty:false,  //设置页面显隐
                 setTableRoyalty:[
@@ -231,46 +246,133 @@
             }
         },
         methods: {
+            /* 0、tab切换*/
+            tabTotal(tab, event) {
+                let tabName = tab.name;
+                this.callTabApi(tabName);
+            },
+
+            /*1、员工工资 列表*/
+            btnSeaStaff(){
+
+            },
+            /*列表选择*/
+            checkedStaff(){
+
+            },
+
+            /*分页*/
+            PageCurrent(){
+
+            },
 
             /* === tab2  提成设置 ==*/
+            getStaffDeduct(){
+                staffDeduct({
+                    zmtek_ver : this.deductInfo.zmtek_ver,
+                    type : this.deductInfo.type,
+                    deduction_name : this.deductInfo.deduction_name,
+                    deduction_type : this.deductInfo.deductionType,
+                    id : this.deductInfo.id,
+                }).then(res => {
+                    console.log(res.data);
+                    let type = this.deductInfo.type;
+                    console.log(type);
+
+                    if(res.status ==1){
+                        if(type == 1){
+                            this.tableRoyalty = res.data;
+                        }else {
+                            this.$message.success(res.info);
+                            setTimeout(()=>{
+                                this.dialogRoyalty = false;
+
+                                this.reLoad();
+                            },1000);
+                        }
+                    }
+                    if(res.status == 0){
+                        console.log(res.info);
+                    }
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+
             /*添加提成 弹窗*/
             btnAddRoyalty(){
+                this.deductInfo.RoyaltyTitle = '添加提成';
+                this.deductInfo.type = 2;
+                console.log( this.deductInfo);
                 this.dialogRoyalty = true;
             },
-            /*添加提成 编辑确定*/
-            sureDialogRoyalty(){
-                console.log(this.setupRoyalty);
-                console.log(this.setupRoyalty.name);
+
+            /*添加提成 确定*/
+            sureDiaRoyalty(){
+                console.log( this.deductInfo);
+                let groupName = this.deductInfo.deduction_name;
+                console.log(groupName);
+                if(groupName == ''){
+                    this.$message.error('提成名称 不能为空')
+                } else {
+                    let groupId = this.deductInfo.id;
+                    this.getStaffDeduct();
+                }
             },
 
-            /*提成设置*/
-            EditRoyalty(index, row){
+            /*提成编辑*/
+            EditGroup(index, row){
                 console.log(index, row);
-                this.tabStaffSalary=false;
-                this.setStaffRoyalty=true;
+                this.deductInfo.id = row.id;
+                this.deductInfo.deduction_name = row. deduction_name;
+                this.deductInfo.RoyaltyTitle = '部门编辑';
+                this.deductInfo.type = 3;
+
+                this.dialogRoyalty = true;
             },
 
-            /*添加设置*/
-            btnAddSetRoyalty(){
-                var list = {down:'0',up:'0',bili:1};
-                this.setTableRoyalty.push(list)
+            /*删除提成*/
+            deleteGroup(index, row){
+                this.$confirm('确定删除该提成方式？？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    console.log(row.id);
+                    this.deductInfo.type = 4;
+                    this.deductInfo.id = row.id;
+                    this.getStaffDeduct();
+                }).catch(() => {});
             },
 
-            /*保存设置*/
-            btnSaveSetRoyalty(){
-                console.log(this.setTableRoyalty);
-            },
 
-            /* 返回上一页 */
+
+            /*0 返回上一页 */
             goBack(e1, e2) {
                 console.log(e1);
                 this[e1] = true;   //显示 tab 列表
                 this[e2] = false;   //隐藏当前 二级页
             },
 
+            /* 0 接口调用*/
+            callTabApi(tabName){
+                console.log(tabName);
+                if(tabName == 'StaffSalary'){
+
+                };
+                if(tabName == 'StaffRoyalty'){
+                    this.getStaffDeduct();
+                };
+                if(tabName == 'StaffReward'){
+
+                };
+
+            },
+
         },
         created() {
-
+            let tabName =this.activeTabName;
+            this.callTabApi(tabName);
         },
         components: {
             navBread,

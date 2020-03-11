@@ -192,11 +192,11 @@ input:-webkit-autofill {
 
 .vipNum {
   color: $color-Gray;
-  position: absolute;
-  right: 64px;
-  bottom: 40px;
+  //position: absolute;
+  //right: 64px;
+  //bottom: 40px;
   font-size: 15px;
-
+  margin: 10% 10% 0 0;
   li {
     margin-top: 20px;
 
@@ -507,6 +507,27 @@ $tabHei: 46px;
   margin-bottom: 20px;
 }
 
+#staffPay-tabBox{
+  .el-tab-pane{
+    background-color: $color-White;
+  }
+  .el-tabs__header{
+    .is-active {
+      background: url("~@/assets/images/staff/elTab_white.png") no-repeat;
+      background-size: 100% 100%;
+      color: $color-Black;
+      &:hover {
+        color: $color-MediumBlue;
+      }
+      &:before {
+        background: $color-White;
+      }
+      &:after {
+        background: $color-GrayE5;
+      }
+    }
+  }
+}
 
 .addForm-box{
   width: 94%;
@@ -515,4 +536,38 @@ $tabHei: 46px;
   padding: 20px;
   border-radius: 20px;
   min-height: 30vh;
+}
+
+//弹出表单
+.dia-form{
+  .dia-inp{
+    width: calc(100% - 60px);
+  }
+}
+
+
+.revenue-item{
+  box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
+  border-radius:20px;
+}
+.revenueRatio-tip{
+  .vipNum{
+    //right: 100px;
+    position: static;
+    margin: 70px 20px 0 0;
+  }
+}
+.revenue-tip{
+  text-align: right;
+  margin-left: 15px;
+  float: right;
+  span{
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+.ve-funnel{
+  > div{
+    height: 200px !important;
+  }
 }

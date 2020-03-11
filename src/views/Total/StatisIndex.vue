@@ -1233,6 +1233,7 @@
             getTotalMember_trend() {
                 totalMember_trend().then(res => {
                     // console.log(res);
+                    this.totalNewAdd.rows= [];
                     let addTime = res[0].value.split(',');
                     let addVip = res[1].value.split(',');
                     let addPT = res[2].value.split(',');
@@ -1251,6 +1252,7 @@
             /*会员总览 接口3 消耗趋势 totalSub_card_trend*/
             getTotalSub_card_trend() {
                 totalSub_card_trend().then(res => {
+                    this.totalConsumeTrend.rows= [];
                     let addTime = res[0].value.split(',');
                     let addVip = res[1].value.split(',');
                     let addPT = res[2].value.split(',');
@@ -1269,6 +1271,7 @@
             /*会员总览 接口4 退款,转让走势  totalRefund_trend*/
             getTotalRefund_trend() {
                 totalRefund_trend().then(res => {
+                    this.totalRefundTrend.rows= [];
                     let addTime = res[0].value.split(',');
                     let addVip = res[1].value.split(',');
                     let addPT = res[2].value.split(',');
@@ -1292,6 +1295,7 @@
             /*会员总览 接口5 客流走势 totalPassenger_trend*/
             getTotalPassenger_trend() {
                 totalPassenger_trend().then(res => {
+                    this.totalPassengerTrend.rows= [];
                     let addTime = res[0].value.split(',');
                     let addVip = res[1].value.split(',');
                     console.log(addTime);
@@ -1344,9 +1348,10 @@
 
             getPTClassRanking() {
                 PTClassRanking().then(res => {
+                    this.PTclass.rows = [];
                     console.log(res);
-                    this.PTclass.rows = res;
-                    return false;
+                    // this.PTclass.rows = res;
+                    // return false;
                     res.forEach((item,i)=>{
                         console.log(item);
                         console.log(i);
@@ -1355,7 +1360,7 @@
                             '上课节数' : item.value,
                         })
                     })
-                    
+
                 }).catch(res => {
                     console.log(res);
                 });

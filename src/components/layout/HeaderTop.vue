@@ -7,7 +7,8 @@
                     <i class="el-icon-s-home"></i>{{UserInfo.city_name  || "智迈科技"}} - 后台首页
                 </div>
 
-                <a :href="localUrl+ '/admin/index/index.html'" title="旧版地址" class="header-cityName goOldUrl">回到旧版</a>
+                <a :href="localUrl+ '/admin/index/index.html'" title="旧版地址" class="header-cityName goOldUrl"
+                style="position: relative;z-index: -11;">回到旧版</a>
             </div>
 
             <div class="header-rMain">

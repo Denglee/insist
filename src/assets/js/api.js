@@ -16,25 +16,17 @@ import HeaderTop from "../../components/layout/HeaderTop";
  */
 
 /*
-* =======================正式
+A、登录 + 侧边栏
 * */
-/*获取侧边栏 nav*/
-export const ApiLayoutNav = params => get('admin/Web/indexMenu', params);
 
-/*登录*/
-export const ApiloginIn = params => post('admin/Web/login', params);
-
-/*退出*/
-export const ApiloginOut = params => post('admin/Web/login_out', params);
-
-/*修改密码*/
-export const ApiChangePass = params => post('admin/Web/update_password', params);
-
-/*HeaderTop 头部搜索*/
-export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params);
+export const ApiLayoutNav = params => get('admin/Web/indexMenu', params); /*获取侧边栏 nav*/
+export const ApiloginIn = params => post('admin/Web/login', params); /*登录*/
+export const ApiloginOut = params => post('admin/Web/login_out', params); /*退出*/
+export const ApiChangePass = params => post('admin/Web/update_password', params); /*修改密码*/
+export const ApiTopSearch = params => post('admin/Member/getMemberInfo', params); /*HeaderTop 头部搜索*/
 
 
-/* ==-- 首页 --== */
+/* ==-- B、首页 --== */
 /*1、首页数据*/
 export const IndexTotal_membership = params => post('admin/Web/total_membership', params);      /*现有会员*/
 export const IndexNew_membership   = params => post('admin/Web/new_membership', params);        /*新增会员*/
@@ -45,14 +37,13 @@ export const IndexPerformance      = params => post('admin/Web/performance', par
 export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /*收支趋势*/
 
 
-/* ==-- 统计 会员总览 --== */
+/* ==-- C、统计 会员总览 --== */
 /*1、会员总览*/
 export const totalMember_number   = params => post('admin/statis/member_number', params);         /* 会员数量*/
 export const totalMember_trend    = params => post('admin/statis/member_trend', params);          /* 新增会员走势*/
 export const totalSub_card_trend  = params => post('admin/statis/sub_card_trend', params);        /* 消耗趋势*/
 export const totalRefund_trend    = params => post('admin/statis/refund_transfer_trend', params); /* 退款,转让走势*/
 export const totalPassenger_trend = params => post('admin/statis/passenger_trend', params);       /* 客流走势*/
-
 
 /* 2、私教 */
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 私教 统计 会员数量*/
@@ -63,11 +54,19 @@ export const PTMemberClass  = params => post('Admin/Statis/member_class', params
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/
 export const VipSalerStatis  = params => post('Admin/Statis/saler_statis', params);         /* 会籍统计*/
 
-/*员工*/
+
+/*==== D、员工===*/
 export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
 
+export const staffGroup   = params => get('admin/staff/staff_group', params);         /* 部门*/
+export const staffDeduct   = params => get('admin/staff/deduct', params);         /* 提成*/
+
 export const staffSignin   = params => get('admin/staff/signin', params);         /* 考勤 列表*/
+
+
+/*  === E、营收 ==*/
+export const revenueTotal   = params => get('Admin/Statis/total_revenue', params);         /* 考勤 列表*/
 
 
 

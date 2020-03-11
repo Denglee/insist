@@ -15,8 +15,6 @@ import Axios from 'axios'
 // import '../mock/index.js'
 
 
-
-
 /*引用axios*/
 Vue.prototype.$axios=Axios;
 
