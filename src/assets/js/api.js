@@ -60,7 +60,8 @@ export const staffIndex   = params => get('admin/staff/index', params);         
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
 
 export const staffGroup   = params => get('admin/staff/staff_group', params);         /* 部门*/
-export const staffDeduct   = params => get('admin/staff/deduct', params);         /* 提成*/
+export const staffDeduct   = params => get('admin/staff/deduct', params);         /* 提成 列表*/
+export const staffPhases   = params => get('admin/staff/phases', params);         /* 提成 设置*/
 
 export const staffSignin   = params => get('admin/staff/signin', params);         /* 考勤 列表*/
 

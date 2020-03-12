@@ -199,6 +199,11 @@ $headerHeight:70px;
     content: "\E6DF";
   }
 }
+@media all and (max-width:1200px ) {
+  .headerTop-user .search-form{
+    display: none;
+  }
+}
 .header-cityName{
   //position: absolute;
   //left: 20px;

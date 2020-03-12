@@ -197,103 +197,9 @@
 
 
         <!-- tab1 添加员工-->
-        <!--<div v-show="addStaffState" class="vip-tabBox">
-            <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
-                      breadContent1="添加员工"></navBread>
-            <el-form :model="editForm" class="addForm-box">
-
-                <el-form-item label="员工头像" :label-width="formLabelWidth">
-                    <el-upload
-                            action="#"
-                            :on-change='changeUpload'
-                            list-type="picture-card"
-                            :auto-upload="false">
-                        <i slot="default" class="el-icon-plus"></i>
-                        <div slot="file" slot-scope="{file}">
-                            <img class="el-upload-list__item-thumbnail"
-                                    :src="file.url" alt="">
-                            <span class="el-upload-list__item-actions">
-                                <span class="el-upload-list__item-preview" @click="staffCardPreview(file)">
-                                    <i class="el-icon-zoom-in"></i>
-                                </span>
-                                <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
-                                  <i class="el-icon-delete"></i>
-                                </span>
-                              </span>
-                        </div>
-                    </el-upload>
-                    &lt;!&ndash;弹出放大效果&ndash;&gt;
-                    <el-dialog :visible.sync="dialogVisible">
-                        <img width="100%" :src="dialogImageUrl" alt="">
-                    </el-dialog>
-                </el-form-item>
-
-                <el-form-item label="职位" :label-width="formLabelWidth">
-                    <el-select v-model="editForm.jobId" placeholder="请选择活动区域" class="inpStaffTel">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="姓名" :label-width="formLabelWidth">
-                    <el-input v-model="editForm.position" autocomplete="off" class="inpStaffName" clearable></el-input>
-                </el-form-item>
-
-                <el-form-item label="编号" :label-width="formLabelWidth">
-                    <el-input v-model="editForm.tel" autocomplete="off" clearable class="inpStaffName"></el-input>
-                </el-form-item>
-
-                <el-form-item label="性别" :label-width="formLabelWidth">
-                    <el-radio-group v-model="editForm.jobId" class="inpStaffName">
-                        <el-radio label="男"></el-radio>
-                        <el-radio label="女"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-
-                <el-form-item label="电话" :label-width="formLabelWidth">
-                    <el-input v-model="editForm.jobId" autocomplete="off" clearable class="inpStaffTel"></el-input>
-                </el-form-item>
-
-                <el-form-item label="班次" :label-width="formLabelWidth">
-                    <el-select v-model="editForm.jobId" placeholder="请选择活动区域" class="inpStaffTel">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="价格模式" :label-width="formLabelWidth">
-                    <el-select v-model="editForm.jobId" placeholder="请选择活动区域" class="inpStaffTel">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="基本工资" :label-width="formLabelWidth">
-                    <el-input v-model="editForm.jobId" autocomplete="off" class="inpStaffTel"></el-input>
-                </el-form-item>
-
-                <el-form-item label="提成方式1" :label-width="formLabelWidth">
-                    <el-select v-model="editForm.jobId" placeholder="请选择活动区域" class="inpStaffTel">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="备注" :label-width="formLabelWidth">
-                    &lt;!&ndash;                    <el-input v-model="editForm.jobId" autocomplete="off"></el-input>&ndash;&gt;
-
-
-
-                </el-form-item>
-
-                <el-form-item :label-width="formLabelWidth">
-
-                    <el-button @click="postStaffAdd()">提交</el-button>
-
-                </el-form-item>
-            </el-form>
-
-        </div>-->
+        <div v-show="addStaffState" class="vip-tabBox">
+            <addStaff></addStaff>
+        </div>
 
 
 
@@ -318,7 +224,7 @@
 
 <script>
     import {mapState,mapActions, mapGetters} from 'vuex'
-    import navBread from '@/components/Echarts/navBread'
+    import addStaff from '@/views/Staff/addStaff'
     import {staffAdd, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
 
     export default {
@@ -351,17 +257,15 @@
                 staffPage:1,     /*分页 页码*/
                 formLabelWidth: '120px',
                 EditListForm: false, //员工编辑 块 显示状态
-                staffListState: true,//员工列表 块 显示状态
+                staffListState: false,//tab 显示状态
 
                 /* == 添加员工 ==*/
-                addStaffState: false, //添加员工 块 显示状态
-                dialogImageUrl: '',
-                dialogVisible: false,
-                disabled: false,
-                imgUrl:'',   //头像路径
+                addStaffState: true, //添加员工 块 显示状态
+
+
+                /*2.1员工操作*/
                 checkedRows: [],  //选中的值
                 staffSelection: [], //修改表单值
-                editForm:[],
 
 
                 /* tab2 部门 */
@@ -437,14 +341,6 @@
             },
 
             /*  ======= // 3  添加员工 开始 ====== =*/
-            /*3.1、上传 选中*/
-            changeUpload(file){
-                console.log(file);
-                this.GLOBAL.getEleBase64(file.raw).then(res => {
-                    console.log(res);
-                    this.imgUrl = res;
-                });
-            },
             /* 3.1 去添加页面*/
             btnAddStaff() {
                 this.staffListState = false;
@@ -463,15 +359,7 @@
                     console.log(res);
                 });
             },
-            /*3.1、头像上传 删除*/
-            handleRemove(file) {
-                console.log(file);
-            },
-            /*3. 1、头像 放大*/
-            staffCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
-            },
+
             /* 1、 编辑选中*/
             checkedStaff(val) {
                 console.log(val);
@@ -592,7 +480,7 @@
             }),
         },
         components: {
-            navBread,
+            addStaff,
         },
     }
 </script>

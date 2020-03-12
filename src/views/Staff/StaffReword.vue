@@ -75,11 +75,10 @@
                 </div>
             </el-tab-pane>
 
-            <!--tab2 提成设置-->
+            <!--tab2 提成设置 主页 -->
             <el-tab-pane :lazy='tabLazy' label="提成设置" name="StaffRoyalty">
                 <div class="clearfix">
                     <el-button type="primary" class="fr btn-search" @click="btnAddRoyalty">添加提成</el-button>
-                    <el-button type="primary" class="fr btn-search" @click="btnAddRoyalty">提成设置</el-button>
                 </div>
 
                 <el-table class="pub-table" :data="tableRoyalty" border>
@@ -94,6 +93,7 @@
                     <el-table-column label="详情">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="EditGroup(scope.$index, scope.row)">编辑</el-button>
+                            <el-button size="mini"  type="primary" @click="btnGoRoyalty(scope.$index, scope.row)">设置</el-button>
                             <el-button size="mini" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
@@ -129,11 +129,11 @@
 
         </el-tabs>
 
-        <!--提成 添加 弹窗-->
+        <!--提成 名称 种类 添加 弹窗-->
         <el-dialog :title="deductInfo.RoyaltyTitle" :visible.sync="dialogRoyalty" width="600px">
             <el-form :model="deductInfo" :label-width="formLabelRoyalty" class="dia-form">
                 <el-form-item label="提成名称" >
-                    <el-input v-model="deductInfo.deduction_name" autocomplete="off" class="dia-inp"></el-input>
+                    <el-input v-model="deductInfo.deduction_name" placeholder="请输入提成名称" autocomplete="off" class="dia-inp"></el-input>
                 </el-form-item>
                 <el-form-item label="提成类型" >
                     <el-select v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
@@ -147,38 +147,47 @@
             </div>
         </el-dialog>
 
-
-        <!--提成 设置 编辑-->
+        <!--提成 上限 设置 编辑-->
         <div v-show="setStaffRoyalty">
             <navBread @GoBack="goBack('tabStaffSalary','setStaffRoyalty')" breadTitle="提成设置"
                       breadContent1="提成编辑"></navBread>
-            <div class="addForm-box">
+            <div class="addForm-box" v-if="isReloadData">
                 <div class="clearfix">
                     <el-button type="primary" class="fr btn-search"  @click="btnAddSetRoyalty">添加设置</el-button>
                 </div>
                 <el-table class="pub-table" :data="setTableRoyalty" border>
                     <el-table-column type="index" label="序号" width="200px"></el-table-column>
-                    <el-table-column label="下限">
+                    <el-table-column prop="dn" label="下限"></el-table-column>
+                    <el-table-column prop="up" label="上限"></el-table-column>
+                    <el-table-column prop="ratio" label="百分比"></el-table-column>
+                    <el-table-column label="详情">
                         <template slot-scope="scope">
-                            <el-input v-model="scope.row.down"></el-input>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="上限">
-                        <template slot-scope="scope">
-                            <el-input v-model="scope.row.up"></el-input>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="百分比">
-                        <template slot-scope="scope">
-                            <el-input v-model="scope.row.bili"></el-input>
+                            <el-button size="mini" @click="EditSetUp(scope.$index, scope.row)">编辑</el-button>
+                           <el-button size="mini" @click="deleteSetUp(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="clearfix">
-                    <el-button type="primary" class="fr btn-search" @click="btnSaveSetRoyalty">保存</el-button>
-                </div>
              </div>
         </div>
+
+        <!--提成 上线  添加 弹窗-->
+        <el-dialog :title="setRoyalty.setTitle" :visible.sync="dialogSetRoyalty" width="600px">
+            <el-form :model="setRoyalty" :label-width="formLabelRoyalty" class="dia-form" :rules="setRules" ref="setRoyalty1">
+                <el-form-item label="提成下限" prop="dn">
+                    <el-input v-model="setRoyalty.dn" placeholder="请输入提成下限" autocomplete="off" class="dia-inp"></el-input>
+                </el-form-item>
+                <el-form-item label="提成上限" prop="up">
+                    <el-input v-model="setRoyalty.up" placeholder="请输入提成上限" autocomplete="off" class="dia-inp"></el-input>
+                </el-form-item>
+                <el-form-item label="提成比例" prop="ratio">
+                    <el-input v-model="setRoyalty.ratio" placeholder="请输入提成比例" autocomplete="off" class="dia-inp"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="dialogSetRoyalty = false" plain>取 消</el-button>
+                    <el-button type="primary" @click="sureDiaSetUp('setRoyalty1')">确 定</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
 
     </div>
 </template>
@@ -186,13 +195,14 @@
 <script>
     import navBread from '@/components/Echarts/navBread'
 
-    import {staffDeduct} from '@/assets/js/api'
+    import {staffDeduct,staffPhases} from '@/assets/js/api'
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "StaffReword",
         data() {
             return {
+                isReloadData: true,  //刷新标示
                 activeTabName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
 
@@ -215,10 +225,9 @@
                 pageListRows:0,  /*分页 每页数*/
                 staffPage:1,     /*分页 页码*/
 
-                /* tab2 提成添加 */
+                /* tab2 提成添加 种类 */
                 dialogRoyalty:false,   //提成名称 设置 弹窗
                 formLabelWidth: '120px',
-
                 deductInfo:{
                     RoyaltyTitle:'',  //弹窗名称
                     zmtek_ver:2,
@@ -232,27 +241,59 @@
                     ],      //添加必传
                     id : '',        //删除必传
                 },
-
-
-                /*提成设置*/
-                formLabelRoyalty:'90px',
                 tableRoyalty:[],
+                formLabelRoyalty:'90px',
+
+                /* 2.1 提成 上限 设置*/
                 tabStaffSalary:true,
                 setStaffRoyalty:false,  //设置页面显隐
-                setTableRoyalty:[
-                    {id:1, down:'0',up:'10000',bili:1},
-                    {id:2, down:'10000',up:'20000',bili:2},
-                ],
+                dialogSetRoyalty:false,  //设置弹窗显隐
+                setTableRoyalty:[],   //上限 表格
+
+                setRoyalty:{
+                    setTitle:'',  //弹窗名称
+                    zmtek_ver:2,
+                    type:1, //类型 1 = 获取列表 2 = 添加 3 = 修改 4 = 删除
+                    ratio_id: 1,  //提成id 获取列表 添加 必填
+                    id:'',   //修改 删除必填
+                    up:'',   //上限 添加修改必填
+                    dn:'',   //下限
+                    ratio:'', //提成比 添加修改必填
+                },
+                setRules: {
+                    up: [{ required: true, message: '提成上限不能为空', trigger: 'blur' },],
+                    dn: [{ required: true, message: '提成下限不能为空', trigger: 'blur' }],
+                    ratio: [{ required: true, message: '提成比例不能为空', trigger: 'blur' }],
+                }
             }
         },
         methods: {
+            reload2 () {
+                console.log('你好像没什么用 ');
+                this.isReloadData = false;
+                this.$nextTick(() => {
+                    this.isReloadData = true
+                })
+            },
+
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+
             /* 0、tab切换*/
             tabTotal(tab, event) {
                 let tabName = tab.name;
                 this.callTabApi(tabName);
             },
 
-            /*1、员工工资 列表*/
+            /* ============= 1、员工工资 列表*/
             btnSeaStaff(){
 
             },
@@ -266,7 +307,7 @@
 
             },
 
-            /* === tab2  提成设置 ==*/
+            /* ============== tab2  提成设置 ==*/
             getStaffDeduct(){
                 staffDeduct({
                     zmtek_ver : this.deductInfo.zmtek_ver,
@@ -299,7 +340,7 @@
                 });
             },
 
-            /*添加提成 弹窗*/
+            /* 2.1添加提成名称 种类 弹窗*/
             btnAddRoyalty(){
                 this.deductInfo.RoyaltyTitle = '添加提成';
                 this.deductInfo.type = 2;
@@ -307,7 +348,7 @@
                 this.dialogRoyalty = true;
             },
 
-            /*添加提成 确定*/
+            /* 2.2添加提成名称 确定*/
             sureDiaRoyalty(){
                 console.log( this.deductInfo);
                 let groupName = this.deductInfo.deduction_name;
@@ -320,18 +361,17 @@
                 }
             },
 
-            /*提成编辑*/
+            /* 2.3 提成 名称 编辑*/
             EditGroup(index, row){
                 console.log(index, row);
                 this.deductInfo.id = row.id;
                 this.deductInfo.deduction_name = row. deduction_name;
-                this.deductInfo.RoyaltyTitle = '部门编辑';
+                this.deductInfo.RoyaltyTitle = '提成编辑';
                 this.deductInfo.type = 3;
-
                 this.dialogRoyalty = true;
             },
 
-            /*删除提成*/
+            /* 2.4删除提成种类*/
             deleteGroup(index, row){
                 this.$confirm('确定删除该提成方式？？', '提示', {
                     confirmButtonText: '确定',
@@ -346,17 +386,113 @@
             },
 
 
+            /* ================ C、提成上限 下线设置*/
+            /*  3.1 去 提成 上限 页面*/
+            btnGoRoyalty(index, row){
+                let setId = row.id;
+                console.log('ratio_id'+setId);
+                this.setRoyalty.ratio_id = setId;
+                this.setRoyalty.type = 1;
+                this.setTableRoyalty = [];
+                this.getStaffPhases();
+
+                /*存储 是否在编辑页面 状态*/
+                sessionStorage.setItem('sessionSetRoyalty', true);
+                this.tabStaffSalary = false;
+                this.setStaffRoyalty = true;
+            },
+
+            /*  3.2 提成 上线 设置接口*/
+            getStaffPhases(){
+                staffPhases({
+                    zmtek_ver : this.setRoyalty.zmtek_ver,
+                    type : this.setRoyalty.type, //类型 1 = 获取列表 2 = 添加 3 = 修改 4 = 删除
+                    ratio_id : this.setRoyalty.ratio_id,  //提成id 获取列表 添加 必填
+                    id : this.setRoyalty.id,   //修改 删除必填
+                    up : this.setRoyalty.up,   //上限 添加修改必填
+                    dn : this.setRoyalty.dn,   //下限
+                    ratio : this.setRoyalty.ratio, //提成比 添加修改必填
+                }).then(res =>{
+                    console.log(res.data);
+                    let type = this.setRoyalty.type;
+                    console.log('当前状态： '+type);
+
+                    if(res.status ==1){
+                        if(type == 1){
+                            this.setTableRoyalty = res.data;
+                        }else {
+                            this.$message.success(res.info);
+                            setTimeout(()=>{
+                                this.dialogSetRoyalty = false;
+                                this.reLoad();
+                            },1000);
+                        }
+                    }
+                    if(res.status == 0){
+                        console.log(res.info);
+                    }
+                }).catch(res =>{
+                    console.log(res);
+                })
+            },
+
+            /* 3.22 添加提成上限  弹出*/
+            btnAddSetRoyalty(){
+                this.setRoyalty.RoyaltyTitle = '提成设置';
+                this.setRoyalty= [];
+                this.setRoyalty.type = 2;
+                console.log( this.deductInfo);
+                this.dialogSetRoyalty = true;
+            },
+
+            /* 3.22 添加提成上限  确定*/
+            sureDiaSetUp(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.getStaffPhases();
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+
+            /* 3.3 编辑 上限 设置*/
+            EditSetUp(index, row){
+                // console.log(index, row);
+                this.setRoyalty = row;
+                this.setRoyalty.setTitle = '编辑提成';
+                this.setRoyalty.type = 3;
+                this.dialogSetRoyalty = true;
+            },
+
+            /*  3.4 删除 上限 设置*/
+            deleteSetUp(index, row){
+                this.$confirm('确定删除？？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // console.log(row.id);
+                    this.setRoyalty.type = 4;
+                    this.setRoyalty.id = row.id;
+                    this.getStaffPhases();
+                }).catch(() => {});
+            },
+
 
             /*0 返回上一页 */
             goBack(e1, e2) {
                 console.log(e1);
                 this[e1] = true;   //显示 tab 列表
                 this[e2] = false;   //隐藏当前 二级页
+
+                sessionStorage.setItem('sessionSetRoyalty', false);
             },
 
             /* 0 接口调用*/
             callTabApi(tabName){
-                console.log(tabName);
+                console.log('当前tab：'+tabName);
                 if(tabName == 'StaffSalary'){
 
                 };
@@ -373,6 +509,21 @@
         created() {
             let tabName =this.activeTabName;
             this.callTabApi(tabName);
+            this.getStaffPhases();
+
+            /*是否在提成设置页面*/
+            let sessionSetRoyalty =window.sessionStorage.getItem('sessionSetRoyalty');
+            console.log(sessionSetRoyalty);
+            if(sessionSetRoyalty == 'true'){
+                this.tabStaffSalary = false;
+                this.setStaffRoyalty = true;
+            }else{
+                this.tabStaffSalary = true;
+                this.setStaffRoyalty = false;
+            }
+        },
+        mounted() {
+            this.getStaffPhases();
         },
         components: {
             navBread,
