@@ -58,6 +58,7 @@ export const VipSalerStatis  = params => post('Admin/Statis/saler_statis', param
 /*==== D、员工===*/
 export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
+export const staffDel   = params => post('admin/staff/del', params);         /* 三处员工*/
 
 export const staffGroup   = params => get('admin/staff/staff_group', params);         /* 部门*/
 export const staffDeduct   = params => get('admin/staff/deduct', params);         /* 提成 列表*/
@@ -67,7 +68,8 @@ export const staffSignin   = params => get('admin/staff/signin', params);       
 
 
 /*  === E、营收 ==*/
-export const revenueTotal   = params => get('Admin/Statis/total_revenue', params);         /* 考勤 列表*/
+export const revenueTotal   = params => get('Admin/Statis/total_revenue', params);         /* 总收入 */
+export const revenueRanking   = params => get('Admin/Statis/project_revenue_ranking', params);          /* 项目营收排名*/
 
 
 

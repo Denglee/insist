@@ -16,13 +16,44 @@
 }
 
 /*添加员工 表单*/
-
 .inpStaffTel{
   width: 360px;
 }
-.inpStaffName{
-  width: 180px;
+.addForm-box{
+  .el-form-item__error{
+    top: 10px;
+    left: 370px;
+  }
+  .el-form-item{
+    margin-bottom: 10px;
+  }
+  .inpStaffTime{
+    width: 140px;
+    margin-right: 10px;
+  }
+  .el-input--suffix .el-input__inner{
+    padding-right: 0;
+  }
+  .img-header{
+    background-color: #fbfdff;
+    border: 1px solid #c0ccda;
+    border-radius: 6px;
+    width: 148px;
+    height: 148px;
+    line-height: 146px;
+    margin-right: 20px;
+    vertical-align: top;
+    display: inline-block;
+    img{
+      display: block;
+      width: 100%;
+    }
+  }
+  .btn-header{
+    display: inline-block;
+  }
 }
+
 
 /*考勤*/
 .staffSign-table{

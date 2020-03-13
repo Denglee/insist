@@ -1,53 +1,47 @@
 <template>
-    <div>
-        <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
-                  breadContent1="添加员工"></navBread>
-        <el-form :model="addStaffForm" class="addForm-box">
+    <div class="vip-tabBox">
+        <el-form :model="addStaffForm" class="addForm-box" :rules="addRules" ref="addStaffForm">
 
             <el-form-item label="员工头像" :label-width="formLabelWidth">
+                <div class="img-header" v-if="addStaffForm.userimage">
+                    <img :src='localUrl+"/"+addStaffForm.userimage'  ref="singleImg">
+                    <span @click="staffCardPreview">放大</span>
+                </div>
                 <el-upload
+                        class="btn-header"
                         action="#"
+                        list-type="picture-card"
                         :on-change='changeUpload'
-                        list-type="picture"
+                        :show-file-list="false"
                         :auto-upload="false">
                     <i slot="default" class="el-icon-plus"></i>
-                    <div slot="file" slot-scope="{file}">
-                        <img class="el-upload-list__item-thumbnail"
-                             :src="file.url" alt="">
-                        <span class="el-upload-list__item-actions">
-                                <span class="el-upload-list__item-preview" @click="staffCardPreview(file)">
-                                    <i class="el-icon-zoom-in"></i>
-                                </span>
-                                <span v-if="!diaImgVisi" class="el-upload-list__item-delete" @click="handleRemove(file)">
-                                  <i class="el-icon-delete"></i>
-                                </span>
-                              </span>
-                    </div>
                 </el-upload>
+
                 <!--弹出放大效果-->
                 <el-dialog :visible.sync="diaVisible">
-                    <img width="100%" :src="diaHeadImgUrl" alt="">
+                    <img width="100%" :src="addStaffForm.userimage" alt="">
                 </el-dialog>
             </el-form-item>
 
-            <el-form-item label="职位" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.user_type" placeholder="请选择">
-                    <el-option v-for="item in userTypeList" :key="item.value" :label="item.catname" :value="item.id"></el-option>
+            <el-form-item label="职位" :label-width="formLabelWidth" prop="user_type">
+                <el-select v-model="addStaffForm.user_type" placeholder="请选择职位" class="inpStaffTel">
+                    <el-option v-for="item in userTypeList" :key="item.id" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="部门" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.group_id" placeholder="请选择">
+            <el-form-item label="部门" :label-width="formLabelWidth" prop="group_id">
+                <el-select v-model="addStaffForm.group_id" placeholder="请选择部门" class="inpStaffTel">
                     <el-option v-for="item in staffGroup" :key="item.value" :label="item.name" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="姓名" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.name" autocomplete="off" class="inpStaffName" clearable></el-input>
+            <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
+                <el-input v-model="addStaffForm.name" autocomplete="off" placeholder="请输入姓名"class="inpStaffTel" clearable></el-input>
             </el-form-item>
 
-            <el-form-item label="编号" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.user_no" autocomplete="off" clearable class="inpStaffName"></el-input>
+            <el-form-item label="编号" :label-width="formLabelWidth" prop="user_no">
+                <el-input v-model="addStaffForm.user_no" autocomplete="off" placeholder="请输入编号" clearable class="inpStaffTel"></el-input>
+                <div class="colorGray"><i class="el-icon-warning"></i>请输入编号，如：小惠，编号写：xh,便于后期快速查询</div>
             </el-form-item>
 
             <el-form-item label="性别" :label-width="formLabelWidth">
@@ -57,87 +51,100 @@
                 </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="电话" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.phone" autocomplete="off" clearable class="inpStaffTel"></el-input>
+            <el-form-item label="状态" :label-width="formLabelWidth">
+                <el-radio-group v-model="addStaffForm.lock" class="inpStaffName">
+                    <el-radio label="0">在职</el-radio>
+                    <el-radio label="1">离职</el-radio>
+                </el-radio-group>
+            </el-form-item>
+
+            <el-form-item label="电话" :label-width="formLabelWidth" prop="phone">
+                <el-input v-model="addStaffForm.phone" autocomplete="off" placeholder="请输入电话"  clearable class="inpStaffTel"></el-input>
             </el-form-item>
 
             <el-form-item label="班次" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.classes" placeholder="请选择">
-                    <el-option v-for="item in classesType" :key="item.value" :label="item.name" :value="item.id"></el-option>
+                <el-select v-model="addStaffForm.classes" placeholder="请选择班次" class="inpStaffTel">
+                    <el-option v-for="item in classesType" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="价格模式" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.price_type" placeholder="请选择">
+                <el-select v-model="addStaffForm.price_type" placeholder="请选择价格模式" class="inpStaffTel">
                     <!--@change="selPriceType"-->
-                    <el-option v-for="item in priceType" :key="item.value" :label="item.name" :value="item.id"></el-option>
+                    <el-option v-for="item in priceType" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
             <!--分阶段价格模式-->
             <div v-if="addStaffForm.price_type == 2">
-                <el-form-item :label="priceType[1].name+1" :label-width="formLabelWidth">
+                <el-form-item :label="priceType[1].value+1" :label-width="formLabelWidth">
                     <el-time-picker v-model="addStaffForm.eprice_s"  key="addStaffForm.eprice_s"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段1开始时间">
                     </el-time-picker>
-                    <el-time-picker v-model="addStaffForm.eprice_e"  key="addStaffForm.eprice_s"
+                    <el-time-picker v-model="addStaffForm.eprice_e"  key="addStaffForm.eprice_e"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段1结束时间">
                     </el-time-picker>
-                   <el-input v-model="addStaffForm.eprice" placeholder="时段1价格" autocomplete="off" clearable class="inpStaffTel"></el-input>
+                   <el-input v-model="addStaffForm.eprice" placeholder="时段1价格" autocomplete="off" clearable class="inpStaffTime"></el-input>
                 </el-form-item>
-                <el-form-item :label="priceType[1].name+2" :label-width="formLabelWidth">
+                <el-form-item :label="priceType[1].value+2" :label-width="formLabelWidth">
                     <el-time-picker v-model="addStaffForm.eprice2_s"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段2开始时间">
                     </el-time-picker>
                     <el-time-picker v-model="addStaffForm.eprice2_e"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段2结束时间">
                     </el-time-picker>
-                    <el-input v-model="addStaffForm.eprice2" placeholder="时段2价格" autocomplete="off" clearable class="inpStaffTel"></el-input>
+                    <el-input v-model="addStaffForm.eprice2" placeholder="时段2价格" autocomplete="off" clearable class="inpStaffTime"></el-input>
                 </el-form-item>
-                <el-form-item :label="priceType[1].name+3" :label-width="formLabelWidth">
+                <el-form-item :label="priceType[1].value+3" :label-width="formLabelWidth">
                     <el-time-picker v-model="addStaffForm.eprice3_s"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段3开始时间">
                     </el-time-picker>
                     <el-time-picker v-model="addStaffForm.eprice3_e"
+                                    class="inpStaffTime"
                                     format="HH:mm"
                                     value-format="HH:mm"
                                     placeholder="时段3结束时间">
                     </el-time-picker>
-                    <el-input v-model="addStaffForm.eprice3" placeholder="时段3价格" autocomplete="off" clearable class="inpStaffTel"></el-input>
+                    <el-input v-model="addStaffForm.eprice3" placeholder="时段3价格" autocomplete="off" clearable class="inpStaffTime"></el-input>
 
                 </el-form-item>
             </div>
             <div v-else>
-                <el-form-item  :label="priceType[0].name"  :label-width="formLabelWidth">
+                <el-form-item  :label="priceType[0].value"  :label-width="formLabelWidth">
                     <el-input v-model="addStaffForm.eprice"  placeholder="请输入价格" autocomplete="off" clearable class="inpStaffTel"></el-input>
                 </el-form-item>
             </div>
 
             <el-form-item label="基本工资" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.salary" autocomplete="off" class="inpStaffTel"></el-input>
+                <el-input v-model="addStaffForm.salary" autocomplete="off"  placeholder="请输入基本工资" class="inpStaffTel"></el-input>
             </el-form-item>
 
             <el-form-item label="提成方式" :label-width="formLabelWidth">
-                <el-checkbox-group class="checkGroup" v-model="addStaffForm.deduction_type" @change="CheckedtcType">
+                <el-checkbox-group v-model="addStaffForm.deduction_type" @change="CheckedtcType" class="inpStaffTel">
                     <el-checkbox name="DeductionType" v-for="(item,index) in deductionType" :label="item.id" :key="index">{{item.deduction_name}}</el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
 
             <el-form-item label="教练介绍" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.user_des" autocomplete="off"></el-input>
+                <el-input v-model="addStaffForm.user_des" autocomplete="off" class="inpStaffTel"></el-input>
             </el-form-item>
 
             <el-form-item :label-width="formLabelWidth">
-                <el-button @click="postStaffAdd()">提交</el-button>
+                <el-button  type="primary" @click="postStaffAdd('addStaffForm')">提交</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -148,7 +155,17 @@
     import {staffAdd,staffDeduct,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
     export default {
         name: "addStaff",
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法
+        props: {
+            editStaffMark: {
+                type: String,
+            },
+
+            /*父组件传过来的表单数据*/
+            'editStaff':[],
+        },
         data() {
+
             return {
                 /* == 添加员工 ==*/
                 formLabelWidth:'120px',
@@ -157,12 +174,15 @@
                 diaImgVisi: false,  //弹出方法头像
                 imgUrl:'',   //头像 上传路径
                 addStaffForm:{
+                    id:'',
+                    information:'2',
                     zmtek_ver : 2,
                     type : 1,
                     userimage:'', //头像
                     user_type:'',//员工类型  职位
                     name:'', //名字
-                    sex:'', // 性别
+                    sex:'1', // 性别
+                    lock:'0', // 状态 离职 在职
                     user_no:'', //编号
                     phone:'', //电话
                     classes:'', //班次 1 = 正常 2 = 早 3 = 中 4 = 晚
@@ -182,18 +202,28 @@
                     eprice3:'', //
                 }, /*表单*/
                 priceType:[
-                    {id:1,name:'全天统一 '},
-                    {id:2,name:'分时段'},
+                    {id:'1',value:'全天统一 '},
+                    {id:'2',value:'分时段'},
                 ],
                 userTypeList:this.GLOBAL.userTypeList,  //职位
                 staffGroup:[],  //部门
                 deductionType:[], //提成方式
                 classesType:[
-                    {id:1,name:'正班 '},
-                    {id:2,name:'早班'},
-                    {id:3,name:'中班'},
-                    {id:4,name:'晚班'},
+                    {id:'1',value:'正班 '},
+                    {id:'2',value:'早班'},
+                    {id:'3',value:'中班'},
+                    {id:'4',value:'晚班'},
                 ], //班次
+
+                addRules: {
+                    name: [{ required: true, message: '请输入姓名', trigger: 'blur' },],
+                    user_no: [{ required: true, message: '请输入编号', trigger: 'blur' },],
+                    phone: [{ required: true, message: '请输入姓名', trigger: 'blur' },],
+                    user_type: [{ required: true, message: '请选择职位', trigger: 'change' },],
+                    group_id  : [{ required: true, message: '请选择部门', trigger: 'change' },],
+                },
+
+                localUrl:this.GLOBAL.localUrl,
 
             }
         },
@@ -201,32 +231,65 @@
             /*3.1、头像 上传 选中*/
             changeUpload(file){
                 console.log(file);
+                this.addStaffForm.userimage = '';
                 this.GLOBAL.getEleBase64(file.raw).then(res => {
                     console.log(res);
-                    this.imgUrl = res;
                     this.addStaffForm.userimage = res;
                 });
             },
+
             /*3.1、头像上传 删除*/
             handleRemove(file) {
                 console.log(file);
             },
+
             /*1. 1、头像 放大*/
             staffCardPreview(file) {
                 this.diaHeadImgUrl = file.url;
                 this.diaVisible = true;
             },
 
-            /*提交*/
-            postStaffAdd(){
-                let formArr = this.addStaffForm;
-                console.log(formArr);
-                // return false;
-                staffAdd(formArr).then(res => {
-                    console.log(res.data);
-                }).catch(res => {
-                    console.log(res);
+            //编辑
+            getStaffFrom() {
+                if(this.editStaffMark  == '员工编辑'){
+                    // this.addStaffForm.information = 2;
+                    this.addStaffForm = this.editStaff;
+                    console.log(this.editStaff);
+                }
+                console.log(this.addStaffForm);
+            },
+            /*提交 biaoge */
+            postStaffAdd(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let formArr = this.addStaffForm;
+                        console.log(formArr);
+
+                        this.addStaffForm.zmtek_ver = 2;
+                        this.addStaffForm.information = 2;
+
+                        staffAdd(formArr).then(res => {
+                            if(res.status == 1){
+                                console.log(res.data);
+                                this.$message.success(res.info);
+                                setTimeout(()=>{
+                                    this.reLoad();
+                                },1000);
+                            }else {
+                                this.$message.error(res.info);
+                                console.log(res.info);
+                            }
+
+                            // this.reLoad();
+                        }).catch(res => {
+                            console.log(res);
+                        });
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
                 });
+
             },
 
             /*获取 部门*/
@@ -260,7 +323,7 @@
 
             /*选择提成方式*/
             CheckedtcType(val){
-                console.log(val);
+                // console.log(val);
             },
 
             /*获取提成方式*/
@@ -278,8 +341,16 @@
 
         },
         created() {
+
+            /*调用 获取 部门*/
             this.getStaffGroup();
+
+            /*调用 获取 提成方式*/
             this.getStaffDeduct();
+
+            /*编辑时候*/
+            this.getStaffFrom();
+
         },
         components:{
             navBread,

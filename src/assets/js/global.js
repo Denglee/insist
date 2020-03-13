@@ -67,19 +67,19 @@ console.log(localUrl);
 
 /*职位类型*/
 let userTypeList = [
-    {id:10000, catname:'全部职位',},
-    {id:1, catname:'店长',},
-    {id:2, catname:'顾问',},
-    {id:3, catname:'教练',},
-    {id:4, catname:'操课',},
-    {id:5, catname:'财务',},
-    {id:6, catname:'前台',},
-    {id:7, catname:'保洁员',},
-    {id:8, catname:'后勤',},
-    {id:100, catname:'教练经理',},
-    {id:200, catname:'顾问经理',},
-    {id:9, catname:'boss',},
-    {id:10, catname:'行政',},
+    {id:'10000', catname:'全部职位'},
+    {id:'1', catname:'店长'},
+    {id:'2', catname:'顾问'},
+    {id:'3', catname:'教练'},
+    {id:'4', catname:'操课'},
+    {id:'5', catname:'财务'},
+    {id:'6', catname:'前台'},
+    {id:'7', catname:'保洁员'},
+    {id:'8', catname:'后勤'},
+    {id:'100', catname:'教练经理'},
+    {id:'200', catname:'顾问经理'},
+    {id:'9', catname:'boss'},
+    {id:'10', catname:'行政'}
 ];
 
 /*提成类型*/

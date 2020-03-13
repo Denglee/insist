@@ -169,7 +169,7 @@ const staticRoute = [
                 meta: {title: '员工列表'},
             },
             {
-                path: 'Staff/staff_wage',   //员工工资
+                path: 'Staff/salary',   //员工工资
                 name: 'StaffReword',
                 component: () => import(/* webpackChunkName: "StaffReword" */ '@/views/Staff/StaffReword'),
                 meta: {title: '员工工资'},

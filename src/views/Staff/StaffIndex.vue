@@ -18,24 +18,33 @@
                         <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
                             <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                         </el-select>
-                        <!--部门-->
+                        <!--职位-->
                         <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
+                        <!--部门-->
+                        <!--<el-select v-model="userTypeListVal" placeholder="请选择部门" class="inp-mar14 ptSel-section">
+                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                        </el-select>-->
+                        <!--班次-->
+                        <!--<el-select v-model="userTypeListVal" placeholder="请选择班次" class="inp-mar14 ptSel-section">
+                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                        </el-select>-->
                         <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
                         <!--搜索-->
                         <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
                         <div class="fr">
                             <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-                                <el-button icon="el-icon-search" @click="change()" class="btn-search"></el-button>
+                                <el-button icon="el-icon-edit" @click="changeStaff()" class="btn-search"></el-button>
                             </el-tooltip>
                             <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-                                <el-button icon="el-icon-delete"  @click="delete2()" class="btn-search"></el-button>
+                                <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-search"></el-button>
                             </el-tooltip>
                         </div>
                     </div>
                     <!--员工列表 表格-->
-                    <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
+                    <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff"
+                              ref="multipleTable" @row-click="handleRowClick">
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
                         <el-table-column prop="sex" label="性别">
@@ -63,23 +72,18 @@
                                 <!--<div v-else>{{scope.row.user_type}}</div>-->
                             </template>
                         </el-table-column>
-                        <el-table-column label="部门" prop="sex">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.sex == 1 " class="status-break">男</div>
-                                <div v-if="scope.row.sex == 2 " class="status-break">女</div>
-                            </template>
-                        </el-table-column>
+                        <el-table-column label="部门" prop="group_name"></el-table-column>
                         <el-table-column label="班次" prop="classes">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.classes == 0">正班</div>
-                                <div v-if="scope.row.classes == 1">早班</div>
-                                <div v-if="scope.row.classes == 2">中班</div>
-                                <div v-if="scope.row.classes == 3">晚班</div>
+                                <div v-if="scope.row.classes == 1">正班</div>
+                                <div v-if="scope.row.classes == 2">早班</div>
+                                <div v-if="scope.row.classes == 3">中班</div>
+                                <div v-if="scope.row.classes == 4">晚班</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="phone" label="电话"></el-table-column>
                         <el-table-column prop="user_no" label="工号"></el-table-column>
-                        <el-table-column prop="Royalty" label="提成方式"></el-table-column>
+                        <el-table-column prop="deduction_type" label="提成方式"></el-table-column>
                         <el-table-column prop="register_time" label="创建时间">
                             <template slot-scope="scope">
                                 <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
@@ -121,86 +125,13 @@
             </el-tab-pane>
         </el-tabs>
 
-
-        <!-- tab1 员工编辑 编辑弹出-->
-        <el-dialog title="员工编辑" :visible.sync="EditListForm">
-            <el-form :model="staffSelection" :label-width="formLabelWidth">
-                <el-form-item label="姓名" >
-                    <el-input v-model="staffSelection.name" autocomplete="off"></el-input>
-                </el-form-item>
-
-                <el-form-item label="性别">
-                    <template>
-                        <el-radio v-model="staffSelection.sex" label="1">男</el-radio>
-                        <el-radio v-model="staffSelection.sex" label="2">女</el-radio>
-                    </template>
-                </el-form-item>
-
-                <el-form-item label="职位">
-                    <el-select v-model="staffSelection.user_type" placeholder="请选择职位" class="inp-mar14 ptSel-section">
-                        <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="部门">
-                    <template>
-                        <el-radio v-model="staffSelection.sex" label="1">男</el-radio>
-                        <el-radio v-model="staffSelection.sex" label="2">女</el-radio>
-                    </template>
-                </el-form-item>
-                <el-form-item label="班次">
-                    <template>
-                        <el-radio v-model="staffSelection.classes" label="0">正班</el-radio>
-                        <el-radio v-model="staffSelection.classes" label="1">早班</el-radio>
-                        <el-radio v-model="staffSelection.classes" label="2">中班</el-radio>
-                        <el-radio v-model="staffSelection.classes" label="3">晚班</el-radio>
-                    </template>
-                </el-form-item>
-
-                <el-form-item label="电话号码">
-                    <el-input v-model="staffSelection.phone" autocomplete="off"></el-input>
-                </el-form-item>
-
-                <el-form-item label="编号">
-                    <el-input v-model="staffSelection.user_no" autocomplete="off"></el-input>
-                    <div>请输入编号，如：小惠，编号写：xh,便于后期快速查询</div>
-                </el-form-item>
-
-                <el-form-item label="提成方式">
-
-                </el-form-item>
-
-                <el-form-item label="创建时间">
-
-                    <el-date-picker
-                            v-model="staffSelection.register_time"
-                            type="date"
-                            placeholder="选择日期"
-                            format="yyyy-MM-dd"
-                            value-format="yyyy-MM-dd">
-                    </el-date-picker>
-                </el-form-item>
-
-                <el-form-item label="状态" :label-width="formLabelWidth">
-                    <template>
-                        <el-radio v-model="staffSelection.lock" label="0">在职</el-radio>
-                        <el-radio v-model="staffSelection.lock" label="1">离职</el-radio>
-                    </template>
-                </el-form-item>
-
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureEdit()">确 定</el-button>
-            </div>
-        </el-dialog>
-
-
         <!-- tab1 添加员工-->
-        <div v-show="addStaffState" class="vip-tabBox">
-            <addStaff></addStaff>
-        </div>
+        <div v-if="addStaffState" class="vip-tabBox">
+            <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
+                      :breadContent1="editStaffMark"></navBread>
 
+            <addStaff :editStaffMark="editStaffMark" :editStaff = 'editStaff'></addStaff>
+        </div>
 
 
         <!--tab2 部门 添加 弹窗-->
@@ -218,14 +149,14 @@
 
         <!-- 部门 设置 编辑-->
 
-
     </div>
 </template>
 
 <script>
     import {mapState,mapActions, mapGetters} from 'vuex'
     import addStaff from '@/views/Staff/addStaff'
-    import {staffAdd, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
+    import navBread from '@/components/Echarts/navBread'
+    import {staffAdd, staffDel, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -246,7 +177,7 @@
 
                 /* 1.2、 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
-                userTypeListVal:10000, /* 职位 选中值*/
+                userTypeListVal:'10000', /* 职位 选中值*/
 
                 /* 1.3、输入*/
                 staffInpVal:'',
@@ -261,11 +192,13 @@
 
                 /* == 添加员工 ==*/
                 addStaffState: true, //添加员工 块 显示状态
-
+                addTitle:'添加员工',
 
                 /*2.1员工操作*/
                 checkedRows: [],  //选中的值
                 staffSelection: [], //修改表单值
+                editStaffMark:'',
+                editStaff : [],
 
 
                 /* tab2 部门 */
@@ -292,29 +225,6 @@
             },
 
             /*员工列表*/
-            /*1.1、筛选 员工*/
-            btnSeaStaff(){
-                this.staffPage = 1;
-                this.getStaffIndex();
-            },
-            /*1、员工列表 table 操作*/
-            change(){
-                let checkedRows =  this.checkedRows;
-                console.log(checkedRows);
-                console.log(checkedRows.length);
-                if(checkedRows.length == 0){
-                    this.$message.error('至少选一个操作对象');
-                } else if(checkedRows.length == 1){
-                    console.log(checkedRows[0]);
-
-                    this.staffSelection = checkedRows[0];
-
-                    this.EditListForm = true;
-                }else{
-                    this.$message.error('只能选一个');
-                }
-
-            },
             /*1.2员工列表 接口*/
             getStaffIndex(){
                 staffIndex({
@@ -334,37 +244,112 @@
                     console.log(res);
                 });
             },
+
             /*分页*/
             PageCurrent(page){
                 this.staffPage = page;
                 this.getStaffIndex();
             },
 
-            /*  ======= // 3  添加员工 开始 ====== =*/
-            /* 3.1 去添加页面*/
-            btnAddStaff() {
-                this.staffListState = false;
-                this.addStaffState = true;
-            },
-            postStaffAdd(){
-                let userimage = this.imgUrl;
-                console.log(userimage);
-                staffAdd({
-                    userimage:userimage,
-                    information:2,
-                    zmtek_ver:2,
-                }).then(res => {
-                    console.log(res);
-                }).catch(res => {
-                    console.log(res);
-                });
+            /*1.1、筛选 员工*/
+            btnSeaStaff(){
+                this.staffPage = 1;
+                this.getStaffIndex();
             },
 
-            /* 1、 编辑选中*/
+            /* 1.10、 编辑选中 */
             checkedStaff(val) {
                 console.log(val);
                 this.checkedRows = val;
             },
+
+            //点击行触发，选中或不选中复选框
+            handleRowClick(row, column, event){
+                this.$refs.multipleTable.toggleRowSelection(row);
+            },
+
+            /*1.3删除员工*/
+            deleteStaff(val){
+                let checkedRows =  this.checkedRows;
+                console.log(checkedRows);
+                console.log(checkedRows.length);
+                if(checkedRows.length == 0){
+                    this.$message.error('至少选一个操作对象');
+                } else if(checkedRows.length == 1){
+                    console.log(checkedRows[0].id);
+                    staffDel({
+                        id:checkedRows[0].id,
+                        zmtek_ver:2,
+                    }).then(res => {
+                        if( res.status == 0){
+                            this.$prompt(res.info, '提示', {
+                                confirmButtonText: '确定',
+                                cancelButtonText: '取消',
+                            }).then(({ value }) => {
+                                console.log(value);
+                                // vikily#8322  +city_id
+                                staffDel({
+                                    id:checkedRows[0].id,
+                                    zmtek_ver:2,
+                                    pwd:value,
+                                }).then(res => {
+                                    console.log(res);
+                                    if(res.status == 1){
+                                        this.$message.success(res.info);
+                                        setTimeout(()=>{
+                                            this.reLoad();
+                                        },1000);
+                                    }
+                                    if(res.status == 0){
+                                        this.$message.error(res.info);
+                                    }
+                                }).catch(res => {console.log(res)});
+                            }).catch(() => {console.log('取消')});
+                        }
+                        // console.log(res);
+                        // this.$message.success(res.info);
+                        // setTimeout(()=>{
+                        //     this.reLoad();
+                        // },1000);
+                    }).catch(res => {
+                        console.log(res);
+                    });
+                }else{
+                    this.$message.error('只能选一个');
+                }
+            },
+
+            /*1.2 表格操作 员工编辑*/
+            changeStaff(){
+                let checkedRows =  this.checkedRows;
+                console.log(checkedRows);
+                console.log(checkedRows.length);
+                if(checkedRows.length == 0){
+                    this.$message.error('至少选一个操作对象');
+                } else if(checkedRows.length == 1){
+                    console.log(checkedRows[0]);
+                    this.editStaffMark = '员工编辑';
+                    this.editStaff = checkedRows[0];
+                    this.staffListState = false;
+                    this.addStaffState = true;
+                }else{
+                    this.$message.error('只能选一个');
+                }
+            },
+
+
+
+            /*  ======= // 3  添加员工 开始 ====== =*/
+            /* 3.1 去添加页面*/
+            btnAddStaff() {
+                this.editStaffMark = '添加员工';
+                this.editStaff = [];
+                this.staffListState = false;
+                this.addStaffState = true;
+            },
+
+
+
             /* 3.1 返回上一页 添加员工 =》 员工列表 */
             goBack(e1, e2) {
                 console.log(e1);
@@ -391,7 +376,6 @@
                             this.$message.success(res.info);
                             setTimeout(()=>{
                                 this.diaGroup = false;
-
                                 this.reLoad();
                             },1000);
                         }
@@ -450,8 +434,6 @@
 
 
 
-
-
             /* 0 接口调用*/
             callTabApi(tabName){
                 console.log(tabName);
@@ -481,6 +463,7 @@
         },
         components: {
             addStaff,
+            navBread
         },
     }
 </script>

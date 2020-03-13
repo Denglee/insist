@@ -2,6 +2,32 @@
 /*lideng*/
 @import "public";
 
+@mixin fontColor($color){
+  color:$color;
+}
+.colorRed{
+  @include fontColor($color-Pink);
+}
+.colorBlueL{
+  @include fontColor($color-LigntBlue);
+}
+.colorYellow{
+  @include fontColor($color-Yellow);
+}
+.colorBlue{
+  @include fontColor($color-MediumBlue);
+}
+.colorGreen{
+  @include fontColor($color-GreenBlue);
+}
+.colorViolet{
+  @include fontColor($color-Violet);
+}
+.colorGray{
+  @include fontColor($color-Gray);
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -306,6 +332,7 @@ $indexTitleHei: 44px;
   }
 
   tr:hover > td {
+    cursor: pointer;
     background-color: #fafafa;
   }
 }
@@ -455,7 +482,6 @@ $tabHei: 46px;
 /* ~~这是分割线~~ 导航头部 ==*/
 .el-tabs__header {
   margin: 50px 0 0;
-
   .el-tabs__nav-wrap::after {
     height: 0;
   }

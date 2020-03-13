@@ -10,15 +10,16 @@
                                 <div class="title">总收入</div>
                             </header>
                             <ul class="index-item-tipUl">
-                                <li><span class="addVip-tagY"></span>本月</li>
                                 <li><span class="addVip-tagB"></span>上月</li>
+                                <li><span class="addVip-tagY"></span>本月</li>
+
                             </ul>
                             <div class="flex-between revenueRatio-tip clearfix">
-                                <ve-funnel :data="revenueTotal"
+                                <ve-pie :data="revenueTotal"
                                         :legend-visible="false"
                                         :colors="totalColor"
-                                        :style="funnelStyle"
-                                        :settings="funnelSettings"></ve-funnel>
+                                        :style="picStyle"
+                                        :settings="picSettings"></ve-pie>
                                 <ul class="vipNum">
                                     <li>上月：<span class="vipTipY">{{revenueTotal.rows[0].value}}</span>
                                         <span v-if="revenueRatio.lastMonth > 0" class="vipTipG revenue-tip">
@@ -52,6 +53,11 @@
                                 <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
                             </ul>
                             <div class="flex-between">
+                                <ve-bar :data="revenueRanking"
+                                        :legend-visible="false"
+                                        :colors="totalColor"
+                                        :style="picStyle"
+                                        :settings="picSettings"></ve-bar>
                                 <ul class="vipNum">
                                     <li>潜在会员： <span class="vipTipG"></span></li>
                                     <li>正式会员： <span class="vipTipB"></span></li>
@@ -91,13 +97,13 @@
 <script>
     import eCharts from '@/components/Echarts/Echarts'
     import navBread from '@/components/Echarts/navBread'
-    import {revenueTotal} from '@/assets/js/api' /*引用 营收总览 接口*/
+    import {revenueTota,revenueRankingl} from '@/assets/js/api' /*引用 营收总览 接口*/
     export default {
         name: "StatisRevenue",
         data() {
 
 
-            this.totalColor = ['#FF8A7E', '#005AD4']; //会员总览 潜在会员 自定义的颜色
+            this.totalColor = ['#005AD4', '#FF8A7E']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
             this.extend = {
@@ -121,7 +127,6 @@
                     //     return rea + rec;
                     // },
                 },
-
                 grid: {
                     // show:true,//是否显示直角坐标系网格。[ default: false ]
                     // borderColor:"#c45455",//网格的边框颜色
@@ -132,7 +137,6 @@
                     width: "90%", //图例宽度
                     height: "80%", //图例高度
                 },
-
                 xAxis: {
                     axisTick: {
                         alignWithLabel: true
@@ -153,7 +157,6 @@
                         }
                     },
                 },
-
                 yAxis: {
                     type: 'value',
                     axisLine: {
@@ -184,7 +187,6 @@
                 height: "80%", //图例高度
             };
 
-
             return {
                 activeTabName: 'revenueTotal', //revenueTotal revenueDetails
                 tabLazy: true,
@@ -194,21 +196,15 @@
                     tabRevenueState:true,  //tab 显影
                 },
 
-
                 picStyle: {
-                    height: '200px',
-                    width: '200px',
+                    height: '180px',
+                    width: '180px',
                 },
-                funnelStyle:{
-                    height: '200px',
-                    width: '200px',
-                },
-                funnelSettings : {
-                    offsetY: 80,
-                    offsetX: 10,
-                    width:'100%',
 
-                    // radius: 70,
+                picSettings : {
+                    offsetY: 100,
+                    offsetX: 10,
+                    radius: 70,
                     label: {
                         normal: {
                             position: 'inner',
@@ -241,7 +237,12 @@
                     lastMonth:0.00,   //上月增长比例
                     nowMonth:0.00,    //本月增长比例
                 },
-
+                revenueRanking: {
+                    columns: ['name', 'value'],
+                    rows: [
+                        {name:'',value:0},
+                        {name:'',value:0}],
+                },
             }
         },
         methods: {
@@ -282,7 +283,21 @@
                 });
             },
 
+            /*项目营收排名*/
+            getRevenueRanking() {
+                revenueRanking().then(res => {
+                    console.log(res);
+                    // let MemberNum = [];
+                    // let MemberNum1 = res[1];
+                    // let MemberNum2 = res[2];
+                    // MemberNum.push(MemberNum1, MemberNum2);
+                    // this.revenueTotal.rows = MemberNum;
 
+
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
 
             /*接口调用*/
             callTabApi(tabName){

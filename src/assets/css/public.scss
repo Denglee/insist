@@ -19,27 +19,5 @@ $color-Yellow:#FFBE00;
 $color-GreenBlue:#1EAAA1;
 $color-Violet:#B6A2DE;
 
-@mixin fontColor($color){
-  color:$color;
-}
-.colorRed{
-  @include fontColor($color-Pink);
-}
-.colorBlueL{
-  @include fontColor($color-LigntBlue);
-}
-.colorYellow{
-  @include fontColor($color-Yellow);
-}
-.colorBlue{
-  @include fontColor($color-MediumBlue);
-}
-.colorGreen{
-  @include fontColor($color-GreenBlue);
-}
-.colorViolet{
-  @include fontColor($color-Violet);
-}
-
 
 
