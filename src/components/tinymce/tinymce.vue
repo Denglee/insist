@@ -31,7 +31,7 @@
             // 即abc.com/tinymce，baseUrl需要配置成tinymce，不然发布后资源会找不到
             baseUrl: {
                 type: String,
-                default: '/assets'
+                default: ''
             },
             disabled: {
                 type: Boolean,
@@ -44,7 +44,7 @@
             toolbar: {
                 type: [String, Array],
                 default: 'undo redo |  formatselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | lists image media table | removeformat'
-            }
+            },
         },
         data () {
             return {
@@ -60,11 +60,12 @@
                     toolbar: this.toolbar,
                     branding: false,
                     menubar: false,
+                    convert_urls:false,
                     // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
                     // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
                     images_upload_handler: (blobInfo, success, failure) => {
-                        const img = 'data:image/jpeg;base64,' + blobInfo.base64()
-                        success(img)
+                        const img = 'data:image/jpeg;base64,' + blobInfo.base64();
+                        success(img);
                     }
                 },
                 myValue: this.value
@@ -82,7 +83,8 @@
             // 可以添加一些自己的自定义事件，如清空内容
             clear () {
                 this.myValue = ''
-            }
+            },
+
         },
         watch: {
             value (newValue) {

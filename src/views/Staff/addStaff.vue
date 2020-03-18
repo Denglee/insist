@@ -4,8 +4,8 @@
 
             <el-form-item label="员工头像" :label-width="formLabelWidth">
                 <div class="img-header" v-if="addStaffForm.userimage">
-                    <img :src='localUrl+"/"+addStaffForm.userimage'  ref="singleImg">
-                    <span @click="staffCardPreview">放大</span>
+                    <img :src=' addStaffForm.userimage | imgBase(localUrl)'  ref="singleImg">
+                    <!--<span @click="staffCardPreview" class="imgHeader-big">放大</span>-->
                 </div>
                 <el-upload
                         class="btn-header"
@@ -140,7 +140,16 @@
             </el-form-item>
 
             <el-form-item label="教练介绍" :label-width="formLabelWidth">
-                <el-input v-model="addStaffForm.user_des" autocomplete="off" class="inpStaffTel"></el-input>
+                <tinymce ref="editor"
+                         style="max-width: 80%;"
+                         v-model="addStaffForm.user_des"
+                        :disabled="disabled"
+                        @onClick="onClick">
+                </tinymce>
+                <!--<button @click="clear">清空内容</button>
+                <button @click="disabled = true">禁用</button>-->
+
+                <!--<el-input v-model="addStaffForm.user_des" autocomplete="off" class="inpStaffTel"></el-input>-->
             </el-form-item>
 
             <el-form-item :label-width="formLabelWidth">
@@ -152,6 +161,7 @@
 
 <script>
     import navBread from '@/components/Echarts/navBread'
+    import tinymce from '@/components/tinymce/tinymce'
     import {staffAdd,staffDeduct,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
     export default {
         name: "addStaff",
@@ -162,7 +172,7 @@
             },
 
             /*父组件传过来的表单数据*/
-            'editStaff':[],
+            'editStaff':{},
         },
         data() {
 
@@ -225,9 +235,35 @@
 
                 localUrl:this.GLOBAL.localUrl,
 
+                disabled: false
+
+            }
+        },
+        filters:{
+            'imgBase'(value,options){
+                console.log(value);
+                if(value.indexOf('data:image')>-1){
+                    // console.log('base64');      // base64 图片操作
+                    return  value
+                }else{
+                    // console.log('path');         //path 图片操作
+                    return  options +"/"+ value
+                }
             }
         },
         methods: {
+
+            // 鼠标单击的事件
+            onClick (e, editor) {
+                console.log('Element clicked');
+                console.log(e);
+                console.log(editor)
+            },
+            // 清空内容
+            clear () {
+                this.$refs.editor.clear()
+            },
+
             /*3.1、头像 上传 选中*/
             changeUpload(file){
                 console.log(file);
@@ -354,6 +390,7 @@
         },
         components:{
             navBread,
+            tinymce
         }
     }
 </script>

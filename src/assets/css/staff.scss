@@ -44,9 +44,18 @@
     margin-right: 20px;
     vertical-align: top;
     display: inline-block;
+    position: relative;
     img{
       display: block;
       width: 100%;
+      max-height: 100%;
+    }
+    .imgHeader-big{
+      position: absolute;
+      padding: 20px;
+      left: 20%;
+      top: 40%;
+      z-index: 111;
     }
   }
   .btn-header{

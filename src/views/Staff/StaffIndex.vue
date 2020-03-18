@@ -89,6 +89,7 @@
                                 <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
                             </template>
                         </el-table-column>
+
                         <el-table-column prop="lock" label="状态">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
@@ -143,11 +144,9 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="diaGroup = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaGropu()">确 定</el-button>
+                <el-button type="primary" @click="sureDiaGropu()" :disabled='isDisabled'>确 定</el-button>
             </div>
         </el-dialog>
-
-        <!-- 部门 设置 编辑-->
 
     </div>
 </template>
@@ -188,10 +187,10 @@
                 staffPage:1,     /*分页 页码*/
                 formLabelWidth: '120px',
                 EditListForm: false, //员工编辑 块 显示状态
-                staffListState: false,//tab 显示状态
+                staffListState: true,//tab 显示状态
 
                 /* == 添加员工 ==*/
-                addStaffState: true, //添加员工 块 显示状态
+                addStaffState: false, //添加员工 块 显示状态
                 addTitle:'添加员工',
 
                 /*2.1员工操作*/
@@ -392,6 +391,9 @@
             sureDiaGropu(){
                 let groupName = this.setupGroup.name;
                 console.log(groupName);
+
+                return false
+
                 if(groupName == ''){
                     this.$message.error('部门名称 不能为空')
                 }else {
@@ -442,10 +444,10 @@
                     console.log(this.getStaffClasses.lock);
                     this.staffPage = this.getStaffClasses.lock;
                     this.getStaffIndex();
-                };
+                }
                 if(tabName == 'StaffRoyalty'){
                     this.getStaffGroup();
-                };
+                }
 
             },
 

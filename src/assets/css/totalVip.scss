@@ -100,14 +100,15 @@ $tabHei: 46px;
   }
 }
 
-.vipNav-btnBox {
+.vipNav-rBox {
   margin-top: 6px;
+  display: flex;
 }
 
 .btn-ptMore {
   width: 70px;
-  height: 34px;
-  line-height: 34px;
+  height: 32px;
+  line-height: 32px;
   background: $color-GrayE5;
   border: 1px solid $color-GrayE5;
   border-radius: 10px;

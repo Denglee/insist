@@ -233,83 +233,17 @@
                 <div class="index-item pt-sales">
                     <header class="index-item-title flex-between">
                         <div class="title">销售额查询</div>
-                        <div class="vipNav-btnBox">
+                        <div class="vipNav-rBox">
+                            <monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>
                             <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">
                                 更多 <i class="el-icon-arrow-right"></i>
                             </el-button>
                         </div>
                     </header>
                     <div class="ptTable-assist">
-                        <!--私教销售额筛选-->
-                        <div class="pt-screen">
-                            <!--部门-->
-                            <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
-                                       style="width: 150px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--私教教练-->
-                            <el-select v-model="value" placeholder="请选择教练" class="inp-mar14"
-                                       style="width: 130px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class="inp-mar14"
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                            <!--搜索-->
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
-                            </el-input>
-                            <el-button class="btn-search" icon="el-icon-search" @click="searchPT">搜索</el-button>
 
-                        </div>
+                        <statisDetails></statisDetails>
 
-                        <!--销售额表格-->
-                        <el-table
-                                class="pub-table"
-                                border
-                                :data="PTtable">
-                            <el-table-column
-                                    prop="department"
-                                    label="部门">
-                            </el-table-column>
-                            <el-table-column prop="pt" label="教练"></el-table-column>
-
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-
-                            <el-table-column
-                                    prop="money"
-                                    label="金额">
-                                <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
-                            </el-table-column>
-                            <el-table-column
-                                    prop="day"
-                                    label="日期">
-                            </el-table-column>
-                        </el-table>
-
-                        <el-pagination
-                                background
-                                layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
                     </div>
                 </div>
 
@@ -322,97 +256,7 @@
                         </div>
                     </header>
                     <div class="ptTable-assist">
-                        <!-- 私教数量查询 筛选-->
-                        <div class="pt-screen">
-                            <!--部门-->
-                            <el-select v-model="value" placeholder="请选择部门"
-                                       class="inp-mar14 ptSel-section">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
 
-                            <!--教练-->
-                            <el-select v-model="value" placeholder="请选择教练"
-                                       class="inp-mar14 ptSel-trainer">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class="inp-mar14"
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
-                            <!--搜索-->
-                            <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
-                        </div>
-
-                        <!--私教数量查询 表格-->
-                        <el-table
-                                class="pub-table"
-                                :data="PTNumTable"
-                                border>
-                            <el-table-column
-                                    prop="department"
-                                    label="部门">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="pt"
-                                    label="教练">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptContinuation"
-                                    label="续课">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptTransfer"
-                                    label="转课">
-                                <!--<template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>-->
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptRefund"
-                                    label="退款">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptOverdue"
-                                    label="过期">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptFollow"
-                                    label="跟进">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptNoFollow"
-                                    label="未跟进">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptNewAdd"
-                                    label="新增私教">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptTotal"
-                                    label="总会员数">
-                            </el-table-column>
-                        </el-table>
-
-                        <el-pagination
-                                background
-                                layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
 
                     </div>
                 </div>
@@ -435,67 +279,10 @@
                 <div class="index-item pt-sales">
                     <header class="index-item-title flex-between">
                         <div class="title">会员上课详情</div>
-                        <div class="flex-between">
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class=""
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptLessonD')">查看更多</el-button>
-                        </div>
                     </header>
                     <div class="ptTable-assist">
-                        <!-- 私教会员上课详情 筛选-->
-                        <div class="pt-screen">
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
-                            <!--搜索-->
-                            <el-button icon="el-icon-search" @click="searchPT" class="btn-search">搜索</el-button>
-                        </div>
 
-                        <!-- PT会员上课详情 表格-->
-                        <el-table
-                                class="pub-table"
-                                :data="PTVipTable"
-                                border>
-                            <el-table-column
-                                    prop="vipName"
-                                    label="姓名">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="lessonName"
-                                    label="课程名称">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="lessonTotal"
-                                    label="总上课节数">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="PT"
-                                    label="教练">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="vipSex"
-                                    label="性别">
-                            </el-table-column>
-                        </el-table>
 
-                        <el-pagination
-                                background
-                                layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
                     </div>
                 </div>
             </el-tab-pane>
@@ -572,76 +359,7 @@
                         <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','vSalesD')">更多</el-button>
                     </header>
                     <div class="ptTable-assist">
-                        <!--销售额筛选-->
-                        <div class="pt-screen">
-                            <!--部门-->
-                            <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
-                                       style="width: 150px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--教练-->
-                            <el-select v-model="value" placeholder="请选择教练"  class="inp-mar14"
-                                       style="width: 130px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class="inp-mar14"
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                            <!--搜索-->
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
-                                <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                            </el-input>
-                        </div>
 
-                        <!--销售额表格-->
-                        <el-table
-                                class="pub-table"
-                                border
-                                :data="PTtable">
-                            <el-table-column
-                                    prop="department"
-                                    label="部门">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="pt"
-                                    label="教练">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="money"
-                                    label="金额">
-                                <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
-                            </el-table-column>
-                            <el-table-column
-                                    prop="day"
-                                    label="日期">
-                            </el-table-column>
-                        </el-table>
-
-                        <el-pagination
-                                background
-                                 layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
                     </div>
 
                 </div>
@@ -654,95 +372,6 @@
                     </header>
                     <div class="ptTable-assist">
 
-                        <!-- C3会籍数量查询 筛选-->
-                        <div class="pt-screen">
-                            <!--部门-->
-                            <el-select v-model="value" placeholder="请选择部门" class="inp-mar14"
-                                       style="width: 150px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--教练-->
-                            <el-select v-model="value" placeholder="请选择教练"  class="inp-mar14"
-                                       style="width: 130px;">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class="inp-mar14"
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                            <!--搜索-->
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
-                                <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                            </el-input>
-                        </div>
-
-                        <!--  C3会籍数量查询 表格-->
-                        <el-table
-                                class="pub-table"
-                                :data="PTNumTable"
-                                border>
-                            <el-table-column
-                                    prop="department"
-                                    label="部门">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="pt"
-                                    label="教练">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptContinuation"
-                                    label="续课">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptTransfer"
-                                    label="转课">
-                                <!--<template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>-->
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptRefund"
-                                    label="退款">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptOverdue"
-                                    label="过期">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptFollow"
-                                    label="跟进">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptNoFollow"
-                                    label="未跟进">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptNewAdd"
-                                    label="新增私教">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="ptTotal"
-                                    label="总会员数">
-                            </el-table-column>
-                        </el-table>
-                        <el-pagination
-                                background
-                                 layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
                     </div>
                 </div>
 
@@ -753,63 +382,7 @@
                         <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','vLessonD')">查看更多</el-button>
                     </header>
                     <div class="ptTable-assist">
-                        <!-- C4 会员上课详情 筛选-->
-                        <div class="pt-screen flex-between">
-                            <!--搜索-->
-                            <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input">
-                                <el-button slot="append" icon="el-icon-search" @click="searchPT"></el-button>
-                            </el-input>
-                            <!--日期选择-->
-                            <el-date-picker
-                                    class=""
-                                    v-model="value1"
-                                    type="daterange"
-                                    range-separator="至"
-                                    start-placeholder="开始日期"
-                                    end-placeholder="结束日期">
-                            </el-date-picker>
-                        </div>
 
-                        <!-- C4 会员上课详情 表格-->
-                        <el-table
-                                class="pub-table"
-                                :data="PTVipTable"
-                                border>
-                            <el-table-column
-                                    prop="vipName"
-                                    label="姓名">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="tel"
-                                    label="电话">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="lessonName"
-                                    label="课程名称">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="lessonTotal"
-                                    label="总上课节数">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="PT"
-                                    label="教练">
-                            </el-table-column>
-                            <el-table-column
-                                    prop="vipSex"
-                                    label="性别">
-                            </el-table-column>
-                        </el-table>
-
-                        <el-pagination
-                                background
-                                 layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
                      </div>
                 </div>
             </el-tab-pane>
@@ -819,15 +392,19 @@
         <!--私教销售额查询 表格 详情-->
         <div v-show="ptSalesD">
             <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
+            <statisDetails></statisDetails>
+        </div>
+       <!-- <div v-show="ptSalesD">
+            <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
             <div class="ptTable-detail vip-tabBox pubWidth">
-                <!-- B2 销售额查询 -->
+                &lt;!&ndash; B2 销售额查询 &ndash;&gt;
                 <div class="index-item ">
                     <header class="index-item-title">
                         <div class="title">私教销售额查询</div>
                     </header>
-                    <!--销售额筛选-->
+                    &lt;!&ndash;销售额筛选&ndash;&gt;
                     <div class="pt-screen">
-                        <!--部门-->
+                        &lt;!&ndash;部门&ndash;&gt;
                         <el-select v-model="value" placeholder="请选择部门"
                                    class="inp-mar14"
                                    style="width: 150px;">
@@ -838,7 +415,7 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-                        <!--教练-->
+                        &lt;!&ndash;教练&ndash;&gt;
                         <el-select v-model="value" placeholder="请选择教练"
                                    class="inp-mar14"
                                    style="width: 130px;">
@@ -849,7 +426,7 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-                        <!--日期选择-->
+                        &lt;!&ndash;日期选择&ndash;&gt;
                         <el-date-picker
                                 class="inp-mar14"
                                 v-model="value1"
@@ -858,14 +435,14 @@
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期">
                         </el-date-picker>
-                        <!--搜索-->
+                        &lt;!&ndash;搜索&ndash;&gt;
                         <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
 
                         <el-button slot="append" icon="el-icon-search" @click="searchPT">搜索</el-button>
 
                         <el-button slot="append" icon="el-icon-search" @click="searchPT">导出</el-button>
                     </div>
-                    <!--销售额表格-->
+                    &lt;!&ndash;销售额表格&ndash;&gt;
                     <el-table
                             class="pub-table"
                             :data="PTtable"
@@ -898,32 +475,28 @@
                                  layout="prev, pager, next,total,jumper"
                                 :total="20">
                         </el-pagination>
-                        <!--<router-link to="/Reception/table">走吧</router-link>-->
+                        &lt;!&ndash;<router-link to="/Reception/table">走吧</router-link>&ndash;&gt;
                     </div>
 
-<!--                    <button @click="btnRefush()">刷新</button>-->
+&lt;!&ndash;                    <button @click="btnRefush()">刷新</button>&ndash;&gt;
                 </div>
             </div>
-        </div>
-
+        </div>-->
 
     </div>
 </template>
 
 <script>
 
-    import navBread from '@/components/Echarts/navBread'
+    import navBread from '@/components/Echarts/navBread'  //面包屑导航 组件
+    import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
+    import statisDetails from '@/components/details/statisDetails'  // 详情组件
+
     import {
-        PTprivateMember,
-        totalMember_number,
-        totalMember_trend,
-        totalPassenger_trend,
-        totalRefund_trend,
-        totalSub_card_trend,
-        PTClassRanking,
-        PTMemberClass,
-        VipMemberTkClass,
-        VipSalerStatis,
+        PTprivateMember, totalMember_number, totalMember_trend, totalPassenger_trend, totalRefund_trend,
+        totalSub_card_trend, PTClassRanking, PTMemberClass,
+        VipMemberTkClass, VipSalerStatis,
+        staffIndex
     } from '@/assets/js/api' /*引用 会员总览 接口*/
 
     export default {
@@ -1012,6 +585,11 @@
 
             return {
                 activeTabName: 'VipPT', //VipTotal VipPT VipMembership
+                hasAxios:{  //是否调用接口状态
+                    VipTotal:false,
+                    VipPT:false,
+                    VipMembership:false,
+                },
 
                 tabLazy: true,
                 /* == 会员总览 eCharts 对应宽高 == */
@@ -1134,10 +712,10 @@
 
 
 
+
+
                 /*  == 私教 == */
-                value: '',
-                value1: "",
-                input3: '',
+
 
                 //销售额表格
                 PTtable: [],
@@ -1145,8 +723,6 @@
                 PTNumTable: [],
                 PTVipTable: [],  /*私教上课详情*/
 
-                options: [],
-                value: '',
 
                 /*私教上课查询*/
                 PTclass: {
@@ -1178,6 +754,12 @@
             }
         },
         methods: {
+
+
+            /*七天 日期筛选*/
+            getMonthScreen(data){
+                console.log(data);
+            },
 
             btnRefush(){
                 //销售额表格
@@ -1244,6 +826,10 @@
                             '新增私教' : addPT[i],
                         })
                     }
+
+
+                    this.hasAxios.VipTotal = true; //阻止接口重复调用
+
                 }).catch(res => {
                     console.log(res);
                 });
@@ -1341,6 +927,8 @@
                     ptFollow.push(ptHaveFollow, ptNoFollow);
                     this.PTFollow.rows = ptFollow;
 
+                    this.hasAxios.VipPT = true; //阻止接口重复调用
+
                 }).catch(res => {
                     console.log(res);
                 });
@@ -1349,12 +937,7 @@
             getPTClassRanking() {
                 PTClassRanking().then(res => {
                     this.PTclass.rows = [];
-                    console.log(res);
-                    // this.PTclass.rows = res;
-                    // return false;
                     res.forEach((item,i)=>{
-                        console.log(item);
-                        console.log(i);
                         this.PTclass.rows.push({
                             '姓名' : item.name,
                             '上课节数' : item.value,
@@ -1425,6 +1008,9 @@
                     let ptNoFollow = res[5];
                     ptFollow.push(ptHaveFollow, ptNoFollow);
                     this.VipFollow.rows = ptFollow;
+                    
+                    this.hasAxios.VipMembership = true; //阻止接口重复调用
+
                 }).catch(res => {
                     console.log(res);
                 });
@@ -1446,36 +1032,47 @@
             callTabApi(tabName){
                 console.log(tabName);
                 if(tabName == 'VipTotal'){
-                    /*调用 ==== 会员总览1 ==== 会员数量*/
-                    this.getTotalMember_number();
-                    /*调用 会员总览2 新增会员走势*/
-                    this.getTotalMember_trend();
-                    /*调用 会员总览3 消耗趋势*/
-                    this.getTotalSub_card_trend();
-                    /*调用 会员总览4 退款,转让走势*/
-                    this.getTotalRefund_trend();
-                    /*调用 会员总览5 客流走势*/
-                    this.getTotalPassenger_trend();
+                    if(this.hasAxios.VipTotal == false ){
+                        /*调用 ==== 会员总览1 ==== 会员数量*/
+                        this.getTotalMember_number();
+                        /*调用 会员总览2 新增会员走势*/
+                        this.getTotalMember_trend();
+                        /*调用 会员总览3 消耗趋势*/
+                        this.getTotalSub_card_trend();
+                        /*调用 会员总览4 退款,转让走势*/
+                        this.getTotalRefund_trend();
+                        /*调用 会员总览5 客流走势*/
+                        this.getTotalPassenger_trend();
+                    }
                 };
                 if(tabName == 'VipPT'){
-                    /*调用 ==== 私教1 ==== 私教统计*/
-                    this.getPTprivateMember();
-                    this.getPTMemberClass();
-                    this.getPTClassRanking();
+                    if(this.hasAxios.VipPT == false ){
+                        /*调用 ==== 私教1 ==== 私教统计*/
+                        this.getPTprivateMember();
+                        this.getPTMemberClass();
+                        this.getPTClassRanking();
+                    }
                 };
                 if(tabName == 'VipMembership'){
-                    this.getVipMemberTkClass();
-                    this.getVipSalerStatis();
+                    if(this.hasAxios.VipMembership == false ) {
+                        this.getVipMemberTkClass();
+                        this.getVipSalerStatis();
+                    }
                 };
             },
         },
         created() {
+
             let tabName =this.activeTabName;
             this.callTabApi(tabName);
+
+
         },
 
         components: {
             navBread,
+            monthSceen,
+            statisDetails
         },
     }
 </script>

@@ -124,9 +124,13 @@
                         </div>
                     </el-col>
                 </el-row>
+
+
+                <monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>
+
+<!--                <monthSceen  @getMonthScreen2 ="getMonthScreen"></monthSceen>-->
+
             </el-tab-pane>
-
-
         </el-tabs>
 
         <!--提成 名称 种类 添加 弹窗-->
@@ -135,15 +139,15 @@
                 <el-form-item label="提成名称" >
                     <el-input v-model="deductInfo.deduction_name" placeholder="请输入提成名称" autocomplete="off" class="dia-inp"></el-input>
                 </el-form-item>
-                <el-form-item label="提成类型" >
+                <el-form-item label="提成类型" prop="deductionType">
                     <el-select v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
-                        <el-option v-for="item in deductInfo.deduction_type" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="item in deduction_type2" :key="item.id" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaRoyalty()">确 定</el-button>
+                <el-button type="primary" @click="sureDiaRoyalty()":loading="btnLoad.state">{{btnLoad.text}}</el-button>
             </div>
         </el-dialog>
 
@@ -184,7 +188,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogSetRoyalty = false" plain>取 消</el-button>
-                    <el-button type="primary" @click="sureDiaSetUp('setRoyalty1')">确 定</el-button>
+                    <el-button type="primary" @click="sureDiaSetUp('setRoyalty1')" :loading="btnLoad.state">{{btnLoad.text}}</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -194,6 +198,7 @@
 
 <script>
     import navBread from '@/components/Echarts/navBread'
+    import monthSceen from '@/components/monthSceen/monthSceen'
 
     import {staffDeduct,staffPhases} from '@/assets/js/api'
 
@@ -202,8 +207,9 @@
         name: "StaffReword",
         data() {
             return {
+
                 isReloadData: true,  //刷新标示
-                activeTabName: 'StaffRoyalty', //StaffSalary StaffRoyalty StaffReward
+                activeTabName: 'StaffReward', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
 
                 /*tab1 员工工资*/
@@ -227,20 +233,24 @@
 
                 /* tab2 提成添加 种类 */
                 dialogRoyalty:false,   //提成名称 设置 弹窗
+                btnLoad:{
+                    state:false,
+                    text:'确定',
+                },
                 formLabelWidth: '120px',
                 deductInfo:{
                     RoyaltyTitle:'',  //弹窗名称
                     zmtek_ver:2,
                     type:1,     //1 = 获取组列表信息 2 = 添加组信息 3 = 修改组信息 4 = 删除
                     deduction_name:'',      //添加必传
-                    deductionType:1,
-                    deduction_type:[
-                        {id:1,name:'个人销售比'},
-                        {id:2,name:'部门销售比'},
-                        // {id:3,name:'上课节数'},
-                    ],      //添加必传
+                    deductionType:'',
                     id : '',        //删除必传
                 },
+                deduction_type2:[
+                    {id:'1',name:'个人销售比'},
+                    {id:'2',name:'部门销售比'},
+                    // {id:3,name:'上课节数'},
+                ],      //添加必传
                 tableRoyalty:[],
                 formLabelRoyalty:'90px',
 
@@ -268,24 +278,17 @@
             }
         },
         methods: {
-            reload2 () {
-                console.log('你好像没什么用 ');
-                this.isReloadData = false;
-                this.$nextTick(() => {
-                    this.isReloadData = true
-                })
+
+            /*获取日期 筛选 时间*/
+            getMonthScreen(data){
+                console.log(data);
             },
 
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+            getMonthScreen2(data){
+                console.log(data);
             },
+
+
 
             /* 0、tab切换*/
             tabTotal(tab, event) {
@@ -319,7 +322,10 @@
                     console.log(res.data);
                     let type = this.deductInfo.type;
                     console.log(type);
-
+                    this.btnLoad = {
+                        state:false,
+                        text:'确定',
+                    };
                     if(res.status ==1){
                         if(type == 1){
                             this.tableRoyalty = res.data;
@@ -344,6 +350,7 @@
             btnAddRoyalty(){
                 this.deductInfo.RoyaltyTitle = '添加提成';
                 this.deductInfo.type = 2;
+
                 console.log( this.deductInfo);
                 this.dialogRoyalty = true;
             },
@@ -356,7 +363,12 @@
                 if(groupName == ''){
                     this.$message.error('提成名称 不能为空')
                 } else {
+                    this.btnLoad = {
+                        state:true,
+                        text:'提交中',
+                    };
                     let groupId = this.deductInfo.id;
+
                     this.getStaffDeduct();
                 }
             },
@@ -364,7 +376,9 @@
             /* 2.3 提成 名称 编辑*/
             EditGroup(index, row){
                 console.log(index, row);
+
                 this.deductInfo.id = row.id;
+                this.deductInfo.deductionType = row.deduction_type;
                 this.deductInfo.deduction_name = row. deduction_name;
                 this.deductInfo.RoyaltyTitle = '提成编辑';
                 this.deductInfo.type = 3;
@@ -417,6 +431,11 @@
                     let type = this.setRoyalty.type;
                     console.log('当前状态： '+type);
 
+                    this.btnLoad = {
+                      state:false,
+                      text:"确定",
+                    };
+
                     if(res.status ==1){
                         if(type == 1){
                             this.setTableRoyalty = res.data;
@@ -449,6 +468,10 @@
             sureDiaSetUp(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        this.btnLoad = {
+                            state:true,
+                            text:'确定',
+                        };
                         this.getStaffPhases();
                     } else {
                         console.log('error submit!!');
@@ -527,11 +550,35 @@
         },
         components: {
             navBread,
+            monthSceen
         },
     }
 </script>
 
 <style lang="scss" >
     @import "@/assets/css/staff.scss";
+
+
+
+    /*.el-date-picker.has-sidebar {*/
+    /*    width: 320px;*/
+    /*    .el-picker-panel__sidebar {*/
+    /*        top: auto;*/
+    /*        width: 100%;*/
+    /*        border: 0;*/
+    /*        .el-picker-panel__shortcut {*/
+    /*            border-top: 1px solid red;*/
+    /*            text-align: center;*/
+    /*        }*/
+    /*    }*/
+    /*    .el-picker-panel__body {*/
+    /*        margin: 0;*/
+    /*        .el-picker-panel__content {*/
+    /*            width: auto;*/
+    /*            margin-bottom: 40px;*/
+    /*        }*/
+    /*    }*/
+    /*}*/
+
 
 </style>
