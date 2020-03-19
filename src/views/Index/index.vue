@@ -15,11 +15,17 @@
                         <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
                     </ul>
                     <div class="flex-between">
-                        <eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>
+                        <ve-pie :data="chartVip"
+                                :legend-visible="false"
+                                :colors="totalColor"
+                                :style="picStyle"
+                                :settings="picSettings"></ve-pie>
+
+                        <!--<eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>-->
                         <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{chartVip.series[0].data[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{chartVip.series[0].data[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{chartVip.series[0].data[2].value}}</span></li>
+<!--                            <li>潜在会员： <span class="vipTipG">{{chartVip.rows[0].potential_members}}</span></li>-->
+<!--                            <li>正式会员： <span class="vipTipB">{{chartVip.rows[1].official_members}}</span></li>-->
+<!--                            <li>私教会员： <span class="vipTipY">{{chartVip.rows[2].personal_members}}</span></li>-->
                         </ul>
                     </div>
                 </div>
@@ -37,11 +43,15 @@
                         <li><span class="addVip-tagY"></span>私教会员</li>
                     </ul>
                     <div class="flex-between">
-                        <eCharts :eChartObj="addVip" :style="styleAddVip"></eCharts>
+                        <ve-pie :data="addVip"
+                                :legend-visible="false"
+                                :colors="totalColor"
+                                :style="picStyle"
+                                :settings="picSettings"/>
                         <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{addVip.series[0].data[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{addVip.series[0].data[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{addVip.series[0].data[2].value}}</span></li>
+<!--                            <li>潜在会员： <span class="vipTipG">{{addVip.rows[0].value}}</span></li>-->
+<!--                            <li>正式会员： <span class="vipTipB">{{addVip.rows[1].value}}</span></li>-->
+<!--                            <li>私教会员： <span class="vipTipY">{{addVip.rows[2].value}}</span></li>-->
                         </ul>
                     </div>
                 </div>
@@ -63,19 +73,14 @@
                         </div>
                     </div>
 
-                    <!--<div class="present-time">
-                        <el-date-picker
-                                @change="truePresent"
-                                v-model="datePresent"
-                                type="date"
-                                placeholder="选择日期"
-                                value-format="yyyy-MM-dd"
-                                format="yyyy-MM-dd">
-                        </el-date-picker>
-                    </div>-->
-
                     <div class="flex-between">
-                        <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>
+                        <ve-line
+                                :data="presentNum"
+                                :legend-visible="false"
+                                :style="LineStyle"
+                                :extend = 'lineExtend'
+                        ></ve-line>
+<!--                        <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>-->
                     </div>
                 </div>
             </el-col>
@@ -118,14 +123,6 @@
                 <div class="index-item indexItem-hei250">
                     <header class="index-item-title flex-between">
                         <div class="title">课程分析</div>
-                        <!--<el-date-picker
-                                @change="trueLesson"
-                                v-model="dateLesson"
-                                type="date"
-                                placeholder="选择日期"
-                                value-format="yyyy-MM-dd"
-                                format="yyyy 年 MM 月 dd 日">
-                        </el-date-picker>-->
                     </header>
                     <div class="lesson-main lesson-borR">
                         <h4 class="lesson-main-title">团课</h4>
@@ -155,16 +152,6 @@
         <div class="index-item income-container clearfix">
             <header class="index-item-title flex-between">
                 <div class="title">收支统计</div>
-               <!-- <div>
-                    <el-date-picker
-                            @change="trueComeinTotal"
-                            v-model="dateComeinTotal"
-                            type="date"
-                            placeholder="选择日期"
-                            value-format="yyyy-MM-dd"
-                            format="yyyy年MM月dd日">
-                    </el-date-picker>
-                </div>-->
             </header>
             <div class="income-total">
                 <div class="income-borR">
@@ -188,20 +175,6 @@
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">收入趋势</div>
-                <!--<div>
-                    <span class="comeIn-title">日期筛选</span>
-                    <el-date-picker
-                            @change="trueComein"
-                            v-model="dateComein"
-                            type="daterange"
-                            align="right"
-                            value-format="yyyy-MM-dd"
-                            range-separator="至"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期"
-                            :default-time="['12:00:00', '08:00:00']">
-                    </el-date-picker>
-                </div>-->
             </header>
             <ul class="index-item-tipUl">
                 <li><img src="~@/assets/icon/icon_comeinTK.png" alt="">会籍营收</li>
@@ -222,7 +195,117 @@
         inject: ['reLoad'],
 
         data() {
+            this.totalColor = ['#4CCBEB', '#005AD4','#ff8a7e']; //会员总览 潜在会员 自定义的颜色
+            this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
+            this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
+            this.lineExtend = {
+                tooltip: {
+                    trigger: 'axis',
+                    textStyle: {
+                        fontSize:12,
+                    },
+                    // formatter : function (params) {
+                    //
+                    //     var rec = '';
+                    //     for(var i = 0;i < params.length;i++){
+                    //         var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+                    //             ''+ params[i].axisValue + '</div>';
+                    //         var reb = '<div style="margin: 4px">'+
+                    //             '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+                    //             '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+                    //             '</div>';
+                    //         rec= rec + reb;
+                    //     }
+                    //     return rea + rec;
+                    // },
+                },
+
+                grid: {
+                    // show:true,//是否显示直角坐标系网格。[ default: false ]
+                    // borderColor:"#c45455",//网格的边框颜色
+                    top: "30px",
+                    left: "4%",
+                    right: "4%",
+                    bottom: "4%",
+                    width: "92%", //图例宽度
+                    height: "80%", //图例高度
+                },
+
+                xAxis: {
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    type: 'category',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8E8E8E',
+                        }
+                    },
+                    //设置字体倾斜
+                    axisLabel: {
+                        // interval:0,
+                        // rotate:10,//倾斜度 -90 至 90 默认为0
+                        margin:15,
+                        textStyle: {
+                            color: "#8E8E8E"
+                        }
+                    },
+                },
+
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8E8E8E',
+                        }
+                    },
+                },
+                series: {
+                    type: 'line',
+                    symbolSize: 9,   //设定实心点的大小
+                    lineStyle: {
+                        normal: {
+                            type: 'dashed',
+                        }
+                    },
+                }
+            };
+
             return {
+                LineStyle:{
+                    height: '240px',
+                    width: '100%',
+                },
+
+                picSettings : {
+                    offsetY: 100,
+                    offsetX: 200,
+                    radius: 70,
+                    label: {
+                        normal: {
+                            position: 'inner',
+                            show: false,
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                },
+                picStyle: {
+                    height: '180px',
+                    width: '180px',
+                },
+
+                chartVip: {
+                    columns: ['name', 'value'],
+                    rows: [],
+                },
+                addVip: {
+                    columns: ['name', 'value'],
+                    rows: [],
+                },
 
                 progerssStroke:'square',  /*progress*/
                 presentNo:'20',  /*在场人数*/
@@ -238,7 +321,6 @@
                     {
                         class: "colorRed",
                         color: '#FF8A7E',
-
                     },
                     {
                         class: "colorBlue",
@@ -303,7 +385,7 @@
                 },
 
                 /*现有会员*/
-                chartVip: {
+               /* chartVip: {
                     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
                     tooltip: {
                         trigger: 'item',
@@ -332,112 +414,118 @@
                             }
                         }
                     }],
-                },
+                },*/
 
                 /*今日新增会员*/
-                addVip: {
-                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    series: [
-                        {
-                            type: 'funnel',
-                            left: '10%',
-                            width: '60%',
-                            height: '60%',
-                            top: '20%',
-                            label: {
-                                normal: {
-                                    show: false,
-                                },
-                                emphasis: {
-                                    show: false,
-                                }
-                            },
-                            itemStyle : {
-                                normal : {
-                                    label : {
-                                        show : false
-                                    },
-                                    labelLine : {
-                                        show : false
-                                    }
-                                },
-
-                            },
-
-                            data: [
-                                {name: "", value: ""},
-                                {name: "", value: ""},
-                                {name: "", value: ""},
-                            ]
-                        }
-                    ]
-                },
+                // addVip: {
+                //     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                //     tooltip: {
+                //         trigger: 'item',
+                //     },
+                //     series: [
+                //         {
+                //             type: 'funnel',
+                //             left: '10%',
+                //             width: '60%',
+                //             height: '60%',
+                //             top: '20%',
+                //             label: {
+                //                 normal: {
+                //                     show: false,
+                //                 },
+                //                 emphasis: {
+                //                     show: false,
+                //                 }
+                //             },
+                //             itemStyle : {
+                //                 normal : {
+                //                     label : {
+                //                         show : false
+                //                     },
+                //                     labelLine : {
+                //                         show : false
+                //                     }
+                //                 },
+                //
+                //             },
+                //
+                //             data: [
+                //                 {name: "", value: ""},
+                //                 {name: "", value: ""},
+                //                 {name: "", value: ""},
+                //             ]
+                //         }
+                //     ]
+                // },
 
                 /*在场与客流人数*/
                 presentNum: {
-                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'cross',
-                            label: {
-                                backgroundColor: '#6a7985'
-                            }
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data:[],
-                        //设置坐标轴字体颜色和宽度
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                        splitLine: {
-                            lineStyle: {
-                                color: '#f4f4f4',
-                                width: 1
-                            }
-                        }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        name: '客流趋势',   // y轴名称
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-                    grid: {
-                        top: "40px",
-                        left: "60px",
-                        right: "40px",
-                        bottom: "20px",
-                        width: "auto", //图例宽度
-                        height: "auto", //图例高度
-
-                    },
-                    series: [
-                        {
-
-                            name: '客流趋势',
-                            type: 'line',
-                            data: [],
-                            symbolSize: 8,   //设定实心点的大小
-                        },
-                        {
-                            name: '在场人数',
-                            type: 'line',
-                            data: [],
-                            symbolSize: 8,   //设定实心点的大小
-                        }
-                    ]
+                    columns: ['日期', '在场人数'],
+                    rows: [],
                 },
+
+
+                // presentNum: {
+                //     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
+                //     tooltip: {
+                //         trigger: 'axis',
+                //         axisPointer: {
+                //             type: 'cross',
+                //             label: {
+                //                 backgroundColor: '#6a7985'
+                //             }
+                //         }
+                //     },
+                //     xAxis: {
+                //         type: 'category',
+                //         data:[],
+                //         //设置坐标轴字体颜色和宽度
+                //         axisLine: {
+                //             lineStyle: {
+                //                 color: '#8E8E8E',
+                //             }
+                //         },
+                //         splitLine: {
+                //             lineStyle: {
+                //                 color: '#f4f4f4',
+                //                 width: 1
+                //             }
+                //         }
+                //     },
+                //     yAxis: {
+                //         type: 'value',
+                //         name: '客流趋势',   // y轴名称
+                //         axisLine: {
+                //             lineStyle: {
+                //                 color: '#8E8E8E',
+                //             }
+                //         },
+                //     },
+                //     grid: {
+                //         top: "40px",
+                //         left: "60px",
+                //         right: "40px",
+                //         bottom: "20px",
+                //         width: "auto", //图例宽度
+                //         height: "auto", //图例高度
+                //
+                //     },
+                //     series: [
+                //         {
+                //
+                //             name: '客流趋势',
+                //             type: 'line',
+                //             data: [],
+                //             symbolSize: 8,   //设定实心点的大小
+                //         },
+                //         {
+                //             name: '在场人数',
+                //             type: 'line',
+                //             data: [],
+                //             symbolSize: 8,   //设定实心点的大小
+                //         }
+                //     ]
+                // },
 
                 /*课程分析 团课*/
                 lessonGroup: {
@@ -562,7 +650,6 @@
 
                     },
                     series: [
-
                         {
                             name: '团课营收',
                             type: 'line',
@@ -597,8 +684,15 @@
             /*获取  现有会员 数据*/
             getTotal(){
                 IndexTotal_membership().then(res => {
-                    // console.log(res);
-                    this.chartVip.series[0].data = res;
+                    console.log(res);
+                    // let MemberNum = [];
+                    // let MemberNum1 = res[0];
+                    // let MemberNum2 = res[1];
+                    // let MemberNum2 = res[1];
+                    // MemberNum.push(MemberNum1, MemberNum2);
+                    this.chartVip.rows = res;
+
+                    // this.chartVip.series[0].data = res;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -607,13 +701,15 @@
             /*获取 今日新增会员 数据*/
             getNewMenber(){
                 IndexNew_membership().then(res => {
-                    // console.log(res);
-                    this.addVip.series[0].data[0].value = res[0].potential_members;
+                    console.log(res);
+                    this.addVip.rows = res;
+
+                    /*this.addVip.series[0].data[0].value = res[0].potential_members;
                     this.addVip.series[0].data[0].name = res[0].name;
                     this.addVip.series[0].data[1].value = res[1].official_members;
                     this.addVip.series[0].data[1].name = res[1].name;
                     this.addVip.series[0].data[2].value = res[2].personal_members;
-                    this.addVip.series[0].data[2].name = res[2].name;
+                    this.addVip.series[0].data[2].name = res[2].name;*/
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -622,12 +718,32 @@
             /*获取  在场人数 数据*/
             getStatistics(){
                 IndexStatistics().then(res => {
-                    // console.log(res);
-                    let xArr= res.date.split(',');
-                    this.presentNum.xAxis.data = xArr;
+                    console.log(res);
 
-                    let staData=  res.data.split(',')
-                    this.presentNum.series[1].data = staData;
+
+                    // this.presentNum.rows= [];
+                    let addTime = res.date.split(',');
+                    // let adddata = res.data.split(',');
+
+                    // return false
+                    // let addVip = res[1].value.split(',');
+                    // let addPT = res[2].value.split(',');
+
+                    for(let i=0;i < addTime.length;i++){
+                        this.presentNum.rows.push({
+                            '日期' : addTime[i],
+                            '在场人数' : adddata[i],
+                        })
+                    }
+
+                    console.log(this.presentNum);
+
+
+                    // let xArr= res.date.split(',');
+                    // this.presentNum.xAxis.data = xArr;
+                    //
+                    // let staData=  res.data.split(',')
+                    // this.presentNum.series[1].data = staData;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -706,29 +822,6 @@
                 });
             },
 
-
-
-            /*修改数据*/
-            changeData(e) {
-                console.log('11');
-            },
-            /*在场人数 时间选中*/
-            truePresent() {
-                console.log(this.datePresent);
-            },
-            /*课程分析 时间选中*/
-            trueLesson() {
-                console.log(this.dateLesson);
-            },
-            /*收入趋势 时间选中*/
-            trueComeinTotal() {
-                console.log(this.dateComeinTotal);
-            },
-            /*收入趋势 时间选中*/
-            trueComein() {
-                console.log(this.dateComein[0]);
-                console.log(this.dateComein[1]);
-            },
         },
 
         created() {

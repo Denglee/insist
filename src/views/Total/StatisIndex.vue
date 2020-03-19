@@ -231,20 +231,7 @@
 
                 <!-- B2 私教销售额查询 -->
                 <div class="index-item pt-sales">
-                    <header class="index-item-title flex-between">
-                        <div class="title">销售额查询</div>
-                        <div class="vipNav-rBox">
-                            <monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>
-                            <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">
-                                更多 <i class="el-icon-arrow-right"></i>
-                            </el-button>
-                        </div>
-                    </header>
-                    <div class="ptTable-assist">
-
-                        <statisDetails></statisDetails>
-
-                    </div>
+                    <statisDetails :ptSalesPage="5" @btnTotalMore="btnTotalMore('tabPaneState','ptSalesD')"></statisDetails>
                 </div>
 
                 <!-- B3 私教数量查询-->
@@ -256,7 +243,6 @@
                         </div>
                     </header>
                     <div class="ptTable-assist">
-
 
                     </div>
                 </div>
@@ -392,96 +378,8 @@
         <!--私教销售额查询 表格 详情-->
         <div v-show="ptSalesD">
             <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
-            <statisDetails></statisDetails>
+            <statisDetails :ptSalesPage="10"></statisDetails>
         </div>
-       <!-- <div v-show="ptSalesD">
-            <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
-            <div class="ptTable-detail vip-tabBox pubWidth">
-                &lt;!&ndash; B2 销售额查询 &ndash;&gt;
-                <div class="index-item ">
-                    <header class="index-item-title">
-                        <div class="title">私教销售额查询</div>
-                    </header>
-                    &lt;!&ndash;销售额筛选&ndash;&gt;
-                    <div class="pt-screen">
-                        &lt;!&ndash;部门&ndash;&gt;
-                        <el-select v-model="value" placeholder="请选择部门"
-                                   class="inp-mar14"
-                                   style="width: 150px;">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                        &lt;!&ndash;教练&ndash;&gt;
-                        <el-select v-model="value" placeholder="请选择教练"
-                                   class="inp-mar14"
-                                   style="width: 130px;">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                        &lt;!&ndash;日期选择&ndash;&gt;
-                        <el-date-picker
-                                class="inp-mar14"
-                                v-model="value1"
-                                type="daterange"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期">
-                        </el-date-picker>
-                        &lt;!&ndash;搜索&ndash;&gt;
-                        <el-input placeholder="请输入内容" v-model="input3" class="inp-mar14 pt-screen-input"></el-input>
-
-                        <el-button slot="append" icon="el-icon-search" @click="searchPT">搜索</el-button>
-
-                        <el-button slot="append" icon="el-icon-search" @click="searchPT">导出</el-button>
-                    </div>
-                    &lt;!&ndash;销售额表格&ndash;&gt;
-                    <el-table
-                            class="pub-table"
-                            :data="PTtable"
-                            border>
-                        <el-table-column
-                                prop="department"
-                                label="部门">
-                        </el-table-column>
-                        <el-table-column
-                                prop="pt"
-                                label="教练">
-                        </el-table-column>
-                        <el-table-column
-                                prop="tel"
-                                label="电话">
-                        </el-table-column>
-                        <el-table-column
-                                prop="money"
-                                label="金额">
-                            <template slot-scope="scope"><span class='price'>￥</span>{{ scope.row.money }}</template>
-                        </el-table-column>
-                        <el-table-column
-                                prop="day"
-                                label="日期">
-                        </el-table-column>
-                    </el-table>
-                    <div class="ptTable-assist">
-                        <el-pagination
-                                background
-                                 layout="prev, pager, next,total,jumper"
-                                :total="20">
-                        </el-pagination>
-                        &lt;!&ndash;<router-link to="/Reception/table">走吧</router-link>&ndash;&gt;
-                    </div>
-
-&lt;!&ndash;                    <button @click="btnRefush()">刷新</button>&ndash;&gt;
-                </div>
-            </div>
-        </div>-->
 
     </div>
 </template>
@@ -503,7 +401,7 @@
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "StatisIndex",  //会员总览
         data() {
-            this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
+                   this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
 
@@ -681,8 +579,8 @@
 
 
                 /*私教1、私教统计 */
-                tabPaneState: true,    //tab 显隐
-                ptSalesD: false,  //销售查询表格 显隐
+                tabPaneState: false,    //tab 显隐
+                ptSalesD: true,  //销售查询表格 显隐
                 ptNumD: false,
                 ptLessonD: false,
                 vSalesD: false,
@@ -708,9 +606,6 @@
                         {name:'',value:0},
                         {name:'',value:0}],
                 },
-
-
-
 
 
 
@@ -754,12 +649,6 @@
             }
         },
         methods: {
-
-
-            /*七天 日期筛选*/
-            getMonthScreen(data){
-                console.log(data);
-            },
 
             btnRefush(){
                 //销售额表格
@@ -826,7 +715,6 @@
                             '新增私教' : addPT[i],
                         })
                     }
-
 
                     this.hasAxios.VipTotal = true; //阻止接口重复调用
 

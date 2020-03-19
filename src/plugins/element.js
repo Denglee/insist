@@ -82,7 +82,7 @@ Vue.filter('mathFloor', (math) => {
 
 
 
-/*8、引入v-charts*/
+/*8、引入v-charts 官网：https://v-charts.js.org/#/histogram*/
 import VCharts from 'v-charts'
 import VeLine from 'v-charts/lib/line.common'  //折线图
 import bar from 'v-charts/lib/bar.common' //条形图
@@ -90,6 +90,8 @@ import histogram from 'v-charts/lib/histogram.common' //柱状图
 import pie from 'v-charts/lib/pie.common' //饼图
 import ring from 'v-charts/lib/ring.common' //环图
 import funnel from 'v-charts/lib/funnel.common' //图
+
+
 
 Vue.component(VeLine.name, VeLine);
 Vue.component(VeLine.name, bar);

@@ -431,7 +431,7 @@ $borRadius:15px;
   //padding: 20px 20px 0;
 }
 
-.layoutR-main .month-inp {
+#app .month-inp {
   width: 180px;
 }
 
@@ -439,7 +439,7 @@ $borRadius:15px;
   margin-right: 14px;
 }
 
-.ptSel-section {
+#app .ptSel-section {
   width: 150px;
 }
 
@@ -618,10 +618,11 @@ $tabHei: 46px;
   padding: 0 8px 0 12px;
   font-size: 14px;
   & > i{
-    height: 34px;
-    line-height: 34px;
+    height: 32px;
+    line-height: 32px;
   }
 }
 .time-sel{
   opacity: 0;
 }
+

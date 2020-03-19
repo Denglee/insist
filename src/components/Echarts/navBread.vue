@@ -53,7 +53,8 @@
         line-height: inherit;
         padding:10px 20px;
         background-color: #fff;
-        margin-top: 16px;
+        /*margin-top: 16px;*/
+        border-top: solid 16px #EFF2F9;
         .hover-bread{
             &:hover{
                 cursor: pointer;

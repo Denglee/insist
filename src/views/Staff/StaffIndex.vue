@@ -144,7 +144,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="diaGroup = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaGropu()" :disabled='isDisabled'>确 定</el-button>
+                <el-button type="primary" @click="sureDiaGropu()">确 定</el-button>
             </div>
         </el-dialog>
 

@@ -36,15 +36,13 @@
                         {
                             text: '今天',
                             onClick(picker) {
-
+                                that.$emit('getMonthScreen',that.monthScreen);
                                 that.monthScreen = {
                                     monthVal:'',
                                     monthText:'今天',
                                     time:'2',
                                     day:'',
                                 };
-                                that.$emit('getMonthScreen',that.monthScreen);
-
                                 picker.$emit("pick",[new Date(), new Date()]);
                             }
                         }, {
@@ -58,21 +56,18 @@
                                     day:'',
                                 };
                                 that.$emit('getMonthScreen',that.monthScreen);
-
                             }
                         },{
                             text: '过去七天',
                             onClick(picker) {
-                                that.$nextTick(() =>{
-                                    picker.$emit("pick");
-                                    that.monthScreen = {
-                                        monthVal:'',
-                                        monthText:'过去七天',
-                                        time:'7',
-                                        day:'',
-                                    };
-                                });
-                                console.log(that.monthScreen);
+                                picker.$emit("pick");
+                                that.monthScreen = {
+                                    monthVal:'',
+                                    monthText:'过去七天',
+                                    time:'7',
+                                    day:'',
+                                };
+                                that.$emit('getMonthScreen',that.monthScreen);
                             }
                         }, {
                             text: '过去30天',
@@ -84,7 +79,7 @@
                                     time:'30',
                                     day:'',
                                 };
-                                console.log(that.monthScreen);
+                                that.$emit('getMonthScreen',that.monthScreen);
                             }
                         }
                     ]
@@ -99,7 +94,7 @@
             过去30天 time:'30'*/
             monthSel(val){
                 let monthVal = this.monthScreen.monthVal;
-                console.log(monthVal);
+                // console.log(monthVal);
                 if(monthVal){
                     this.monthScreen = {
                         monthVal:val,
