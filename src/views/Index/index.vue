@@ -15,17 +15,17 @@
                         <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
                     </ul>
                     <div class="flex-between">
-                        <ve-pie :data="chartVip"
-                                :legend-visible="false"
-                                :colors="totalColor"
-                                :style="picStyle"
-                                :settings="picSettings"></ve-pie>
-
-                        <!--<eCharts :eChartObj="chartVip" :style="styleVip"></eCharts>-->
+                        <div class="chart">
+                            <ve-pie :data="chartVip"
+                                    :legend-visible="false"
+                                    :colors="VipColor"
+                                    :style="picStyle"
+                                    :settings="picSettings"></ve-pie>
+                        </div>
                         <ul class="vipNum">
-<!--                            <li>潜在会员： <span class="vipTipG">{{chartVip.rows[0].potential_members}}</span></li>-->
-<!--                            <li>正式会员： <span class="vipTipB">{{chartVip.rows[1].official_members}}</span></li>-->
-<!--                            <li>私教会员： <span class="vipTipY">{{chartVip.rows[2].personal_members}}</span></li>-->
+                            <li>潜在会员： <span class="vipTipG">{{chartVip.rows[0].value}}</span></li>
+                            <li>正式会员： <span class="vipTipB">{{chartVip.rows[1].value}}</span></li>
+                            <li>私教会员： <span class="vipTipY">{{chartVip.rows[2].value}}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -43,15 +43,17 @@
                         <li><span class="addVip-tagY"></span>私教会员</li>
                     </ul>
                     <div class="flex-between">
-                        <ve-pie :data="addVip"
-                                :legend-visible="false"
-                                :colors="totalColor"
-                                :style="picStyle"
-                                :settings="picSettings"/>
+                        <div class="chart">
+                            <ve-pie :data="addVip"
+                                    :legend-visible="false"
+                                    :colors="addVipColor"
+                                    :style="picStyle"
+                                    :settings="picSettings"/>
+                        </div>
                         <ul class="vipNum">
-<!--                            <li>潜在会员： <span class="vipTipG">{{addVip.rows[0].value}}</span></li>-->
-<!--                            <li>正式会员： <span class="vipTipB">{{addVip.rows[1].value}}</span></li>-->
-<!--                            <li>私教会员： <span class="vipTipY">{{addVip.rows[2].value}}</span></li>-->
+                            <li>潜在会员： <span class="vipTipG">{{addVip.rows[0].value}}</span></li>
+                            <li>正式会员： <span class="vipTipB">{{addVip.rows[1].value}}</span></li>
+                            <li>私教会员： <span class="vipTipY">{{addVip.rows[2].value}}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +61,7 @@
 
             <!--在场人数-->
             <el-col :md="12" :lg="8">
-                <div class="index-item">
+                <div class="index-item" >
                     <div class="flex-between present-box">
                         <div class="present-top present-TopL">
                             <p class="title">在场人数</p>
@@ -72,15 +74,14 @@
                             <p class="num">0   <!--{{customerNo}}--></p>
                         </div>
                     </div>
-
-                    <div class="flex-between">
+                    <div class="line-present">
                         <ve-line
+                                :color="presentColor"
                                 :data="presentNum"
                                 :legend-visible="false"
                                 :style="LineStyle"
                                 :extend = 'lineExtend'
                         ></ve-line>
-<!--                        <eCharts :eChartObj="presentNum" :style="stylePresent"></eCharts>-->
                     </div>
                 </div>
             </el-col>
@@ -127,20 +128,28 @@
                     <div class="lesson-main lesson-borR">
                         <h4 class="lesson-main-title">团课</h4>
                         <div class="lesson-item">
-                            <eCharts :eChartObj="lessonGroup" :style="styleLesson"></eCharts>
-                            <ul class="vipNum">
-                                <li>上课人数： <span class="vipTipG">{{lessonGroup.series[0].data[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipB">{{lessonGroup.series[0].data[1].value}}</span></li>
+                            <ve-pie :data="lessonGroup"
+                                    :legend-visible="false"
+                                    :colors="lessonGroupColor"
+                                    :style="PTpicStyle"
+                                    :settings="picSettings2"/>
+                            <ul class="vipNum vipNumPT">
+                                <li>上课人数： <span class="vipTipB">{{lessonGroup.rows[0].value}}</span></li>
+                                <li>预约人数： <span class="vipTipG">{{lessonGroup.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="lesson-main">
                         <h4 class="lesson-main-title">私教课</h4>
                         <div class="lesson-item">
-                            <eCharts :eChartObj="lessonTrainer" :style="styleLesson"></eCharts>
-                            <ul class="vipNum">
-                                <li>上课人数： <span class="vipTipY">{{lessonTrainer.series[0].data[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipYellow">{{lessonTrainer.series[0].data[1].value}}</span></li>
+                            <ve-pie :data="lessonTrainer"
+                                    :legend-visible="false"
+                                    :colors="lessonTrainerColor"
+                                    :style="PTpicStyle"
+                                    :settings="picSettings2"/>
+                            <ul class="vipNum vipNumPT">
+                                <li>上课人数： <span class="vipTipYellow">{{lessonTrainer.rows[0].value}}</span></li>
+                                <li>预约人数： <span class="vipTipY">{{lessonTrainer.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -172,32 +181,45 @@
         </div>
 
         <!--收入趋势-->
-        <div class="index-item comein-main">
+        <div class="index-item comein-main" style="width: 100%">
             <header class="index-item-title flex-between">
                 <div class="title">收入趋势</div>
             </header>
             <ul class="index-item-tipUl">
-                <li><img src="~@/assets/icon/icon_comeinTK.png" alt="">会籍营收</li>
+                <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">会籍营收</li>
                 <li><img src="~@/assets/icon/icon_comeinSJ.png" alt="">私教营收</li>
-                <li><img src="~@/assets/icon/icon_comeinHJ.png" alt="">其他营收</li>
+                <li><img src="~@/assets/icon/icon_comeinTK.png" alt="">其他营收</li>
             </ul>
-            <eCharts :eChartObj="comeIn" :style="styleComeIN"></eCharts>
+            <div class="line-comeIn">
+                <ve-line
+                        :color="comeInColor"
+                        :data="comeIn"
+                        :legend-visible="false"
+                        :style="ComeInLineStyle"
+                        :extend = 'lineExtend'
+                ></ve-line>
+            </div>
+
         </div>
 
     </div>
 </template>
 
 <script>
-    import eCharts from '@/components/Echarts/Echarts'
+
     import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
     export default {
         name: "index",
         inject: ['reLoad'],
 
         data() {
-            this.totalColor = ['#4CCBEB', '#005AD4','#ff8a7e']; //会员总览 潜在会员 自定义的颜色
-            this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
-            this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
+            this.VipColor = ['#4CCBEB', '#005AD4','#ff8a7e']; // 自定义的颜色
+            this.addVipColor =  ['#4CCBEB', '#005AD4','#ff8a7e' ]; // 自定义的颜色
+            this.presentColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; //自定义的颜色
+            this.lessonGroupColor =  ['#4CCBEB', '#005AD4']; // 自定义的颜色
+            this.lessonTrainerColor =  ['#FF8A7E', '#FFBE00']; //自定义的颜色
+            this.comeInColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; // 自定义的颜色
+
             this.lineExtend = {
                 tooltip: {
                     trigger: 'axis',
@@ -273,13 +295,34 @@
 
             return {
                 LineStyle:{
-                    height: '240px',
+                    height: '180px',
                     width: '100%',
+                },
+                ComeInLineStyle:{
+                    height: '340px',
+                    width: '100%',
+                },
+
+                picSettings2 : {
+                    offsetY: 100,
+                    offsetX: 50,
+                    radius: 50,
+                    label: {
+                        normal: {
+                            position: 'inner',
+                            show: false,
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
                 },
 
                 picSettings : {
                     offsetY: 100,
-                    offsetX: 200,
+                    offsetX: 100,
                     radius: 70,
                     label: {
                         normal: {
@@ -295,16 +338,11 @@
                 },
                 picStyle: {
                     height: '180px',
-                    width: '180px',
+                    width: '200px',
                 },
-
-                chartVip: {
-                    columns: ['name', 'value'],
-                    rows: [],
-                },
-                addVip: {
-                    columns: ['name', 'value'],
-                    rows: [],
+                PTpicStyle: {
+                    height: '120px',
+                    width: '200px',
                 },
 
                 progerssStroke:'square',  /*progress*/
@@ -318,30 +356,12 @@
 
                 /*收入统计 样式 */
                 incomeArr: [
-                    {
-                        class: "colorRed",
-                        color: '#FF8A7E',
-                    },
-                    {
-                        class: "colorBlue",
-                        color: '#005AD4',
-                    },
-                    {
-                        class: "colorYellow",
-                        color: '#FFBE00',
-                    },
-                    {
-                        class: "colorBlueL",
-                        color: '#4CCBEB',
-                    },
-                    {
-                        class: "colorGreen",
-                        color: '#1EAAA1',
-                    },
-                    {
-                        class: "colorViolet",
-                        color: '#B6A2DE',
-                    },
+                    {class: "colorRed", color: '#FF8A7E',},
+                    {class: "colorBlue", color: '#005AD4',},
+                    {class: "colorYellow", color: '#FFBE00',},
+                    {class: "colorBlueL", color: '#4CCBEB',},
+                    {class: "colorGreen", color: '#1EAAA1',},
+                    {class: "colorViolet", color: '#B6A2DE',},
                 ],
                 incomeTotal:'',
 
@@ -362,101 +382,23 @@
                 ],
 
 
-                /*eCharts 对应宽高*/
-                styleVip: {
-                    height: '220px',
-                    width: '220px',
-                },
-                styleAddVip: {
-                    height: '220px',
-                    width: '60%',
-                },
-                stylePresent: {
-                    height: '180px',
-                    width: '100%',
-                },
-                styleLesson: {
-                    height: '180px',
-                    width: '220px',
-                },
-                styleComeIN: {
-                    height: '310px',
-                    width: '100%',
-                },
-
                 /*现有会员*/
-               /* chartVip: {
-                    color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    series: [{
-                        // name: '现有会员',
-                        height: '90%',
-                        width: '90%',
-                        left: '10%',
-                        top: 0,
-                        type: 'pie',
-                        data: [
-                            {value:'',name:""},
-                            {value:'',name:""},
-                            {value:'',name:""},
-                        ],
-                        label: {
-                            normal: {
-                                position: 'inner',
-                                show: false,
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        }
-                    }],
-                },*/
+                chartVip: {
+                    columns: ['name', 'value'],
+                    rows: [  {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},],
+                },
 
                 /*今日新增会员*/
-                // addVip: {
-                //     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                //     tooltip: {
-                //         trigger: 'item',
-                //     },
-                //     series: [
-                //         {
-                //             type: 'funnel',
-                //             left: '10%',
-                //             width: '60%',
-                //             height: '60%',
-                //             top: '20%',
-                //             label: {
-                //                 normal: {
-                //                     show: false,
-                //                 },
-                //                 emphasis: {
-                //                     show: false,
-                //                 }
-                //             },
-                //             itemStyle : {
-                //                 normal : {
-                //                     label : {
-                //                         show : false
-                //                     },
-                //                     labelLine : {
-                //                         show : false
-                //                     }
-                //                 },
-                //
-                //             },
-                //
-                //             data: [
-                //                 {name: "", value: ""},
-                //                 {name: "", value: ""},
-                //                 {name: "", value: ""},
-                //             ]
-                //         }
-                //     ]
-                // },
+                addVip: {
+                    columns: ['name', 'value'],
+                    rows: [
+                        {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
+                },
 
                 /*在场与客流人数*/
                 presentNum: {
@@ -464,216 +406,28 @@
                     rows: [],
                 },
 
-
-                // presentNum: {
-                //     color: ['#FF8A7E', '#4CCBEB', '#005AD4'], //自定义的颜色
-                //     tooltip: {
-                //         trigger: 'axis',
-                //         axisPointer: {
-                //             type: 'cross',
-                //             label: {
-                //                 backgroundColor: '#6a7985'
-                //             }
-                //         }
-                //     },
-                //     xAxis: {
-                //         type: 'category',
-                //         data:[],
-                //         //设置坐标轴字体颜色和宽度
-                //         axisLine: {
-                //             lineStyle: {
-                //                 color: '#8E8E8E',
-                //             }
-                //         },
-                //         splitLine: {
-                //             lineStyle: {
-                //                 color: '#f4f4f4',
-                //                 width: 1
-                //             }
-                //         }
-                //     },
-                //     yAxis: {
-                //         type: 'value',
-                //         name: '客流趋势',   // y轴名称
-                //         axisLine: {
-                //             lineStyle: {
-                //                 color: '#8E8E8E',
-                //             }
-                //         },
-                //     },
-                //     grid: {
-                //         top: "40px",
-                //         left: "60px",
-                //         right: "40px",
-                //         bottom: "20px",
-                //         width: "auto", //图例宽度
-                //         height: "auto", //图例高度
-                //
-                //     },
-                //     series: [
-                //         {
-                //
-                //             name: '客流趋势',
-                //             type: 'line',
-                //             data: [],
-                //             symbolSize: 8,   //设定实心点的大小
-                //         },
-                //         {
-                //             name: '在场人数',
-                //             type: 'line',
-                //             data: [],
-                //             symbolSize: 8,   //设定实心点的大小
-                //         }
-                //     ]
-                // },
-
                 /*课程分析 团课*/
                 lessonGroup: {
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    color: ['#4CCBEB', '#005AD4'], //自定义的颜色
-                    series: [
-                        {
-                            left: '20%',
-                            width: '90%',
-                            height: '90%',
-                            top: '0%',
-
-                            /*name: '课程分析',*/
-                            type: 'pie',
-                            radius: ['43%', '57%'],
-
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '14',
-                                        // fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false,
-                                }
-                            },
-
-                            data:[
-                                {name: "团课预约", value: ''},
-                                {name: "团课上课", value: ''},
-                            ],
-                        }
-                    ]
+                    columns: ['name', 'value'],
+                    rows: [
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
                 },
 
                 /*课程分析 私教课*/
                 lessonTrainer: {
-                    tooltip: {
-                        trigger: 'item',
-                    },
-                    color: ['#FF8A7E', '#FFBE00'], //自定义的颜色
-                    series: [
-                        {
-                            left: '20%',
-                            width: '90%',
-                            height: '90%',
-                            top: '0%',
-
-                            /*name: '课程分析',*/
-                            type: 'pie',
-                            radius: ['43%', '57%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '14',
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false,
-                                }
-                            },
-
-                            data:[
-                                {name: "私教预约", value: ''},
-                                {name: "私教上课", value: ''},
-                            ],
-                        },
-                    ]
+                    columns: ['name', 'value'],
+                    rows: [
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
                 },
 
                 /*收入趋势*/
                 comeIn: {
-                    color: ['#FF8A7E', '#005AD4', '#4CCBEB'], //自定义的颜色
-                    tooltip: {
-                        trigger: 'axis',
-                    },
-
-                    xAxis: {
-                        type: 'category',
-                        data: [],
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-                    yAxis: {
-                        type: 'value',
-                        axisLine: {
-                            lineStyle: {
-                                color: '#8E8E8E',
-                            }
-                        },
-                    },
-
-                    grid: {
-                        top: "30px",
-                        left: "80px",
-                        right: "60px",
-                        bottom: "40px",
-                        width: "auto", //图例宽度
-                        height: "80%", //图例高度
-
-                    },
-                    series: [
-                        {
-                            name: '团课营收',
-                            type: 'line',
-                            data: [],
-                            symbolSize: 12,   //设定实心点的大小
-                            lineStyle: {
-                                normal: {
-                                    type: 'dashed',
-                                }
-                            },
-                        },
-                        {
-                            name: '私教营收',
-                            type: 'line',
-                            symbolSize: 12,   //设定实心点的大小
-                            data: [],
-                        },
-                        {
-                            name: '会籍营收',
-                            symbolSize: 12,   //设定实心点的大小
-                            type: 'line',
-                            data: [],
-                        }
-                    ]
+                    columns: ['日期', '会籍','私教', '其他'],
+                    rows: [],
                 },
 
             }
@@ -684,15 +438,8 @@
             /*获取  现有会员 数据*/
             getTotal(){
                 IndexTotal_membership().then(res => {
-                    console.log(res);
-                    // let MemberNum = [];
-                    // let MemberNum1 = res[0];
-                    // let MemberNum2 = res[1];
-                    // let MemberNum2 = res[1];
-                    // MemberNum.push(MemberNum1, MemberNum2);
+                    // console.log(res);
                     this.chartVip.rows = res;
-
-                    // this.chartVip.series[0].data = res;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -701,15 +448,8 @@
             /*获取 今日新增会员 数据*/
             getNewMenber(){
                 IndexNew_membership().then(res => {
-                    console.log(res);
+                    // console.log(res);
                     this.addVip.rows = res;
-
-                    /*this.addVip.series[0].data[0].value = res[0].potential_members;
-                    this.addVip.series[0].data[0].name = res[0].name;
-                    this.addVip.series[0].data[1].value = res[1].official_members;
-                    this.addVip.series[0].data[1].name = res[1].name;
-                    this.addVip.series[0].data[2].value = res[2].personal_members;
-                    this.addVip.series[0].data[2].name = res[2].name;*/
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -718,32 +458,17 @@
             /*获取  在场人数 数据*/
             getStatistics(){
                 IndexStatistics().then(res => {
-                    console.log(res);
-
-
-                    // this.presentNum.rows= [];
+                    // console.log(res);
                     let addTime = res.date.split(',');
-                    // let adddata = res.data.split(',');
+                    let addData = res.data.split(',');
 
-                    // return false
-                    // let addVip = res[1].value.split(',');
-                    // let addPT = res[2].value.split(',');
-
-                    for(let i=0;i < addTime.length;i++){
+                    for(let i = 0;i < addTime.length;i++){
                         this.presentNum.rows.push({
                             '日期' : addTime[i],
-                            '在场人数' : adddata[i],
+                            '在场人数' : addData[i],
                         })
                     }
 
-                    console.log(this.presentNum);
-
-
-                    // let xArr= res.date.split(',');
-                    // this.presentNum.xAxis.data = xArr;
-                    //
-                    // let staData=  res.data.split(',')
-                    // this.presentNum.series[1].data = staData;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -755,8 +480,6 @@
                     // console.log(res);
                     this.roomMan = res.man;
                     this.roomManRatio = res.man[2].ratio;
-                    this.roomWoman = res.woman;
-                    this.roomWomanRatio = res.woman[2].ratio;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -765,19 +488,12 @@
             /*获取  课程分析 数据*/
             getCurriculum(){
                 IndexCurriculum().then(res => {
-                    // console.log(res);
-
                     /*团课*/
-                    this.lessonGroup.series[0].data[0].name = res.league[0].name;
-                    this.lessonGroup.series[0].data[0].value = res.league[0].make;
-                    this.lessonGroup.series[0].data[1].name = res.league[1].name;
-                    this.lessonGroup.series[0].data[1].value = res.league[1].attend;
+                    this.lessonGroup.rows = res.league;
 
                     /*私教*/
-                    this.lessonTrainer.series[0].data[0].name = res.league[0].name;
-                    this.lessonTrainer.series[0].data[0].value = res.league[0].make;
-                    this.lessonTrainer.series[0].data[1].name = res.league[1].name;
-                    this.lessonTrainer.series[0].data[1].value = res.league[1].attend;
+                    this.lessonTrainer.rows = res.personal;
+
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -787,7 +503,6 @@
             getPerformance(){
                 IndexPerformance().then(res => {
                     // console.log(res);
-                    // let add =
                     let incomeData = res;
                     this.incomeTotal = res[6].price;
                     this.incomeArr = this.incomeArr.map((item, index) => {
@@ -802,21 +517,19 @@
             /*获取  营收走势 收入趋势 数据*/
             getRevenue_trend(){
                 IndexRevenue_trend().then(res => {
-                    // console.log(res);
-                    let xArr= res[0].value.split(',');
-                    this.comeIn.xAxis.data = xArr;
-
-                    let conmArr1 = res[1].value.split(',');
-                    let conmArr2 = res[2].value.split(',');
-                    let conmArr3 = res[3].value.split(',');
-
-                    this.comeIn.series[0].name = res[1].name;
-                    this.comeIn.series[0].data = conmArr1;
-                    this.comeIn.series[1].name = res[2].name;
-                    this.comeIn.series[1].data = conmArr2;
-                    this.comeIn.series[2].name = res[3].name;
-                    this.comeIn.series[2].data = conmArr3;
-
+                    let comeTime = res[0].value.split(',');
+                    let comeVip = res[1].value.split(',');
+                    let comePT = res[2].value.split(',');
+                    let comeOther = res[3].value.split(',');
+                    this.comeIn.rows = [];
+                    for(let i=0;i < comeTime.length;i++){
+                        this.comeIn.rows.push({
+                            '日期' : comeTime[i],
+                            '会籍' : comeVip[i],
+                            '私教' : comePT[i],
+                            '其他' : comeOther[i],
+                        })
+                    }
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -848,9 +561,7 @@
             this.getRevenue_trend();
 
         },
-        components: {
-            eCharts
-        },
+
 
         /*页面刷新*/
         beforeRouteEnter(to, from, next) {
@@ -869,7 +580,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     @import "@/assets/css/index.scss";
     iframe {
         width: 100%;

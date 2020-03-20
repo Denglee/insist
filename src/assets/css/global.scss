@@ -8,6 +8,9 @@
 .colorRed{
   @include fontColor($color-Pink);
 }
+.colorPink{
+  color:#F19EC2;
+}
 .colorBlueL{
   @include fontColor($color-LigntBlue);
 }
@@ -17,8 +20,14 @@
 .colorBlue{
   @include fontColor($color-MediumBlue);
 }
+.colorBlueDark{
+  color:#0000FF;
+}
 .colorGreen{
   @include fontColor($color-GreenBlue);
+}
+.colorGreenLignt{
+  color:#84CCC9;
 }
 .colorViolet{
   @include fontColor($color-Violet);
@@ -26,6 +35,33 @@
 .colorGray{
   @include fontColor($color-Gray);
 }
+
+/*项目营收*/
+.colorBgGreenLignt{
+  background-color:#84CCC9;
+}
+.colorBgViolet{
+  background-color:#AA89BD;
+}
+.colorBgPink{
+  background-color:#F19EC2;
+}
+.colorBgRed{
+  background-color:#FF8A7E;
+}
+.colorBgGreen{
+  background-color:#00A0E9;
+}
+.colorBgBlueDark{
+  background-color:#0000FF;
+}
+.colorBgYellow{
+  background-color:#FFBE00;
+}
+.colorBgBlueGreen{
+  background-color:#00B7EE;
+}
+
 
 
 * {
@@ -176,10 +212,6 @@ input:-webkit-autofill {
   .el-input__icon {
     height: 50px;
   }
-}
-
-.indexItem-hei250 {
-  height: 250px;
 }
 
 
@@ -624,5 +656,24 @@ $tabHei: 46px;
 }
 .time-sel{
   opacity: 0;
+}
+
+
+.chart{
+  .ve-pie{
+    > div:first-child{
+      height: 250px !important;
+    }
+  }
+  .ve-histogram{
+    > div:first-child{
+      height: 250px !important;
+    }
+  }
+  .ve-line{
+    > div:first-child{
+      height: 200px !important;
+    }
+  }
 }
 

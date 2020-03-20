@@ -5,34 +5,21 @@
 
             <!--tab1 员工工资-->
             <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
-                <div class="">
-                    <!--员工工资 筛选-->
+                <div class="vip-tabBox">
                     <div class="pt-screen">
-                        <!--在职-->
-                        <el-select v-model="lockStateVal" placeholder="是否在职" class="inp-mar14 ptSel-section">
-                            <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
-                        </el-select>
-                        <!--部门-->
-                        <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
+                        <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="inp-mar14 pt-screen-input" clearable></el-input>
+                        <el-select v-model="rewordParameter.user_type" placeholder="请选择岗位" class="inp-mar14 ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
-                        <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
-                        <!--搜索-->
-                        <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaReword" class="btn-search">查询</el-button>
                     </div>
 
-                    <!--员工工资 表格-->
-                    <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff">
-                        <el-table-column type="selection" width="55"></el-table-column>
+                    <el-table class="pub-table" :data="rewardList" border>
+                        <el-table-column type="index" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
-                        <el-table-column prop="sex" label="性别">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.sex == 0 " class="status-connect">未知</div>
-                                <div v-if="scope.row.sex == 1 " class="status-break">男</div>
-                                <div v-if="scope.row.sex == 2 " class="status-break">女</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="user_type" label="职位">
+                        <!--<el-table-column prop="user_no" label="工号"></el-table-column>
+                        <el-table-column prop="group_id" label="部门"></el-table-column>-->
+                        <el-table-column prop="user_type" label="岗位">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
                                 <div v-if="scope.row.user_type == 1 " class="status-connect">店长</div>
@@ -50,26 +37,22 @@
                                 <!--<div v-else>{{scope.row.user_type}}</div>-->
                             </template>
                         </el-table-column>
-                        <el-table-column prop="phone" label="电话" width="120px"></el-table-column>
-                        <el-table-column prop="user_no" label="工号"></el-table-column>
-                        <el-table-column prop="Royalty" label="提成方式"></el-table-column>
-                        <el-table-column prop="register_time" label="创建时间" >
+                        <el-table-column prop="salary" label="基本工资"></el-table-column>
+                        <el-table-column prop="deduct" label="提成">
                             <template slot-scope="scope">
-                                <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
+                                <div v-for="(index,item) in scope.row.deduct">{{index.name}}</div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="lock" label="状态">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
-                                <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
-                            </template>
-                        </el-table-column>
+                        <!--<el-table-column prop="reward" label="奖励"></el-table-column>-->
+                        <el-table-column prop="punish" label="惩罚"></el-table-column>
+                        <el-table-column prop="total" label="合计"></el-table-column>
                     </el-table>
+
                     <el-pagination
                             background
                             layout="prev, pager, next,total,jumper"
-                            :total="pageTotalRows"
-                            :page-size ="pageListRows"
+                            :total="rewaroPage.total"
+                            :page-size ="rewaroPage.limit"
                             @current-change="PageCurrent">
                     </el-pagination>
                 </div>
@@ -102,7 +85,7 @@
 
             <!--tab3 奖惩设置-->
             <el-tab-pane :lazy='tabLazy' label="奖惩设置" name="StaffReward">
-                <el-row :gutter="20">
+                <!--<el-row :gutter="20">
                     <el-col :span="6">
                         <div class="grid-content">
                             超额完成任务奖励方式
@@ -123,13 +106,17 @@
                             缺勤处罚
                         </div>
                     </el-col>
-                </el-row>
+                </el-row>-->
+                <el-table class="pub-table" :data="staffPunishList" border>
+                    <el-table-column type="index" width="200"></el-table-column>
+                    <el-table-column  label="内容" prop="name"></el-table-column>
+                    <el-table-column  label="详情" prop="value">
+                        <template slot-scope="scope">
+                            <el-input v-model="scope.row.value" @blur="changePunish(scope.$index, scope.row)"></el-input>
+                        </template>
 
-
-                <monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>
-
-<!--                <monthSceen  @getMonthScreen2 ="getMonthScreen"></monthSceen>-->
-
+                    </el-table-column>
+                </el-table>
             </el-tab-pane>
         </el-tabs>
 
@@ -155,7 +142,7 @@
         <div v-show="setStaffRoyalty">
             <navBread @GoBack="goBack('tabStaffSalary','setStaffRoyalty')" breadTitle="提成设置"
                       breadContent1="提成编辑"></navBread>
-            <div class="addForm-box" v-if="isReloadData">
+            <div class="addForm-box">
                 <div class="clearfix">
                     <el-button type="primary" class="fr btn-search"  @click="btnAddSetRoyalty">添加设置</el-button>
                 </div>
@@ -197,10 +184,10 @@
 </template>
 
 <script>
-    import navBread from '@/components/Echarts/navBread'
-    import monthSceen from '@/components/monthSceen/monthSceen'
+    import navBread from '@/components/navBread/navBread'
 
-    import {staffDeduct,staffPhases} from '@/assets/js/api'
+    import {staffDeduct,staffPhases,
+        staffSalaryMenuid,staffRewardPunish} from '@/assets/js/api'
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -208,30 +195,30 @@
         data() {
             return {
 
-                isReloadData: true,  //刷新标示
-                activeTabName: 'StaffReward', //StaffSalary StaffRoyalty StaffReward
+                activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
+                hasAxios:{  //是否调用接口状态
+                    StaffSalary:false,
+                    StaffRoyalty:false,
+                    StaffReward:false,
+                },
+                /*一、 员工工资*/
+                rewordParameter:{
+                    zmtek_ver:2,
+                    user_type:'10000',  //部门
+                    phone:'',  //手机号码
+                    p:1,    //页码
+                },
+                userTypeList:this.GLOBAL.userTypeList,   //职位 岗位
+                rewardList:[],   //工资列表
 
-                /*tab1 员工工资*/
-                /* 筛选 在职状态*/
-                lockState:[
-                    {lock:0,value:'在职'},
-                    {lock:1,value:'离职'},
-                ],
-                lockStateVal:0,
+                rewaroPage:{   //工资分页
+                    total:0,
+                    limit:0
+                },
 
-                /*筛选 职位*/
-                userTypeList:this.GLOBAL.userTypeList,
-                userTypeListVal:10000, /* 职位 选中值*/
 
-                staffInpVal:'',
-
-                tableStaff: [], //员工列表数组
-                pageTotalRows:0,  /*分页总数*/
-                pageListRows:0,  /*分页 每页数*/
-                staffPage:1,     /*分页 页码*/
-
-                /* tab2 提成添加 种类 */
+                /* 二、 tab2 提成添加 种类 */
                 dialogRoyalty:false,   //提成名称 设置 弹窗
                 btnLoad:{
                     state:false,
@@ -264,7 +251,7 @@
                     setTitle:'',  //弹窗名称
                     zmtek_ver:2,
                     type:1, //类型 1 = 获取列表 2 = 添加 3 = 修改 4 = 删除
-                    ratio_id: 1,  //提成id 获取列表 添加 必填
+                    ratio_id: '',  //提成id 获取列表 添加 必填
                     id:'',   //修改 删除必填
                     up:'',   //上限 添加修改必填
                     dn:'',   //下限
@@ -274,43 +261,61 @@
                     up: [{ required: true, message: '提成上限不能为空', trigger: 'blur' },],
                     dn: [{ required: true, message: '提成下限不能为空', trigger: 'blur' }],
                     ratio: [{ required: true, message: '提成比例不能为空', trigger: 'blur' }],
-                }
+                },
+
+                /*三、 奖惩*/
+                staffPunish:{
+                    zmtek_ver:2,
+                    reward:'',  //奖
+                    punish:'',  //惩
+                    type:1,    //1获取 2修改
+                },
+                staffPunishList:[
+                    {id:1,name:'奖励',value:""},
+                    {id:2,name:'惩罚',value:""},
+                ],
+
             }
         },
         methods: {
 
-            /*获取日期 筛选 时间*/
-            getMonthScreen(data){
-                console.log(data);
-            },
-
-            getMonthScreen2(data){
-                console.log(data);
-            },
-
-
-
             /* 0、tab切换*/
             tabTotal(tab, event) {
                 let tabName = tab.name;
+                sessionStorage.setItem('tabName',tabName);
                 this.callTabApi(tabName);
             },
 
-            /* ============= 1、员工工资 列表*/
-            btnSeaStaff(){
+            /* ============= 一、员工工资 列表*/
+            getStaffSalaryMenuid(){   // 工资列表接口
+                staffSalaryMenuid(this.rewordParameter).then(res=>{
+                    console.log(res.data.list);
+                    this.rewardList = res.data.list;
+                    this.rewaroPage = {   //工资分页
+                        total:Number(res.data.totalRows),
+                        limit:res.data.listRows,
+                    },
+                    this.hasAxios.StaffSalary = true;
 
+                }).catch(res =>{
+                   console.log(res);
+                });
             },
-            /*列表选择*/
-            checkedStaff(){
 
+            //1-2 工资 筛选
+            btnSeaReword(){
+                this.rewordParameter.p = 1;
+                this.getStaffSalaryMenuid();
             },
 
-            /*分页*/
-            PageCurrent(){
-
+            // 工资 列表 分页
+            PageCurrent(page){
+                this.rewordParameter.p = page;
+                this.getStaffSalaryMenuid();
             },
 
-            /* ============== tab2  提成设置 ==*/
+
+            /* ============== 二  tab  提成设置 ==*/
             getStaffDeduct(){
                 staffDeduct({
                     zmtek_ver : this.deductInfo.zmtek_ver,
@@ -341,15 +346,22 @@
                     if(res.status == 0){
                         console.log(res.info);
                     }
+
+                    this.hasAxios.StaffRoyalty = true;
                 }).catch(res => {
                     console.log(res);
                 });
             },
 
+
+
             /* 2.1添加提成名称 种类 弹窗*/
             btnAddRoyalty(){
                 this.deductInfo.RoyaltyTitle = '添加提成';
                 this.deductInfo.type = 2;
+
+                this.deductInfo.deduction_name = '';
+                this.deductInfo.deductionType = '';
 
                 console.log( this.deductInfo);
                 this.dialogRoyalty = true;
@@ -412,6 +424,7 @@
 
                 /*存储 是否在编辑页面 状态*/
                 sessionStorage.setItem('sessionSetRoyalty', true);
+                sessionStorage.setItem('Royaltyratio_id', setId);
                 this.tabStaffSalary = false;
                 this.setStaffRoyalty = true;
             },
@@ -455,11 +468,14 @@
                 })
             },
 
-            /* 3.22 添加提成上限  弹出*/
+            /* 3.22 添加提成 上限 设置  弹出*/
             btnAddSetRoyalty(){
                 this.setRoyalty.RoyaltyTitle = '提成设置';
-                this.setRoyalty= [];
+
                 this.setRoyalty.type = 2;
+                this.setRoyalty.ratio = '';
+                this.setRoyalty.up = '';
+                this.setRoyalty.dn = '';
                 console.log( this.deductInfo);
                 this.dialogSetRoyalty = true;
             },
@@ -513,31 +529,85 @@
                 sessionStorage.setItem('sessionSetRoyalty', false);
             },
 
+
+            /*三、奖惩*/
+            getStaffRewardPunish(){    // 3.1奖惩列表接口
+                staffRewardPunish(this.staffPunish).then(res=>{
+                    console.log(res.data);
+                    this.staffPunishList[0].value = res.data.reward;
+                    this.staffPunishList[1].value = res.data.punish;
+
+                    this.hasAxios.StaffSalary = true;
+                    if(this.staffPunish.type == 2){
+                        this.reload();
+                    }
+                }).catch(res =>{
+                    console.log(res);
+                });
+            },
+
+            changePunish(rows,index){
+                console.log(rows);
+                if(rows.id == 1){
+                    this.staffPunish = {
+                        zmtek_ver:2,
+                        reward:rows.value,  //奖
+                        punish:'',  //惩
+                        type:2,    //1获取 2修改
+                    }
+                }
+                if(rows.id == 2){
+                    this.staffPunish = {
+                        zmtek_ver:2,
+                        reward:'',  //奖
+                        punish:rows.value,  //惩
+                        type:2,    //1获取 2修改
+                    }
+                }
+                this.getStaffRewardPunish();
+            },
+
             /* 0 接口调用*/
             callTabApi(tabName){
                 console.log('当前tab：'+tabName);
                 if(tabName == 'StaffSalary'){
-
-                };
+                    if(this.hasAxios.StaffSalary == false){
+                        this.getStaffSalaryMenuid();
+                    }
+                }
                 if(tabName == 'StaffRoyalty'){
-                    this.getStaffDeduct();
-                };
+                    if(this.hasAxios.StaffRoyalty == false){
+                        this.getStaffDeduct();
+                    }
+                }
                 if(tabName == 'StaffReward'){
-
-                };
+                    if(this.hasAxios.StaffReward == false){
+                        this.getStaffRewardPunish();
+                    }
+                }
 
             },
 
         },
         created() {
-            let tabName =this.activeTabName;
+
+            let tabName = sessionStorage.getItem('tabName');
+            console.log(tabName);
+            if(!tabName){
+                tabName = this.activeTabName;
+            }else{
+                this.activeTabName = tabName;
+            }
             this.callTabApi(tabName);
-            this.getStaffPhases();
 
             /*是否在提成设置页面*/
-            let sessionSetRoyalty =window.sessionStorage.getItem('sessionSetRoyalty');
+            let sessionSetRoyalty = window.sessionStorage.getItem('sessionSetRoyalty');
             console.log(sessionSetRoyalty);
             if(sessionSetRoyalty == 'true'){
+                let Royaltyratio_id = sessionStorage.getItem('Royaltyratio_id');
+                console.log('reaID '+ Royaltyratio_id);
+                this.setRoyalty.ratio_id = Royaltyratio_id;
+                this.getStaffPhases();
                 this.tabStaffSalary = false;
                 this.setStaffRoyalty = true;
             }else{
@@ -546,39 +616,14 @@
             }
         },
         mounted() {
-            this.getStaffPhases();
+
         },
         components: {
             navBread,
-            monthSceen
         },
     }
 </script>
 
 <style lang="scss" >
     @import "@/assets/css/staff.scss";
-
-
-
-    /*.el-date-picker.has-sidebar {*/
-    /*    width: 320px;*/
-    /*    .el-picker-panel__sidebar {*/
-    /*        top: auto;*/
-    /*        width: 100%;*/
-    /*        border: 0;*/
-    /*        .el-picker-panel__shortcut {*/
-    /*            border-top: 1px solid red;*/
-    /*            text-align: center;*/
-    /*        }*/
-    /*    }*/
-    /*    .el-picker-panel__body {*/
-    /*        margin: 0;*/
-    /*        .el-picker-panel__content {*/
-    /*            width: auto;*/
-    /*            margin-bottom: 40px;*/
-    /*        }*/
-    /*    }*/
-    /*}*/
-
-
 </style>

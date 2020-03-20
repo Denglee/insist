@@ -29,28 +29,6 @@ Vue.component(publicIframe.name,publicIframe);
 // Vue.component(topTabbar.name,topTabbar);
 
 
-
-/* 4、 引入 echarts 图表*/
-// import echarts from'echarts'
-// Vue.prototype.$echarts = echarts //将echarts注册成Vue的全局属性
-// 引入 ECharts 主模块
-let echarts = require('echarts/lib/echarts');
-/*引入折线图/柱状图等组件*/
-require('echarts/lib/chart/line'); //折线
-require('echarts/lib/chart/bar');  //柱状
-require('echarts/lib/chart/funnel');//漏斗
-require('echarts/lib/chart/pie'); //饼图
-
-// 引入提示框和title组件，图例
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
-require('echarts/lib/component/legend');
-require('echarts/lib/component/legendScroll');//图例滚动
-
-//vue全局注入echarts
-Vue.prototype.$echarts = echarts;
-
-
 /* 5、 引入 vue-cropper 图片 裁剪*/
 import VueCropper from 'vue-cropper'
 Vue.use(VueCropper);
@@ -90,8 +68,6 @@ import histogram from 'v-charts/lib/histogram.common' //柱状图
 import pie from 'v-charts/lib/pie.common' //饼图
 import ring from 'v-charts/lib/ring.common' //环图
 import funnel from 'v-charts/lib/funnel.common' //图
-
-
 
 Vue.component(VeLine.name, VeLine);
 Vue.component(VeLine.name, bar);

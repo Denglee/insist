@@ -58,7 +58,10 @@ export const VipSalerStatis  = params => post('Admin/Statis/saler_statis', param
 /*==== D、员工===*/
 export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
-export const staffDel   = params => post('admin/staff/del', params);         /* 三处员工*/
+export const staffDel   = params => post('admin/staff/del', params);         /* 删除员工*/
+
+export const staffSalaryMenuid  = params => get('admin/staff/salary/menuid', params);         /* 员工工资列表*/
+export const staffRewardPunish   = params => get('admin/staff/reward_punish', params);         /* 员工奖惩*/
 
 export const staffGroup   = params => get('admin/staff/staff_group', params);         /* 部门*/
 export const staffDeduct   = params => get('admin/staff/deduct', params);         /* 提成 列表*/

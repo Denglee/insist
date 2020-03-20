@@ -19,7 +19,7 @@
                             <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                         </el-select>
                         <!--职位-->
-                        <el-select v-model="userTypeListVal" placeholder="请选择职位" class="inp-mar14 ptSel-section">
+                        <el-select v-model="userTypeListVal" placeholder="请选择岗位" class="inp-mar14 ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
@@ -54,7 +54,7 @@
                                 <div v-if="scope.row.sex == 2 " class="status-break">女</div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="user_type" label="职位">
+                        <el-table-column prop="user_type" label="岗位">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
                                 <div v-if="scope.row.user_type == 1 " class="status-connect">店长</div>
@@ -83,7 +83,13 @@
                         </el-table-column>
                         <el-table-column prop="phone" label="电话"></el-table-column>
                         <el-table-column prop="user_no" label="工号"></el-table-column>
-                        <el-table-column prop="deduction_type" label="提成方式"></el-table-column>
+                        <el-table-column prop="deduction_type" label="提成方式">
+                            <template slot-scope="scope">
+                                <div v-for="(index,item) in scope.row.deduction_type">
+                                    {{index}}
+                                </div>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="register_time" label="创建时间">
                             <template slot-scope="scope">
                                 <div class="status-connect">{{scope.row.register_time | dateFormat}}</div>
@@ -154,7 +160,7 @@
 <script>
     import {mapState,mapActions, mapGetters} from 'vuex'
     import addStaff from '@/views/Staff/addStaff'
-    import navBread from '@/components/Echarts/navBread'
+    import navBread from '@/components/navBread/navBread'
     import {staffAdd, staffDel, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
 
     export default {
@@ -176,7 +182,7 @@
 
                 /* 1.2、 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
-                userTypeListVal:'10000', /* 职位 选中值*/
+                userTypeListVal:'10000', /* 职位 岗位 选中值*/
 
                 /* 1.3、输入*/
                 staffInpVal:'',

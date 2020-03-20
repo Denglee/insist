@@ -57,7 +57,7 @@ const router = new Router({
 
 // 路由跳转前验证
 router.beforeEach((to, from, next) => {
-    console.log(permissionList);
+    // console.log(permissionList);
     // 开启进度条
     NProgress.start();
 

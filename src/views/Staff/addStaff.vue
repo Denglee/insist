@@ -160,7 +160,7 @@
 </template>
 
 <script>
-    import navBread from '@/components/Echarts/navBread'
+    import navBread from '@/components/navBread/navBread'
     import tinymce from '@/components/tinymce/tinymce'
     import {staffAdd,staffDeduct,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
     export default {

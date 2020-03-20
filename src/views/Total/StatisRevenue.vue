@@ -4,7 +4,7 @@
             <!--营收总览-->
             <el-tab-pane :lazy='tabInfo.tabLazy' label="营收总览" name="revenueTotal">
                 <el-row :gutter="20">
-                    <el-col :span="8">
+                    <el-col :md="8" :lg="8">
                         <div class="index-item revenue-item">
                             <header class="index-item-title">
                                 <div class="title">总收入</div>
@@ -14,12 +14,13 @@
                                 <li><span class="addVip-tagY"></span>本月</li>
 
                             </ul>
-                            <div class="flex-between revenueRatio-tip clearfix">
+                            <div class="flex-between revenueRatio-tip clearfix chart">
                                 <ve-pie :data="revenueTotal"
                                         :legend-visible="false"
                                         :colors="totalColor"
                                         :style="picStyle"
-                                        :settings="picSettings"></ve-pie>
+                                        :settings = "picSettings"
+                                ></ve-pie>
                                 <ul class="vipNum">
                                     <li>上月：<span class="vipTipY">{{revenueTotal.rows[0].value}}</span>
                                         <span v-if="revenueRatio.lastMonth > 0" class="vipTipG revenue-tip">
@@ -42,47 +43,49 @@
                             </div>
                         </div>
                     </el-col>
-
-                    <el-col :span="8">
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :md="12" :lg="12">
                         <div class="index-item revenue-item">
                             <header class="index-item-title" @click="changeData($event)">
-                                <div class="title">现有会员</div>
+                                <div class="title">项目营收排名</div>
                             </header>
                             <ul class="index-item-tipUl">
-                                <li><img src="~@/assets/icon/icon_indexVipG.png" alt="">潜在会员</li>
-                                <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
-                                <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
+                                <li v-for="(item,index) in revenueRanking.rows" :key="index">
+                                  <span class="revenueRanking-span" :class ='item.class'></span> {{item.name}}</li>
                             </ul>
-                            <div class="flex-between">
+                            <div class="chart">
                                 <ve-histogram :data="revenueRanking"
                                         :legend-visible="false"
-                                        :colors="totalColor"
+                                        :colors="revenueRankingColor"
                                         :style="histogramStyle"
-                                        :extend="HExtend"></ve-histogram>
+                                        :extend="histogramExtend"></ve-histogram>
                             </div>
                         </div>
                     </el-col>
-                    <el-col :span="8">
+
+                    <el-col :md="12" :lg="12">
                         <div class="index-item revenue-item">
                             <header class="index-item-title" @click="changeData($event)">
-                                <div class="title">现有会员</div>
+                                <div class="title">支付方式排名</div>
                             </header>
                             <ul class="index-item-tipUl">
                                 <li><img src="~@/assets/icon/icon_indexVipG.png" alt="">潜在会员</li>
                                 <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
                                 <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
                             </ul>
-                            <div class="flex-between">
+                            <div class="chart">
                                 <ve-histogram :data="revenuePayMethods"
                                               :legend-visible="false"
                                               :colors="totalColor"
                                               :style="histogramStyle"
-                                              :extend="HExtend"
+                                              :extend="histogramExtend"
                                               :judge-width="true"
                                 ></ve-histogram>
                             </div>
                         </div>
                     </el-col>
+
                 </el-row>
             </el-tab-pane>
 
@@ -147,32 +150,29 @@
 </template>
 
 <script>
-    // import eCharts from '@/components/Echarts/Echarts'
-    import navBread from '@/components/Echarts/navBread'
+
+    import navBread from '@/components/navBread/navBread'
     import {revenueTotal,revenueRanking,revenuePayMethod,
         revenueContract} from '@/assets/js/api' /*引用 营收总览 接口*/
     export default {
         name: "StatisRevenue",
         data() {
+            this.revenueRankingColor=['#84CCC9','#AA89BD','#F19EC2','#FF8A7E','#00A0E9','#0000FF','#FFBE00','#00B7EE']
             this.totalColor = ['#005AD4', '#FF8A7E']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
-            this.extend = {
-                tooltip: {
-                    trigger: 'axis',
-                    textStyle: {
-                        fontSize:12,
-                    },
-                },
+
+            this.histogramExtend ={
                 grid: {
                     // show:true,//是否显示直角坐标系网格。[ default: false ]
-                    // borderColor:"#c45455",//网格的边框颜色
+                    // borderColor:"#DADFE8",//网格的边框颜色
                     top: "30px",
-                    left: "80px",
-                    right: "60px",
-                    bottom: "40px",
-                    width: "90%", //图例宽度
-                    height: "80%", //图例高度
+                    left: "10px",
+                    right: "20px",
+                    bottom: "10px",
+                },
+                series: {
+                    barWidth: 30
                 },
                 xAxis: {
                     axisTick: {
@@ -202,49 +202,26 @@
                         }
                     },
                 },
-                series: {
-                    type: 'line',
-                    symbolSize: 9,   //设定实心点的大小
-                    lineStyle: {
-                        normal: {
-                            type: 'dashed',
-                        }
-                    },
-                }
-            };
-
-            this.HExtend ={
-                // grid: {
-                //     // show:true,//是否显示直角坐标系网格。[ default: false ]
-                //     // borderColor:"#c45455",//网格的边框颜色
-                //     top: "30px",
-                //     left: "80px",
-                //     right: "60px",
-                //     bottom: "40px",
-                //     width: "90%", //图例宽度
-                //     height: "100%", //图例高度
-                // },
-                series: {
-                    barWidth: 10
-                },
-            }
-
-            this.lineGrid = {
-                show:true,//是否显示直角坐标系网格。[ default: false ]
-                // borderColor:"#c45455",//网格的边框颜色
-                top: "30px",
-                left: "80px",
-                right: "60px",
-                bottom: "40px",
-                width: "90%", //图例宽度
-                height: "80%", //图例高度
             };
 
             return {
+
+                revenueRankingClass: [
+                    {class: "colorBgGreenLignt", color: '#84CCC9',},
+                    {class: "colorBgViolet", color: '#AA89BD',},
+                    {class: "colorBgPink", color: '#F19EC2',},
+                    {class: "colorBgRed", color: '#FF8A7E',},
+                    {class: "colorBgGreen", color: '#00A0E9',},
+                    {class: "colorBgBlueDark", color: '#0000FF',},
+                    {class: "colorBgYellow", color: '#FFBE00',},
+                    {class: "colorBgBlueGreen", color: '#00B7EE',},
+                ],
+
                 tabInfo:{
-                    activeTabName: 'revenueDetails', //revenueTotal revenueDetails
+                    activeTabName: 'revenueTotal', //revenueTotal revenueDetails
                     tabLazy: true,
                 },
+
                 /*显隐状态  集合*/
                 showState:{
                     tabRevenueState:true,  //tab 显隐
@@ -255,7 +232,7 @@
                 },
 
                 histogramStyle:{
-                    height: '180px',
+                    height: '250px',
                     width: '100%',
                 },
                 picStyle: {
@@ -264,7 +241,7 @@
                 },
                 picSettings : {
                     offsetY: 100,
-                    offsetX: 10,
+                    offsetX: 100,
                     radius: 70,
                     label: {
                         normal: {
@@ -355,7 +332,13 @@
             getRevenueRanking() {
                 revenueRanking().then(res => {
                     console.log(res);
-                    this.revenueRanking.rows = res;
+
+                    let incomeData = res;
+                    incomeData = incomeData.map((item, index) => {
+                        return {...item, ...this.revenueRankingClass[index]};
+                    });
+                    this.revenueRanking.rows = incomeData;
+
                 }).catch(res => {
                     console.log(res);
                 });
@@ -432,6 +415,15 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
+
+    /*营收总览*/
+    /*.chartRevenue{*/
+    /*    .ve-histogram{*/
+    /*        > div{*/
+    /*            height: 200px !important;*/
+    /*        }*/
+    /*    }*/
+    /*}*/
 
 </style>

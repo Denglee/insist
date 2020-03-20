@@ -105,7 +105,7 @@
 }
 .lesson-borR:after{
   content: '';
-  height:105px;
+  height:134px;
   border:solid 1px $color-linghtWhite;
   position: absolute;
   top: calc( 50% - 32px);
@@ -166,6 +166,10 @@
   font-size: 14px;
 }
 
+.indexItem-hei250 {
+  height: 270px;
+}
+
 /*收支趋势*/
 .comein-main{
   margin-bottom: 15px;
@@ -175,4 +179,25 @@
 .comeIn-title{
   color: $color-Gray;
   margin-right: 38px;
+}
+
+.vipNumPT{
+  position: absolute;
+  right: 10%;
+  top: 32%;
+}
+
+.line-comeIn{
+  .ve-line{
+    > div:first-child{
+      height: 340px !important;
+    }
+  }
+}
+.line-present{
+  .ve-line{
+    > div:first-child{
+      height: 200px !important;
+    }
+  }
 }

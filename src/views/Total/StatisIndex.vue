@@ -252,13 +252,16 @@
                     <header class="index-item-title">
                         <div class="title">上课查询</div>
                     </header>
-                    <ve-line
-                            :data="PTclass"
-                            :legend-visible="false"
-                            :colors="totalColor"
-                            :style="LineStyle"
-                            :extend = 'lineExtend'
-                    ></ve-line>
+                    <div class="chart">
+                        <ve-histogram
+                                :data="PTclass"
+                                :legend-visible="false"
+                                :colors="totalColor"
+                                :style="LineStyle"
+                                :extend="histogramExtend"
+                        ></ve-histogram>
+                    </div>
+
                 </div>
 
                 <!-- B5 私教会员上课详情-->
@@ -386,7 +389,7 @@
 
 <script>
 
-    import navBread from '@/components/Echarts/navBread'  //面包屑导航 组件
+    import navBread from '@/components/navBread/navBread'  //面包屑导航 组件
     import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
     import statisDetails from '@/components/details/statisDetails'  // 详情组件
 
@@ -479,6 +482,48 @@
                         }
                     },
                 }
+            };
+
+            this.histogramExtend ={
+                grid: {
+                    // show:true,//是否显示直角坐标系网格。[ default: false ]
+                    // borderColor:"#DADFE8",//网格的边框颜色
+                    top: "30px",
+                    left: "10px",
+                    right: "20px",
+                    bottom: "10px",
+                },
+                series: {
+                    barWidth: 30
+                },
+                xAxis: {
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    type: 'category',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8E8E8E',
+                        }
+                    },
+                    //设置字体倾斜
+                    axisLabel: {
+                        // interval:0,
+                        // rotate:10,//倾斜度 -90 至 90 默认为0
+                        margin:15,
+                        textStyle: {
+                            color: "#8E8E8E"
+                        }
+                    },
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8E8E8E',
+                        }
+                    },
+                },
             };
 
             return {
@@ -579,8 +624,8 @@
 
 
                 /*私教1、私教统计 */
-                tabPaneState: false,    //tab 显隐
-                ptSalesD: true,  //销售查询表格 显隐
+                tabPaneState: true,    //tab 显隐
+                ptSalesD: false,  //销售查询表格 显隐
                 ptNumD: false,
                 ptLessonD: false,
                 vSalesD: false,
