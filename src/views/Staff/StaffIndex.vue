@@ -180,6 +180,7 @@
                 ],
                 lockStateVal:0,
 
+
                 /* 1.2、 职位*/
                 userTypeList:this.GLOBAL.userTypeList,
                 userTypeListVal:'10000', /* 职位 岗位 选中值*/
@@ -398,7 +399,6 @@
                 let groupName = this.setupGroup.name;
                 console.log(groupName);
 
-                return false
 
                 if(groupName == ''){
                     this.$message.error('部门名称 不能为空')

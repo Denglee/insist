@@ -404,7 +404,7 @@
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "StatisIndex",  //会员总览
         data() {
-                   this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
+            this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
 

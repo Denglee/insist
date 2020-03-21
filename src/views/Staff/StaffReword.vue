@@ -534,36 +534,39 @@
             getStaffRewardPunish(){    // 3.1奖惩列表接口
                 staffRewardPunish(this.staffPunish).then(res=>{
                     console.log(res.data);
-                    this.staffPunishList[0].value = res.data.reward;
-                    this.staffPunishList[1].value = res.data.punish;
-
-                    this.hasAxios.StaffSalary = true;
                     if(this.staffPunish.type == 2){
-                        this.reload();
+                        this.$message.success(res.info);
+                        setTimeout(()=>{
+                            this.reLoad();
+                        },1000)
+                    }else {
+                        this.staffPunishList[0].value = res.data.reward;
+                        this.staffPunishList[1].value = res.data.punish;
                     }
+                    this.hasAxios.StaffReward = true;
                 }).catch(res =>{
                     console.log(res);
                 });
             },
 
-            changePunish(rows,index){
-                console.log(rows);
+            changePunish(index,rows){
                 if(rows.id == 1){
                     this.staffPunish = {
                         zmtek_ver:2,
                         reward:rows.value,  //奖
-                        punish:'',  //惩
+                        punish:this.staffPunishList[1].value,  //惩
                         type:2,    //1获取 2修改
                     }
                 }
                 if(rows.id == 2){
                     this.staffPunish = {
                         zmtek_ver:2,
-                        reward:'',  //奖
+                        reward:this.staffPunishList[0].value ,  //奖
                         punish:rows.value,  //惩
                         type:2,    //1获取 2修改
                     }
                 }
+
                 this.getStaffRewardPunish();
             },
 
@@ -596,7 +599,7 @@
             if(!tabName){
                 tabName = this.activeTabName;
             }else{
-                this.activeTabName = tabName;
+                this.activeTabName = tabName;   //有session
             }
             this.callTabApi(tabName);
 
@@ -608,6 +611,7 @@
                 console.log('reaID '+ Royaltyratio_id);
                 this.setRoyalty.ratio_id = Royaltyratio_id;
                 this.getStaffPhases();
+
                 this.tabStaffSalary = false;
                 this.setStaffRoyalty = true;
             }else{
