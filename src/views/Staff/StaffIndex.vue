@@ -23,9 +23,9 @@
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
-                        <!--<el-select v-model="userTypeListVal" placeholder="请选择部门" class="inp-mar14 ptSel-section">
-                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
-                        </el-select>-->
+                        <el-select v-model="userTypeGroupVal" placeholder="请选择部门" class="inp-mar14 ptSel-section">
+                            <el-option v-for="item in groupArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        </el-select>
                         <!--班次-->
                         <!--<el-select v-model="userTypeListVal" placeholder="请选择班次" class="inp-mar14 ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
@@ -85,8 +85,8 @@
                         <el-table-column prop="user_no" label="工号"></el-table-column>
                         <el-table-column prop="deduction_type" label="提成方式">
                             <template slot-scope="scope">
-                                <div v-for="(index,item) in scope.row.deduction_type">
-                                    {{index}}
+                                <div v-for="(item,index) in scope.row.deduction_type">
+                                    {{item}}
                                 </div>
                             </template>
                         </el-table-column>
@@ -161,7 +161,7 @@
     import {mapState,mapActions, mapGetters} from 'vuex'
     import addStaff from '@/views/Staff/addStaff'
     import navBread from '@/components/navBread/navBread'
-    import {staffAdd, staffDel, staffIndex,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
+    import {staffAdd, staffDel, staffIndex,staffGroup,staffDeduct} from '@/assets/js/api' /*引用 员工 接口*/
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -173,20 +173,17 @@
                 tabLazy: true,
 
                 /*  == 员工 筛选 ==*/
-                /* 1.0、在职状态*/
                 lockState:[
                     {lock:0,value:'在职'},
                     {lock:1,value:'离职'},
                 ],
-                lockStateVal:0,
-
-
-                /* 1.2、 职位*/
-                userTypeList:this.GLOBAL.userTypeList,
+                lockStateVal:0, // 1.0、在职状态
+                userTypeList:this.GLOBAL.userTypeList,    // 1.2、 职位
                 userTypeListVal:'10000', /* 职位 岗位 选中值*/
+                staffInpVal:'', // 1.3、输入
+                userTypeGroupVal:'', //1.4 部门
 
-                /* 1.3、输入*/
-                staffInpVal:'',
+                staffDeductArr:[], //提成
 
                 tableStaff: [], //员工列表数组
                 pageTotalRows:0,  /*分页总数*/
@@ -344,6 +341,22 @@
             },
 
 
+            /*获取 提成 */
+            getStaffDeduct(){
+                staffDeduct({
+                    zmtek_ver : 2,
+                    type :1,
+                    deduction_name :'',
+                    deduction_type : '',
+                    id : '',
+                }).then(res => {
+                    console.log(res.data);
+                    this.staffDeductArr = res.data;
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
+
 
             /*  ======= // 3  添加员工 开始 ====== =*/
             /* 3.1 去添加页面*/
@@ -450,9 +463,12 @@
                     console.log(this.getStaffClasses.lock);
                     this.staffPage = this.getStaffClasses.lock;
                     this.getStaffIndex();
+
+                    this.getStaffGroup();
+                    this.getStaffDeduct();
                 }
                 if(tabName == 'StaffRoyalty'){
-                    this.getStaffGroup();
+                   /* this.getStaffGroup();*/
                 }
 
             },

@@ -266,13 +266,7 @@
 
                 <!-- B5 私教会员上课详情-->
                 <div class="index-item pt-sales">
-                    <header class="index-item-title flex-between">
-                        <div class="title">会员上课详情</div>
-                    </header>
-                    <div class="ptTable-assist">
-
-
-                    </div>
+                    <ptLessonDetails :ptSalesPage="5" @btnTotalMore="btnTotalMore('tabPaneState','ptLessonD')"></ptLessonDetails>
                 </div>
             </el-tab-pane>
 
@@ -366,24 +360,29 @@
 
                 <!-- C4 会员上课详情-->
                 <div class="index-item pt-sales">
-                    <header class="index-item-title flex-between">
-                        <div class="title">会员上课详情</div>
-                        <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','vLessonD')">查看更多</el-button>
-                    </header>
-                    <div class="ptTable-assist">
-
-                     </div>
+                    <vipLessonDetails  :ptSalesPage="5" @btnTotalMore="btnTotalMore('tabPaneState','vLessonD')"></vipLessonDetails>
                 </div>
             </el-tab-pane>
 
         </el-tabs>
 
         <!--私教销售额查询 表格 详情-->
-        <div v-show="ptSalesD">
+        <div v-if="ptSalesD">
             <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
             <statisDetails :ptSalesPage="10"></statisDetails>
         </div>
 
+        <!--私教 上课 表格 详情-->
+        <div v-if="ptLessonD">
+            <navBread @GoBack="goBack('VipPT','ptLessonD')" breadTitle="私教" breadContent1="私教上课详情"></navBread>
+            <ptLessonDetails :ptSalesPage="10"></ptLessonDetails>
+        </div>
+
+        <!--会员 上课 表格 详情-->
+        <div v-if="vLessonD">
+            <navBread @GoBack="goBack('VipPT','vLessonD')" breadTitle="会籍" breadContent1="会籍上课详情"></navBread>
+            <vipLessonDetails :ptSalesPage="10"></vipLessonDetails>
+        </div>
     </div>
 </template>
 
@@ -392,10 +391,12 @@
     import navBread from '@/components/navBread/navBread'  //面包屑导航 组件
     import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
     import statisDetails from '@/components/details/statisDetails'  // 详情组件
+    import ptLessonDetails from '@/components/details/ptLessonDetails'  // 详情组件
+    import vipLessonDetails from '@/components/details/vipLessonDetails'  // 详情组件
 
     import {
         PTprivateMember, totalMember_number, totalMember_trend, totalPassenger_trend, totalRefund_trend,
-        totalSub_card_trend, PTClassRanking, PTMemberClass,
+        totalSub_card_trend, PTClassRanking,
         VipMemberTkClass, VipSalerStatis,
         staffIndex
     } from '@/assets/js/api' /*引用 会员总览 接口*/
@@ -527,12 +528,22 @@
             };
 
             return {
-                activeTabName: 'VipPT', //VipTotal VipPT VipMembership
+
+                activeTabName: 'VipMembership', //VipTotal VipPT VipMembership
                 hasAxios:{  //是否调用接口状态
                     VipTotal:false,
                     VipPT:false,
                     VipMembership:false,
                 },
+
+                /*私教1、私教统计 */
+                tabPaneState: true,    //tab 显隐
+                ptSalesD: false,  //销售查询表格 显隐
+                ptNumD: false,
+                ptLessonD: false,
+                vSalesD: false,
+                vNumD: false,
+                vLessonD: false,
 
                 tabLazy: true,
                 /* == 会员总览 eCharts 对应宽高 == */
@@ -621,17 +632,6 @@
                     columns: ['日期', '每日客流走势'],
                     rows: [],
                 },
-
-
-                /*私教1、私教统计 */
-                tabPaneState: true,    //tab 显隐
-                ptSalesD: false,  //销售查询表格 显隐
-                ptNumD: false,
-                ptLessonD: false,
-                vSalesD: false,
-                vNumD: false,
-                vLessonD: false,
-
 
                 PTLesson: {
                     columns: ['name', 'value'],
@@ -817,8 +817,8 @@
                     this.totalPassengerTrend.rows= [];
                     let addTime = res[0].value.split(',');
                     let addVip = res[1].value.split(',');
-                    console.log(addTime);
-                    console.log(addVip);
+                    /*console.log(addTime);
+                    console.log(addVip);*/
                     for(let i = 0; i < addTime.length; i++){
                         this.totalPassengerTrend.rows.push({
                             '日期' : addTime[i],
@@ -867,6 +867,7 @@
                 });
             },
 
+            /*私教上课排名*/
             getPTClassRanking() {
                 PTClassRanking().then(res => {
                     this.PTclass.rows = [];
@@ -882,18 +883,6 @@
                 });
             },
 
-            getPTMemberClass() {
-                PTMemberClass({
-                    curpage:1,
-                    pageSize:5,
-                }).then(res => {
-                    console.log(res);
-                    this.PTVipTable =res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
-            },
-
 
             /*搜索*/
             searchPT() {
@@ -902,7 +891,8 @@
 
             /* 查看更多 */
             btnTotalMore(e1, e2) {
-                console.log(e1);
+                console.log('查看更多 e1'+e1);
+                console.log('查看更多 e2'+e2);
                 this[e1] = false;    //tab隐藏
                 this[e2] = true;  //表格显示
             },
@@ -910,6 +900,7 @@
             /* 返回上一页 */
             goBack(e1, e2) {
                 console.log(e1);
+                console.log(e2);
 
                 this[e2] = false;   //隐藏当前 表格详情
                 this.tabPaneState = true; //显示对应tab
@@ -977,21 +968,22 @@
                         /*调用 会员总览5 客流走势*/
                         this.getTotalPassenger_trend();
                     }
-                };
+                }
+
                 if(tabName == 'VipPT'){
                     if(this.hasAxios.VipPT == false ){
                         /*调用 ==== 私教1 ==== 私教统计*/
                         this.getPTprivateMember();
-                        this.getPTMemberClass();
                         this.getPTClassRanking();
                     }
-                };
+                }
+
                 if(tabName == 'VipMembership'){
                     if(this.hasAxios.VipMembership == false ) {
                         this.getVipMemberTkClass();
                         this.getVipSalerStatis();
                     }
-                };
+                }
             },
         },
         created() {
@@ -999,13 +991,14 @@
             let tabName =this.activeTabName;
             this.callTabApi(tabName);
 
-
         },
 
         components: {
             navBread,
             monthSceen,
-            statisDetails
+            statisDetails,
+            ptLessonDetails,
+            vipLessonDetails,
         },
     }
 </script>

@@ -10,7 +10,8 @@
                 v-model="monthScreen.monthVal"
                 type="month"
                 placeholder="选择月"
-                value-format="yyyy年MM月"
+                value-format="yyyy-MM"
+                format="yyyy年MM月"
                 @change="monthSel"
                 :picker-options="pickerOptions2">
         </el-date-picker>
@@ -93,9 +94,11 @@
             过去7天  time:'7'
             过去30天 time:'30'*/
             monthSel(val){
+
                 let monthVal = this.monthScreen.monthVal;
-                // console.log(monthVal);
+                console.log(monthVal);
                 if(monthVal){
+                    console.log(monthVal);
                     this.monthScreen = {
                         monthVal:val,
                         monthText:val,

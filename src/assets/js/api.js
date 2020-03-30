@@ -53,7 +53,7 @@ export const PTMemberClass  = params => post('Admin/Statis/member_class', params
 /*3、会籍*/
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/
 export const VipSalerStatis  = params => post('Admin/Statis/saler_statis', params);         /* 会籍统计*/
-
+export const VipMemberClass  = params => post('Admin/Statis/member_tk_class', params);         /* 上课详情*/
 
 /*==== D、员工===*/
 export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/

@@ -110,7 +110,7 @@
                             placeholder="选择时间范围">
                     </el-time-picker>
                 </el-form-item>
-                <el-form-item label="午班" >
+                <el-form-item label="中班" >
                     <el-time-picker
                             is-range
                             format = "HH：mm"
