@@ -149,10 +149,11 @@
     import {mapState,mapActions, mapGetters} from 'vuex'
     import {staffSignin} from '@/assets/js/api' /*引用 考勤 接口*/
     export default {
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "Staffsignin",
         data() {
             return {
-                activeName: 'StaffRoyalty', //StaffSalary StaffRoyalty
+                activeName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
                 formLabelWidth: '120px',
 
@@ -239,6 +240,7 @@
             /*弹出时间设置 确定*/
             sureDialogTIme(){
                 this.EditTimeForm = false;
+                /*this.reLoad();*/
             },
 
             /*去员工页面*/

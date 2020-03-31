@@ -65,6 +65,7 @@
 
             /*私教上课详情*/
             getPTMemberClass() {
+                console.log('ptSalesPage'+this.ptSalesPage);
                 PTMemberClass({
                     curpage:1,
                     pageSize:5,

@@ -208,6 +208,8 @@
 <script>
 
     import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
+    import {lineExtendConfig,histogramExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
+
     export default {
         name: "index",
         inject: ['reLoad'],
@@ -220,78 +222,7 @@
             this.lessonTrainerColor =  ['#FF8A7E', '#FFBE00']; //自定义的颜色
             this.comeInColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; // 自定义的颜色
 
-            this.lineExtend = {
-                tooltip: {
-                    trigger: 'axis',
-                    textStyle: {
-                        fontSize:12,
-                    },
-                    // formatter : function (params) {
-                    //
-                    //     var rec = '';
-                    //     for(var i = 0;i < params.length;i++){
-                    //         var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
-                    //             ''+ params[i].axisValue + '</div>';
-                    //         var reb = '<div style="margin: 4px">'+
-                    //             '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
-                    //             '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
-                    //             '</div>';
-                    //         rec= rec + reb;
-                    //     }
-                    //     return rea + rec;
-                    // },
-                },
-
-                grid: {
-                    // show:true,//是否显示直角坐标系网格。[ default: false ]
-                    // borderColor:"#c45455",//网格的边框颜色
-                    top: "30px",
-                    left: "4%",
-                    right: "4%",
-                    bottom: "4%",
-                    width: "92%", //图例宽度
-                    height: "80%", //图例高度
-                },
-
-                xAxis: {
-                    axisTick: {
-                        alignWithLabel: true
-                    },
-                    type: 'category',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#8E8E8E',
-                        }
-                    },
-                    //设置字体倾斜
-                    axisLabel: {
-                        // interval:0,
-                        // rotate:10,//倾斜度 -90 至 90 默认为0
-                        margin:15,
-                        textStyle: {
-                            color: "#8E8E8E"
-                        }
-                    },
-                },
-
-                yAxis: {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#8E8E8E',
-                        }
-                    },
-                },
-                series: {
-                    type: 'line',
-                    symbolSize: 9,   //设定实心点的大小
-                    lineStyle: {
-                        normal: {
-                            type: 'dashed',
-                        }
-                    },
-                }
-            };
+            this.lineExtend = lineExtendConfig;
 
             return {
                 LineStyle:{

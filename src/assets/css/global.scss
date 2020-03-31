@@ -675,5 +675,22 @@ $tabHei: 46px;
       height: 200px !important;
     }
   }
+  .ve-bar{
+    > div:first-child{
+      height: 200px !important;
+    }
+  }
+}
+.chartRevenue{
+  .ve-bar{
+    > div:first-child{
+      height: 240px !important;
+    }
+  }
+  .ve-histogram{
+    > div:first-child{
+      height: 190px !important;
+    }
+  }
 }
 
