@@ -225,6 +225,8 @@
             tabTotal(tab, event) {
                 let tabName = tab.name;
                 this.callTabApi(tabName);
+
+                sessionStorage.setItem('StaffIndexTabName',tabName);
             },
 
             /*员工列表*/
@@ -475,8 +477,14 @@
 
         },
         created() {
-            let tabName =this.activeTabName;
+            let tabName = sessionStorage.getItem('StaffIndexTabName');
+            if(tabName == null){
+                tabName = this.activeTabName;
+            }else {
+                this.activeTabName = tabName;
+            }
             this.callTabApi(tabName);
+
         },
 
         computed:{

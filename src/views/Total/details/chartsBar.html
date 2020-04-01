@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.min.js"></script>
+</head>
+<body>
+
+<select name="" id="sel" >
+    <option value="0">选择日期</option>
+    <option value="1">今天</option>
+    <option value="2">昨天</option>
+</select>
+
+<input type="text" class="layui-input" id="test1" placeholder="请选择查询日期">
+
+<!--图表容器-->
+<div id="mainChart" style="width: 100%;height:400px;"></div>
+
+<script>
+    $(function () {
+
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#test1', //指定元素
+                format: 'yyyy-MM-dd'
+                ,done: function(value, date){
+                    console.log(value);
+                    option.xAxis.data = ["9:00-10:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00"];
+                    option.series[0].data = [405, 420, 236, 140, 410, 720];
+                    // 使用刚指定的配置项和数据显示图表。
+                    orderChart.setOption(option);
+                }
+            });
+        });
+
+        $('#sel').on('change', function (e) {
+            var day = $(this).find('option:selected').val();
+            console.log(day);
+
+            if (day == 1) {
+                option.xAxis.data = ["9:00-10:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00"];
+                option.series[0].data = [405, 420, 236, 140, 410, 720];
+                // 使用刚指定的配置项和数据显示图表。
+                orderChart.setOption(option);
+            }
+
+
+            if (day == 2) {
+                option.xAxis.data = ["9:00-10:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00"];
+                option.series[0].data = [500, 100, 236, 340, 450, 250, 360];
+                // 使用刚指定的配置项和数据显示图表。
+                orderChart.setOption(option);
+            }
+        });
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var orderChart = echarts.init(document.getElementById('mainChart'));
+        // 指定图表的配置项和数据
+        var option = {
+            color: ['#ffa300'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: '报名人数',
+                type: 'bar',
+                barWidth: 30,
+                data: [],
+            }]
+        };
+
+        option.xAxis.data = ["9:00-10:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00", "10:00-11:00"];
+        option.series[0].data = [50, 100, 136, 40, 50, 50, 60];
+        // 使用刚指定的配置项和数据显示图表。
+        orderChart.setOption(option);
+
+
+        window.onresize = function () {
+            orderChart.resize();
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -62,7 +62,7 @@
         name: "StatisIndex",  //会员总览
         data() {
             return {
-                activeTabName: 'VipPT', //VipTotal VipPT VipMembership
+                activeTabName: 'VipTotal', //VipTotal VipPT VipMembership
                 tabLazy: true,
 
 

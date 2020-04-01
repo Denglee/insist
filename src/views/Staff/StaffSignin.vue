@@ -1,7 +1,7 @@
 <template>
     <div class="layoutR-main">
 
-        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox">
+        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox" @tab-click="tabTotal">
             <!--tab1 打卡记录-->
             <el-tab-pane :lazy='tabLazy' label="打卡记录" name="StaffSalary">
                 <!--打卡记录筛选-->
@@ -184,7 +184,11 @@
                 ActSaveStaffClasses:'StoreTagNav/ActSaveStaffClasses',
             }),
 
-
+            /* 0、tab切换*/
+            tabTotal(tab, event) {
+                let tabName = tab.name;
+                sessionStorage.setItem('StaffSignTabName',tabName);
+            },
 
             /*考勤*/
             getStaffSignin(){
@@ -254,8 +258,13 @@
             },
         },
         created() {
-
             this.getStaffSignin();
+            let tabName = sessionStorage.getItem('StaffSignTabName');
+            if(tabName == null){
+                tabName = this.activeName;
+            }else {
+                this.activeName = tabName;
+            }
         },
     }
 </script>
