@@ -322,6 +322,10 @@ $indexTitleHei: 44px;
   vertical-align: inherit;
 }
 
+.el-time-spinner__item{
+  height: 31px;
+  line-height: inherit;
+}
 .el-time-spinner__item.active:not(.disabled) {
   color: $color-MediumBlue;
   font-weight: 700;
@@ -453,6 +457,32 @@ $borRadius:15px;
     border-color: #1c78f4;
     background-color: #1c78f4;
   }
+}
+
+.btn-delete{
+  background-color: $color-Red;
+  border: solid 1px $color-Red;
+  &:hover,
+  &:focus {
+    color: #fff;
+    border-color: rgba(212, 38, 15, 0.82);
+    background-color: rgba(212, 38, 15, 0.82);
+  }
+}
+.poper-del{
+  background-color: $color-Red !important;
+  border: solid 1px $color-Red;
+  color: #fff;
+  .popper__arrow{
+    border-bottom-color: $color-Red!important;
+  }
+  .popper__arrow::after{
+    border-bottom-color: $color-Red!important;
+  }
+}
+
+.btn-edit{
+  color: #EBEEF5;
 }
 
 .btn-add {

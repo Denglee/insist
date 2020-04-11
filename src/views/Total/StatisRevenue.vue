@@ -22,20 +22,20 @@
                                         :extend="picExtend"
                                 ></ve-pie>
                                 <ul class="vipNum">
-                                    <li>上月：<span class="vipTipY">{{revenueTotal.rows[0].value}}</span>
-                                        <span v-if="revenueRatio.lastMonth > 0" class="vipTipG revenue-tip">
+                                    <li>上月：<span class="vipTipB">{{revenueTotal.rows[0].value}}</span>
+                                        <span v-if="revenueRatio.lastMonth > 0" class="vipTipB revenue-tip">
                                             <i class="el-icon-top"></i>
                                             {{revenueRatio.lastMonth}}
                                         </span>
-                                        <span v-else class="vipTipY revenue-tip">
+                                        <span v-else class="vipTipB revenue-tip">
                                               <i class="el-icon-bottom"></i>{{revenueRatio.lastMonth | mathFloor}}
                                         </span>
                                     </li>
-                                    <li>本月：<span class="vipTipB">{{revenueTotal.rows[1].value}}</span>
+                                    <li>本月：<span class="vipTipY">{{revenueTotal.rows[1].value}}</span>
                                         <span v-if="revenueRatio.nowMonth > 0" class="vipTipB revenue-tip">
                                              <i class="el-icon-top"></i>{{revenueRatio.nowMonth}}
                                         </span>
-                                        <span v-else class="vipTipB revenue-tip">
+                                        <span v-else class="vipTipY revenue-tip">
                                              <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}
                                         </span>
                                     </li>
@@ -95,7 +95,7 @@
     import {revenueTotal,revenueRanking,revenuePayMethod,
         revenueContract} from '@/assets/js/api' /*引用 营收总览 接口*/
 
-    import {lineExtendConfig,histogramExtendConfig,picExtendConfig,barExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
+    import {lineExtendConfig,hisRevenueExtendConfig,picExtendConfig,barExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
 
     export default {
         name: "StatisRevenue",
@@ -105,7 +105,7 @@
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
             this.vipPtColor=['#FFBE00', '#FF8A7E','#1EAAA1', '#4CCBEB'];
 
-            this.histogramExtend = histogramExtendConfig;
+            this.histogramExtend = hisRevenueExtendConfig;
             this.picExtend = picExtendConfig;
             this.barExtend = barExtendConfig;
 

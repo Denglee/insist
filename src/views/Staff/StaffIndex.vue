@@ -7,9 +7,9 @@
 
             <!--tab1 员工列表-->
             <el-tab-pane :lazy='tabLazy' label="员工列表" name="StaffSalary">
-                <div class="clearfix">
+                <!--<div class="clearfix">
                     <el-button type="primary" class="btn-add fr btn-search" @click="btnAddStaff">添加员工</el-button>
-                </div>
+                </div>-->
                 <!--员工列表-->
                 <div class="vip-tabBox">
                     <!--员工列表 筛选-->
@@ -32,14 +32,16 @@
                         </el-select>-->
                         <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="inp-mar14 pt-screen-input" clearable></el-input>
                         <!--搜索-->
-                        <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search">搜索</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-search btn-search">搜索</el-button>
                         <div class="fr">
+                            <el-tooltip class="item" effect="dark" content="删除" placement="bottom"
+                                        popper-class="poper-del">
+                                <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-search btn-delete"></el-button>
+                            </el-tooltip>
                             <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-                                <el-button icon="el-icon-edit" @click="changeStaff()" class="btn-search"></el-button>
+                                <el-button icon="el-icon-edit" @click="changeStaff()" class="btn-search btn-edit"></el-button>
                             </el-tooltip>
-                            <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-                                <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-search"></el-button>
-                            </el-tooltip>
+                            <el-button type="primary" class="btn-search btn-edit" @click="btnAddStaff">添加员工</el-button>
                         </div>
                     </div>
                     <!--员工列表 表格-->
@@ -47,13 +49,15 @@
                               ref="multipleTable" @row-click="handleRowClick">
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
+                        <el-table-column prop="user_no" label="工号"></el-table-column>
                         <el-table-column prop="sex" label="性别">
                             <template slot-scope="scope">
-                                <div v-if="scope.row.sex == 0 " class="status-connect">未知</div>
-                                <div v-if="scope.row.sex == 1 " class="status-break">男</div>
-                                <div v-if="scope.row.sex == 2 " class="status-break">女</div>
+                                <div v-if="scope.row.sex == 0 ">未知</div>
+                                <div v-if="scope.row.sex == 1 ">男</div>
+                                <div v-if="scope.row.sex == 2 ">女</div>
                             </template>
                         </el-table-column>
+                        <el-table-column prop="phone" label="电话"></el-table-column>
                         <el-table-column prop="user_type" label="岗位">
                             <template slot-scope="scope">
                                 <div v-if="scope.row.user_type == 0 " class="status-connect">全部职位</div>
@@ -81,13 +85,18 @@
                                 <div v-if="scope.row.classes == 4">晚班</div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="phone" label="电话"></el-table-column>
-                        <el-table-column prop="user_no" label="工号"></el-table-column>
+
                         <el-table-column prop="deduction_type" label="提成方式">
                             <template slot-scope="scope">
                                 <div v-for="(item,index) in scope.row.deduction_type">
                                     {{item}}
                                 </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="lock" label="状态">
+                            <template slot-scope="scope">
+                                <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
+                                <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="register_time" label="创建时间">
@@ -96,12 +105,6 @@
                             </template>
                         </el-table-column>
 
-                        <el-table-column prop="lock" label="状态">
-                            <template slot-scope="scope">
-                                <div v-if="scope.row.lock == 0 " class="status-connect">在职</div>
-                                <div v-if="scope.row.lock == 1 " class="status-break">离职</div>
-                            </template>
-                        </el-table-column>
                     </el-table>
 
                     <el-pagination
@@ -485,6 +488,8 @@
             }
             this.callTabApi(tabName);
 
+
+            console.log('GetStaffClasses:'+this.getStaffClasses)
         },
 
         computed:{

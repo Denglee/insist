@@ -134,7 +134,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaRoyalty()":loading="btnLoad.state">{{btnLoad.text}}</el-button>
+                <el-button type="primary" @click="sureDiaRoyalty()" :loading="btnLoad.state">{{btnLoad.text}}</el-button>
             </div>
         </el-dialog>
 
@@ -217,7 +217,6 @@
                     limit:0
                 },
 
-
                 /* 二、 tab2 提成添加 种类 */
                 dialogRoyalty:false,   //提成名称 设置 弹窗
                 btnLoad:{
@@ -289,7 +288,8 @@
             /* ============= 一、员工工资 列表*/
             getStaffSalaryMenuid(){   // 工资列表接口
                 staffSalaryMenuid(this.rewordParameter).then(res=>{
-                    console.log(res.data.list);
+                    console.log(res.data.staff);
+
                     this.rewardList = res.data.list;
                     this.rewaroPage = {   //工资分页
                         total:Number(res.data.totalRows),

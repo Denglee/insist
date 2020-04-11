@@ -115,6 +115,59 @@ let histogramExtendConfig ={
     },
 };
 
+
+let hisRevenueExtendConfig ={
+    grid: {
+        // show:true,//是否显示直角坐标系网格。[ default: false ]
+        // borderColor:"#DADFE8",//网格的边框颜色
+        top: "30px",
+        left: "10px",
+        right: "20px",
+        bottom: "10px",
+    },
+    xAxis: {
+        axisTick: {
+            alignWithLabel: true
+        },
+        type: 'category',
+        axisLine: {
+            lineStyle: {
+                color: '#8E8E8E',
+            }
+        },
+        //设置字体倾斜
+        axisLabel: {
+            // interval:0,
+            // rotate:10,//倾斜度 -90 至 90 默认为0
+            margin:15,
+            textStyle: {
+                color: "#8E8E8E"
+            }
+        },
+    },
+    yAxis: {
+        type: 'value',
+        axisLine: {
+            lineStyle: {
+                color: '#8E8E8E',
+            }
+        },
+    },
+    series: {
+        barWidth: 30,
+        itemStyle: {
+            normal: {
+                //这里是重点
+                color: function(params) {
+                    //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                    var colorList = ['#84CCC9','#AA89BD', '#F19EC2', '#FF8A7E', '#00A0E9','#0000FF', '#FFBE00','#00B7EE'];
+                    return colorList[params.dataIndex]
+                }
+            }
+        }
+    },
+};
+
 /*柱状图 配置*/
 let barExtendConfig ={
     grid: {
@@ -156,8 +209,19 @@ let barExtendConfig ={
         },
     },*/
     series: {
-        barWidth: 30
-    },
+        barWidth: 30,
+        type: 'bar',
+        itemStyle: {
+            normal: {
+                //这里是重点
+                color: function(params) {
+                    //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                    var colorList = ['#84CCC9','#AA89BD', '#F19EC2', '#FF8A7E', '#00A0E9','#0000FF', '#FFBE00','#00B7EE'];
+                    return colorList[params.dataIndex]
+                }
+            }
+        }
+    }
 };
 
 /*饼状图配置*/
@@ -168,12 +232,12 @@ let picExtendConfig = {
         // radius: 70,
         radius: '70%',  //大小
         center: ['50%', '40%'], // 位置
-    /*    label: {   //去掉指引线
+        label: {   //去掉指引线
             normal: {
-                // position: 'inner',
-                // show: false,
+                position: 'inner',
+                show: false,
             }
-        },*/
+        },
         labelLine: {
             normal: {
                 show: false
@@ -185,6 +249,7 @@ let picExtendConfig = {
 export {
     lineExtendConfig,
     histogramExtendConfig,
+    hisRevenueExtendConfig,
     picExtendConfig,
     barExtendConfig,
 }

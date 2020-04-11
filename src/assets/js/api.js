@@ -1,6 +1,6 @@
 /*** api接口统一管理 */
 import { get, post } from './axios';
-import HeaderTop from "../../components/layout/HeaderTop";
+// import HeaderTop from "../../components/layout/HeaderTop";
 
 /**
  *
@@ -68,6 +68,7 @@ export const staffDeduct   = params => get('admin/staff/deduct', params);       
 export const staffPhases   = params => get('admin/staff/phases', params);         /* 提成 设置*/
 
 export const staffSignin   = params => get('admin/staff/signin', params);         /* 考勤 列表*/
+export const staffSetcommutertime   = params => get('admin/Staff/setcommutertime', params);         /* 考勤 列表*/
 
 
 /*  === E、营收 ==*/

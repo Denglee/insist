@@ -18,7 +18,6 @@
             <el-tab-pane :lazy='tabLazy' label="会籍" name="VipMembership">
                 <VipMembership @showState="showState($event)"></VipMembership>
             </el-tab-pane>
-
         </el-tabs>
 
         <ul>
