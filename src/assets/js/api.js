@@ -49,6 +49,7 @@ export const totalPassenger_trend = params => post('admin/statis/passenger_trend
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 私教 统计 会员数量*/
 export const PTClassRanking   = params => post('admin/statis/class_ranking', params);         /* 教练上课排名*/
 export const PTMemberClass  = params => post('Admin/Statis/member_class', params);         /* 上课详情*/
+export const PTSaleroom  = params => post('Admin/Statis/saleroom', params);         /* 私教销售额 */
 
 /*3、会籍*/
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/

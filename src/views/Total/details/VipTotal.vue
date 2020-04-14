@@ -3,7 +3,7 @@
         <!-- A1  会员数量-->
         <el-row :gutter="30" class="total-row">
             <!--会员数量-->
-            <el-col :md="16" :lg="16">
+            <el-col :md="8" :lg="8">
                 <div class="index-item">
                     <header class="index-item-title">
                         <div class="title">会员数量</div>
@@ -12,8 +12,11 @@
                         <!--潜在会员-->
                         <el-col :md="12" class="vip-item-num">
                             <ul class="index-item-tipUl">
-                                <li><img src="~@/assets/icon/vipTotal/vipT-potential.png" alt="">潜在会员</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">正式会员</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-potential.png" alt="">{{totalVipNum.rows[0].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[1].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[2].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[3].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[4].name}}</li>
                             </ul>
                             <div class="flex-between">
                                 <div class="pic-content">
@@ -24,17 +27,30 @@
                                             :settings="picSettings"></ve-pie>
                                 </div>
                                 <ul class="vipNum">
-                                    <li>潜在会员： <span class="vipTipG">{{totalVipNum.rows[0].value}}</span></li>
-                                    <li>正式会员： <span class="vipTipB">{{totalVipNum.rows[1].value}}</span></li>
+                                    <li>{{totalVipNum.rows[0].name}}： <span class="vipTipG">{{totalVipNum.rows[0].value}}</span></li>
+                                    <li>{{totalVipNum.rows[1].name}}： <span class="vipTipB">{{totalVipNum.rows[1].value}}</span></li>
+                                    <li>{{totalVipNum.rows[2].name}}： <span class="vipTipB">{{totalVipNum.rows[2].value}}</span></li>
+                                    <li>{{totalVipNum.rows[3].name}}： <span class="vipTipB">{{totalVipNum.rows[3].value}}</span></li>
+                                    <li>{{totalVipNum.rows[4].name}}： <span class="vipTipB">{{totalVipNum.rows[4].value}}</span></li>
                                 </ul>
                             </div>
                         </el-col>
-
+                    </el-row>
+                </div>
+            </el-col>
+            <!--私教会员-->
+            <el-col :md="16" :lg="16">
+                <div class="index-item">
+                    <header class="index-item-title">
+                        <div class="title">私教会员</div>
+                    </header>
+                    <el-row>
                         <!--有效会员-->
                         <el-col :md="12" class="vip-item-num vip-item-num2">
                             <ul class="index-item-tipUl">
-                                <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">有效会员</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">{{totalVipOverdue.rows[0].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipOverdue.rows[1].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipOverdue.rows[2].name}}</li>
                             </ul>
                             <div class="flex-between">
                                 <div class="pic-content">
@@ -45,49 +61,44 @@
                                             :settings="picSettings"></ve-pie>
                                 </div>
                                 <ul class="vipNum">
-                                    <li>有效会员： <span class="colorYellow">{{totalVipOverdue.rows[0].value}}</span></li>
-                                    <li>过期会员： <span class="colorRed">{{totalVipOverdue.rows[1].value}}</span></li>
+                                    <li>{{totalVipOverdue.rows[0].name}}： <span class="colorYellow">{{totalVipOverdue.rows[0].value}}</span></li>
+                                    <li>{{totalVipOverdue.rows[1].name}}： <span class="colorYellow">{{totalVipOverdue.rows[1].value}}</span></li>
+                                    <li>{{totalVipOverdue.rows[2].name}}： <span class="colorRed">{{totalVipOverdue.rows[2].value}}</span></li>
                                 </ul>
+                            </div>
+                        </el-col>
+                        <el-col :md="12" class="vip-item-num">
+                            <ul class="index-item-tipUl">
+                                <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">{{totalVipPT.rows[0].name}}</li>
+                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipPT.rows[1].name}}</li>
+                            </ul>
+                            <div class="flex-between">
+                                <div class="pic-content">
+                                    <ve-ring :data="totalVipPT"
+                                             :legend-visible="false"
+                                             :colors="totalColor"
+                                             :style="picStyle"
+                                             :settings="ringSettings"></ve-ring>
+                                </div>
+                                <ul class="vipNum">
+                                    <li>{{totalVipPT.rows[0].name}}： <span class="colorYellow">{{totalVipPT.rows[0].value}}</span></li>
+                                    <li>{{totalVipPT.rows[1].name}}： <span class="colorRed">{{totalVipPT.rows[1].value}}</span></li>
+                                 </ul>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
             </el-col>
-            <!--私教会员-->
-            <el-col :md="8" :lg="8">
-                <div class="index-item">
-                    <header class="index-item-title">
-                        <div class="title">私教会员</div>
-                    </header>
-                    <ul class="index-item-tipUl">
-                        <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">私教会员</li>
-                        <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">过期会员</li>
-                    </ul>
-                    <div class="flex-between">
-                        <div class="pic-content">
-                            <ve-ring :data="totalVipPT"
-                                     :legend-visible="false"
-                                     :colors="totalColor"
-                                     :style="picStyle"
-                                     :settings="ringSettings"></ve-ring>
-                        </div>
-                        <ul class="vipNum">
-                            <li>私教会员： <span class="colorYellow">{{totalVipPT.rows[0].value}}</span></li>
-                            <li>过期会员： <span class="colorRed">{{totalVipPT.rows[1].value}}</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </el-col>
         </el-row>
 
-        <!-- A2 新增会员走势-->
+        <!-- A2 会员办卡走势-->
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
-                <div class="title">新增会员走势</div>
+                <div class="title">会员办卡走势</div>
             </header>
             <ul class="index-item-tipUl">
-                <li><img src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="" class="vipT-addCard">办卡人数</li>
-                <li><img src="~@/assets/icon/vipTotal/vipT-addPT.png" alt="">私教人数</li>
+                <li><img src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="" class="vipT-addCard">会籍卡</li>
+                <li><img src="~@/assets/icon/vipTotal/vipT-addPT.png" alt="">私教卡</li>
             </ul>
             <ve-line
                     :data="totalNewAdd"
@@ -166,8 +177,8 @@
         data() {
             this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
-            this.AddVipColor = ['#FF8A7E', '#005AD4', '#4CCBEB']; //会员总览2 新增会员走势
-            this.AddRefund = ['#4CCBEB', '#005AD4', '#FF8A7E', '#FFBE00']; //会员总览2 新增会员走势
+            this.AddVipColor = ['#FF8A7E', '#005AD4', '#4CCBEB']; //会员总览2 会员办卡走势
+            this.AddRefund = ['#4CCBEB', '#005AD4', '#FF8A7E', '#FFBE00']; //会员总览2 会员办卡走势
             this.lineExtend = lineExtendConfig;
 
             return {
@@ -220,22 +231,29 @@
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
-                        {name:'',value:0}],
+                        {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
                 },
                 totalVipOverdue: {
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
-                        {name:'',value:0}],
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
                 },
                 totalVipPT: {
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
-                        {name:'',value:0}],
+                        {name:'',value:0},
+                    ],
                 },
 
-                /*会员总览2 新增会员走势*/
+                /*会员总览2 会员办卡走势*/
                 totalNewAdd: {
                     columns: ['日期', '新增会籍', '新增私教'],
                     rows: [],
@@ -265,33 +283,23 @@
             /* ==== 会员总览 ==== 接口1 获取数量 totalMember_number*/
             getTotalMember_number() {
                 totalMember_number().then(res => {
+                    console.log(res.info);
+
                     /*潜在 与 正式 会员*/
-                    let MemberNum = [];
-                    let MemberNum1 = res[0];
-                    let MemberNum2 = res[1];
-                    MemberNum.push(MemberNum1, MemberNum2);
-                    this.totalVipNum.rows = MemberNum;
+                    this.totalVipNum.rows = res.info.card_status;
 
                     /*有效 与 过期 会员*/
-                    let OverdueNum = [];
-                    let OverdueNum1 = res[2];
-                    let OverdueNum2 = res[3];
-                    OverdueNum.push(OverdueNum1, OverdueNum2);
-                    this.totalVipOverdue.rows = OverdueNum;
+                    this.totalVipOverdue.rows = res.info.card_type;
 
                     /*私教会员*/
-                    let totalPt =[];
-                    let totalPt1 = res[4];
-                    let totalPt2 = res[5];
-                    // let totalPt1 =   {name:'过期会员',value:100};
-                    totalPt.push(totalPt1,totalPt2);
-                    this.totalVipPT.rows = totalPt;
+                    this.totalVipPT.rows = res.info.member;
+
                 }).catch(res => {
                     console.log(res);
                 });
             },
 
-            /*会员总览 接口2 新增会员走势 totalMember_trend*/
+            /*会员总览 接口2 会员办卡走势 totalMember_trend*/
             getTotalMember_trend() {
                 totalMember_trend().then(res => {
                     // console.log(res);
@@ -380,7 +388,7 @@
         created() {
             /*调用 ==== 会员总览1 ==== 会员数量*/
             this.getTotalMember_number();
-            /*调用 会员总览2 新增会员走势*/
+            /*调用 会员总览2 会员办卡走势*/
             this.getTotalMember_trend();
             /*调用 会员总览3 消耗趋势*/
             this.getTotalSub_card_trend();

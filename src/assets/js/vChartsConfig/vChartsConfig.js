@@ -180,7 +180,6 @@ let barExtendConfig ={
         containLabel: true
     },
     /*xAxis: {
-
         axisTick: {
             alignWithLabel: true
         },

@@ -180,7 +180,7 @@
         },
         methods: {
 
-            /* 零、 tab切换*/
+            /* 零、 tab切换  */
             tabTotal(tab, event) {
                 let tabName = tab.name;
                 this.callTabApi(tabName);

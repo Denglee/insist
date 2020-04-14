@@ -57,7 +57,7 @@
     import VipMembership from '@/views/Total/details/VipMembership'  //会籍 tab
 
     export default {
-        inject:['reLoad'], //注入依赖 App 中的reLoad方法
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法  
         name: "StatisIndex",  //会员总览
         data() {
             return {

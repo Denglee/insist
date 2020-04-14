@@ -9,8 +9,8 @@
                 <!--B11 私教上课-->
                 <el-col :md="8" class="vip-item-num">
                     <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">已上课</li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未上课</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTLesson.rows[0].name}}</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTLesson.rows[1].name}}</li>
                     </ul>
                     <div class="flex-between">
                         <ve-pie :data="PTLesson"
@@ -19,8 +19,8 @@
                                 :style="picStyle"
                                 :settings="picSettings"></ve-pie>
                         <ul class="vipNum">
-                            <li>已上课节数： <span class="vipTipG">{{PTLesson.rows[0].value}}</span></li>
-                            <li>未上课节数： <span class="vipTipB">{{PTLesson.rows[1].value}}</span></li>
+                            <li>{{PTLesson.rows[0].name}}： <span class="vipTipG">{{PTLesson.rows[0].value}}</span></li>
+                            <li>{{PTLesson.rows[1].name}}： <span class="vipTipB">{{PTLesson.rows[1].value}}</span></li>
                         </ul>
                     </div>
                 </el-col>
@@ -28,8 +28,11 @@
                 <!-- B12 私教新增 -->
                 <el-col :md="8" class="vip-item-num">
                     <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">新增私教</li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">续课</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">{{PTAdd.rows[0].name}}</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[1].name}}</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[2].name}}</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[3].name}}</li>
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[4].name}}</li>
                     </ul>
                     <div class="flex-between">
                         <ve-pie :data="PTAdd"
@@ -38,8 +41,11 @@
                                 :style="picStyle"
                                 :settings="picSettings"></ve-pie>
                         <ul class="vipNum">
-                            <li>新增私教： <span class="colorYellow">{{PTAdd.rows[0].value}}</span></li>
-                            <li>续课： <span class="colorRed">{{PTAdd.rows[1].value}}</span></li>
+                            <li>{{PTAdd.rows[0].name}}： <span class="colorYellow">{{PTAdd.rows[0].value}}</span></li>
+                            <li>{{PTAdd.rows[1].name}}： <span class="colorRed">{{PTAdd.rows[1].value}}</span></li>
+                            <li>{{PTAdd.rows[2].name}}： <span class="colorRed">{{PTAdd.rows[2].value}}</span></li>
+                            <li>{{PTAdd.rows[3].name}}： <span class="colorRed">{{PTAdd.rows[3].value}}</span></li>
+                            <li>{{PTAdd.rows[4].name}}： <span class="colorRed">{{PTAdd.rows[4].value}}</span></li>
                         </ul>
                     </div>
                 </el-col>
@@ -47,9 +53,9 @@
                 <!--B13  私教已跟进-->
                 <el-col :md="8" class="vip-item-num">
                     <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTFollow.rows[0].name}}
                         </li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">未跟进
+                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTFollow.rows[1].name}}
                         </li>
                     </ul>
                     <div class="flex-between">
@@ -59,11 +65,12 @@
                                  :style="picStyle"
                                  :settings="ringSettings"></ve-ring>
                         <ul class="vipNum">
-                            <li>已跟进： <span class="colorRed">{{PTFollow.rows[0].value}}</span></li>
-                            <li>未跟进： <span class="colorBlue">{{PTFollow.rows[1].value}}</span></li>
+                            <li>{{PTFollow.rows[0].name}}： <span class="colorRed">{{PTFollow.rows[0].value}}</span></li>
+                            <li>{{PTFollow.rows[1].name}}： <span class="colorBlue">{{PTFollow.rows[1].value}}</span></li>
                         </ul>
                     </div>
                 </el-col>
+
             </el-row>
         </div>
 
@@ -176,13 +183,18 @@
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
-                        {name:'',value:0}],
+                        {name:'',value:0},
+                        ],
                 },
                 PTAdd: {
                     columns: ['name', 'value'],
                     rows: [
                         {name:'',value:0},
-                        {name:'',value:0}],
+                        {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},
+                        {name:'',value:0},
+                    ],
                 },
                 PTFollow: {
                     columns: ['name', 'value'],
@@ -208,35 +220,22 @@
         methods: {
             btnTotalMore(e1) {
                 console.log('查看更多 e1'+e1);
-                this.$emit('showState',e1)
+                this.$emit('showState',e1);
             },
 
             /* ==== 私教 接口1 私教统计 ==== */
             getPTprivateMember() {
                 PTprivateMember().then(res => {
-                    // console.log(res);
+                    console.log(res.data);
 
                     /* 已上课 与 未上课 */
-                    let ptLesson = [];
-                    let ptHasLesson = res[0];
-                    let ptNoLesson = res[1];
-                    ptLesson.push(ptHasLesson, ptNoLesson);
-                    // console.log(ptLesson);
-                    this.PTLesson.rows = ptLesson;
+                    this.PTLesson.rows = res.data.course;
 
                     /*新增私教 与 续课*/
-                    let ptAdd = [];
-                    let ptNewAdd1 = res[2];
-                    let ptContinue = res[3];
-                    ptAdd.push(ptNewAdd1, ptContinue);
-                    this.PTAdd.rows = ptAdd;
+                    this.PTAdd.rows = res.data.personal_card;
 
                     /*已跟进 与 未跟进*/
-                    let ptFollow = [];
-                    let ptHaveFollow = res[4];
-                    let ptNoFollow = res[5];
-                    ptFollow.push(ptHaveFollow, ptNoFollow);
-                    this.PTFollow.rows = ptFollow;
+                    this.PTFollow.rows = res.data.member_follow;
 
                 }).catch(res => {
                     console.log(res);

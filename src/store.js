@@ -73,7 +73,7 @@ export default new Vuex.Store({
 //
 //     // mutationsNum(state){
 //     //   state.stateNum++;
-//     // },
+//     // }, 
 //
 //     mutationsNum2(state){
 //       state.stateNum--;

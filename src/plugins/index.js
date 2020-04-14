@@ -76,16 +76,16 @@ Vue.filter('mathFloor', (math) => {
 /*8、引入v-charts 官网：https://v-charts.js.org/#/histogram*/
 import VCharts from 'v-charts'
 import VeLine from 'v-charts/lib/line.common'  //折线图
-import bar from 'v-charts/lib/bar.common' //条形图
-import histogram from 'v-charts/lib/histogram.common' //柱状图
-import pie from 'v-charts/lib/pie.common' //饼图
-import ring from 'v-charts/lib/ring.common' //环图
-import funnel from 'v-charts/lib/funnel.common' //图
+import VeBar from 'v-charts/lib/bar.common' //条形图
+import VeHistogram from 'v-charts/lib/histogram.common' //柱状图
+import VePie from 'v-charts/lib/pie.common' //饼图
+import VeRing from 'v-charts/lib/ring.common' //环图
+// import VeFunnel from 'v-charts/lib/funnel.common' //图
 
 Vue.component(VeLine.name, VeLine);
-Vue.component(VeLine.name, bar);
-Vue.component(VeLine.name, histogram);
-Vue.component(VeLine.name, pie);
-Vue.component(VeLine.name, ring);
-Vue.component(VeLine.name, funnel);
+Vue.component(VeBar.name, VeBar);
+Vue.component(VeHistogram.name, VeHistogram);
+Vue.component(VePie.name, VePie);
+Vue.component(VeRing.name, VeRing);
+// Vue.component(VeFunnel.name, VeLine);
 Vue.use(VCharts);
