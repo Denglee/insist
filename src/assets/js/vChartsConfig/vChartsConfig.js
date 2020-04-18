@@ -61,15 +61,7 @@ let  lineExtendConfig = {
             }
         },
     },
-    series: {
-        type: 'line',
-        symbolSize: 9,   //设定实心点的大小
-        lineStyle: {
-            normal: {
-                type: 'dashed',
-            }
-        },
-    }
+    series: {},
 };
 
 /*柱状图 配置*/
@@ -111,7 +103,7 @@ let histogramExtendConfig ={
         },
     },
     series: {
-        barWidth: 30
+        barWidth: 20
     },
 };
 
@@ -154,7 +146,7 @@ let hisRevenueExtendConfig ={
         },
     },
     series: {
-        barWidth: 30,
+        barWidth: 20,
         itemStyle: {
             normal: {
                 //这里是重点
@@ -208,7 +200,7 @@ let barExtendConfig ={
         },
     },*/
     series: {
-        barWidth: 30,
+        barWidth: 20,
         type: 'bar',
         itemStyle: {
             normal: {

@@ -16,15 +16,30 @@
 //    console.log( document.documentElement.style.fontSize);
 //  }
 
-/** session 存储*/
-/*/storage 存储
+/** session 存储
+
 sessionStorage.setItem('currentIndex', 0)
 // 获取
 index=sessionStorage.getItem('currentIndex');
 // 删除一个
 sessionStorage.removeItem("currentIndex");
 // 删除全部
-sessionStorage.clear();*/
+sessionStorage.clear();
+
+ //对象
+ let obb = {
+      name:'zhangyachoa',
+      age:'18'
+  }
+ let str = JSON.stringify(obb)//把对象转化为字符串（stringify）存放进sessionStorage
+ sessionStorage.setItem('obbj',str)
+
+ JSON.parse(sessionStorage.getItem('obbj')
+
+*/
+
+import { get, post } from './axios';
+
 
 
 // 获取今天的日期
@@ -47,19 +62,17 @@ function getToday() {
     return formatDate;
 }
 
-
-
 // 全局 js
 let localUrl = '';  //全局路径
 var localOrigin = window.location.origin;
 
-console.log(localOrigin);
+// console.log(localOrigin);
 if(localOrigin == 'http://localhost:8282'){
     localUrl = 'http://vikily.f3322.net:20000';
 } else {
     localUrl = localOrigin;
 }
-console.log(localUrl);
+// console.log(localUrl);
 // const localUrl = 'http://vikily.f3322.net:20000';  //测试
 // const localUrl = 'https://spt.zmtek.net';  //系统正式
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式
@@ -111,10 +124,25 @@ function getEleBase64(file) {
     });
 }
 
+/*按钮点击状态 变化*/
+function btnStateChange(that, id, val, textTrue, textFalse, state = false,time=1500){
+    that[id][val] = state;
+    that[id].text = textTrue;
+    setTimeout(()=>{
+        that[id][val] = false;
+        that[id].text = textFalse;
+    },time);
+
+    /*使用方法  搜索中 记得加状态 true */
+    //this.GLOBAL.btnStateChange(this,'loadState','searchLoad','搜索中','搜索',true);
+
+}
+
 export default {
     userTypeList,
     royaltyType,
     localUrl,
     getEleBase64:getEleBase64,
     getToday:getToday(),
+    btnStateChange:btnStateChange,
 }

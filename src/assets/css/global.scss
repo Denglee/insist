@@ -151,7 +151,30 @@ input:-webkit-autofill {
 /*element*/
 .el-button--small {
   font-size: 14px;
+  & >i{
+    font-size: 18px;
+  }
 }
+.el-button {
+  //font-size: 14px;
+  & >i{
+    font-size: 16px;
+  }
+
+  //& :focus,
+  //& :hover {
+  //  color: #fff!important;
+  //  border-color: #005ad4!important;
+  //  background-color: #005ad4!important;
+  //}
+}
+
+//.el-button--primary:focus,
+//.el-button--primary:hover {
+//  color: #fff!important;
+//  border-color: #005ad4!important;
+//  background-color: #005ad4!important;
+//}
 
 .el-dialog {
   border-radius: 6px;
@@ -162,7 +185,9 @@ input:-webkit-autofill {
   display: flex;
   justify-content: space-between;
 }
-
+.flex{
+  display: flex;
+}
 /*.layoutR-main {
     .index-row{
         //padding: 0;
@@ -383,7 +408,7 @@ $borRadius:15px;
   thead tr:first-child{
     th {
       background-color: #FCFBFE;
-      padding: 9px 0;
+      padding: 7px 0;
     }
     //th:first-child {
     //  border-top-left-radius: $borRadius;
@@ -406,6 +431,16 @@ $borRadius:15px;
   //}
 
   /*#EFF2F9*/
+}
+.btn-table {
+  tr{
+    & td:last-child{
+      padding: 3px 0;
+    }
+    .el-button{
+      padding: 6px 14px;
+    }
+  }
 }
 /*分页*/
 .el-pager li {
@@ -443,7 +478,8 @@ $borRadius:15px;
 }
 
 
-.btn-search {
+.btn-public {
+  letter-spacing: 1.5px;
   background-color: $color-MediumBlue;
   height: 33px;
   line-height: 33px;
@@ -465,19 +501,22 @@ $borRadius:15px;
   &:hover,
   &:focus {
     color: #fff;
-    border-color: rgba(212, 38, 15, 0.82);
-    background-color: rgba(212, 38, 15, 0.82);
+    border-color: $color-Pink;
+    background-color: $color-Pink;
   }
 }
+.el-tooltip__popper.is-dark{
+
+}
 .poper-del{
-  background-color: $color-Red !important;
-  border: solid 1px $color-Red;
+  background-color: rgb(37, 57, 84) !important;
+  border: solid 1px rgb(37, 57, 84);
   color: #fff;
   .popper__arrow{
-    border-bottom-color: $color-Red!important;
+    border-bottom-color: rgb(37, 57, 84) !important;
   }
   .popper__arrow::after{
-    border-bottom-color: $color-Red!important;
+    border-bottom-color: rgb(37, 57, 84) !important;
   }
 }
 
@@ -493,16 +532,19 @@ $borRadius:15px;
   //padding: 20px 20px 0;
 }
 
+$marRight:14px;
 #app .month-inp {
   width: 180px;
+  margin-right: $marRight;
 }
 
 .inp-mar14 {
-  margin-right: 14px;
+  margin-right:$marRight;
 }
 
 #app .ptSel-section {
   width: 150px;
+  margin-right: $marRight;
 }
 
 .ptSel-trainer {
@@ -511,7 +553,7 @@ $borRadius:15px;
 
 .pt-screen-input {
   width: 220px;
-
+  margin-right:$marRight ;
   .el-input-group__append {
     background-color: $color-MediumBlue;
     border: solid 1px $color-MediumBlue;
@@ -572,12 +614,12 @@ $tabHei: 46px;
   }
 
   .is-active {
-    margin-left: -20px;
+    margin-left: -15px;
+    border-top-left-radius: 20px;
     margin-right: 0;
     background: url("~@/assets/images/staff/elTab_gray.png") no-repeat;
     background-size: 100% 100%;
     color: $color-Black;
-
     &:hover {
       color: $color-MediumBlue;
     }

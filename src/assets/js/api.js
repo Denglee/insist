@@ -1,6 +1,5 @@
 /*** api接口统一管理 */
 import { get, post } from './axios';
-// import HeaderTop from "../../components/layout/HeaderTop";
 
 /**
  *
@@ -49,12 +48,18 @@ export const totalPassenger_trend = params => post('admin/statis/passenger_trend
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 私教 统计 会员数量*/
 export const PTClassRanking   = params => post('admin/statis/class_ranking', params);         /* 教练上课排名*/
 export const PTMemberClass  = params => post('Admin/Statis/member_class', params);         /* 上课详情*/
-export const PTSaleroom  = params => post('Admin/Statis/saleroom', params);         /* 私教销售额 */
+export const PTSaleroom  = params => get('Admin/Statis/saleroom', params);         /* 私教销售额 */
+export const PTclassNumber  = params => get('Admin/Statis/classNumber', params);         /* 私教数量 */
+export const PTperNumPri  = params => get('Admin/Statis/perNumPri', params);         /* 私教上课列表 */
+export const PTperNumPriparticulars  = params => get('Admin/Statis/perNumPriparticulars', params);         /* 私教上课 详情 */
 
 /*3、会籍*/
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/
 export const VipSalerStatis  = params => post('Admin/Statis/saler_statis', params);         /* 会籍统计*/
 export const VipMemberClass  = params => post('Admin/Statis/member_tk_class', params);         /* 上课详情*/
+export const MBSaleroom  = params => get('Admin/Statis/counselorsaleroom', params);         /* 会籍销售额查询*/
+export const MBclassNumber  = params => get('Admin/Statis/counselorclassNumber', params);         /* 会籍数量查询*/
+
 
 /*==== D、员工===*/
 export const staffIndex   = params => get('admin/staff/index', params);         /* 员工列表*/
@@ -79,7 +84,7 @@ export const revenuePayMethod   = params => get('Admin/Statis/pay_method_ranking
 
 
 export const revenueContract   = params => get('Admin/Statis/contract_statis', params);          /* 营收详情*/
-
+export const revenueDetails   = params => get('Admin/Statis/revenueDetails', params);          /* 营收分类详情*/
 
 
 

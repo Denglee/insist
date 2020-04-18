@@ -7,15 +7,25 @@
             <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
                 <div class="vip-tabBox">
                     <div class="pt-screen">
-                        <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="inp-mar14 pt-screen-input" clearable></el-input>
-                        <el-select v-model="rewordParameter.user_type" placeholder="请选择岗位" class="inp-mar14 ptSel-section">
+                        <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="pt-screen-input" clearable></el-input>
+                        <el-select v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
-                        <el-button icon="el-icon-search" @click="btnSeaReword" class="btn-search">查询</el-button>
+
+                        <el-date-picker
+                                class="ptSel-section"
+                                v-model="rewordParameter.date"
+                                type="month"
+                                placeholder="请选择月份"
+                                value-format="yyyy-MM"
+                                format="yyyy年MM月"
+                                @change="monthSel">
+                        </el-date-picker>
+                        <el-button icon="el-icon-search" @click="btnSeaReword" class="btn-public">查询</el-button>
                     </div>
 
                     <el-table class="pub-table" :data="rewardList" border>
-                        <el-table-column type="index" width="55"></el-table-column>
+                        <el-table-column type="index" width="55" label="序号"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
                         <!--<el-table-column prop="user_no" label="工号"></el-table-column>
                         <el-table-column prop="group_id" label="部门"></el-table-column>-->
@@ -38,14 +48,22 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="salary" label="基本工资"></el-table-column>
-                        <el-table-column prop="deduct" label="提成">
+                        <el-table-column prop="deduct" label="提成额">
                             <template slot-scope="scope">
                                 <div v-for="(index,item) in scope.row.deduct">{{index.name}}</div>
                             </template>
                         </el-table-column>
-                        <!--<el-table-column prop="reward" label="奖励"></el-table-column>-->
-                        <el-table-column prop="punish" label="惩罚"></el-table-column>
-                        <el-table-column prop="total" label="合计"></el-table-column>
+                        <el-table-column prop="deductNum" label="提成方式">
+                            <template slot-scope="scope">
+                                <div v-for="(index,item) in scope.row.deduct">{{index.price}}</div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="punishReward" label="奖惩"></el-table-column>
+                        <el-table-column prop="total" label="合计" class="total">
+                            <template slot-scope="scope">
+                                <div style="font-size: 15px;font-weight: 500;">{{scope.row.total}}</div>
+                            </template>
+                        </el-table-column>
                     </el-table>
 
                     <el-pagination
@@ -61,11 +79,11 @@
             <!--tab2 提成设置 主页 -->
             <el-tab-pane :lazy='tabLazy' label="提成设置" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-search" @click="btnAddRoyalty">添加提成</el-button>
+                    <el-button type="primary" class="fr btn-public" @click="btnAddRoyalty">添加提成</el-button>
                 </div>
 
                 <el-table class="pub-table" :data="tableRoyalty" border>
-                    <el-table-column type="index" width="100px"></el-table-column>
+                    <el-table-column type="index" width="100px" label="序号"></el-table-column>
                     <el-table-column prop="deduction_name" label="名称"></el-table-column>
                     <el-table-column prop="deduction_type" label="性别">
                         <template slot-scope="scope">
@@ -108,7 +126,7 @@
                     </el-col>
                 </el-row>-->
                 <el-table class="pub-table" :data="staffPunishList" border>
-                    <el-table-column type="index" width="200"></el-table-column>
+                    <el-table-column type="index" width="200" label="序号"></el-table-column>
                     <el-table-column  label="内容" prop="name"></el-table-column>
                     <el-table-column  label="详情" prop="value">
                         <template slot-scope="scope">
@@ -144,7 +162,7 @@
                       breadContent1="提成编辑"></navBread>
             <div class="addForm-box">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-search"  @click="btnAddSetRoyalty">添加设置</el-button>
+                    <el-button type="primary" class="fr btn-public"  @click="btnAddSetRoyalty">添加设置</el-button>
                 </div>
                 <el-table class="pub-table" :data="setTableRoyalty" border>
                     <el-table-column type="index" label="序号" width="200px"></el-table-column>
@@ -208,7 +226,9 @@
                     user_type:'10000',  //部门
                     phone:'',  //手机号码
                     p:1,    //页码
+                    date:'', //月份
                 },
+
                 userTypeList:this.GLOBAL.userTypeList,   //职位 岗位
                 rewardList:[],   //工资列表
 
@@ -288,13 +308,47 @@
             /* ============= 一、员工工资 列表*/
             getStaffSalaryMenuid(){   // 工资列表接口
                 staffSalaryMenuid(this.rewordParameter).then(res=>{
-                    console.log(res.data.staff);
+                    console.log(res.data);
+                    let listArr = res.data.list;  //最开始的数组
+                    let punishRewardArr = [];    //添加奖惩
+                    listArr.forEach((item,index)=>{
 
-                    this.rewardList = res.data.list;
+                        console.log(item.deduct);
+                        // if( item.deduct.length <=0){  //说明是空的  。 空数组
+                        //     item.deduct.push({
+                        //         'price':0,
+                        //     });
+                        // };
+                        //
+                        // for(var i=0;i< item.deduct.length;i++){
+                        //     console.log(i);
+                        //     console.log(item.deduct[i]);
+                        // }
+
+
+                        item.deduct.forEach((item2,index)=>{
+                            console.log(item2);
+                        })
+
+                        let punish = Number(item.punish);
+                        let reward = Number(item.reward);
+                        let punishReward = reward - punish;
+                        punishRewardArr.push({
+                            'punishReward':punishReward,
+                        });
+                    });
+
+                    let incomeArr3 = listArr.map((item, index) => {
+                        return {...item, ...punishRewardArr[index]};
+                    });
+
+                    console.log(incomeArr3);
+                    this.rewardList = incomeArr3;
+
                     this.rewaroPage = {   //工资分页
                         total:Number(res.data.totalRows),
                         limit:res.data.listRows,
-                    },
+                    };
                     this.hasAxios.StaffSalary = true;
 
                 }).catch(res =>{
@@ -306,6 +360,12 @@
             btnSeaReword(){
                 this.rewordParameter.p = 1;
                 this.getStaffSalaryMenuid();
+            },
+
+            /*月份选择*/
+            monthSel(val){
+              console.log(val);
+              this.rewordParameter.date = val;
             },
 
             // 工资 列表 分页
@@ -327,10 +387,13 @@
                     console.log(res.data);
                     let type = this.deductInfo.type;
                     console.log(type);
-                    this.btnLoad = {
-                        state:false,
-                        text:'确定',
-                    };
+                    setTimeout(()=>{
+                        this.btnLoad = {
+                            state:false,
+                            text:'确定',
+                        };
+                    },1500)
+
                     if(res.status ==1){
                         if(type == 1){
                             this.tableRoyalty = res.data;

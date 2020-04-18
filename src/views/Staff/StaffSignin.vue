@@ -6,13 +6,13 @@
             <el-tab-pane :lazy='tabLazy' label="打卡记录" name="StaffSalary">
                 <!--打卡记录筛选-->
                 <form class="pt-screen">
-                    <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="inp-mar14 pt-screen-input"
+                    <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="pt-screen-input"
                               clearable></el-input>
                     <el-date-picker placeholder="请选择月份" class="inp-mar14 month-inp" v-model="staffMonth" type="month"
                                     value-format="yyyy-MM"></el-date-picker>
-                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" class="btn-search">搜索</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" class="btn-public">搜索</el-button>
 
-                    <el-button icon="el-icon-notebook-1" @click="singExport" class="btn-search fr">导出</el-button>
+                    <el-button icon="el-icon-notebook-1" @click="singExport" class="btn-public fr">导出</el-button>
                 </form>
                 <!--打卡记录 表格-->
                 <div class="">
@@ -29,8 +29,10 @@
                             <tr>
                                 <td class="cell">统计</td>
                                 <td v-for="(item,index) in signStaffList" :key="index">
-                                    <div class="cell sign-up">上班：{{item.up}}天</div>
-                                    <div class="cell sign-rest">休息：{{item.rest}}天</div>
+                                    <!--sign-up  class  先注释-->
+                                    <div class="cell">上班：{{item.up}}天</div>
+                                    <!--sign-rest class  先注释-->
+                                    <div class="cell">休息：{{item.rest}}天</div>
                                     <div class="cell sign-warn"><i class="el-icon-warning"></i>异常：{{item.abnormal}}天</div>
                                 </td>
                             </tr>
@@ -39,8 +41,15 @@
                                     <div class="cell">{{item.day}}</div>
                                 </td>
                                 <td v-for="(item2,index2) in item.check" :key="index2">
-                                    <div class="cell clock-in">{{item2.clockin}}</div>
-                                    <div class="cell clock-out">{{item2.clockout}}</div>
+
+                                    <div class="cell clock-in" v-if="item2.clockin == '上班:未打卡'">{{item2.clockin}}</div>
+                                    <div class="cell" v-else-if="item2.clockin == '未到时'">{{item2.clockin}}</div>
+                                    <div class="cell clock-out" v-else>{{item2.clockin}}</div>
+
+                                    <!--clock-out-->
+                                    <div class="cell clock-in" v-if="item2.clockout == '下班:未打卡'">{{item2.clockout}}</div>
+                                    <div class="cell" v-else-if="item2.clockout == '未到时'">{{item2.clockout}}</div>
+                                    <div class="cell clock-out" v-else>{{item2.clockout}}</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -61,13 +70,13 @@
             <!--tab2 班次设置-->
             <el-tab-pane :lazy='tabLazy' label="班次设置" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-search" @click="btnSetTime">设置</el-button>
+                    <el-button type="primary" class="fr btn-public" @click="btnSetTime"> <icon class="el-icon-setting"></icon>设置</el-button>
                 </div>
 
                 <table class="staffClass-table">
                     <thead>
-                        <tr>
-                            <th></th>
+                        <tr style="background-color: #fcfbfe;">
+                            <th>序号</th>
                             <th>班次</th>
                             <th>上班时间</th>
                             <th>下班时间</th>

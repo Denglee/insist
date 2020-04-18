@@ -66,6 +66,7 @@
                         <div class="present-top present-TopL">
                             <p class="title">在场人数</p>
                             <p class="num">
+                                0
                                 <!--{{presentNo}}-->
                             </p>
                         </div>

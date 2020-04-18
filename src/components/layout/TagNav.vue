@@ -68,12 +68,13 @@
             reloadRouter(e) {
                 let path = e.target.getAttribute('Path');
                 console.log(path);
-                this.$router.replace({
-                    path: "/redirect",
-                    query: {
-                        nextPath: path
-                    }
-                });
+                this.$router.push({path:path});
+                // this.$router.replace({
+                //     path: "/redirect",
+                //     query: {
+                //         nextPath: path
+                //     }
+                // });
             },
 
             // reloadRouter(e){

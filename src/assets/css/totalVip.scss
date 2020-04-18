@@ -85,7 +85,6 @@ $tabHei: 46px;
   height: 14px;
 }
 
-/*B21 销售额 查询*/
 
 /*B22 销售额表格*/
 .pt-table{
@@ -130,6 +129,29 @@ $tabHei: 46px;
   }
 }
 
+.pt-sales,{
+  .pub-table{
+    min-height: 222px;
+  }
+}
+.PTdetail-main{
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: #eff2f9;
+  width: 100%;
+  min-height: calc(100vh - 166px);
+  .detail-box{
+    background-color: #fff;
+    min-height: 60vh;
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    border-radius: 20px;
+    padding-bottom: 20px;
+  }
+  .pub-table{
+    min-height: 222px;
+  }
+}
 
 /*表格详情 查看更多*/
 .ptTable-detail {
@@ -154,8 +176,104 @@ $tabHei: 46px;
   }
 }
 
+.reveue-listPie{
+  .ve-bar{
+    > div:first-child{
+      height: 240px !important;
+    }
+  }
+  .ve-histogram{
+    > div:first-child{
+      height: 300px !important;
+    }
+  }
+}
+
+.reveue-listPie{
+  margin-top: 10px;
+  .ve-pie{
+    > div:first-child{
+      width: auto !important;
+      height: auto !important;
+    }
+  }
+}
 .ve-line{
   > div:first-child{
     height: 300px !important;
   }
+}
+.total-row{
+  .index-item{
+    min-height: 280px;
+  }
+
+}
+
+.totalVip{
+  .vipNum{
+    margin: 20px 0 0 20%;
+  }
+}
+.vipTotal{
+  .vipTotal-topUl{
+    li{
+      margin-right: 10px;
+    }
+  }
+  .vipTotal-BomUl{
+    margin: 20px 58px 16px 0;
+    li{
+      margin-top: 4px;
+    }
+  }
+}
+.vipT-BomUl{
+  padding-top: 20px;
+  li{
+    margin-top: 4px;
+  }
+}
+
+
+
+
+/*营收总览*/
+.revenue-pie{
+  min-height: 326px;
+  .index-item-tipUl{
+    margin-bottom: 20px;
+  }
+  i {
+    font-weight: bold;
+  }
+}
+.chartRevenue-bar{
+  height: 354px;
+  .ve-bar{
+    margin-top: 10px;
+    & > div:first-child{
+      height: 340px !important;
+    }
+  }
+}
+
+.chartRevenue-histpgram{
+  .ve-histogram{
+    & > div:first-child{
+      height: 240px !important;
+    }
+  }
+}
+
+.revenue-item{
+  .index-item-tipUl li{
+    margin-right: 20px;
+    span{
+      margin-right: 4px;
+    }
+  }
+}
+.revenue-ptLesson{
+  box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
 }

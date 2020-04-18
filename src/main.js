@@ -35,9 +35,8 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-new Vue({
+let Vm  = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
-

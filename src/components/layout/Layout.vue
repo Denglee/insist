@@ -51,9 +51,9 @@
         data(){
             return{
                 localUrl:this.GLOBAL.localUrl,
-                dialogFormVisible:'false',
-                activeIndex: '1',
-                activeIndex2: '1',
+                // dialogFormVisible:'false',
+                // activeIndex: '1',
+                // activeIndex2: '1',
 
             }
         },

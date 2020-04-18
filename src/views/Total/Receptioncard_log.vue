@@ -11,7 +11,7 @@
     export default {
         name: "Receptioncard_log",  //会员总览
         data() {
-
+            return {}
         },
         methods: {
         },
@@ -24,6 +24,3 @@
 </script>
 
 
-<style lang="scss">
-
-</style>

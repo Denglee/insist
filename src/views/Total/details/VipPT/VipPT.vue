@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="vitPt">
         <!--B1 私教统计-->
-        <div class="index-item">
+        <div class="index-item total-row">
             <header class="index-item-title">
                 <div class="title">私教统计</div>
             </header>
@@ -12,7 +12,7 @@
                         <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTLesson.rows[0].name}}</li>
                         <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTLesson.rows[1].name}}</li>
                     </ul>
-                    <div class="flex-between">
+                    <div class="flex totalVip">
                         <ve-pie :data="PTLesson"
                                 :legend-visible="false"
                                 :colors="totalColor"
@@ -34,13 +34,13 @@
                         <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[3].name}}</li>
                         <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">{{PTAdd.rows[4].name}}</li>
                     </ul>
-                    <div class="flex-between">
+                    <div class="flex totalVip">
                         <ve-pie :data="PTAdd"
                                 :legend-visible="false"
                                 :colors="OverdueColor"
                                 :style="picStyle"
                                 :settings="picSettings"></ve-pie>
-                        <ul class="vipNum">
+                        <ul class="vipNum vipT-BomUl">
                             <li>{{PTAdd.rows[0].name}}： <span class="colorYellow">{{PTAdd.rows[0].value}}</span></li>
                             <li>{{PTAdd.rows[1].name}}： <span class="colorRed">{{PTAdd.rows[1].value}}</span></li>
                             <li>{{PTAdd.rows[2].name}}： <span class="colorRed">{{PTAdd.rows[2].value}}</span></li>
@@ -58,7 +58,7 @@
                         <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">{{PTFollow.rows[1].name}}
                         </li>
                     </ul>
-                    <div class="flex-between">
+                    <div class="flex totalVip">
                         <ve-ring :data="PTFollow"
                                  :legend-visible="false"
                                  :colors="followColor"
@@ -76,26 +76,18 @@
 
         <!-- B2 私教销售额查询 -->
         <div class="index-item pt-sales">
-            <statisDetails :ptSalesPage="5" @btnTotalMore="btnTotalMore('tabPaneState','ptSalesD')"></statisDetails>
+            <ptSaleroom :ptSalesPage="5" @btnTotalMore="btnTotalMore('ptSalesD')" :salerGropu="salerGropu"></ptSaleroom>
         </div>
 
         <!-- B3 私教数量查询-->
         <div class="index-item pt-sales">
-            <header class="index-item-title flex-between">
-                <div class="title">私教数量查询</div>
-                <div class="vipNav-btnBox">
-                    <el-button class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptNumD')">更多</el-button>
-                </div>
-            </header>
-            <div class="ptTable-assist">
-
-            </div>
+            <ptClassNumber :ptSalesPage="5" @btnTotalMore="btnTotalMore('ptNumD')" :salerGropu="salerGropu"></ptClassNumber>
         </div>
 
         <!-- B4 私教上课查询-->
         <div class="index-item pt-sales comein-main">
             <header class="index-item-title">
-                <div class="title">上课查询</div>
+                <div class="title">私教上课查询</div>
             </header>
             <div class="chart">
                 <ve-histogram
@@ -106,21 +98,21 @@
                         :extend="histogramExtend"
                 ></ve-histogram>
             </div>
-
         </div>
 
         <!-- B5 私教会员上课详情-->
-        <div class="index-item pt-sales">
-            <ptLessonDetails :ptSalesPage="5" @btnTotalMore="btnTotalMore('ptLessonD')"></ptLessonDetails>
-        </div>
+        <!--<div class="index-item pt-sales">
+            <ptLessonTable :ptSalesPage="5" @btnTotalMore="btnTotalMore('ptLessonD')"></ptLessonTable>
+        </div>-->
 
     </div>
 </template>
 
 <script>
 
-    import statisDetails from '@/components/details/statisDetails'  // 详情组件
-    import ptLessonDetails from '@/components/details/ptLessonDetails'  // 详情组件
+    import ptSaleroom from '@/views/Total/details/VipPT/ptSaleroom'  // 私教销售额查询 详情组件
+    import ptClassNumber from '@/views/Total/details/VipPT/ptClassNumber'  // 私教 数量 详情组件
+    import ptLessonTable from '@/views/Total/details/VipPT/ptLessonTable'  // 私教课程 详情组件
 
     import {PTprivateMember, PTClassRanking,} from '@/assets/js/api' /*引用 会员总览 接口*/
 
@@ -129,6 +121,11 @@
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "VipPT",  //会员总览
+        props:{
+            salerGropu:{
+                type:Array,
+            }
+        },
         data() {
             this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
             this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
@@ -265,12 +262,9 @@
         },
 
         components: {
-            statisDetails,
-            ptLessonDetails,
+            ptSaleroom,
+            ptLessonTable,
+            ptClassNumber,
         },
     }
 </script>
-
-<style lang="scss">
-
-</style>

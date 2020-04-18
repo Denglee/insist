@@ -1,6 +1,8 @@
 <template>
     <div class="animated fadeIn">
-        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>
+        <keep-alive>
+            <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>
+        </keep-alive>
     </div>
 </template>
 
@@ -22,6 +24,7 @@
             console.log(nextUrl);
             this.localSrc = nextUrl;
         },
+
     }
 </script>
 

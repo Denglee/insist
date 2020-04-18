@@ -11,20 +11,26 @@
 
             <!-- tabItem2 私教 -->
             <el-tab-pane :lazy='tabLazy' label="私教" name="VipPT">
-                <VipPT  @showState="showState($event)"></VipPT>
+                <VipPT  @showState="showState($event)"  :salerGropu="salerGropu"></VipPT>
             </el-tab-pane>
 
             <!-- tabItem3 会籍 -->
             <el-tab-pane :lazy='tabLazy' label="会籍" name="VipMembership">
-                <VipMembership @showState="showState($event)"></VipMembership>
+                <VipMembership @showState="showState($event)" :salerGropu="salerGropu"></VipMembership>
             </el-tab-pane>
         </el-tabs>
 
         <ul>
             <!--私教销售额查询 表格 详情-->
             <li v-if="showStateArr.ptSalesD">
-                <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="销售额查询详情"></navBread>
-                <statisDetails :ptSalesPage="10"></statisDetails>
+                <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="私教销售额详情"></navBread>
+                <ptSaleroom :ptSalesPage="10" :salerGropu="salerGropu"></ptSaleroom>
+            </li>
+
+            <!--私教数量 详情-->
+            <li v-if="showStateArr.ptNumD">
+                <navBread @GoBack="goBack('VipPT','ptNumD')" breadTitle="私教" breadContent1="私教数量详情"></navBread>
+                <ptClassNumber :ptSalesPage="10"  :salerGropu="salerGropu"></ptClassNumber>
             </li>
 
             <!--私教 上课 表格 详情-->
@@ -35,11 +41,23 @@
         </ul>
 
         <ul>
-            <!--会员 上课 表格 详情-->
-            <li v-if="showStateArr.vLessonD">
-                <navBread @GoBack="goBack('VipPT','vLessonD')" breadTitle="会籍" breadContent1="会籍上课详情"></navBread>
-                <vipLessonDetails :ptSalesPage="10"></vipLessonDetails>
+            <!--会籍销售额查询 表格 详情-->
+            <li v-if="showStateArr.vSalesD">
+                <navBread @GoBack="goBack('VipPT','vSalesD')" breadTitle="会籍" breadContent1="会籍销售额详情"></navBread>
+                <MBSaleroom :ptSalesPage="10" :salerGropu="salerGropu"></MBSaleroom>
             </li>
+
+            <!--会员 数量查询 详情-->
+            <li v-if="showStateArr.vNumD">
+                <navBread @GoBack="goBack('VipMembership','vNumD')" breadTitle="会籍" breadContent1="会籍数量详情"></navBread>
+                <MBClassNumber :ptSalesPage="10" :salerGropu="salerGropu"></MBClassNumber>
+            </li>
+
+            <!--会员 上课 表格 详情-->
+           <!-- <li v-if="showStateArr.vLessonD">
+                <navBread @GoBack="goBack('VipMembership','vLessonD')" breadTitle="会籍" breadContent1="会籍上课详情"></navBread>
+                <vipLessonDetails :ptSalesPage="10"></vipLessonDetails>
+            </li>-->
         </ul>
 
     </div>
@@ -49,26 +67,35 @@
     import navBread from '@/components/navBread/navBread'  //面包屑导航 组件
     import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
 
-    import statisDetails from '@/components/details/statisDetails'  // 详情组件
-    import ptLessonDetails from '@/components/details/ptLessonDetails'  // 详情组件
+    import ptSaleroom from '@/views/Total/details/VipPT/ptSaleroom'  //私教销售额 组件
+    import ptClassNumber from '@/views/Total/details/VipPT/ptClassNumber'  // 私教 数量 详情组件
+    import ptLessonDetails from '@/views/Total/details/VipPT/ptLessonDetails'  // 私教课程详情组件
 
-    import VipTotal from '@/views/Total/details/VipTotal'  //会员总览 tab
-    import VipPT from '@/views/Total/details/VipPT'  // 私教 tab
-    import VipMembership from '@/views/Total/details/VipMembership'  //会籍 tab
+    import VipTotal from '@/views/Total/details/VipTotal/VipTotal'  //会员总览 tab
+    import VipPT from '@/views/Total/details/VipPT/VipPT'  // 私教 tab
+    import VipMembership from '@/views/Total/details/VipMembership/VipMembership'  //会籍 tab
+
+    import MBSaleroom from '@/views/Total/details/VipMembership/MBSaleroom'  // 会籍 销售额 详情组件
+    import MBClassNumber from '@/views/Total/details/VipMembership/MBClassNumber'  // 会籍 数量 详情组件
+
+    import {getDepartment} from '@/assets/js/globalApi'
 
     export default {
-        inject:['reLoad'], //注入依赖 App 中的reLoad方法  
+        inject:['reLoad'], //注入依赖 App 中的reLoad方法
         name: "StatisIndex",  //会员总览
         data() {
             return {
                 activeTabName: 'VipTotal', //VipTotal VipPT VipMembership
                 tabLazy: true,
 
+                salerGropu:[],  //部门
 
                 showStateArr:{
                     tabPaneState: true,    //tab 显隐
                     ptSalesD: false,  //销售查询表格 显隐
-                    ptNumD: false,
+                    ptNumD: false,     //数量
+                    ptLessonD: false,  //课程列表
+
                     vSalesD: false,
                     vNumD: false,
                     vLessonD: false,
@@ -86,6 +113,7 @@
 
             /*查看更多*/
             showState(e1){
+                console.log(e1);
                 this.showStateArr.tabPaneState = false;
                 this.showStateArr[e1] = true;  //表格显示
             },
@@ -133,6 +161,18 @@
                 tabName = this.activeTabName;
             }else {
                 this.activeTabName = tabName;
+            };
+
+            let localParment = JSON.parse(sessionStorage.getItem('localParment'));
+            console.log(localParment);
+            if(localParment == null){
+                getDepartment().then(res => {
+                    console.log(res);
+                    this.salerGropu = res;
+                    sessionStorage.setItem('localParment',JSON.stringify(res))
+                });
+            } else {
+                this.salerGropu = localParment;
             }
         },
 
@@ -143,8 +183,12 @@
             VipPT,
             VipMembership,
 
-            statisDetails,
+            ptSaleroom,
+            ptClassNumber,
             ptLessonDetails,
+
+            MBSaleroom,
+            MBClassNumber,
         },
     }
 </script>

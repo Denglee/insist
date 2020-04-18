@@ -45,7 +45,7 @@
                                           hide-timeout="30000"
                                           class="dropdown-HeaderTop">
                             <el-dropdown-item command="a">
-                                <el-button type="text" @click="dialogFormVisible = true">更换密码</el-button>
+                                <el-button type="text" @click="diaChangePass = true">更换密码</el-button>
                             </el-dropdown-item>
                             <el-dropdown-item command="b">
                                 <el-button type="text" @click="loginOut()">退出</el-button>
@@ -59,7 +59,7 @@
 
         <!--更换密码弹出-->
         <el-dialog title="更换密码"
-                   :visible.sync="dialogFormVisible"
+                   :visible.sync="diaChangePass"
                    custom-class="passAlert"
                    width="600px">
             <el-form :model="changePassForm" status-icon :rules="changeRules" ref="changePassForm" label-width="100px" class="demo-ruleForm">
@@ -73,7 +73,7 @@
                     <el-input type="password" :show-password="true" v-model="changePassForm.checkPass" autocomplete="off"  clearable></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="small" @click="submitForm('changePassForm')">提交</el-button>
+                    <el-button size="small" class="btn-public" @click="submitForm('changePassForm')">提交</el-button>
                     <el-button size="small" @click="resetForm('changePassForm')">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -134,7 +134,7 @@
                 localUrl:this.GLOBAL.localUrl,
 
                 SearchVal:"",  //搜索框值
-                dialogFormVisible: false,   //修改密码弹出框状态
+                diaChangePass: false,   //修改密码弹出框状态
 
                 formLabelWidth: '80px',
 
@@ -254,7 +254,7 @@
                                     offset:100,
                                 });
                                 setTimeout(()=>{
-                                    this.dialogFormVisible = false;
+                                    this.diaChangePass = false;
                                     /*刷新页面*/
 
                                 },1500)
@@ -291,7 +291,7 @@
             /*获取用户信息*/
             // this.mutUserInfo();
 
-            console.log(this.UserInfo);
+            // console.log(this.UserInfo);
 
             // let city_name = this.UserInfo.city_name;
             // console.log(city_name);

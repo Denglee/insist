@@ -37,14 +37,14 @@
                         {
                             text: '今天',
                             onClick(picker) {
-                                that.$emit('getMonthScreen',that.monthScreen);
+                                picker.$emit("pick");
                                 that.monthScreen = {
                                     monthVal:'',
                                     monthText:'今天',
-                                    time:'2',
+                                    time:'1',
                                     day:'',
                                 };
-                                picker.$emit("pick",[new Date(), new Date()]);
+                                that.$emit('getMonthScreen',that.monthScreen);
                             }
                         }, {
                             text: '昨天',
@@ -53,7 +53,7 @@
                                 that.monthScreen = {
                                     monthVal:'',
                                     monthText:'昨天',
-                                    time:'1',
+                                    time:'2',
                                     day:'',
                                 };
                                 that.$emit('getMonthScreen',that.monthScreen);
@@ -65,7 +65,7 @@
                                 that.monthScreen = {
                                     monthVal:'',
                                     monthText:'过去七天',
-                                    time:'7',
+                                    time:'3',
                                     day:'',
                                 };
                                 that.$emit('getMonthScreen',that.monthScreen);
@@ -77,11 +77,11 @@
                                 that.monthScreen = {
                                     monthVal:'',
                                     monthText:'过去30天',
-                                    time:'30',
+                                    time:'4',
                                     day:'',
                                 };
                                 that.$emit('getMonthScreen',that.monthScreen);
-                            }
+                            },
                         }
                     ]
                 },
@@ -115,7 +115,3 @@
         },
     }
 </script>
-
-<style scoped lang="scss">
-
-</style>
