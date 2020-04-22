@@ -6,59 +6,67 @@
                 <div class="title">会籍统计</div>
             </header>
             <el-row >
-                <!--新增会员-->
-                <el-col :md="8" class="vip-item-num">
-                    <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">潜在会员</li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-haslesson.png" alt="">正式会员</li>
-                    </ul>
-                    <div class="flex totalVip">
+                <el-col :md="8" class="total-box">
+                    <div class="total-left">
                         <ve-pie :data="VipLesson"
                                 :legend-visible="false"
                                 :colors="totalColor"
                                 :style="picStyle"
-                                :settings="picSettings"></ve-pie>
-                        <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{VipLesson.rows[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{VipLesson.rows[1].value}}</span></li>
-                        </ul>
+                                :extend = 'firstPieEctend'
+                                :settings="picSettings">
+                        </ve-pie>
                     </div>
-                </el-col>
-                <!--会籍 -->
-                <el-col :md="8"  class="vip-item-num">
-                    <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-newAdd.png" alt="">期限卡</li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">次卡</li>
+                    <ul class="total-right" v-if="VipLesson.rows.length >0">
+                        <li>
+                            <i class="iconfont icon-huiyuan1-01 color-LigntBlue"></i>{{VipLesson.rows[0].name}}：
+                            <span class="color-LigntBlue">{{VipLesson.rows[0].value}}</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>{{VipLesson.rows[1].name}}：
+                            <span class="color-MediumBlue">{{VipLesson.rows[1].value}}</span>
+                        </li>
                     </ul>
-                    <div class="flex totalVip">
+                </el-col>
+
+
+                <el-col :md="8" class="total-box">
+                    <div class="total-left">
                         <ve-pie :data="VipAdd"
                                 :legend-visible="false"
                                 :colors="OverdueColor"
                                 :style="picStyle"
                                 :settings="picSettings"></ve-pie>
-                        <ul class="vipNum">
-                            <li>期限卡： <span class="colorYellow">{{VipAdd.rows[0].value}}</span></li>
-                            <li>次卡： <span class="colorRed">{{VipAdd.rows[1].value}}</span></li>
-                        </ul>
                     </div>
-                </el-col>
-                <!--已跟进-->
-                <el-col :md="8"  class="vip-item-num">
-                    <ul class="index-item-tipUl">
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">已跟进</li>
-                        <li><img class="icon-PTtotal" src="~@/assets/icon/vipTotal/vipT-hasAdd.png" alt="">未跟进</li>
+                    <ul class="total-right" v-if="VipAdd.rows.length >0">
+                        <li>
+                            <i class="iconfont icon-qixianka color-Pink"></i>{{VipAdd.rows[0].name}}：
+                            <span class="color-Pink">{{VipAdd.rows[0].value}}</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-cika color-Yellow"></i>{{VipAdd.rows[1].name}}：
+                            <span class="color-Yellow">{{VipAdd.rows[1].value}}</span>
+                        </li>
                     </ul>
-                    <div class="flex totalVip">
+                </el-col>
+
+                <el-col :md="8" class="total-box">
+                    <div class="total-left">
                         <ve-ring :data="VipFollow"
                                  :legend-visible="false"
                                  :colors="followColor"
                                  :style="picStyle"
                                  :settings="ringSettings"></ve-ring>
-                        <ul class="vipNum">
-                            <li>已跟进： <span class="colorRed">{{VipFollow.rows[0].value}}</span></li>
-                            <li>未跟进： <span class="colorBlue">{{VipFollow.rows[1].value}}</span></li>
-                        </ul>
                     </div>
+                    <ul class="total-right" v-if="VipFollow.rows.length >0">
+                        <li>
+                            <i class="iconfont icon-genjin1 color-Pink"></i>{{VipFollow.rows[0].name}}：
+                            <span class="color-Pink">{{VipFollow.rows[0].value}}</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-genjin1 color-MediumBlue"></i>{{VipFollow.rows[1].name}}：
+                            <span class="color-MediumBlue">{{VipFollow.rows[1].value}}</span>
+                        </li>
+                    </ul>
                 </el-col>
             </el-row>
         </div>
@@ -73,11 +81,26 @@
             <MBClassNumber :ptSalesPage="5" @btnTotalMore="btnTotalMore('vNumD')" :salerGropu="salerGropu"></MBClassNumber>
         </div>
 
+        <!-- 次卡到期提醒-->
+        <div class="index-item pt-sales">
+            <MBexpireOnce :ptSalesPage="5" @btnTotalMore="btnTotalMore('onceExpireD')" :salerGropu="salerGropu"></MBexpireOnce>
+        </div>
 
-        <!-- C4 会员上课详情-->
-        <!--<div class="index-item pt-sales">
-            <vipLessonDetails  :ptSalesPage="5" @btnTotalMore="btnTotalMore('vLessonD')"></vipLessonDetails>
-        </div>-->
+        <!-- 期限到期提醒-->
+        <div class="index-item pt-sales">
+            <MBexpireTerm :ptSalesPage="5" @btnTotalMore="btnTotalMore('termExpireD')" :salerGropu="salerGropu"></MBexpireTerm>
+        </div>
+
+        <!-- 懒惰提醒-->
+        <div class="index-item pt-sales">
+            <MBexpireLazy :ptSalesPage="5" @btnTotalMore="btnTotalMore('laztExpireD')" :salerGropu="salerGropu"></MBexpireLazy>
+        </div>
+
+        <!-- 滑雪到期提醒-->
+        <div class="index-item pt-sales">
+            <MBexpireSki :ptSalesPage="5" @btnTotalMore="btnTotalMore('skiExpireD')" :salerGropu="salerGropu"></MBexpireSki>
+        </div>
+
     </div>
 </template>
 
@@ -86,6 +109,11 @@
 
     import MBClassNumber from '@/views/Total/details/VipMembership/MBClassNumber'  // 会籍 数量 详情组件
     import MBSaleroom from '@/views/Total/details/VipMembership/MBSaleroom'  // 会籍 数量 详情组件
+
+    import MBexpireOnce from '@/views/Total/details/VipMembership/MBexpireOnce'  // 次卡到期提醒
+    import MBexpireTerm from '@/views/Total/details/VipMembership/MBexpireTerm'  // 期限卡到期提醒
+    import MBexpireLazy from '@/views/Total/details/VipMembership/MBexpireLazy'  // 懒惰提醒
+    import MBexpireSki from '@/views/Total/details/VipMembership/MBexpireSki'  // 滑雪到期提醒
 
     export default {
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -103,21 +131,27 @@
             return {
 
                 /*私教1、私教统计 */
-                tabPaneState: true,    //tab 显隐
-                ptSalesD: false,  //销售查询表格 显隐
-                ptNumD: false,
-                ptLessonD: false,
-                vSalesD: false,
-                vNumD: false,
-                vLessonD: false,
+                // tabPaneState: true,    //tab 显隐
+                // ptSalesD: false,  //销售查询表格 显隐
+                // ptNumD: false,
+                // ptLessonD: false,
+                // vSalesD: false,
+                // vNumD: false,
+                // vLessonD: false,
 
                 /* == 会员总览 eCharts 对应宽高 == */
                 picStyle: {
                     height: '180px',
                     width: '180px',
                 },
+                firstPieEctend:{
+                    tooltip: {
+                        trigger: 'item',
+                        position: 'right'
+                    },
+                },
                 ringSettings : {
-                    offsetY: 100,
+                    offsetY: 90,
                     offsetX: 10,
                     radius: ['55%', '75%'],
                     label: {
@@ -133,7 +167,7 @@
                     },
                 },
                 picSettings : {
-                    offsetY: 100,
+                    offsetY: 90,
                     offsetX: 10,
                     radius: 70,
                     label: {
@@ -158,21 +192,15 @@
                 /*  == 会籍 == */
                 VipLesson: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0}],
+                    rows: [],
                 },
                 VipAdd: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0}],
+                    rows: [],
                 },
                 VipFollow: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0}],
+                    rows: [],
                 },
 
             }
@@ -243,6 +271,11 @@
         components: {
             MBClassNumber,
             MBSaleroom,
+
+            MBexpireOnce,  //次卡
+            MBexpireTerm,  //期限
+            MBexpireLazy,
+            MBexpireSki,
         },
     }
 </script>

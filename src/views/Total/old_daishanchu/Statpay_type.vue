@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statpay_type",
+        name: "Statpay_type",  //支付统计
         data() {
             return {}
         },

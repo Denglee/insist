@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statcikawater",
+        name: "Statsijiaowater",   //私教卡流水
         data() {
             return {}
         },

@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Stathxwater",
+        name: "Stathxwater",  //储值卡流水
         data() {
             return {}
         },

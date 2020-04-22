@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statentrance_info",
+        name: "Statcikawater",  //次卡流水
         data() {
             return {}
         },

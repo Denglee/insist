@@ -28,6 +28,45 @@ $tabHei: 46px;
   margin: 0 0 10px 40px;
 }
 
+
+.revenue-item{
+  box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
+  border-radius:20px;
+}
+.revenueRatio-tip{
+  .vipNum{
+    //right: 100px;
+    position: static;
+    margin: 70px 20px 0 0;
+    color: #949494;
+    font-size: 15px;
+    padding-left: 10%;
+    li{
+      margin-top: 4px;
+      .iconfont{
+        margin-right: 4px;
+      }
+      span {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
+  .revenue-tip2{
+    font-size: 15px!important;
+    margin-top: 2px;
+  }
+}
+.revenue-tip{
+  text-align: right;
+  margin-left: 15px;
+  float: right;
+  span{
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
 .vip-item-num {
   position: relative;
   min-height: 220px;
@@ -46,13 +85,7 @@ $tabHei: 46px;
   padding-left: 50px;
 }
 
-@media all and (max-width: 1560px) {
-  .vip-item-num {
-    .vipNum {
-      right: 40px;
-    }
-  }
-}
+
 
 /*  A12  私教会员 */
 .vip-pt-num {
@@ -70,7 +103,6 @@ $tabHei: 46px;
     color: $color-White;
   }
 
-
 }
 
 
@@ -84,8 +116,21 @@ $tabHei: 46px;
 .icon-PTtotal {
   height: 14px;
 }
-
-
+.ptContract-status1{
+  color: $color-GreenBlue;
+}
+.ptContract-status2{
+  color: $color-MediumBlue;
+}
+.ptContract-status4{
+  color: $color-Pink;
+}
+.ptContract-status5{
+  color:$color-Red;
+}
+.ptContract-diff{
+  color: $color-Yellow;
+}
 /*B22 销售额表格*/
 .pt-table{
   width: calc(100% - 40px) !important;
@@ -215,25 +260,6 @@ $tabHei: 46px;
     margin: 20px 0 0 20%;
   }
 }
-.vipTotal{
-  .vipTotal-topUl{
-    li{
-      margin-right: 10px;
-    }
-  }
-  .vipTotal-BomUl{
-    margin: 20px 58px 16px 0;
-    li{
-      margin-top: 4px;
-    }
-  }
-}
-.vipT-BomUl{
-  padding-top: 20px;
-  li{
-    margin-top: 4px;
-  }
-}
 
 
 
@@ -276,4 +302,146 @@ $tabHei: 46px;
 }
 .revenue-ptLesson{
   box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
+}
+
+
+/*营收总览*/
+.revenue-box {
+  margin-top: 30px;
+  padding: 0 10px;
+  .index-item{
+    min-height: 140px;
+    box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
+    margin-bottom: 20px;
+    padding: 0 20px;
+  }
+  .index-item-title{
+    padding: 0;
+  }
+
+  .reItem-box{
+    .el-col{
+      width: 20%;
+    }
+  }
+
+  .reItem-box_0{
+    .revenue-item{
+      color: #fff;
+      background-color: #ff8a7e;
+    }
+  }
+  .reItem-box_1{
+    .revenue-item{
+      color: #fff;
+      background-color:#ffbe00;
+    }
+  }
+  .reItem-box_2{
+    .revenue-item{
+      color: #fff;
+      background-color:#00a0e9;
+    }
+  }
+  .reItem-box_3{
+    .revenue-item{
+      color: #fff;
+      background-color: #005ad4;
+    }
+  }
+  .revenue-listUl{
+    li{
+      display: inline-block;
+      /*border: solid 1px red;*/
+      width: 25%;
+      /*height: 200px;*/
+    }
+  }
+  .revenue-list{
+    margin-top: 16px;
+    padding: 10px 0;
+    /*li{*/
+    /*    cursor: pointer;*/
+    /*    margin-top: 6px;*/
+    /*    font-size: 15px;*/
+    /*    i{*/
+    /*        color: #005AD4;*/
+    /*        font-weight:bold ;*/
+    /*        margin-right: 4px;*/
+    /*    }*/
+    /*}*/
+    text-align: center;
+    .revenLiest-title{
+      border-bottom: solid 1px #fff;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .revenList-icon{
+
+      i{
+        font-size: 26px;
+      }
+    }
+  }
+}
+
+.RevenSel-checkbox{
+
+  /*selecet 模拟 checkbox*/
+   .el-select-dropdown__item.selected::after{
+    content: "";
+  }
+  .el-select-dropdown__item.selected .check{
+    background-color:#005ad4;
+    border-color:#005ad4;
+  }
+  .el-select-dropdown__item.selected {
+    span{
+      font-weight: 400;
+    }
+  }
+
+  .el-select-dropdown__item.selected  .check:after{
+    transform: rotate(45deg) scaleY(1);
+  }
+  .el-select-dropdown__item .check::after{
+    box-sizing: content-box;
+    content: "";
+    border: 1px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    height: 7px;
+    left: 4px;
+    position: absolute;
+    top: 1px;
+    transform: rotate(45deg) scaleY(0);
+    width: 3px;
+    transition: transform .15s ease-in .05s;
+    transform-origin: center;
+  }
+
+  .el-select-dropdown__item .check{
+    display: inline-block;
+    position: relative;
+    top:2px;
+    border: 1px solid #dcdfe6;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    z-index: 1;
+    transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+  }
+
+}
+
+.revenue-listTop{
+  box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
+  border-radius: 20px;
+  padding: 20px;
+  .pt-screen{
+    margin-bottom: 20px;
+  }
 }

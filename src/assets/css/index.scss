@@ -1,5 +1,10 @@
 @import "public";
-
+.index-box{
+  .total-box{
+    padding-right: 10%;
+    justify-content: space-around;
+  }
+}
 .present-box{
   padding: 0 27px;
 }
@@ -116,6 +121,39 @@
   padding: 20px 0 0 27px;
   font-size: 14px;
   font-weight: 500;
+}
+.lesson-item{
+  //border:solid 1px red;
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
+  padding-right: 40px;
+  //min-height: 250px;
+  //width: 30%;
+  &:not(:last-of-type){
+    border-right: solid 1px  #eff2f9;
+    //margin-right: 5%;
+  }
+  .total-left{
+    padding-left: 5%;
+  }
+  .total-right{
+    color: #949494;
+    font-size: 15px;
+    padding-left: 10%;
+    padding-top: 78px;
+    flex: 1;
+    li{
+      margin-top: 4px;
+      .iconfont{
+        margin-right: 4px;
+      }
+      span {
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
 

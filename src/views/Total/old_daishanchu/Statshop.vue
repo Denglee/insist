@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statshop",
+        name: "Statshop",  //客流
         data() {
             return {}
         },

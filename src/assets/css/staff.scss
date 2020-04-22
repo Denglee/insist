@@ -1,8 +1,24 @@
 @import "public";
 
 /*员工工资切换*/
-
-
+.staffTable-reword{
+  .el-table__body{
+   .el-table_1_column_5,
+   .el-table_1_column_6{
+      padding: 0;
+      .cell {
+        padding: 0;
+        > div {
+          padding: 9px;
+          border-bottom: solid 1px #EBEEF5;
+          &:last-child{
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 /*员工列表*/
@@ -124,13 +140,17 @@
 .staffClass-table{
   width: 100%;
   margin: 20px 0 10px;
-  border-collapse:collapse;
-  border: solid 1px #EBEEF5;
+  //border-collapse:collapse;
+  //border: solid 1px #EBEEF5;
+  border-collapse: separate;
+  border-spacing: 0;
   //min-height: 500px;
   border-radius: 15px;
 
   th{
-    border: solid 1px #EBEEF5;
+    border-top: solid 1px #EBEEF5;
+    border-left: solid 1px #EBEEF5;
+    border-bottom: solid 1px #EBEEF5;
     white-space: nowrap;
     text-align: center;
     padding: 10px 0;
@@ -139,13 +159,26 @@
     }
     &:last-child{
       border-top-right-radius: 15px;
+      border-right: solid 1px #EBEEF5;
     }
   }
   td{
-    border: solid 1px #EBEEF5;
+    border-bottom: solid 1px #EBEEF5;
+    border-left: solid 1px #EBEEF5;
     white-space: nowrap;
     text-align: center;
     padding: 8px 0;
+    &:last-child{
+      border-right: solid 1px #EBEEF5;
+    }
+  }
+  tr:last-child{
+    td:first-child{
+      border-bottom-left-radius: 15px;
+    }
+    td:last-child{
+      border-bottom-right-radius: 15px;
+    }
   }
 }
 .class-time{

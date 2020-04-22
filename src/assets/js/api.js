@@ -51,7 +51,14 @@ export const PTMemberClass  = params => post('Admin/Statis/member_class', params
 export const PTSaleroom  = params => get('Admin/Statis/saleroom', params);         /* 私教销售额 */
 export const PTclassNumber  = params => get('Admin/Statis/classNumber', params);         /* 私教数量 */
 export const PTperNumPri  = params => get('Admin/Statis/perNumPri', params);         /* 私教上课列表 */
-export const PTperNumPriparticulars  = params => get('Admin/Statis/perNumPriparticulars', params);         /* 私教上课 详情 */
+export const PTperNumPriparticulars  = params => get('Admin/Statis/perNumPriparticulars', params); /* 私教上课 详情 */
+
+//2.1  到期提醒
+export const PTexpireSki    = params => get('Admin/statis/expire_ski', params);         /* 到期滑雪 详情 */
+export const PTexpireCoach  = params => get('Admin/statis/expire_coach', params);         /* 到期私教 详情 */
+export const PTexpireReminder  = params => get('Admin/statis/expire_reminder', params);         /* 期限到期 详情 */
+export const PTexpireNum    = params => get('Admin/statis/expire_num', params);         /* 到期次卡 详情 */
+export const PTexpireLazy   = params => get('Admin/statis/lazy', params);         /* 懒惰提醒 详情 */
 
 /*3、会籍*/
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/

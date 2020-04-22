@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statwater",
+        name: "Statwater",  //营收流水
         data() {
             return {}
         },

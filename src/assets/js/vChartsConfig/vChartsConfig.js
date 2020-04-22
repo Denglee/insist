@@ -61,7 +61,15 @@ let  lineExtendConfig = {
             }
         },
     },
-    series: {},
+    series: {
+        type: 'line',
+        symbolSize: 8,   //设定实心点的大小
+        // lineStyle: {
+        //     normal: {
+        //         type: 'dashed',
+        //     }
+        // },
+    },
 };
 
 /*柱状图 配置*/
@@ -152,8 +160,8 @@ let hisRevenueExtendConfig ={
                 //这里是重点
                 color: function(params) {
                     //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
-                    var colorList = ['#84CCC9','#AA89BD', '#F19EC2', '#FF8A7E', '#00A0E9','#0000FF', '#FFBE00','#00B7EE'];
-                    return colorList[params.dataIndex]
+                    var colorList = ['#ff8a7e','#005ad4','#00a0e9','#8763ce','#1eaaa1','#4ccbeb','#5b5ec7','#ffbe00','#005ad4','#00a0e9','#8763ce',];
+                    return colorList[params.dataIndex];
                 }
             }
         }
@@ -171,6 +179,7 @@ let barExtendConfig ={
         top:'10px',
         containLabel: true
     },
+
     /*xAxis: {
         axisTick: {
             alignWithLabel: true
@@ -199,6 +208,7 @@ let barExtendConfig ={
             }
         },
     },*/
+
     series: {
         barWidth: 20,
         type: 'bar',
@@ -207,7 +217,7 @@ let barExtendConfig ={
                 //这里是重点
                 color: function(params) {
                     //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
-                    var colorList = ['#84CCC9','#AA89BD', '#F19EC2', '#FF8A7E', '#00A0E9','#0000FF', '#FFBE00','#00B7EE'];
+                    var colorList = ['#ff8a7e','#005ad4','#00a0e9','#8763ce','#1eaaa1','#4ccbeb','#5b5ec7','#ffbe00'];
                     return colorList[params.dataIndex]
                 }
             }
@@ -217,6 +227,10 @@ let barExtendConfig ={
 
 /*饼状图配置*/
 let picExtendConfig = {
+    tooltip: {
+        trigger: 'item',
+        position: 'right'
+    },
     series:{
         // offsetY: 100,
         // offsetX: 100,

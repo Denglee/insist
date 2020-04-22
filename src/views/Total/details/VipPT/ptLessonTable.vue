@@ -19,7 +19,7 @@
                 </div>
 
                 <!--表格-->
-                <el-table class="pub-table btn-table" :data="salerLessonInfo" border>
+                <el-table class="pub-table edit-table" :data="salerLessonInfo" border>
                     <el-table-column type="index" label="序号" width="50px"></el-table-column>
                     <el-table-column prop="name" label="姓名"></el-table-column>
                     <el-table-column prop="count_num" label="上课数" ></el-table-column>

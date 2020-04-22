@@ -1,14 +1,13 @@
 <template>
     <div class="layoutR-main">
 
-        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth" id="staffPay-tabBox" v-show="tabStaffSalary">
-
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" id="staffPay-tabBox" v-show="tabStaffSalary">
             <!--tab1 员工工资-->
             <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
                 <div class="vip-tabBox">
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="pt-screen-input" clearable></el-input>
-                        <el-select v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptSel-section">
+                        <el-select  filterable v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
 
@@ -21,10 +20,10 @@
                                 format="yyyy年MM月"
                                 @change="monthSel">
                         </el-date-picker>
-                        <el-button icon="el-icon-search" @click="btnSeaReword" class="btn-public">查询</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaReword" :loading="loadState.searchLoad" class="btn-public">查询</el-button>
                     </div>
 
-                    <el-table class="pub-table" :data="rewardList" border>
+                    <el-table class="pub-table staffTable-reword" :data="rewardList" border>
                         <el-table-column type="index" width="55" label="序号"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
                         <!--<el-table-column prop="user_no" label="工号"></el-table-column>
@@ -48,12 +47,12 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="salary" label="基本工资"></el-table-column>
-                        <el-table-column prop="deduct" label="提成额">
+                        <el-table-column prop="deduct" label="提成方式">
                             <template slot-scope="scope">
                                 <div v-for="(index,item) in scope.row.deduct">{{index.name}}</div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="deductNum" label="提成方式">
+                        <el-table-column prop="deductNum" label="提成额">
                             <template slot-scope="scope">
                                 <div v-for="(index,item) in scope.row.deduct">{{index.price}}</div>
                             </template>
@@ -61,7 +60,7 @@
                         <el-table-column prop="punishReward" label="奖惩"></el-table-column>
                         <el-table-column prop="total" label="合计" class="total">
                             <template slot-scope="scope">
-                                <div style="font-size: 15px;font-weight: 500;">{{scope.row.total}}</div>
+                                <div style="font-weight: 500;">{{scope.row.total}}</div>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -82,20 +81,26 @@
                     <el-button type="primary" class="fr btn-public" @click="btnAddRoyalty">添加提成</el-button>
                 </div>
 
-                <el-table class="pub-table" :data="tableRoyalty" border>
+                <el-table class="pub-table edit-table" :data="tableRoyalty" border>
                     <el-table-column type="index" width="100px" label="序号"></el-table-column>
                     <el-table-column prop="deduction_name" label="名称"></el-table-column>
-                    <el-table-column prop="deduction_type" label="性别">
+                    <el-table-column prop="deduction_type" label="提成类型">
                         <template slot-scope="scope">
                             <div v-if="scope.row.deduction_type == 1 " class="status-connect">个人销售比</div>
                             <div v-if="scope.row.deduction_type == 2 " class="status-break">部门销售比</div>
                         </template>
                     </el-table-column>
-                    <el-table-column label="详情">
+                    <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="EditGroup(scope.$index, scope.row)">编辑</el-button>
-                            <el-button size="mini"  type="primary" @click="btnGoRoyalty(scope.$index, scope.row)">设置</el-button>
-                            <el-button size="mini" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
+                            <el-button size="mini"  class="btn-noBor" @click="EditGroup(scope.$index, scope.row)">
+                                <i class="el-icon-edit"></i>
+                            </el-button>
+                            <el-button size="mini"  class="btn-noBor" @click="btnGoRoyalty(scope.$index, scope.row)">
+                                <i class="el-icon-setting"></i>
+                            </el-button>
+                            <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">
+                                <i class="el-icon-delete"></i>
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -128,11 +133,10 @@
                 <el-table class="pub-table" :data="staffPunishList" border>
                     <el-table-column type="index" width="200" label="序号"></el-table-column>
                     <el-table-column  label="内容" prop="name"></el-table-column>
-                    <el-table-column  label="详情" prop="value">
+                    <el-table-column  label="操作" prop="value">
                         <template slot-scope="scope">
                             <el-input v-model="scope.row.value" @blur="changePunish(scope.$index, scope.row)"></el-input>
                         </template>
-
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
@@ -145,7 +149,7 @@
                     <el-input v-model="deductInfo.deduction_name" placeholder="请输入提成名称" autocomplete="off" class="dia-inp"></el-input>
                 </el-form-item>
                 <el-form-item label="提成类型" prop="deductionType">
-                    <el-select v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
+                    <el-select  filterable v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
                         <el-option v-for="item in deduction_type2" :key="item.id" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
@@ -164,15 +168,19 @@
                 <div class="clearfix">
                     <el-button type="primary" class="fr btn-public"  @click="btnAddSetRoyalty">添加设置</el-button>
                 </div>
-                <el-table class="pub-table" :data="setTableRoyalty" border>
+                <el-table class="pub-table edit-table" :data="setTableRoyalty" border>
                     <el-table-column type="index" label="序号" width="200px"></el-table-column>
                     <el-table-column prop="dn" label="下限"></el-table-column>
                     <el-table-column prop="up" label="上限"></el-table-column>
                     <el-table-column prop="ratio" label="百分比"></el-table-column>
-                    <el-table-column label="详情">
+                    <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="EditSetUp(scope.$index, scope.row)">编辑</el-button>
-                           <el-button size="mini" @click="deleteSetUp(scope.$index, scope.row)">删除</el-button>
+                            <el-button class="btn-noBor" size="mini" @click="EditSetUp(scope.$index, scope.row)">
+                                <i class="el-icon-edit"></i>
+                            </el-button>
+                           <el-button class="btn-noBor" size="mini" @click="deleteSetUp(scope.$index, scope.row)">
+                               <i class="el-icon-delete"></i>
+                           </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -215,6 +223,11 @@
 
                 activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
+
+                loadState: {    //按钮状态
+                    searchLoad:false
+                },
+
                 hasAxios:{  //是否调用接口状态
                     StaffSalary:false,
                     StaffRoyalty:false,
@@ -313,7 +326,7 @@
                     let punishRewardArr = [];    //添加奖惩
                     listArr.forEach((item,index)=>{
 
-                        console.log(item.deduct);
+                        // console.log(item.deduct);
                         // if( item.deduct.length <=0){  //说明是空的  。 空数组
                         //     item.deduct.push({
                         //         'price':0,
@@ -326,9 +339,9 @@
                         // }
 
 
-                        item.deduct.forEach((item2,index)=>{
-                            console.log(item2);
-                        })
+                        // item.deduct.forEach((item2,index)=>{
+                        //     console.log(item2);
+                        // })
 
                         let punish = Number(item.punish);
                         let reward = Number(item.reward);
@@ -342,7 +355,7 @@
                         return {...item, ...punishRewardArr[index]};
                     });
 
-                    console.log(incomeArr3);
+                    // console.log(incomeArr3);
                     this.rewardList = incomeArr3;
 
                     this.rewaroPage = {   //工资分页
@@ -358,6 +371,8 @@
 
             //1-2 工资 筛选
             btnSeaReword(){
+                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
+
                 this.rewordParameter.p = 1;
                 this.getStaffSalaryMenuid();
             },

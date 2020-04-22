@@ -24,13 +24,13 @@
             </el-form-item>
 
             <el-form-item label="职位" :label-width="formLabelWidth" prop="user_type">
-                <el-select v-model="addStaffForm.user_type" placeholder="请选择职位" class="inpStaffTel">
+                <el-select  filterable v-model="addStaffForm.user_type" placeholder="请选择职位" class="inpStaffTel">
                     <el-option v-for="item in userTypeList" :key="item.id" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="部门" :label-width="formLabelWidth" prop="group_id">
-                <el-select v-model="addStaffForm.group_id" placeholder="请选择部门" class="inpStaffTel">
+                <el-select  filterable v-model="addStaffForm.group_id" placeholder="请选择部门" class="inpStaffTel">
                     <el-option v-for="item in staffGroup" :key="item.value" :label="item.name" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
@@ -63,13 +63,13 @@
             </el-form-item>
 
             <el-form-item label="班次" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.classes" placeholder="请选择班次" class="inpStaffTel">
+                <el-select  filterable v-model="addStaffForm.classes" placeholder="请选择班次" class="inpStaffTel">
                     <el-option v-for="item in classesType" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="价格模式" :label-width="formLabelWidth">
-                <el-select v-model="addStaffForm.price_type" placeholder="请选择价格模式" class="inpStaffTel">
+                <el-select  filterable v-model="addStaffForm.price_type" placeholder="请选择价格模式" class="inpStaffTel">
                     <!--@change="selPriceType"-->
                     <el-option v-for="item in priceType" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>

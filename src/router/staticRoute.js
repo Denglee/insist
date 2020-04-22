@@ -206,96 +206,96 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Receptioncard_log" */ '@/views/Total/Receptioncard_log'),
                 meta: {title: '会员卡记录'},
             },
-            {
-                path: 'Stat/shop',  //客流
-                name: 'Statshop',
-                component: () => import(/* webpackChunkName: "Statshop" */ '@/views/Total/Statshop'),
-                meta: {title: '客流'},
-            },
+            // {
+            //     path: 'Stat/shop',  //客流
+            //     name: 'Statshop',
+            //     component: () => import(/* webpackChunkName: "Statshop" */ '@/views/Total/Statshop'),
+            //     meta: {title: '客流'},
+            // },
             {
                 path: 'Stat/water',  //营收流水
                 name: 'Statwater',
                 component: () => import(/* webpackChunkName: "Statwater" */ '@/views/Total/Statwater'),
                 meta: {title: '营收流水'},
             },
-            {
-                path: 'Stat/achievement',  //私教业绩
-                name: 'Statachievement',
-                component: () => import(/* webpackChunkName: "Statachievement" */ '@/views/Total/Statachievement'),
-                meta: {title: '私教业绩'},
-            },
-            {
-                path: 'Stat/achievement',  //会籍业绩
-                name:'Statachievement1',
-                component: () => import(/* webpackChunkName: "Statachievement1" */ '@/views/Total/Statachievement'),
-                meta:{title: '会籍业绩'},
-            },
-            {
-                path: 'Stat/contract_stat',  //合同张数统计
-                name: 'Statcontract_stat',
-                component: () => import(/* webpackChunkName: "contract_stat" */ '@/views/Total/Statcontract_stat'),
-                meta: {title: '合同张数统计'},
-            },
-            {
-                path: 'Stat/cikawater',  //次卡流水
-                name: 'Statcikawater',
-                component: () => import(/* webpackChunkName: "Statcikawater" */ '@/views/Total/Statcikawater'),
-                meta: {title: '次卡流水'},
-            },
-            {
-                path: 'Stat/sijiaowater',  //私教卡流水
-                name: 'Statsijiaowater',
-                component: () => import(/* webpackChunkName: "Statsijiaowater" */ '@/views/Total/Statsijiaowater'),
-                meta: {title: '私教卡流水'},
-            },
-            {
-                path: 'Stat/achievement_log',  //会籍业绩流水报表
-                name: 'Statachievement_log',
-                component: () => import(/* webpackChunkName: "Statachievement_log" */ '@/views/Total/Statachievement_log'),
-                meta: {title: '会籍业绩流水报表'},
-            },
-            {
-                path: 'Stat/sj_achievement_log',  //私教业绩流水报表
-                name: 'Statsj_achievement_log',
-                component: () => import(/* webpackChunkName: "Statsj_achievement_log" */ '@/views/Total/Statsj_achievement_log'),
-                meta: {title: '私教业绩流水报表'},
-            },
+            // {
+            //     path: 'Stat/achievement',  //私教业绩
+            //     name: 'Statachievement',
+            //     component: () => import(/* webpackChunkName: "Statachievement" */ '@/views/Total/Statachievement'),
+            //     meta: {title: '私教业绩'},
+            // },
+            // {
+            //     path: 'Stat/achievement',  //会籍业绩
+            //     name:'Statachievement1',
+            //     component: () => import(/* webpackChunkName: "Statachievement1" */ '@/views/Total/Statachievement'),
+            //     meta:{title: '会籍业绩'},
+            // },
+            // {
+            //     path: 'Stat/contract_stat',  //合同张数统计
+            //     name: 'Statcontract_stat',
+            //     component: () => import(/* webpackChunkName: "contract_stat" */ '@/views/Total/Statcontract_stat'),
+            //     meta: {title: '合同张数统计'},
+            // },
+            // {
+            //     path: 'Stat/cikawater',  //次卡流水
+            //     name: 'Statcikawater',
+            //     component: () => import(/* webpackChunkName: "Statcikawater" */ '@/views/Total/Statcikawater'),
+            //     meta: {title: '次卡流水'},
+            // },
+            // {
+            //     path: 'Stat/sijiaowater',  //私教卡流水
+            //     name: 'Statsijiaowater',
+            //     component: () => import(/* webpackChunkName: "Statsijiaowater" */ '@/views/Total/Statsijiaowater'),
+            //     meta: {title: '私教卡流水'},
+            // },
+            // {
+            //     path: 'Stat/achievement_log',  //会籍业绩流水报表
+            //     name: 'Statachievement_log',
+            //     component: () => import(/* webpackChunkName: "Statachievement_log" */ '@/views/Total/Statachievement_log'),
+            //     meta: {title: '会籍业绩流水报表'},
+            // },
+            // {
+            //     path: 'Stat/sj_achievement_log',  //私教业绩流水报表
+            //     name: 'Statsj_achievement_log',
+            //     component: () => import(/* webpackChunkName: "Statsj_achievement_log" */ '@/views/Total/Statsj_achievement_log'),
+            //     meta: {title: '私教业绩流水报表'},
+            // },
             {
                 path: 'Card/card_list',  //卡号设置
                 name: 'Cardcard_list',
                 component: () => import(/* webpackChunkName: "Cardcard_list" */ '@/views/Total/Cardcard_list'),
                 meta: {title: '卡号设置'},
             },
-            {
-                path: 'Stat/entrance_info',  //客流详情
-                name: 'Statentrance_info',
-                component: () => import(/* webpackChunkName: "Statentrance_info" */ '@/views/Total/Statentrance_info'),
-                meta: {title: '客流详情'},
-            },
-            {
-                path: 'Stat/pay_type',  //支付统计
-                name: 'Statpay_type',
-                component: () => import(/* webpackChunkName: "Statpay_type" */ '@/views/Total/Statpay_type'),
-                meta: {title: '支付统计'},
-            },
-            {
-                path: 'Member/statistics',  //会员详情
-                name: 'Memberstatistics',
-                component: () => import(/* webpackChunkName: "Memberstatistics" */ '@/views/Total/Memberstatistics'),
-                meta: {title: '会员详情'},
-            },
-            {
-                path: 'Stat/coach_count',  //教练上私教课统计
-                name: 'Statcoach_count',
-                component: () => import(/* webpackChunkName: "Statcoach_count" */ '@/views/Total/Statcoach_count'),
-                meta: {title: '教练上私教课统计'},
-            },
-            {
-                path: 'Stat/hxwater',  //储值卡流水
-                name: 'Stathxwater',
-                component: () => import(/* webpackChunkName: "Stathxwater" */ '@/views/Total/Stathxwater'),
-                meta: {title: '教练上私教课统计'},
-            },
+            // {
+            //     path: 'Stat/entrance_info',  //客流详情
+            //     name: 'Statentrance_info',
+            //     component: () => import(/* webpackChunkName: "Statentrance_info" */ '@/views/Total/Statentrance_info'),
+            //     meta: {title: '客流详情'},
+            // },
+            // {
+            //     path: 'Stat/pay_type',  //支付统计
+            //     name: 'Statpay_type',
+            //     component: () => import(/* webpackChunkName: "Statpay_type" */ '@/views/Total/Statpay_type'),
+            //     meta: {title: '支付统计'},
+            // },
+            // {
+            //     path: 'Member/statistics',  //会员详情
+            //     name: 'Memberstatistics',
+            //     component: () => import(/* webpackChunkName: "Memberstatistics" */ '@/views/Total/Memberstatistics'),
+            //     meta: {title: '会员详情'},
+            // },
+            // {
+            //     path: 'Stat/coach_count',  //教练上私教课统计
+            //     name: 'Statcoach_count',
+            //     component: () => import(/* webpackChunkName: "Statcoach_count" */ '@/views/Total/Statcoach_count'),
+            //     meta: {title: '教练上私教课统计'},
+            // },
+            // {
+            //     path: 'Stat/hxwater',  //储值卡流水
+            //     name: 'Stathxwater',
+            //     component: () => import(/* webpackChunkName: "Stathxwater" */ '@/views/Total/Stathxwater'),
+            //     meta: {title: '储值卡流水'},
+            // },
             {
                 path: 'Member/expire_reminder',  //到期提醒
                 name: 'Memberexpire_reminder',
@@ -320,6 +320,13 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Statanalyze" */ '@/views/Total/Statanalyze'),
                 meta: {title: '业绩分析'},
             },
+            {
+                path: 'Stat/show_code',  //入场预约
+                name: 'StatShowCode',
+                component: () => import(/* webpackChunkName: "StatShowCode" */ '@/views/Total/StatShowCode'),
+                meta: {title: '入场预约'},
+            },
+
 
             /*设置*/
             {
@@ -686,3 +693,21 @@ const staticRoute = [
 ];
 
 export default staticRoute
+
+/*
+200422 => 统计删除 缩减 合并
+Statshop  客流
+Statwater 营收流水
+Statachievement 私教业绩
+Statachievement 会籍业绩
+Statcontract_stat 合同张数统计
+Statcikawater  次卡流水
+Statsijiaowater 私教卡流水
+Statachievement_log   会籍业绩流水报表
+Statsj_achievement_log  私教业绩流水报表
+Statentrance_info  客流详情
+Statpay_type 支付统计
+Memberstatistics  会员 详情
+Statcoach_count 教练上私教课统计
+Stathxwater 储值卡流水
+*/

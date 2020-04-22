@@ -15,11 +15,11 @@
                 <!--saler 筛选-->
                 <div class="pt-screen">
                     <!--部门-->
-                    <el-select v-model="searchVal.group" placeholder="请选择部门" class="ptSel-section">
+                    <el-select  filterable v-model="searchVal.group" placeholder="请选择部门" class="ptSel-section">
                         <el-option v-for="item in salerGropu" :key="item.index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                     <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.search" class="pt-screen-input" clearable></el-input>
-                    <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="searchLoad">搜索</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="loadState.searchLoad">搜索</el-button>
                 </div>
 
                 <!-- 表格-->
@@ -60,7 +60,10 @@
         },
         data() {
             return {
-                searchLoad:false,  //搜索按钮 load 状态
+                loadState:{
+                    searchLoad:false,  //搜索按钮 load 状态
+                },
+
                 saleRoomInfo: [], //销售额数组
 
                 pageTotal:10,   //总条目数
@@ -85,7 +88,6 @@
                         this.searchVal.total = Number(res.data.listRows);
                         this.pageTotal = Number(res.data.totalRows);
                     }
-                    this.searchLoad = false;
                 }).catch(res => {
                     console.log(res);
                     if(res.status ==1){
@@ -118,7 +120,7 @@
 
             /*搜索筛选*/
             btnSeaSaler(){
-                this.searchLoad = true;
+                this.GLOBAL.btnStateChange(this,'loadState','searchLoad')
                 this.getPTSaleroom();
             },
 

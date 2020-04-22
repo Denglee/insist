@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statanalyze",
+        name: "Statanalyze",  //业绩分析
         data() {
             return {}
         },

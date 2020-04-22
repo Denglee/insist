@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statachievement",
+        name: "Statentrance_info",  //客流详情
         data() {
             return {}
         },
@@ -17,3 +17,4 @@
         },
     }
 </script>
+

@@ -1,6 +1,6 @@
 <template>
     <div class="layoutR-main">
-        <el-tabs v-model="tabInfo.activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth"
+        <el-tabs v-model="tabInfo.activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header"
                  id="staffPay-tabBox" v-show="showState.tabRevenueState">
             <!--营收总览-->
             <el-tab-pane :lazy='tabInfo.tabLazy' label="营收总览" name="revenueTotal">
@@ -15,6 +15,7 @@
                                 <li><span class="addVip-tagY"></span>本月</li>
 
                             </ul>
+
                             <div class="flex-between revenueRatio-tip clearfix chart">
                                 <ve-pie :data="revenueTotal"
                                         :legend-visible="false"
@@ -24,19 +25,19 @@
                                 ></ve-pie>
                                 <ul class="vipNum">
                                     <li>上月：<span class="vipTipB">{{revenueTotal.rows[0].value}}</span>
-                                        <span v-if="revenueRatio.lastMonth > 0" class="vipTipB revenue-tip">
+                                        <span v-if="revenueRatio.lastMonth > 0" class="vipTipB revenue-tip revenue-tip2">
                                             <i class="el-icon-top"></i>{{revenueRatio.lastMonth}}
                                         </span>
-                                        <span v-else class="vipTipB revenue-tip">
+                                        <span v-else class="vipTipB revenue-tip revenue-tip2">
                                             <i class="el-icon-bottom"></i>{{revenueRatio.lastMonth | mathFloor}}
                                         </span>
                                     </li>
                                     <li>本月：<span class="vipTipY">{{revenueTotal.rows[1].value}}</span>
-                                        <span v-if="revenueRatio.nowMonth > 0" class="vipTipB revenue-tip">
+                                        <span v-if="revenueRatio.nowMonth > 0" class="vipTipB revenue-tip revenue-tip2">
                                              <i class="el-icon-top"></i>{{revenueRatio.nowMonth}}
                                         </span>
-                                        <span v-else class="vipTipY revenue-tip">
-                                             <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}
+                                        <span v-else class="vipTipY revenue-tip revenue-tip2">
+                                             <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}1111
                                         </span>
                                     </li>
                                 </ul>
@@ -55,9 +56,11 @@
                             <div class="chartRevenue-histpgram">
                                 <ve-histogram :data="revenueRanking"
                                         :legend-visible="false"
+                                              :dataOrder = 'true'
                                         :colors="revenueRankingColor"
                                         :style="histogramStyle"
-                                        :extend="histogramExtend"></ve-histogram>
+                                        :extend="histogramExtend">
+                                </ve-histogram>
                             </div>
                         </div>
                     </el-col>
@@ -65,7 +68,7 @@
 
                 <!-- A2 支付方式排名-->
                 <el-row :gutter="30">
-                    <el-col :md="12">
+                    <el-col :md="9">
                         <div class="index-item revenue-item" style="padding-bottom: 0">
                             <header class="index-item-title" @click="changeData($event)">
                                 <div class="title">支付方式排名</div>
@@ -81,7 +84,7 @@
                         </div>
                     </el-col>
 
-                    <el-col :md="12">
+                    <el-col :md="15">
                         <div class="index-item pt-sales revenue-ptLesson">
                             <ptLessonTable :ptSalesPage="5" @btnTotalMore="btnTotalMore('ptLessonD')"></ptLessonTable>
                         </div>
@@ -193,11 +196,11 @@
                 },
 
                 revenueRanking: {
-                    columns: ['name', 'value'],
+                    columns: ['name', '金额'],
                     rows: [],
                 },
                 revenuePayMethods: {
-                    columns: ['name','value'],
+                    columns: ['name','金额'],
                     rows: [],
                 },
 
@@ -275,10 +278,20 @@
                     console.log(res);
 
                     let incomeData = res;
-                    incomeData = incomeData.map((item, index) => {
+                    let incomeData2 = incomeData.map((item, index) => {
                         return {...item, ...this.revenueRankingClass[index]};
                     });
-                    this.revenueRanking.rows = incomeData;
+
+                    console.log(incomeData2);
+
+                    this.revenueRanking.rows = [];
+                    incomeData2.forEach((item,i)=>{
+                        this.revenueRanking.rows.push({
+                            'name' : item.name,
+                            '金额' : item.value,
+                            'class':item.class,
+                        })
+                    })
 
                 }).catch(res => {
                     console.log(res);
@@ -288,7 +301,13 @@
             /*1.3、支付方式 排名*/
             getRevenuePayMethod() {
                 revenuePayMethod().then(res => {
-                    this.revenuePayMethods.rows =res;
+                    this.revenuePayMethods.rows = [];
+                    res.forEach((item,i)=>{
+                        this.revenuePayMethods.rows.push({
+                            'name' : item.name,
+                            '金额' : item.value,
+                        })
+                    })
                 }).catch(res => {
                     console.log(res);
                 });

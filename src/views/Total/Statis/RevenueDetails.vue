@@ -13,8 +13,7 @@
                             type="month"
                             placeholder="选择月">
                     </el-date-picker>
-                    <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="loadState.searchLoad">
-                        {{loadState.text}}</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="loadState.searchLoad">搜索</el-button>
                 </div>
 
                 <!--表格-->
@@ -58,20 +57,11 @@
         props:{
             RevenueData:{
                 type:Object,
-                // default:{
-                //     'id': 0,
-                //     'income': "18956.00",
-                //     'name': "期限卡",
-                //     'refund_price': 0,
-                //     'total_number': 7,
-                //     'total_price': 18956,
-                // }
             }
         },
         data() {
             return {
                 loadState:{
-                    text:'搜索',
                     searchLoad:false,  //搜索按钮状态
                 },
 
@@ -80,7 +70,7 @@
                 pageTotal: 10 ,
                 searchVal:{   //请求参数数组
                     zmtek_ver:2,
-                    id:0,
+                    id:this.RevenueData.id,
                     date:'',
                     total:10,   //页面显示数
                     p:1,       //页码
@@ -104,10 +94,10 @@
             btnSeaSaler(e){
                 if(!this.searchVal.date){
                     this.$message.warning('请选择月份');
-                    this.GLOBAL.btnStateChange(this,'loadState','searchLoad','搜索','搜索');
+                    this.GLOBAL.btnStateChange(this,'loadState','searchLoad',false);
                     return
                 }
-                this.GLOBAL.btnStateChange(this,'loadState','searchLoad','搜索中','搜索',true);
+                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
                 // this.searchVal.personal_id = '';//教练id 为空
                 this.getRevenueDetails();
             },

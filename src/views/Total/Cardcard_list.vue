@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Cardcard_list",
+        name: "Cardcard_list",  //卡号设置
         data() {
             return {}
         },

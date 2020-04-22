@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statcoach_count",
+        name: "Statcontract_stat",  //合同张数统计
         data() {
             return {}
         },

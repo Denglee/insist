@@ -1,16 +1,16 @@
 <template>
     <div class="layoutR-main">
 
-        <el-tabs v-model="activeName" class="vip-tabBox pubWidth" id="staffPay-tabBox" @tab-click="tabTotal">
+        <el-tabs v-model="activeName" class="vip-tabBox pubWidth  tab-header" id="staffPay-tabBox" @tab-click="tabTotal">
             <!--tab1 打卡记录-->
             <el-tab-pane :lazy='tabLazy' label="打卡记录" name="StaffSalary">
                 <!--打卡记录筛选-->
                 <form class="pt-screen">
                     <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="pt-screen-input"
                               clearable></el-input>
-                    <el-date-picker placeholder="请选择月份" class="inp-mar14 month-inp" v-model="staffMonth" type="month"
+                    <el-date-picker placeholder="请选择月份" class="month-inp" v-model="staffMonth" type="month"
                                     value-format="yyyy-MM"></el-date-picker>
-                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" class="btn-public">搜索</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
 
                     <el-button icon="el-icon-notebook-1" @click="singExport" class="btn-public fr">导出</el-button>
                 </form>
@@ -30,9 +30,9 @@
                                 <td class="cell">统计</td>
                                 <td v-for="(item,index) in signStaffList" :key="index">
                                     <!--sign-up  class  先注释-->
-                                    <div class="cell">上班：{{item.up}}天</div>
+                                    <div class="cell"><i class="iconfont icon-shangban"></i>上班：{{item.up}}天</div>
                                     <!--sign-rest class  先注释-->
-                                    <div class="cell">休息：{{item.rest}}天</div>
+                                    <div class="cell"><i class="iconfont icon-daka"></i>休息：{{item.rest}}天</div>
                                     <div class="cell sign-warn"><i class="el-icon-warning"></i>异常：{{item.abnormal}}天</div>
                                 </td>
                             </tr>
@@ -43,12 +43,12 @@
                                 <td v-for="(item2,index2) in item.check" :key="index2">
 
                                     <div class="cell clock-in" v-if="item2.clockin == '上班:未打卡'">{{item2.clockin}}</div>
-                                    <div class="cell" v-else-if="item2.clockin == '未到时'">{{item2.clockin}}</div>
+                                    <div class="cell" v-else-if="item2.clockin == '未到时'">/</div>
                                     <div class="cell clock-out" v-else>{{item2.clockin}}</div>
 
                                     <!--clock-out-->
                                     <div class="cell clock-in" v-if="item2.clockout == '下班:未打卡'">{{item2.clockout}}</div>
-                                    <div class="cell" v-else-if="item2.clockout == '未到时'">{{item2.clockout}}</div>
+                                    <div class="cell" v-else-if="item2.clockout == '未到时'">/</div>
                                     <div class="cell clock-out" v-else>{{item2.clockout}}</div>
                                 </td>
                             </tr>
@@ -70,17 +70,19 @@
             <!--tab2 班次设置-->
             <el-tab-pane :lazy='tabLazy' label="班次设置" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-public" @click="btnSetTime"> <icon class="el-icon-setting"></icon>设置</el-button>
+                    <el-button type="primary" class="fr btn-public" @click="btnSetTime">
+                        <i class="el-icon-setting"></i>设置
+                    </el-button>
                 </div>
 
-                <table class="staffClass-table">
+                <table class="staffClass-table edit-table">
                     <thead>
                         <tr style="background-color: #fcfbfe;">
                             <th>序号</th>
                             <th>班次</th>
                             <th>上班时间</th>
                             <th>下班时间</th>
-                            <th>查看</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,28 +91,28 @@
                             <td>正班</td>
                             <td>{{calssTimeForm.start_time}}</td>
                             <td>{{calssTimeForm.end_time}} </td>
-                            <td><el-button size="mini" @click="goStaffIndex('1')">此班人员</el-button></td>
+                            <td><el-button class="btn-noBor" size="mini" @click="goStaffIndex('1')">查看此班人员</el-button></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>早班</td>
                             <td>{{calssTimeForm.start_time_m}}</td>
                             <td>{{calssTimeForm.end_time_m}}</td>
-                            <td><el-button size="mini" @click="goStaffIndex('2')">此班人员</el-button></td>
+                            <td><el-button  class="btn-noBor" size="mini" @click="goStaffIndex('2')">查看此班人员</el-button></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>中班</td>
                             <td>{{calssTimeForm.start_time_a}}</td>
                             <td>{{calssTimeForm.end_time_a}}</td>
-                            <td><el-button size="mini" @click="goStaffIndex('3')">此班人员</el-button></td>
+                            <td><el-button class="btn-noBor"  size="mini" @click="goStaffIndex('3')">查看此班人员</el-button></td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>晚班</td>
                             <td>{{calssTimeForm.start_time_e}} </td>
                             <td>{{calssTimeForm.end_time_e}} </td>
-                            <td><el-button size="mini" @click="goStaffIndex('4')">此班人员</el-button></td>
+                            <td><el-button class="btn-noBor" size="mini" @click="goStaffIndex('4')">查看此班人员</el-button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -208,7 +210,9 @@
                 activeName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
                 formLabelWidth: '120px',
-
+                loadState: {    //按钮状态
+                    searchLoad:false
+                },
                 signStaffList: [],  //签到 员工  列表
                 signStaffDate: [],  //签到 日期
 
@@ -271,6 +275,7 @@
 
             /*考勤 搜索*/
             btnSeaStaffSignin() {
+                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
                 this.staffPage = 1;
                 this.getStaffSignin();
             },

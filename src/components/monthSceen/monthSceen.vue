@@ -7,6 +7,7 @@
 
         <el-date-picker
                 class="time-sel"
+                :popper-class="monthSelect"
                 v-model="monthScreen.monthVal"
                 type="month"
                 placeholder="选择月"
@@ -15,7 +16,6 @@
                 @change="monthSel"
                 :picker-options="pickerOptions2">
         </el-date-picker>
-
 
     </div>
 </template>
@@ -26,6 +26,7 @@
         data() {
             const that = this;
             return {
+                monthSelect:'month-select',
                 monthScreen:{
                     monthVal:'',
                     monthText:'过去30天',
@@ -33,6 +34,9 @@
                     day:'',
                 },
                 pickerOptions2: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
                     shortcuts: [
                         {
                             text: '今天',

@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statachievement_log",
+        name: "Memberstatistics",  //会员详情
         data() {
             return {}
         },

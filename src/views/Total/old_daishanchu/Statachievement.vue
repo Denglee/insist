@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statsijiaowater",
+        name: "Statachievement",  //私教业绩
         data() {
             return {}
         },
@@ -17,4 +17,3 @@
         },
     }
 </script>
-

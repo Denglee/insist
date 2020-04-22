@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Eigenmemstime",
+        name: "Eigenmemstime",  //运动时长排名
         data() {
             return {}
         },

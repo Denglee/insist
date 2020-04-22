@@ -57,6 +57,9 @@ moment.locale('zh-cn');//需要汉化
 Vue.filter('dateFormat', (dataStr, pattern = 'YYYY-MM-DD') =>{
     return moment(dataStr*1000).format(pattern)
 })
+Vue.filter('minuteFormat', (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') =>{
+    return moment(dataStr*1000).format(pattern)
+})
 
 Vue.filter('tempTme', (dataStr) => {
     return dataStr*1000

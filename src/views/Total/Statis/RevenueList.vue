@@ -3,23 +3,24 @@
         <div class="revenue-listTop">
             <!--营收详细 筛选-->
             <div class="pt-screen">
-                <el-select v-model="projectChoose" multiple   collapse-tags  @change = 'chooseProject($event)'
-                class="inp-mar14">
+
+                <el-select  v-model="projectChoose" multiple   collapse-tags
+                        :popper-class="RevenSelCheckbox"       @change = 'chooseProject($event)' class="inp-mar14">
                     <el-option v-for="(item, index) in revenueProjectTotal"
                                :key="item.index"
                                :value="item.id"
-                               :label="item.name"
-                    >
+                               :label="item.name">
                         <span class="check"></span>
                         <span style="margin-left: 8px">{{item.name}}</span>
                     </el-option>
                 </el-select>
+
                 <el-date-picker
-                        value-format="yyyy-MM"
-                        class="month-inp"
-                        v-model="revenueDetails.month"
-                        type="month"
-                        placeholder="选择月">
+                    value-format="yyyy-MM"
+                    class="month-inp"
+                    v-model="revenueDetails.month"
+                    type="month"
+                    placeholder="选择月">
                 </el-date-picker>
                 <!--搜索-->
                 <el-button icon="el-icon-search" @click="btnSeaDetail" class="btn-public" :loading="btnLoad.search">搜索</el-button>
@@ -27,6 +28,7 @@
 
             <div class="reveue-listPie">
                 <ve-histogram :data="totalVipOverdue"
+                              :legend-visible="false"
                               :colors="revenueRankingColor"
                               :style="histogramStyle"
                               :extend="histogramExtend">
@@ -35,36 +37,113 @@
         </div>
 
         <!--营收详细 列表-->
-        <el-row :gutter="20" class="index-row revenue-box">
-            <el-col :md="8" :lg="6" v-for="(item,index) in projectChoose" :key="index">
-                <div v-for="(proItem,proIndex) in revenueProject" :key="proIndex" v-if = "item == proItem.id">
-                    <div class="index-item"  @click="goRenDetai('revenueDetails',proItem)">
-                        <header class="index-item-title">
-                            <div class="title">{{proItem.name}}</div>
-                        </header>
-                        <ul class="revenue-list">
-                            <li class="flex-between">
-                                <div><i class="el-icon-price-tag"></i>总收入</div>
-                                <div>{{proItem.income}}</div>
-                            </li>
-                            <li class="flex-between">
-                                <div><i class="el-icon-discount"></i>总价格</div>
-                                <div>{{proItem.total_price}}</div>
-                            </li>
-                            <li class="flex-between" style="color: red;">
-                                <div><i class="el-icon-coin"></i>总金额</div>
-                                <div>{{proItem.total_number}}</div>
-                            </li>
-                            <li class="flex-between" style="color: green;">
-                                <div><i class="el-icon-refresh-left"></i>退款金额</div>
-                                <div>{{proItem.refund_price}}</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </el-col>
-        </el-row>
+        <div class="index-row revenue-box">
 
+            <el-row :gutter="20" v-for="(tItem,index1) in revenueType" :key="index1" class="index-item reItem-box"
+                    :class="'reItem-box_'+index1">
+                <header class="index-item-title">
+                    <div class="title">{{tItem.name}}</div>
+                </header>
+                <el-col :md="8" :lg="6" v-for="(item,index2) in projectChoose" :key="index2">
+                    <div v-for="(proItem,proIndex) in revenueProject" :key="proIndex" v-if = "item == proItem.id && tItem.id == proItem.gather_id"
+                         @click="goRenDetai('revenueDetails',proItem)" class="index-item revenue-item">
+
+                        <!--余额-->
+                        <div class="revenue-list" v-if="proItem.id == 20">
+                            <div class="revenLiest-title flex-between">
+                                <div>{{proItem.name}}</div>
+                                <div>查看详情</div>
+                            </div>
+                            <ul class="revenue-listUl">
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i></div>
+                                    <div class="revenList">充值金额</div>
+                                    <div class="revenList-totalNum">{{proItem.up_price}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i></div>
+                                    <div class="revenList">赠送金额</div>
+                                    <div class="revenList-totalNum">{{proItem.give_price}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i></div>
+                                    <div class="revenList">使用金额</div>
+                                    <div class="revenList-totalNum">{{proItem.use_price}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i></div>
+                                    <div class="revenList">剩余金额</div>
+                                    <div class="revenList-totalNum">{{proItem.left_price}}</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!--定金-->
+                        <div class="revenue-list" v-else-if="proItem.id == 22">
+                            <div class="revenLiest-title flex-between">
+                                <div>{{proItem.name}}</div>
+                                <div>查看详情</div>
+                            </div>
+                            <ul class="revenue-listUl">
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i></div>
+                                    <div class="revenList">总数量</div>
+                                    <div class="revenList-totalNum">{{proItem.total_number}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i></div>
+                                    <div class="revenList">缴定金</div>
+                                    <div class="revenList-totalNum">{{proItem.up_price}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i></div>
+                                    <div class="revenList">使用定金</div>
+                                    <div class="revenList-totalNum">{{proItem.use_price}}</div>
+                                </li>
+
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i></div>
+                                    <div class="revenList">剩余金额</div>
+                                    <div class="revenList-totalNum">{{proItem.left_price}}</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!--会籍卡1-->
+                        <div class="revenue-list" v-else>
+                            <div class="revenLiest-title flex-between">
+                                <div>{{proItem.name}}</div>
+                                <div>查看详情</div>
+                            </div>
+                            <ul class="revenue-listUl">
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i></div>
+                                    <div class="revenList">总数量</div>
+                                    <div class="revenList-totalNum">{{proItem.total_number}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i></div>
+                                    <div class="revenList">销售金额</div>
+                                    <div class="revenList-totalNum">{{proItem.income}}</div>
+                                </li>
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i></div>
+                                    <div class="revenList">退款金额</div>
+                                    <div class="revenList-totalNum">{{proItem.refund_price}}</div>
+                                </li>
+
+                                <li>
+                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i></div>
+                                    <div class="revenList">合计金额</div>
+                                    <div class="revenList-totalNum">{{proItem.total_price}}</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
     </div>
 
 </template>
@@ -86,25 +165,23 @@
                     width: '100%',
                 },
 
+                RevenSelCheckbox:'RevenSel-checkbox',
                 btnLoad:{
                   search:false,  //搜索按钮
                 },
 
                 /*营收详情 */
-                revenueProjectTotal : [],
-                revenueProject : [],
+                revenueType:[], //分类
+                revenueProjectTotal : [],  //全部数据
+                revenueProject : [],     //显示数据
                 totalVipOverdue: {
-                    // columns: ['总价格','总收入','总数量','退回'],
-                    columns: ['name','income','total_price','total_number','refund_price'],
-                    rows: [
-                        // {'总收入':'income','总收入':'total_price','总数量':'total_number','退回':'refund_price'},
-                    ],
+                    columns: ['名称','总数量','销售金额','退款金额','合计金额'],
+                    rows: [],
                 },
                 projectChoose:[],
                 revenueDetails:{
                     month:'',    //月份筛选
                 },
-
             }
         },
         methods: {
@@ -113,25 +190,47 @@
                 revenueContract({
                     date:this.revenueDetails.month,
                 }).then(res => {
-                    console.log(res);
+                    console.log(res.gather);
                     let projectTotal = res.data;
                     this.revenueProjectTotal = projectTotal; //全部
+                    let gatherArr = res.gather;
+                    this.revenueType  = gatherArr;
 
                     let choosePro = JSON.parse(sessionStorage.getItem('choosePro')) ;  //选中的item 对应显隐
-                    if (choosePro != null){
+                    if (choosePro != null){   //如果不为空 则获取这里的值
                         this.projectChoose = choosePro;
-                        let revenueProjectNow = this.toName(projectTotal,choosePro)
-                        console.log(revenueProjectNow);
+                        let revenueProjectNow = this.toName(projectTotal,choosePro); //当先选中
 
-                        this.totalVipOverdue.rows = revenueProjectNow;
-                        this.revenueProject = revenueProjectNow;
+
+                        this.totalVipOverdue.rows = [];    //图表清空 再添加数据
+                        revenueProjectNow.forEach((item,index)=>{
+                            this.totalVipOverdue.rows.push({
+                                '名称':item.name,
+                                '总数量':item.total_number,
+                                '销售金额':item.income,
+                                '退款金额':item.refund_price,
+                                '合计金额':item.total_price,
+                            });
+                        })
+                        // console.log(revenueProjectNow.income);
+
+                        this.revenueProject = revenueProjectNow;    //所有选项赋值
 
                     } else {
+                        this.totalVipOverdue.rows = [];
                         projectTotal.forEach((item,i)=>{
                             this.projectChoose.push(item.id);
+
+                            this.totalVipOverdue.rows.push({
+                                '名称':item.name,
+                                '总数量':item.total_number,
+                                '销售金额':item.income,
+                                '退款金额':item.refund_price,
+                                '合计金额':item.total_price,
+                            });
                         });
                         this.revenueProject = projectTotal;
-                        this.totalVipOverdue.rows = projectTotal;
+
                         sessionStorage.setItem('choosePro', JSON.stringify(this.projectChoose));
                     }
 
@@ -163,10 +262,10 @@
             btnSeaDetail(){
                 if(!this.revenueDetails.month){
                     this.$message.warning('请选择月份');
-                    this.GLOBAL.btnStateChange(this,'btnLoad','search','搜索','搜索');
+                    this.GLOBAL.btnStateChange(this,'btnLoad','search',false);
                     return
                 }
-                this.GLOBAL.btnStateChange(this,'btnLoad','search','搜索中','搜索',true);
+                this.GLOBAL.btnStateChange(this,'btnLoad','search');
 
                 this.getRevenueContract();
             },
@@ -178,8 +277,18 @@
                 this.projectChoose = val;
                 let revenueProjectNow = this.toName(projectTotal,val)
                 console.log(revenueProjectNow);
+                this.totalVipOverdue.rows = [];
+                revenueProjectNow.forEach((item,index)=>{
+                    console.log(item);
+                    this.totalVipOverdue.rows.push({
+                        '名称':item.name,
+                        '总数量':item.total_number,
+                        '销售金额':item.income,
+                        '退款金额':item.refund_price,
+                        '合计金额':item.total_price,
+                    });
+                })
 
-                this.totalVipOverdue.rows = revenueProjectNow;
                 this.revenueProject = revenueProjectNow;
 
                 sessionStorage.setItem('choosePro', JSON.stringify(val));
@@ -207,85 +316,5 @@
 </script>
 
 <style lang="scss">
-
-    /*selecet 模拟 checkbox*/
-    .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after{
-        content: "";
-    }
-    .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .check{
-        background-color:#005ad4;
-        border-color:#005ad4;
-    }
-    .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
-        span{
-            font-weight: 400;
-        }
-    }
-
-    .el-select-dropdown.is-multiple .el-select-dropdown__item.selected .check:after{
-        transform: rotate(45deg) scaleY(1);
-    }
-    .el-select-dropdown.is-multiple .el-select-dropdown__item .check::after{
-        box-sizing: content-box;
-        content: "";
-        border: 1px solid #fff;
-        border-left: 0;
-        border-top: 0;
-        height: 7px;
-        left: 4px;
-        position: absolute;
-        top: 1px;
-        transform: rotate(45deg) scaleY(0);
-        width: 3px;
-        transition: transform .15s ease-in .05s;
-        transform-origin: center;
-    }
-
-    .el-select-dropdown.is-multiple .el-select-dropdown__item .check{
-        display: inline-block;
-        position: relative;
-        top:2px;
-        border: 1px solid #dcdfe6;
-        border-radius: 2px;
-        box-sizing: border-box;
-        width: 14px;
-        height: 14px;
-        background-color: #fff;
-        z-index: 1;
-        transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
-    }
-
-    .revenue-listTop{
-        box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
-        border-radius: 20px;
-        padding: 20px;
-        .pt-screen{
-            margin-bottom: 20px;
-        }
-    }
-    .revenue-box {
-        margin-top: 30px;
-        .index-item{
-            min-height: 140px;
-            box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
-            margin-bottom: 20px;
-            padding: 0 20px 20px 20px;
-        }
-        .index-item-title{
-            padding: 0;
-        }
-        .revenue-list{
-            margin-top: 16px;
-            li{
-                cursor: pointer;
-                margin-top: 6px;
-                font-size: 15px;
-                i{
-                    color: #005AD4;
-                    font-weight:bold ;
-                    margin-right: 4px;
-                }
-            }
-        }
-    }
+    @import "@/assets/css/totalVip.scss";
 </style>

@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Memberstatistics",
+        name: "Statcoach_count",  //教练上私教课统计
         data() {
             return {}
         },

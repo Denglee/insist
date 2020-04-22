@@ -1,5 +1,5 @@
 <template>
-    <div class="index-container">
+    <div class="index-container index-box">
 
         <!--现有会员  新增会员 在场人数 -->
         <el-row :gutter="20" class="index-row">
@@ -9,55 +9,53 @@
                     <header class="index-item-title">
                         <div class="title">现有会员</div>
                     </header>
-                    <ul class="index-item-tipUl">
-                        <li><img src="~@/assets/icon/icon_indexVipG.png" alt="">潜在会员</li>
-                        <li><img src="~@/assets/icon/icon_indexVipB.png" alt="">正式会员</li>
-                        <li><img src="~@/assets/icon/icon_indexVipY.png" alt="">私教会员</li>
-                    </ul>
-                    <div class="flex-between">
-                        <div class="chart">
-                            <ve-pie :data="chartVip"
-                                    :legend-visible="false"
-                                    :colors="VipColor"
-                                    :style="picStyle"
-                                    :settings="picSettings"></ve-pie>
+                    <div class="total-box">
+                        <div class="total-left">
+                            <div class="chart">
+                                <ve-pie :data="chartVip"
+                                        :legend-visible="false"
+                                        :colors="VipColor"
+                                        :style="picStyle"
+                                        :extend = 'firstPieEctend'
+                                        :settings="picSettings"></ve-pie>
+                            </div>
                         </div>
-                        <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{chartVip.rows[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{chartVip.rows[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{chartVip.rows[2].value}}</span></li>
+                        <ul class="total-right"  v-if="chartVip.rows.length >0">
+                            <li><i class="iconfont icon-huiyuan1-01 color-Pink"></i>潜在会员：
+                                <span class="color-Pink">{{chartVip.rows[0].value}}</span></li>
+                            <li><i class="iconfont icon-huiyuan1-01 color-LigntBlue"></i>正式会员：
+                                <span class="color-LigntBlue">{{chartVip.rows[1].value}}</span></li>
+                            <li><i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>私教会员：
+                                <span class="color-MediumBlue">{{chartVip.rows[2].value}}</span></li>
                         </ul>
                     </div>
                 </div>
             </el-col>
-
-            <!--今日新增会员-->
             <el-col :md="12" :lg="8">
                 <div class="index-item">
                     <header class="index-item-title">
                         <div class="title">今日新增会员</div>
                     </header>
-                    <ul class="index-item-tipUl">
-                        <li><span class="addVip-tagG"></span>潜在会员</li>
-                        <li><span class="addVip-tagB"></span>正式会员</li>
-                        <li><span class="addVip-tagY"></span>私教会员</li>
-                    </ul>
-                    <div class="flex-between">
-                        <div class="chart">
+                    <div class="total-box">
+                        <div class="total-left">
                             <ve-pie :data="addVip"
                                     :legend-visible="false"
-                                    :colors="addVipColor"
+                                    :colors="VipColor"
                                     :style="picStyle"
                                     :settings="picSettings"/>
                         </div>
-                        <ul class="vipNum">
-                            <li>潜在会员： <span class="vipTipG">{{addVip.rows[0].value}}</span></li>
-                            <li>正式会员： <span class="vipTipB">{{addVip.rows[1].value}}</span></li>
-                            <li>私教会员： <span class="vipTipY">{{addVip.rows[2].value}}</span></li>
+                        <ul class="total-right" v-if="addVip.rows.length >0">
+                            <li><i class="iconfont icon-huiyuan1-01 color-Pink"></i>潜在会员：
+                                <span class="color-Pink">{{addVip.rows[0].value}}</span></li>
+                            <li><i class="iconfont icon-huiyuan1-01 color-LigntBlue"></i>正式会员：
+                                <span class="color-LigntBlue">{{addVip.rows[1].value}}</span></li>
+                            <li><i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>私教会员：
+                                <span class="color-MediumBlue">{{addVip.rows[2].value}}</span></li>
                         </ul>
                     </div>
                 </div>
             </el-col>
+
 
             <!--在场人数-->
             <el-col :md="12" :lg="8">
@@ -121,36 +119,36 @@
             </el-col>
 
             <!--课程分析-->
-            <el-col :md="24" :lg="16">
+            <el-col :md="24" :lg="16" >
                 <div class="index-item indexItem-hei250">
                     <header class="index-item-title flex-between">
                         <div class="title">课程分析</div>
                     </header>
                     <div class="lesson-main lesson-borR">
-                        <h4 class="lesson-main-title">团课</h4>
+                        <!--<h4 class="lesson-main-title">团课</h4>-->
                         <div class="lesson-item">
                             <ve-pie :data="lessonGroup"
                                     :legend-visible="false"
                                     :colors="lessonGroupColor"
                                     :style="PTpicStyle"
                                     :settings="picSettings2"/>
-                            <ul class="vipNum vipNumPT">
-                                <li>上课人数： <span class="vipTipB">{{lessonGroup.rows[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipG">{{lessonGroup.rows[1].value}}</span></li>
+                            <ul class="total-right"  v-if="lessonGroup.rows.length >0">
+                                <li>团课上课人数： <span class="vipTipB">{{lessonGroup.rows[0].value}}</span></li>
+                                <li>团课预约人数： <span class="vipTipG">{{lessonGroup.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="lesson-main">
-                        <h4 class="lesson-main-title">私教课</h4>
+                        <!--<h4 class="lesson-main-title">私教课</h4>-->
                         <div class="lesson-item">
                             <ve-pie :data="lessonTrainer"
                                     :legend-visible="false"
                                     :colors="lessonTrainerColor"
                                     :style="PTpicStyle"
                                     :settings="picSettings2"/>
-                            <ul class="vipNum vipNumPT">
-                                <li>上课人数： <span class="vipTipYellow">{{lessonTrainer.rows[0].value}}</span></li>
-                                <li>预约人数： <span class="vipTipY">{{lessonTrainer.rows[1].value}}</span></li>
+                            <ul class="total-right" v-if="lessonTrainer.rows.length >0">
+                                <li>私教课上课人数： <span class="vipTipYellow">{{lessonTrainer.rows[0].value}}</span></li>
+                                <li>私教课预约人数： <span class="vipTipY">{{lessonTrainer.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -216,8 +214,9 @@
         inject: ['reLoad'],
 
         data() {
-            this.VipColor = ['#4CCBEB', '#005AD4','#ff8a7e']; // 自定义的颜色
-            this.addVipColor =  ['#4CCBEB', '#005AD4','#ff8a7e' ]; // 自定义的颜色
+
+            this.VipColor = ['#ff8a7e','#4ccbeb','#005ad4']; // 自定义的颜色
+            this.addVipColor =  ['#4ccbeb', '#5b5ec7','#ffbe00' ]; // 自定义的颜色
             this.presentColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; //自定义的颜色
             this.lessonGroupColor =  ['#4CCBEB', '#005AD4']; // 自定义的颜色
             this.lessonTrainerColor =  ['#FF8A7E', '#FFBE00']; //自定义的颜色
@@ -251,7 +250,12 @@
                         }
                     },
                 },
-
+                firstPieEctend:{
+                    tooltip: {
+                        trigger: 'item',
+                        position: 'right'
+                    },
+                },
                 picSettings : {
                     offsetY: 100,
                     offsetX: 100,
@@ -341,19 +345,13 @@
                 /*课程分析 团课*/
                 lessonGroup: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0},
-                    ],
+                    rows: [],
                 },
 
                 /*课程分析 私教课*/
                 lessonTrainer: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0},
-                    ],
+                    rows: [],
                 },
 
                 /*收入趋势*/
@@ -409,9 +407,10 @@
             /*获取  更衣柜使用 数据*/
             getDrawer(){
                 IndexDrawer().then(res => {
-                    // console.log(res);
+                    console.log(res);
                     this.roomMan = res.man;
-                    this.roomManRatio = res.man[2].ratio;
+                    this.roomWoman = res.woman;
+                    // this.roomManRatio = res.man[2].ratio;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -434,7 +433,7 @@
             /*获取  营收业绩 收支统计 数据*/
             getPerformance(){
                 IndexPerformance().then(res => {
-                    // console.log(res);
+                    console.log(res);
                     let incomeData = res;
                     this.incomeTotal = res[6].price;
                     this.incomeArr = this.incomeArr.map((item, index) => {

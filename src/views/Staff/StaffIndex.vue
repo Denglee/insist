@@ -3,7 +3,7 @@
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
-        <el-tabs v-model="activeTabName" @tab-click="tabTotal"  v-show="staffListState" class="vip-tabBox pubWidth" id="staffPay-tabBox">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal"  v-show="staffListState" class="vip-tabBox pubWidth tab-header" id="staffPay-tabBox">
 
             <!--tab1 员工列表-->
             <el-tab-pane :lazy='tabLazy' label="员工列表" name="StaffSalary">
@@ -15,24 +15,24 @@
                     <!--员工列表 筛选-->
                     <div class="pt-screen">
                         <!--在职-->
-                        <el-select v-model="lockStateVal" placeholder="是否在职" class="ptSel-section">
+                        <el-select  filterable v-model="lockStateVal" placeholder="是否在职" class="ptSel-section">
                             <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                         </el-select>
                         <!--职位-->
-                        <el-select v-model="userTypeListVal" placeholder="请选择岗位" class="ptSel-section">
+                        <el-select  filterable v-model="userTypeListVal" placeholder="请选择岗位" class="ptSel-section">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
-                        <el-select v-model="userTypeGroupVal" placeholder="请选择部门" class="ptSel-section">
+                        <el-select  filterable v-model="userTypeGroupVal" placeholder="请选择部门" class="ptSel-section">
                             <el-option v-for="item in groupArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <!--班次-->
-                        <el-select v-model="staffClasses" placeholder="请选择班次" class="ptSel-section">
+                        <el-select  filterable v-model="staffClasses" placeholder="请选择班次" class="ptSel-section">
                             <el-option v-for="item in staffClassesArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="pt-screen-input" clearable></el-input>
                         <!--搜索-->
-                        <el-button icon="el-icon-search" @click="btnSeaStaff" class="btn-public">搜索</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaStaff" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
                         <div class="fr">
                             <el-tooltip class="item" effect="dark" content="删除" placement="bottom"
                                         popper-class="poper-del">
@@ -122,13 +122,17 @@
                 <div class="clearfix">
                     <el-button type="primary" class="btn-add fr btn-public" @click="btnAddGroup()">添加部门</el-button>
                 </div>
-                <el-table class="pub-table" :data="groupArr" border>
+                <el-table class="pub-table edit-table" :data="groupArr" border>
                     <el-table-column type="index" width="50px" label="序号"></el-table-column>
                     <el-table-column prop="name" label="部门"></el-table-column>
-                    <el-table-column label="详情">
+                    <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="EditGroup(scope.$index, scope.row)">编辑</el-button>
-                            <el-button size="mini" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
+                            <el-button class="btn-noBor" size="mini" @click="EditGroup(scope.$index, scope.row)">
+                                <i class="el-icon-edit"></i>
+                            </el-button>
+                            <el-button class="btn-noBor" size="mini" @click="deleteGroup(scope.$index, scope.row)">
+                                <i class="el-icon-delete"></i>
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -175,6 +179,9 @@
             return {
                 activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
+                loadState: {  //按钮状态
+                    searchLoad:false
+                },
 
                 /*  == 员工 筛选 ==*/
                 lockState:[
@@ -271,6 +278,7 @@
 
             /*1.1、筛选 员工*/
             btnSeaStaff(){
+                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
                 this.staffPage = 1;
                 this.getStaffIndex();
             },

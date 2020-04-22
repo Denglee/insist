@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Memberexpire_reminder",
+        name: "Memberexpire_reminder", //到期提醒
         data() {
             return {}
         },

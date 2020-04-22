@@ -2,7 +2,7 @@
     <div class="total-vipBox">
 
         <!--选项卡-->
-        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth" v-show="showStateArr.tabPaneState">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" v-show="showStateArr.tabPaneState">
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal" >
@@ -38,6 +38,12 @@
                 <navBread @GoBack="goBack('VipPT','ptLessonD')" breadTitle="私教" breadContent1="私教上课详情"></navBread>
                 <ptLessonDetails :ptSalesPage="10"></ptLessonDetails>
             </li>
+
+            <!--私教 私教到期提醒 详情-->
+            <li v-if="showStateArr.ptExpireD">
+                <navBread @GoBack="goBack('VipPT','ptExpireD')" breadTitle="私教" breadContent1="私教到期提醒"></navBread>
+                <ptExpireCoach :ptSalesPage="10"></ptExpireCoach>
+            </li>
         </ul>
 
         <ul>
@@ -53,11 +59,29 @@
                 <MBClassNumber :ptSalesPage="10" :salerGropu="salerGropu"></MBClassNumber>
             </li>
 
-            <!--会员 上课 表格 详情-->
-           <!-- <li v-if="showStateArr.vLessonD">
-                <navBread @GoBack="goBack('VipMembership','vLessonD')" breadTitle="会籍" breadContent1="会籍上课详情"></navBread>
-                <vipLessonDetails :ptSalesPage="10"></vipLessonDetails>
-            </li>-->
+            <!--次卡到期提醒-->
+            <li v-if="showStateArr.onceExpireD">
+                <navBread @GoBack="goBack('VipMembership','onceExpireD')" breadTitle="会籍" breadContent1="次卡提醒"></navBread>
+                <MBexpireOnce :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireOnce>
+            </li>
+
+            <!--期限卡到期提醒-->
+            <li v-if="showStateArr.termExpireD">
+                <navBread @GoBack="goBack('VipMembership','termExpireD')" breadTitle="会籍" breadContent1="期限提醒"></navBread>
+                <MBexpireTerm :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireTerm>
+            </li>
+
+            <!--懒惰提醒-->
+            <li v-if="showStateArr.laztExpireD">
+                <navBread @GoBack="goBack('VipMembership','laztExpireD')" breadTitle="会籍" breadContent1="懒惰提醒"></navBread>
+                <MBexpireLazy :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireLazy>
+            </li>
+
+            <!--滑雪提醒-->
+            <li v-if="showStateArr.skiExpireD">
+                <navBread @GoBack="goBack('VipMembership','skiExpireD')" breadTitle="会籍" breadContent1="滑雪提醒"></navBread>
+                <MBexpireSki :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireSki>
+            </li>
         </ul>
 
     </div>
@@ -70,6 +94,12 @@
     import ptSaleroom from '@/views/Total/details/VipPT/ptSaleroom'  //私教销售额 组件
     import ptClassNumber from '@/views/Total/details/VipPT/ptClassNumber'  // 私教 数量 详情组件
     import ptLessonDetails from '@/views/Total/details/VipPT/ptLessonDetails'  // 私教课程详情组件
+
+    import ptExpireCoach from '@/views/Total/details/VipPT/ptExpireCoach'  // 私教到期提醒
+    import MBexpireOnce from '@/views/Total/details/VipMembership/MBexpireOnce'  // 次卡到期提醒
+    import MBexpireTerm from '@/views/Total/details/VipMembership/MBexpireTerm'  // 期限卡到期提醒
+    import MBexpireLazy from '@/views/Total/details/VipMembership/MBexpireLazy'  // 懒惰提醒
+    import MBexpireSki from '@/views/Total/details/VipMembership/MBexpireSki'  // 滑雪到期提醒
 
     import VipTotal from '@/views/Total/details/VipTotal/VipTotal'  //会员总览 tab
     import VipPT from '@/views/Total/details/VipPT/VipPT'  // 私教 tab
@@ -95,6 +125,12 @@
                     ptSalesD: false,  //销售查询表格 显隐
                     ptNumD: false,     //数量
                     ptLessonD: false,  //课程列表
+
+                    ptExpireD: false,  //私教到期提醒
+                    onceExpireD: false,  //次卡到期提醒
+                    termExpireD: false,  //期限到期提醒
+                    laztExpireD: false,  //懒惰到期提醒
+                    skiExpireD: false,  //滑雪到期提醒
 
                     vSalesD: false,
                     vNumD: false,
@@ -161,7 +197,7 @@
                 tabName = this.activeTabName;
             }else {
                 this.activeTabName = tabName;
-            };
+            }
 
             let localParment = JSON.parse(sessionStorage.getItem('localParment'));
             console.log(localParment);
@@ -186,6 +222,12 @@
             ptSaleroom,
             ptClassNumber,
             ptLessonDetails,
+            ptExpireCoach,  //私教到期
+
+            MBexpireOnce,  //次卡
+            MBexpireTerm,  //期限
+            MBexpireLazy,
+            MBexpireSki,
 
             MBSaleroom,
             MBClassNumber,

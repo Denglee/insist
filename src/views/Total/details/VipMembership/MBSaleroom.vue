@@ -15,7 +15,7 @@
                 <!--saler 筛选-->
                 <div class="pt-screen">
                     <!--部门-->
-                    <el-select v-model="searchVal.group" placeholder="请选择部门" class="ptSel-section">
+                    <el-select  filterable v-model="searchVal.group" placeholder="请选择部门" class="ptSel-section">
                         <el-option v-for="item in salerGropu" :key="item.index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                     <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.search" class="pt-screen-input" clearable></el-input>

@@ -1,26 +1,20 @@
 <template>
-    <div class="layoutR-main layoutR-box">
-        <!--会员卡记录-->
+    <div class="layoutR-main">
+        <!--右边iframe-->
         <publicIframe/>
     </div>
 </template>
 
 <script>
-
-
     export default {
-        name: "Receptioncard_log",  //会员卡记录
+        name: "StatShowCode",  //场馆预约
         data() {
             return {}
         },
-        methods: {
-        },
+        methods: {},
         created() {
 
         },
-
-
     }
 </script>
-
 

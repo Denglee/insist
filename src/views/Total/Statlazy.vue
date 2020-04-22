@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statlazy",
+        name: "Statlazy",  //懒惰提醒
         data() {
             return {}
         },

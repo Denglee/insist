@@ -3,32 +3,34 @@
         <!-- A1  会员数量-->
         <el-row :gutter="30" class="total-row">
             <!--会员数量-->
-            <el-col :md="8" :lg="8">
+            <el-col :md="8" :lg="8" >
                 <div class="index-item">
                     <header class="index-item-title">
                         <div class="title">会员数量</div>
                     </header>
-                    <el-row>
-                        <el-col class="vip-item-num">
-                            <ul class="index-item-tipUl">
-                                <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">{{totalVipPT.rows[0].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipPT.rows[1].name}}</li>
-                            </ul>
-                            <div class="flex totalVip">
-                                <div class="pic-content">
-                                    <ve-ring :data="totalVipPT"
-                                             :legend-visible="false"
-                                             :colors="totalColor"
-                                             :style="picStyle"
-                                             :settings="ringSettings"></ve-ring>
-                                </div>
-                                <ul class="vipNum">
-                                    <li>{{totalVipPT.rows[0].name}}： <span class="colorYellow">{{totalVipPT.rows[0].value}}</span></li>
-                                    <li>{{totalVipPT.rows[1].name}}： <span class="colorRed">{{totalVipPT.rows[1].value}}</span></li>
-                                </ul>
+                    <div class="total-box totalBorder">
+                        <div class="total-left">
+                            <div class="pic-content">
+                                <ve-ring :data="totalVipPT"
+                                         :legend-visible="false"
+                                         :colors="totalVip"
+                                         :style="picStyle"
+                                         :extend = 'firstPieEctend'
+                                         :settings="ringSettings">
+                                </ve-ring>
                             </div>
-                        </el-col>
-                    </el-row>
+                        </div>
+                        <ul class="total-right" v-if="totalVipPT.rows.length >0">
+                            <li>
+                                <i class="iconfont icon-huiyuan1-01 color-MediumBlue2"></i>{{totalVipPT.rows[0].name}}：
+                                <span class="color-MediumBlue2">{{totalVipPT.rows[0].value}}</span>
+                            </li>
+                            <li>
+                                <i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>{{totalVipPT.rows[1].name}}：
+                                <span class="color-MediumBlue">{{totalVipPT.rows[1].value}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </el-col>
             <!--私教会员-->
@@ -39,50 +41,66 @@
                     </header>
                     <el-row>
                         <!--有效会员-->
-                        <el-col :md="12" class="vip-item-num">
-                            <ul class="index-item-tipUl">
-                                <li><img src="~@/assets/icon/vipTotal/vipT-effective.png" alt="">{{totalVipOverdue.rows[0].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipOverdue.rows[1].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-overdue.png" alt="">{{totalVipOverdue.rows[2].name}}</li>
-                            </ul>
-                            <div class="flex totalVip">
-                                <div class="pic-content">
-                                    <ve-pie :data="totalVipOverdue"
-                                            :legend-visible="false"
-                                            :colors="OverdueColor"
-                                            :style="picStyle"
-                                            :settings="picSettings"></ve-pie>
+                        <el-col :md="12">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipOverdue"
+                                                :legend-visible="false"
+                                                :colors="OverdueColor"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
                                 </div>
-                                <ul class="vipNum">
-                                    <li>{{totalVipOverdue.rows[0].name}}： <span class="colorYellow">{{totalVipOverdue.rows[0].value}}</span></li>
-                                    <li>{{totalVipOverdue.rows[1].name}}： <span class="colorYellow">{{totalVipOverdue.rows[1].value}}</span></li>
-                                    <li>{{totalVipOverdue.rows[2].name}}： <span class="colorRed">{{totalVipOverdue.rows[2].value}}</span></li>
+                                <ul class="total-right" v-if="totalVipOverdue.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipOverdue.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipOverdue.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipOverdue.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipOverdue.rows[1].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipOverdue.rows[2].name}}：
+                                        <span class="color-MediumBlue">{{totalVipOverdue.rows[2].value}}</span>
+                                    </li>
                                 </ul>
                             </div>
                         </el-col>
                         <!--潜在会员-->
-                        <el-col :md="12" class="vip-item-num vipTotal">
-                            <ul class="index-item-tipUl vipTotal-topUl">
-                                <li><img src="~@/assets/icon/vipTotal/vipT-potential.png" alt="">{{totalVipNum.rows[0].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[1].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[2].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[3].name}}</li>
-                                <li><img src="~@/assets/icon/vipTotal/vipT-formal.png" alt="">{{totalVipNum.rows[4].name}}</li>
-                            </ul>
-                            <div class="flex-between">
-                                <div class="pic-content">
-                                    <ve-pie :data="totalVipNum"
-                                            :legend-visible="false"
-                                            :colors="totalColor"
-                                            :style="picStyle"
-                                            :settings="picSettings"></ve-pie>
+                        <el-col :md="12">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipNum"
+                                                :legend-visible="false"
+                                                :colors="totalVipQz"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
                                 </div>
-                                <ul class="vipNum vipTotal-BomUl">
-                                    <li>{{totalVipNum.rows[0].name}}： <span class="vipTipG">{{totalVipNum.rows[0].value}}</span></li>
-                                    <li>{{totalVipNum.rows[1].name}}： <span class="vipTipB">{{totalVipNum.rows[1].value}}</span></li>
-                                    <li>{{totalVipNum.rows[2].name}}： <span class="vipTipB">{{totalVipNum.rows[2].value}}</span></li>
-                                    <li>{{totalVipNum.rows[3].name}}： <span class="vipTipB">{{totalVipNum.rows[3].value}}</span></li>
-                                    <li>{{totalVipNum.rows[4].name}}： <span class="vipTipB">{{totalVipNum.rows[4].value}}</span></li>
+                                <ul class="total-right" v-if="totalVipNum.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipNum.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipNum.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipNum.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipNum.rows[1].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipNum.rows[2].name}}：
+                                        <span class="color-MediumBlue">{{totalVipNum.rows[2].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Yellow"></i>{{totalVipNum.rows[3].name}}：
+                                        <span class="color-Yellow">{{totalVipNum.rows[3].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipNum.rows[4].name}}：
+                                        <span class="color-MediumBlue">{{totalVipNum.rows[4].value}}</span>
+                                    </li>
                                 </ul>
                             </div>
                         </el-col>
@@ -172,8 +190,10 @@
     export default {
         name: "VipTotal",
         data() {
+            this.totalVip = ['#00a0e9','#005ad4'],
+            this.totalVipQz = ['#ff8a7e','#4ccbeb','#005ad4','#FFBE00','#00a0e9'],
             this.totalColor = ['#4CCBEB', '#005AD4','#FFBE00', '#FF8A7E','#B6A2DE']; //会员总览 潜在会员 自定义的颜色
-            this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4'];
+            this.OverdueColor = ['#ff8a7e','#4ccbeb','#005ad4'];
             this.AddVipColor = ['#FF8A7E', '#005AD4', '#4CCBEB']; //会员总览2 会员办卡走势
             this.AddRefund = ['#4CCBEB', '#005AD4', '#FF8A7E', '#FFBE00']; //会员总览2 会员办卡走势
             this.lineExtend = lineExtendConfig;
@@ -185,8 +205,18 @@
                     height: '180px',
                     width: '180px',
                 },
+                firstPieEctend:{
+                    tooltip: {
+                        trigger: 'item',
+                        position: 'right'
+                    },
+                },
                 ringSettings : {
-                    offsetY: 100,
+                    tooltip: {
+                        trigger: 'item',
+                        position:'top',
+                    },
+                    offsetY: 95,
                     offsetX: 10,
                     radius: ['55%', '75%'],
                     label: {
@@ -202,7 +232,7 @@
                     },
                 },
                 picSettings : {
-                    offsetY: 100,
+                    offsetY: 95,
                     offsetX: 10,
                     radius: 70,
                     label: {
@@ -226,28 +256,15 @@
                 /*会员总览1  会员数量 潜在 正式*/
                 totalVipNum: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0},
-                        {name:'',value:0},
-                        {name:'',value:0},
-                        {name:'',value:0},
-                    ],
+                    rows: [],
                 },
                 totalVipOverdue: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0},
-                        {name:'',value:0},
-                    ],
+                    rows: [],
                 },
                 totalVipPT: {
                     columns: ['name', 'value'],
-                    rows: [
-                        {name:'',value:0},
-                        {name:'',value:0},
-                    ],
+                    rows: [],
                 },
 
                 /*会员总览2 会员办卡走势*/

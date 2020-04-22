@@ -125,16 +125,16 @@ function getEleBase64(file) {
 }
 
 /*按钮点击状态 变化*/
-function btnStateChange(that, id, val, textTrue, textFalse, state = false,time=1500){
+function btnStateChange(that, id, val,  state = true,time=1500){
     that[id][val] = state;
-    that[id].text = textTrue;
+    // that[id].text = textTrue;
     setTimeout(()=>{
         that[id][val] = false;
-        that[id].text = textFalse;
+        // that[id].text = textFalse;
     },time);
 
     /*使用方法  搜索中 记得加状态 true */
-    //this.GLOBAL.btnStateChange(this,'loadState','searchLoad','搜索中','搜索',true);
+    //this.GLOBAL.btnStateChange(this,'loadState','searchLoad',true);
 
 }
 

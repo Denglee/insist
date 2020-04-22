@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        name: "Statsj_achievement_log",
+        name: "Statachievement_log",  //会籍业绩流水报表
         data() {
             return {}
         },

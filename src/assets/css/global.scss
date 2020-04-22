@@ -5,61 +5,74 @@
 @mixin fontColor($color){
   color:$color;
 }
-.colorRed{
+.color-Pink{
   @include fontColor($color-Pink);
 }
-.colorPink{
-  color:#F19EC2;
-}
-.colorBlueL{
-  @include fontColor($color-LigntBlue);
-}
-.colorYellow{
-  @include fontColor($color-Yellow);
-}
-.colorBlue{
+.color-MediumBlue{
   @include fontColor($color-MediumBlue);
 }
-.colorBlueDark{
-  color:#0000FF;
+.color-MediumBlue2{
+  @include fontColor($color-MediumBlue2);
 }
-.colorGreen{
-  @include fontColor($color-GreenBlue);
-}
-.colorGreenLignt{
-  color:#84CCC9;
-}
-.colorViolet{
+.color-Violet{
   @include fontColor($color-Violet);
 }
-.colorGray{
-  @include fontColor($color-Gray);
+.color-GreenBlue{
+  @include fontColor($color-GreenBlue);
+}
+.color-LigntBlue{
+  @include fontColor($color-LigntBlue);
+}
+.color-LigntBlue2{
+  @include fontColor($color-LigntBlue2);
+}
+.color-Yellow{
+  @include fontColor($color-Yellow);
 }
 
-/*项目营收*/
+
+/*$color-Pink:#ff8a7e;
+$color-MediumBlue:#005ad4;
+$color-MediumBlue2:#00a0e9;
+$color-Violet:#8763ce;
+$color-GreenBlue:#1eaaa1;
+$color-LigntBlue:#4ccbeb;
+$color-LigntBlue2:#5b5ec7;
+$color-Yellow:#ffbe00;*/
+//['#ff8a7e','#005ad4','#00a0e9','#8763ce','#1eaaa1','#4ccbeb','#5b5ec7','#ffbe00']
+//$color-Pink:#ff8a7e;
+//$color-MediumBlue:#005ad4;
+//$color-MediumBlue2:#00a0e9;
+//$color-Violet:#8763ce;
+//$color-GreenBlue:#1eaaa1;
+//$color-LigntBlue:#4ccbeb;
+//$color-LigntBlue2:#5b5ec7;
+//$color-Yellow:#ffbe00;
+
+///*项目营收*/
 .colorBgGreenLignt{
-  background-color:#84CCC9;
+  background-color:#ff8a7e;
 }
 .colorBgViolet{
-  background-color:#AA89BD;
+  background-color:#005ad4;
 }
 .colorBgPink{
-  background-color:#F19EC2;
+  background-color:#00a0e9;
 }
 .colorBgRed{
-  background-color:#FF8A7E;
+  background-color:#8763ce;
 }
 .colorBgGreen{
-  background-color:#00A0E9;
+  background-color:#1eaaa1;
 }
 .colorBgBlueDark{
-  background-color:#0000FF;
+  background-color:#4ccbeb;
 }
 .colorBgYellow{
-  background-color:#FFBE00;
+  background-color:#5b5ec7;
 }
 .colorBgBlueGreen{
-  background-color:#00B7EE;
+  background-color:#ffbe00;
 }
 
 
@@ -273,37 +286,21 @@ input:-webkit-autofill {
   }
 }
 
-.vipNum {
-  color: $color-Gray;
-  //position: absolute;
-  //right: 64px;
-  //bottom: 40px;
-  font-size: 15px;
-  margin: 10% 10% 0 0;
-  li {
-    margin-top: 20px;
 
-    span {
-      font-size: 18px;
-      font-weight: 600;
-    }
-  }
+.vipTipG {
+  color: $color-LigntBlue;
+}
 
-  .vipTipG {
-    color: $color-LigntBlue;
-  }
+.vipTipB {
+  color: $color-MediumBlue;
+}
 
-  .vipTipB {
-    color: $color-MediumBlue;
-  }
+.vipTipY {
+  color: $color-Pink;
+}
 
-  .vipTipY {
-    color: $color-Pink;
-  }
-
-  .vipTipYellow {
-    color: $color-Yellow;
-  }
+.vipTipYellow {
+  color: $color-Yellow;
 }
 
 .addVip-tagG {
@@ -432,16 +429,17 @@ $borRadius:15px;
 
   /*#EFF2F9*/
 }
-.btn-table {
+.edit-table {
   tr{
     & td:last-child{
-      padding: 3px 0;
+      padding: 2px 0;
     }
     .el-button{
-      padding: 6px 14px;
+      padding: 4px 14px;
     }
   }
 }
+
 /*分页*/
 .el-pager li {
   height: 22px;
@@ -476,7 +474,13 @@ $borRadius:15px;
 .el-date-editor {
   width: 260px;
 }
-
+.btn-noBor{
+  border: 0;
+  padding: 0 14px;
+  i{
+    font-size: 16px;
+  }
+}
 
 .btn-public {
   letter-spacing: 1.5px;
@@ -506,9 +510,6 @@ $borRadius:15px;
   }
 }
 .el-tooltip__popper.is-dark{
-
-}
-.poper-del{
   background-color: rgb(37, 57, 84) !important;
   border: solid 1px rgb(37, 57, 84);
   color: #fff;
@@ -584,57 +585,58 @@ $marRight:14px;
 $tabMarR: 20px;
 $tabHei: 46px;
 /* ~~这是分割线~~ 导航头部 ==*/
-.el-tabs__header {
-  margin: 50px 0 0;
-  .el-tabs__nav-wrap::after {
-    height: 0;
-  }
+.tab-header{
+  .el-tabs__header {
+    margin: 50px 0 0;
+    .el-tabs__nav-wrap::after {
+      height: 0;
+    }
 
-  .el-tabs__item {
-    background: $color-MediumBlue;
-    border-radius: 20px 20px 0 0;
-    width: 190px;
-    margin-right: 20px;
-    text-align: center;
-    height: $tabHei;
-    line-height: $tabHei;
-    font-size: 17px;
-    font-weight: 500;
-    color: $color-White;
-    padding: 0;
-    //padding-left:  10px;
-    &:hover {
-      color: $color-linghtBlue;
+    .el-tabs__item {
+      background: $color-MediumBlue;
+      border-radius: 20px 20px 0 0;
+      width: 190px;
+      margin-right: 20px;
+      text-align: center;
+      height: $tabHei;
+      line-height: $tabHei;
+      font-size: 17px;
+      font-weight: 500;
+      color: $color-White;
+      padding: 0;
+      //padding-left:  10px;
+      &:hover {
+        color: $color-linghtBlue;
+      }
+    }
+
+    /*tab选中样式*/
+    .el-tabs__active-bar {
+      width: 0 !important;
+    }
+    .is-active {
+      margin-left: -15px;
+      border-top-left-radius: 20px;
+      margin-right: 0;
+      background: url("~@/assets/images/staff/elTab_gray.png") no-repeat;
+      background-size: 100% 100%;
+      color: $color-Black;
+      &:hover {
+        color: $color-MediumBlue;
+      }
+
     }
   }
 
-  /*tab选中样式*/
-  .el-tabs__active-bar {
-    width: 0 !important;
+
+  /* ~~这是分割线~~ 导航 中间主体  box  ==*/
+  .el-tab-pane {
+    background-color: $color-linghtWhite;
+    min-height: 70vh;
+    border-radius: 0 20px 20px;
+    padding: 30px 20px 1px;
+    margin-bottom: 20px;
   }
-
-  .is-active {
-    margin-left: -15px;
-    border-top-left-radius: 20px;
-    margin-right: 0;
-    background: url("~@/assets/images/staff/elTab_gray.png") no-repeat;
-    background-size: 100% 100%;
-    color: $color-Black;
-    &:hover {
-      color: $color-MediumBlue;
-    }
-
-  }
-}
-
-
-/* ~~这是分割线~~ 导航 中间主体  box  ==*/
-.el-tab-pane {
-  background-color: $color-linghtWhite;
-  min-height: 70vh;
-  border-radius: 0 20px 20px;
-  padding: 30px 20px 1px;
-  margin-bottom: 20px;
 }
 
 #staffPay-tabBox{
@@ -676,26 +678,6 @@ $tabHei: 46px;
 }
 
 
-.revenue-item{
-  box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
-  border-radius:20px;
-}
-.revenueRatio-tip{
-  .vipNum{
-    //right: 100px;
-    position: static;
-    margin: 70px 20px 0 0;
-  }
-}
-.revenue-tip{
-  text-align: right;
-  margin-left: 15px;
-  float: right;
-  span{
-    font-weight: 500;
-    font-size: 16px;
-  }
-}
 .ve-funnel{
   > div{
     height: 200px !important;
@@ -728,6 +710,58 @@ $tabHei: 46px;
 }
 .time-sel{
   opacity: 0;
+}
+
+
+/*修改版 月份选择器*/
+.month-select{
+  /*左边选择*/
+  .el-picker-panel__sidebar{
+    padding: 10px;
+    .el-picker-panel__shortcut{
+      background: $color-GrayE5;
+      padding: 3px 0 0 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      &:hover{
+        background-color: $color-MediumBlue;
+        color: #fff;
+      }
+    }
+  }
+  /*右边月份选择器*/
+  .el-month-table {
+    .cell {
+      border-radius: 4px;
+    }
+    td:not(.disabled) .cell {
+      background: $color-GrayE5;
+      &:hover {
+        background-color: $color-MediumBlue;
+        color: #fff;
+        border-radius: 4px;
+        width: 60px;
+      }
+    }
+    /*选中*/
+    td.current:not(.disabled) .cell{
+      background-color: $color-MediumBlue;
+      color: #fff;
+      border-radius: 4px;
+      width: 60px;
+    }
+  }
+}
+
+/*框架 自带板 选择器*/
+.el-month-table {
+  td.current:not(.disabled) .cell,
+  td:not(.disabled)  .cell:hover{
+    //width: 36px;
+    //border-radius: 50%;
+    border: solid 1px #005ad4;
+  }
 }
 
 
@@ -766,3 +800,42 @@ $tabHei: 46px;
   }
 }
 
+/*图表 三连排*/
+.total-box{
+  //border:solid 1px red;
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
+  padding-right: 40px;
+  //min-height: 250px;
+  //height: 200px;
+  margin-top: 20px;
+  //width: 30%;
+  &:not(:last-of-type){
+   border-right: solid 1px  #eff2f9;
+    //margin-right: 5%;
+  }
+  .total-left{
+    padding-left: 5%;
+  }
+  .total-right{
+    color: #949494;
+    font-size: 15px;
+    padding-left: 10%;
+    flex: 1;
+    li{
+      margin-bottom: 8px;
+      .iconfont{
+        margin-right: 4px;
+      }
+      span {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .icon-qixianka{
+        font-size: 14px;
+      }
+    }
+  }
+}
