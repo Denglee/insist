@@ -35,7 +35,7 @@
                     <el-dropdown class="dropdown-header">
                         <div class="el-dropdown-link">
                             <div class="user-name">
-                                {{UserInfo.username}}
+                                <div>{{UserInfo.username}}</div>
                                 <div>{{UserInfo.auth_name}}</div>
                             </div>
                             <div><i class="el-icon-caret-bottom"></i></div>

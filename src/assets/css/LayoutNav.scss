@@ -172,7 +172,7 @@
         top: 0;
         width: 0;
         height: 100%;
-        border: solid 2px #005ad4;
+        border: solid 1px #005ad4;
       }
     }
   }
@@ -291,6 +291,12 @@ $headerHeight:70px;
   .user-name{
     text-align: right;
     margin-right: 10px;
+    div:first-child{
+      font-size: 16px;
+    }
+    div:nth-child(2){
+      font-size: 12px;
+    }
   }
 }
 
@@ -368,7 +374,7 @@ $tagNavHei:36px;
       text-align: center;
       border-radius: 50%;
       &:hover {
-        //color: $color-Red;
+        //color: $color-Pink;
       }
     }
   }

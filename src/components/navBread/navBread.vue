@@ -59,17 +59,21 @@
             &:hover{
                 cursor: pointer;
                 color:#005AD4;
+                .el-icon-back{
+                    background-color:#005AD4 !important;
+                }
+            }
+            .el-icon-back{
+                background-color:  #253954;
+                height: 24px;
+                line-height: 24px;
+                border-radius: 50%;
+                color: #fff;
+                display: inherit;
+                margin-right: 5px;
             }
         }
-        .el-icon-back{
-            background-color:  #253954;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 50%;
-            color: #fff;
-            display: inherit;
-            margin-right: 8px;
-        }
+
     }
 
 </style>

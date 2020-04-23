@@ -336,21 +336,42 @@ $indexTitleHei: 44px;
 
 
 /*覆盖*/
-.el-breadcrumb__separator {
-  margin: 0 5px 0 0;
-}
+/*时间选择器*/
+.el-time-panel {
+  .el-breadcrumb__separator {
+    margin: 0 5px 0 0;
+  }
 
-.el-time-spinner__wrapper{
-  vertical-align: inherit;
-}
+  .el-time-spinner__wrapper {
+    vertical-align: inherit;
 
-.el-time-spinner__item{
-  height: 31px;
-  line-height: inherit;
-}
-.el-time-spinner__item.active:not(.disabled) {
-  color: $color-MediumBlue;
-  font-weight: 700;
+    .el-time-spinner__list::after,
+    .el-time-spinner__list::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 72px;
+    }
+  }
+
+  .el-time-spinner__item {
+    height: 31px;
+    line-height: 31px;
+    &:hover:not(.disabled):not(.active) {
+      background: $color-thBG;
+      cursor: pointer;
+      border: solid 1px $color-thBG;
+      //border-radius: 50%;
+      //width: 40%;
+      //margin: 0 auto;
+    }
+  }
+  .active:not(.disabled) {
+    color: $color-MediumBlue;
+    font-weight: 700;
+    background-color: $color-thBG;
+    //border: solid 1px $color-MediumBlue;
+  }
 }
 
 /*input*/
@@ -404,7 +425,7 @@ $borRadius:15px;
   margin: 20px 0;
   thead tr:first-child{
     th {
-      background-color: #FCFBFE;
+      background-color: $color-thBG;
       padding: 7px 0;
     }
     //th:first-child {
@@ -435,7 +456,11 @@ $borRadius:15px;
       padding: 2px 0;
     }
     .el-button{
-      padding: 4px 14px;
+      padding: 4px 20px 4px 0;
+      background: none;
+      &:hover{
+        background: none;
+      }
     }
   }
 }
@@ -454,11 +479,18 @@ $borRadius:15px;
   background-color: $color-MediumBlue !important;
 }
 
+
 .el-pagination button,
 .el-pagination span:not([class*=suffix]) {
   height: 22px;
   line-height: 22px;
   min-width: 24px !important;
+
+}
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li{
+  background-color: $color-linghtWhite;
 }
 
 .el-pagination__editor.el-input .el-input__inner {
@@ -500,8 +532,8 @@ $borRadius:15px;
 }
 
 .btn-delete{
-  background-color: $color-Red;
-  border: solid 1px $color-Red;
+  background-color: $color-Pink;
+  border: solid 1px $color-Pink;
   &:hover,
   &:focus {
     color: #fff;
@@ -605,9 +637,15 @@ $tabHei: 46px;
       color: $color-White;
       padding: 0;
       //padding-left:  10px;
-      &:hover {
-        color: $color-linghtBlue;
+      &:not(.is-active){
+        &:hover {
+          //color: $color-linghtBlue;
+          //background-color: ;
+          background-color: $color-linghtWhite !important;
+          color: $color-MediumBlue  !important;
+        }
       }
+
     }
 
     /*tab选中样式*/
@@ -615,8 +653,9 @@ $tabHei: 46px;
       width: 0 !important;
     }
     .is-active {
-      margin-left: -15px;
-      border-top-left-radius: 20px;
+      width: 220px;
+      margin-left: -17px;
+      border-top-left-radius: 40px;
       margin-right: 0;
       background: url("~@/assets/images/staff/elTab_gray.png") no-repeat;
       background-size: 100% 100%;
@@ -642,6 +681,17 @@ $tabHei: 46px;
 #staffPay-tabBox{
   .el-tab-pane{
     background-color: $color-White;
+  }
+
+  .el-tabs__item{
+    &:not(.is-active){
+      &:hover {
+        //color: $color-linghtBlue;
+        //background-color: ;
+        color: $color-Black !important;
+        background-color: $color-White  !important;
+      }
+    }
   }
   .el-tabs__header{
     .is-active {
@@ -717,9 +767,10 @@ $tabHei: 46px;
 .month-select{
   /*左边选择*/
   .el-picker-panel__sidebar{
+    width: 96px;
     padding: 10px;
     .el-picker-panel__shortcut{
-      background: $color-GrayE5;
+      background: $color-thBG;
       padding: 3px 0 0 12px;
       border-radius: 4px;
       margin-bottom: 10px;
@@ -732,11 +783,17 @@ $tabHei: 46px;
   }
   /*右边月份选择器*/
   .el-month-table {
-    .cell {
-      border-radius: 4px;
+    margin-top: 20px;
+    td{
+      padding: 0;
+      .cell {
+        border-radius: 4px;
+        height: 32px;
+        line-height: 32px;
+      }
     }
     td:not(.disabled) .cell {
-      background: $color-GrayE5;
+      background: $color-thBG;
       &:hover {
         background-color: $color-MediumBlue;
         color: #fff;
@@ -756,11 +813,30 @@ $tabHei: 46px;
 
 /*框架 自带板 选择器*/
 .el-month-table {
-  td.current:not(.disabled) .cell,
-  td:not(.disabled)  .cell:hover{
-    //width: 36px;
-    //border-radius: 50%;
-    border: solid 1px #005ad4;
+  margin-top: 20px;
+  td{
+    padding: 0;
+    .cell {
+      border-radius: 4px;
+      height: 32px;
+      line-height: 32px;
+    }
+  }
+  td:not(.disabled) .cell {
+    background: $color-thBG;
+    &:hover {
+      background-color: $color-MediumBlue;
+      color: #fff;
+      border-radius: 4px;
+      width: 60px;
+    }
+  }
+  /*选中*/
+  td.current:not(.disabled) .cell{
+    background-color: $color-MediumBlue;
+    color: #fff;
+    border-radius: 4px;
+    width: 60px;
   }
 }
 
@@ -812,7 +888,7 @@ $tabHei: 46px;
   margin-top: 20px;
   //width: 30%;
   &:not(:last-of-type){
-   border-right: solid 1px  #eff2f9;
+   border-right: solid 1px  $color-linghtWhite;
     //margin-right: 5%;
   }
   .total-left{
@@ -824,7 +900,7 @@ $tabHei: 46px;
     padding-left: 10%;
     flex: 1;
     li{
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       .iconfont{
         margin-right: 4px;
       }

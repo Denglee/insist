@@ -32,6 +32,15 @@ $tabHei: 46px;
 .revenue-item{
   box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
   border-radius:20px;
+  &:hover{
+    cursor: pointer;
+    &:after{
+      transform: scale(1.01);
+      transition: all 0.01s ease;
+      box-shadow:-1px 2px 12px 0px rgba(219,219,219,1);
+    }
+
+  }
 }
 .revenueRatio-tip{
   .vipNum{
@@ -40,7 +49,7 @@ $tabHei: 46px;
     margin: 70px 20px 0 0;
     color: #949494;
     font-size: 15px;
-    padding-left: 10%;
+    padding-left: 4%;
     li{
       margin-top: 4px;
       .iconfont{
@@ -53,7 +62,7 @@ $tabHei: 46px;
     }
   }
   .revenue-tip2{
-    font-size: 15px!important;
+    font-size: 13px!important;
     margin-top: 2px;
   }
 }
@@ -84,7 +93,6 @@ $tabHei: 46px;
 .vip-item-num2 {
   padding-left: 50px;
 }
-
 
 
 /*  A12  私教会员 */
@@ -126,10 +134,10 @@ $tabHei: 46px;
   color: $color-Pink;
 }
 .ptContract-status5{
-  color:$color-Red;
+  color:$color-Pink;
 }
 .ptContract-diff{
-  color: $color-Yellow;
+  color:$color-Pink;
 }
 /*B22 销售额表格*/
 .pt-table{
@@ -161,6 +169,9 @@ $tabHei: 46px;
   color: rgba(151, 151, 151, 1);
   padding: 0;
   margin-left: 20px;
+  &:hover{
+    background: none;
+  }
 }
 
 
@@ -182,7 +193,7 @@ $tabHei: 46px;
 .PTdetail-main{
   box-sizing: border-box;
   overflow-y: auto;
-  background-color: #eff2f9;
+  background-color: $color-linghtWhite;
   width: 100%;
   min-height: calc(100vh - 166px);
   .detail-box{
@@ -352,35 +363,32 @@ $tabHei: 46px;
   .revenue-listUl{
     li{
       display: inline-block;
-      /*border: solid 1px red;*/
       width: 25%;
-      /*height: 200px;*/
     }
   }
   .revenue-list{
     margin-top: 16px;
     padding: 10px 0;
-    /*li{*/
-    /*    cursor: pointer;*/
-    /*    margin-top: 6px;*/
-    /*    font-size: 15px;*/
-    /*    i{*/
-    /*        color: #005AD4;*/
-    /*        font-weight:bold ;*/
-    /*        margin-right: 4px;*/
-    /*    }*/
-    /*}*/
     text-align: center;
+    min-height: 144px;
     .revenLiest-title{
       border-bottom: solid 1px #fff;
       padding-bottom: 10px;
       margin-bottom: 10px;
+      font-size: 15px;
+    }
+    .revenList{
+      font-size: 13px;
+    }
+    .revenList-totalNum{
       font-size: 16px;
     }
     .revenList-icon{
-
-      i{
+      .iconfont{
         font-size: 26px;
+      }
+      .icon-heji{
+        font-size: 24px;
       }
     }
   }

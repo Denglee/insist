@@ -26,7 +26,7 @@
                     <el-table-column prop="sum_price" label="产生金额"></el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
-                            <el-button size="mini"
+                            <el-button size="mini" class="btn-noBor"
                                     @click="lookPT(scope.$index, scope.row)">查看详情</el-button>
                         </template>
                     </el-table-column>

@@ -98,8 +98,8 @@
                                         <span class="color-Yellow">{{totalVipNum.rows[3].value}}</span>
                                     </li>
                                     <li>
-                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipNum.rows[4].name}}：
-                                        <span class="color-MediumBlue">{{totalVipNum.rows[4].value}}</span>
+                                        <i class="iconfont icon-qixianka color-MediumBlue2"></i>{{totalVipNum.rows[4].name}}：
+                                        <span class="color-MediumBlue2">{{totalVipNum.rows[4].value}}</span>
                                     </li>
                                 </ul>
                             </div>

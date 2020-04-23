@@ -77,7 +77,7 @@
 
                 <table class="staffClass-table edit-table">
                     <thead>
-                        <tr style="background-color: #fcfbfe;">
+                        <tr>
                             <th>序号</th>
                             <th>班次</th>
                             <th>上班时间</th>

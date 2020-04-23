@@ -27,13 +27,13 @@ const staticRoute = [
                 path: 'Reception/index',   //会员登记
                 name: 'Receptionindex',
                 component: () => import(/* webpackChunkName: "Receptionindex" */ '@/views/Reception/Receptionindex'),
-                meta: {title: '会员登记'},
+                meta: {title: '会员登记',keepAlive: true},
             },
             {
                 path: 'Reception/entrance', //入场查询
                 name: 'Receptionentrance',
                 component: () => import(/* webpackChunkName: "Receptionentrance" */ '@/views/Reception/Receptionentrance'),
-                meta: {title: '入场查询'},
+                meta: {title: '入场查询',keepAlive: true},
             },
             {
                 path: 'Member/check_card',  //审核卡信息

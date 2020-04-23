@@ -98,9 +98,8 @@
     padding: 6px 0;
   }
   .thead th{
-    padding: 9px 0;
-    background-color: rgba(155, 188, 238, 0.5);
-    text-align: center;
+    padding: 9px 4px;
+    background-color: $color-thBG;
     white-space: nowrap;
     font-weight: 500;
     &:not(:last-child){
@@ -122,7 +121,7 @@
     margin-bottom: 4px;
   }
   .sign-warn{
-    color: $color-Red;
+    color: $color-Pink;
   }
   .clock-in{
     color: $color-Gray;
@@ -146,7 +145,9 @@
   border-spacing: 0;
   //min-height: 500px;
   border-radius: 15px;
-
+  thead{
+    background-color: $color-thBG;
+  }
   th{
     border-top: solid 1px #EBEEF5;
     border-left: solid 1px #EBEEF5;
@@ -154,6 +155,7 @@
     white-space: nowrap;
     text-align: center;
     padding: 10px 0;
+    font-weight: 300;
     &:first-child{
       border-top-left-radius: 15px;
     }

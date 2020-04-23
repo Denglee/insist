@@ -23,8 +23,8 @@
                             <span class="color-LigntBlue">{{PTLesson.rows[0].value}}</span>
                         </li>
                         <li>
-                            <i class="iconfont icon-jiaolian color-MediumBlue2"></i>{{PTLesson.rows[1].name}}：
-                            <span class="color-MediumBlue2">{{PTLesson.rows[1].value}}</span>
+                            <i class="iconfont icon-jiaolian color-MediumBlue"></i>{{PTLesson.rows[1].name}}：
+                            <span class="color-MediumBlue">{{PTLesson.rows[1].value}}</span>
                         </li>
                     </ul>
                 </el-col>
