@@ -56,7 +56,7 @@
                             </div>
                             <ul class="revenue-listUl">
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-chongzhi"></i></div>
+                                    <div class="revenList-icon"><i class="iconfont icon-chongzhi-"></i></div>
                                     <div class="revenList">充值金额</div>
                                     <div class="revenList-totalNum">{{proItem.up_price}}</div>
                                 </li>

@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main layoutR-box">
+    <div class="layoutR-contain layoutR-box">
         <!--会员卡记录-->
         <publicIframe/>
     </div>

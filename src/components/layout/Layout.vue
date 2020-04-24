@@ -22,10 +22,9 @@
                             <span></span>
                         </el-tooltip>
                     </el-backtop>
+
                 <!--右边主体内容-->
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
+                <router-view></router-view>
 
             </div>
 

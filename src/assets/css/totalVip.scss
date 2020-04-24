@@ -157,22 +157,6 @@ $tabHei: 46px;
   display: flex;
 }
 
-.btn-ptMore {
-  width: 70px;
-  height: 32px;
-  line-height: 32px;
-  background: $color-GrayE5;
-  border: 1px solid $color-GrayE5;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(151, 151, 151, 1);
-  padding: 0;
-  margin-left: 20px;
-  &:hover{
-    background: none;
-  }
-}
 
 
 /* ~~这是分割线~~ 第三个tab  tabItem3 会籍 == */
@@ -361,6 +345,7 @@ $tabHei: 46px;
     }
   }
   .revenue-listUl{
+    position: relative;
     li{
       display: inline-block;
       width: 25%;
@@ -375,10 +360,10 @@ $tabHei: 46px;
       border-bottom: solid 1px #fff;
       padding-bottom: 10px;
       margin-bottom: 10px;
-      font-size: 15px;
+      font-size: 14px;
     }
     .revenList{
-      font-size: 13px;
+      font-size: 12px;
     }
     .revenList-totalNum{
       font-size: 16px;
@@ -388,7 +373,10 @@ $tabHei: 46px;
         font-size: 26px;
       }
       .icon-heji{
-        font-size: 24px;
+        font-size: 22px;
+        position: absolute;
+        top: 2px;
+        right: 22px;
       }
     }
   }

@@ -6,7 +6,7 @@
         </div>
 
         <el-date-picker
-                class="time-sel"
+                class="timeSel-box"
                 :popper-class="monthSelect"
                 v-model="monthScreen.monthVal"
                 type="month"

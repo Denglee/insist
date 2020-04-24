@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main">
+    <div class="layoutR-contain">
         <publicIframe/>
 
         <!--<div style="height: 600px;background-color: #ffa300;">dsa</div>-->

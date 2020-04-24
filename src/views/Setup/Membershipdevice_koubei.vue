@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="layoutR-main">
+        <div class="layoutR-contain">
             <!--右边iframe-->
             <publicIframe/>
 

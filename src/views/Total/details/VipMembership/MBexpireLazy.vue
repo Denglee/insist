@@ -56,7 +56,8 @@
                     <el-table-column prop="day" label="多久未到场"></el-table-column>
                     <el-table-column prop="happen_time" label="最后入场时间">
                         <template slot-scope="scope">
-                            <div class="status-connect">{{scope.row.happen_time | minuteFormat}}</div>
+                            <div class="status-connect" v-if="scope.row.happen_time == null">暂无</div>
+                            <div class="status-connect" v-else>{{scope.row.happen_time | minuteFormat}}</div>
                         </template>
                     </el-table-column>
 <!--                    <el-table-column prop="limit_time" label="结束日期">-->

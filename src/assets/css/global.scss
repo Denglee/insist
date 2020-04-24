@@ -201,7 +201,7 @@ input:-webkit-autofill {
 .flex{
   display: flex;
 }
-/*.layoutR-main {
+/*.layoutR-contain {
     .index-row{
         //padding: 0;
     }
@@ -217,6 +217,38 @@ input:-webkit-autofill {
 @mixin borRadis($wid) {
   border-radius: $wid;
 }
+
+
+/*404*/
+.lostPage-box{
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: url("../images/bg/bg_404.png") no-repeat 50% 50%;
+  background-size: cover;
+  .title-404{
+    color: #fff;
+    font-size: 28px;
+    padding-top: 60vh;
+  }
+  .el-button{
+    border:none;
+    padding: 16px 30px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .btn-backIndex{
+    background-color: $color-Pink;
+    color: #fff;
+    margin-right: 70px;
+    margin-top: 48px;
+    &:hover{
+      background-color:#fff;
+      color: $color-Pink;
+    }
+  }
+}
+
 
 .index-container {
   padding: 20px;
@@ -466,45 +498,53 @@ $borRadius:15px;
 }
 
 /*分页*/
-.el-pager li {
-  height: 22px;
-  line-height: 22px;
-  min-width: auto !important;
-  width: 22px;
-  padding: 0;
-  font-weight: 400;
+.el-pager  {
+  li{
+    height: 22px;
+    line-height: 22px;
+    min-width: auto !important;
+    width: 22px;
+    padding: 0;
+    font-weight: 400;
+  }
+  .btn-quicknext{
+    font-size: 12px;
+  }
+  .more::before {
+    line-height: 22px;
+  }
 }
-
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: $color-MediumBlue !important;
+.el-pagination{
+  padding: 2px 0;
+   button,
+   span:not([class*=suffix]) {
+    height: 22px;
+    line-height: 22px;
+    min-width: 24px !important;
+  }
+  .el-pagination__editor.el-input .el-input__inner {
+    height: 22px;
+    line-height: 22px;
+  }
+  .el-pagination__editor.el-input {
+    width: 40px;
+    font-size: 13px;
+  }
 }
-
-
-.el-pagination button,
-.el-pagination span:not([class*=suffix]) {
-  height: 22px;
-  line-height: 22px;
-  min-width: 24px !important;
-
-}
-.el-pagination.is-background .btn-next,
-.el-pagination.is-background .btn-prev,
-.el-pagination.is-background .el-pager li{
-  background-color: $color-linghtWhite;
-}
-
-.el-pagination__editor.el-input .el-input__inner {
-  height: 22px;
-  line-height: 22px;
-}
-
-.el-pagination__editor.el-input {
-  width: 40px;
-  font-size: 13px;
+.el-pagination.is-background{
+  .el-pager li:not(.disabled).active {
+    background-color: $color-MediumBlue !important;
+  }
+  .btn-next,
+  .btn-prev,
+  .el-pager li{
+    background-color: $color-linghtWhite;
+  }
 }
 
 .el-date-editor {
   width: 260px;
+  margin-right: 14px;
 }
 .btn-noBor{
   border: 0;
@@ -512,8 +552,30 @@ $borRadius:15px;
   i{
     font-size: 16px;
   }
+  .el-icon-delete{
+    &:hover{
+      color: $color-Pink;
+    }
+  }
 }
 
+.btn-ptMore {
+  width: 70px;
+  height: 32px;
+  line-height: 32px;
+  background:none;
+  border: 1px solid $color-GrayE5;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(151, 151, 151, 1);
+  padding: 0;
+  margin-left: 20px;
+  &:hover{
+    background: none;
+    color: $color-MediumBlue;
+  }
+}
 .btn-public {
   letter-spacing: 1.5px;
   background-color: $color-MediumBlue;
@@ -553,10 +615,17 @@ $borRadius:15px;
   }
 }
 
+.el-select-dropdown__item.selected{
+  font-weight: 500;
+}
+
 .btn-edit{
   color: #EBEEF5;
 }
-
+.icon-add{
+  font-size: 16px;
+  margin-right: 4px;
+}
 .btn-add {
   margin: 20px;
 }
@@ -740,9 +809,9 @@ $tabHei: 46px;
   width: 140px;
   cursor: pointer;
 }
-.el-date-editor.el-input{
-  width: 100%;
-}
+//.el-date-editor .el-input{
+//  width: 100%;
+//}
 .time-val{
   position: absolute;
   width: 100%;
@@ -758,8 +827,9 @@ $tabHei: 46px;
     line-height: 32px;
   }
 }
-.time-sel{
+.timeSel-box{
   opacity: 0;
+  width: 138px !important;
 }
 
 

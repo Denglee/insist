@@ -2,20 +2,13 @@
 
 /*员工工资切换*/
 .staffTable-reword{
-  .el-table__body{
-   .el-table_1_column_5,
-   .el-table_1_column_6{
-      padding: 0;
-      .cell {
-        padding: 0;
-        > div {
-          padding: 9px;
-          border-bottom: solid 1px #EBEEF5;
-          &:last-child{
-            border-bottom: 0;
-          }
-        }
-      }
+  .royalty-td{
+    &:not(:last-of-type){
+      padding-bottom: 4px;
+      border-bottom: solid 1px #EBEEF5;
+    }
+    &:last-of-type{
+      padding-top: 4px;
     }
   }
 }
@@ -91,6 +84,20 @@
   //border: solid 1px #EBEEF5;
   min-height: 500px;
   border-radius: 15px;
+  tbody{
+    tr:first-of-type{
+      td:not(:first-child){
+        text-align: left;
+        padding-left: 2%;
+      }
+      .iconfont{
+        margin-right: 2px;
+      }
+      .el-icon-warning{
+        margin-right: 4px;
+      }
+    }
+  }
   td{
     border: solid 1px #EBEEF5;
     white-space: nowrap;

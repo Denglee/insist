@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main">
+    <div class="layoutR-contain">
 
         <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" id="staffPay-tabBox" v-show="tabStaffSalary">
             <!--tab1 员工工资-->
@@ -49,12 +49,12 @@
                         <el-table-column prop="salary" label="基本工资"></el-table-column>
                         <el-table-column prop="deduct" label="提成方式">
                             <template slot-scope="scope">
-                                <div v-for="(index,item) in scope.row.deduct">{{index.name}}</div>
+                                <div v-for="(index,item) in scope.row.deduct" class="royalty-td">{{index.name}}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="deductNum" label="提成额">
                             <template slot-scope="scope">
-                                <div v-for="(index,item) in scope.row.deduct">{{index.price}}</div>
+                                <div v-for="(index,item) in scope.row.deduct" class="royalty-td">{{index.price}}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="punishReward" label="奖惩"></el-table-column>

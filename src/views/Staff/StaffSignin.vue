@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main">
+    <div class="layoutR-contain">
 
         <el-tabs v-model="activeName" class="vip-tabBox pubWidth  tab-header" id="staffPay-tabBox" @tab-click="tabTotal">
             <!--tab1 打卡记录-->
@@ -41,15 +41,23 @@
                                     <div class="cell">{{item.day}}</div>
                                 </td>
                                 <td v-for="(item2,index2) in item.check" :key="index2">
+                                    <div v-if="item2.clockin == '未到时' && item2.clockout == '未到时'">
+                                        <div class="cell clock-in">
+                                            /
+                                        </div>
+                                    </div>
 
-                                    <div class="cell clock-in" v-if="item2.clockin == '上班:未打卡'">{{item2.clockin}}</div>
-                                    <div class="cell" v-else-if="item2.clockin == '未到时'">/</div>
-                                    <div class="cell clock-out" v-else>{{item2.clockin}}</div>
+                                    <div v-else>
+                                        <div class="cell clock-in" v-if="item2.clockin == '上班:未打卡'">{{item2.clockin}}</div>
+                                        <div class="cell clock-in" v-else-if="item2.clockin == '未到时'">/</div>
+                                        <div class="cell clock-out" v-else>{{item2.clockin}}</div>
 
-                                    <!--clock-out-->
-                                    <div class="cell clock-in" v-if="item2.clockout == '下班:未打卡'">{{item2.clockout}}</div>
-                                    <div class="cell" v-else-if="item2.clockout == '未到时'">/</div>
-                                    <div class="cell clock-out" v-else>{{item2.clockout}}</div>
+                                        <!--clock-out-->
+                                        <div class="cell clock-in" v-if="item2.clockout == '下班:未打卡'">{{item2.clockout}}</div>
+                                        <div class="cell clock-in" v-else-if="item2.clockout == '未到时'">/</div>
+                                        <div class="cell clock-out" v-else>{{item2.clockout}}</div>
+                                    </div>
+
                                 </td>
                             </tr>
                         </tbody>

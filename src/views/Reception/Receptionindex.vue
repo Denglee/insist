@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main">
+    <div class="layoutR-contain">
         <publicIframe/>
 
         <!--http://192.168.0.133:20000/Admin/Reception/index/phone/18815254796.html-->

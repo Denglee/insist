@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-main">
+    <div class="layoutR-contain">
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
@@ -23,11 +23,11 @@
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
-                        <el-select  filterable v-model="userTypeGroupVal" placeholder="请选择部门" class="ptSel-section">
+                        <el-select  filterable v-model="group_id" placeholder="请选择部门" class="ptSel-section">
                             <el-option v-for="item in groupArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <!--班次-->
-                        <el-select  filterable v-model="staffClasses" placeholder="请选择班次" class="ptSel-section">
+                        <el-select  filterable v-model="classes" placeholder="请选择班次" class="ptSel-section">
                             <el-option v-for="item in staffClassesArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="pt-screen-input" clearable></el-input>
@@ -41,7 +41,8 @@
                             <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
                                 <el-button icon="el-icon-edit" @click="changeStaff()" class="btn-public btn-edit"></el-button>
                             </el-tooltip>
-                            <el-button type="primary" class="btn-public btn-edit" @click="btnAddStaff">添加员工</el-button>
+                            <el-button type="primary" class="btn-public btn-edit" @click="btnAddStaff">
+                                <i class="icon-add el-icon-circle-plus-outline"></i>添加员工</el-button>
                         </div>
                     </div>
                     <!--员工列表 表格-->
@@ -88,9 +89,7 @@
 
                         <el-table-column prop="deduction_type" label="提成方式">
                             <template slot-scope="scope">
-                                <div v-for="(item,index) in scope.row.deduction_name">
-                                    {{item}}
-                                </div>
+                                <div v-for="(item,index) in scope.row.deduction_name" class="royalty-td">{{item}}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="lock" label="状态">
@@ -120,7 +119,8 @@
             <!--tab2 部门-->
             <el-tab-pane :lazy='tabLazy' label="部门" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="btn-add fr btn-public" @click="btnAddGroup()">添加部门</el-button>
+                    <el-button type="primary" class="btn-add fr btn-public" @click="btnAddGroup()">
+                        <i class="icon-add el-icon-circle-plus-outline"></i>添加部门</el-button>
                 </div>
                 <el-table class="pub-table edit-table" :data="groupArr" border>
                     <el-table-column type="index" width="50px" label="序号"></el-table-column>
@@ -191,6 +191,8 @@
                 lockStateVal:0, // 1.0、在职状态
                 userTypeList:this.GLOBAL.userTypeList,    // 1.2、 职位
                 userTypeListVal:'10000', /* 职位 岗位 选中值*/
+                group_id:'',  //部门id
+                classes:'', //班次
                 staffInpVal:'', // 1.3、输入
                 userTypeGroupVal:'', //1.4 部门
                 staffClasses:'', //班次
@@ -258,6 +260,8 @@
                     user_type:this.userTypeListVal,
                     phone:this.staffInpVal,
                     lock:this.lockStateVal,
+                    group_id:this.group_id,
+                    classes:this.classes,
                 }).then(res => {
                     console.log(res.data.list);
                     if(res.status ==1){
