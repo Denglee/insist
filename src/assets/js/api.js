@@ -88,12 +88,13 @@ export const staffSetcommutertime   = params => get('admin/Staff/setcommutertime
 export const revenueTotal   = params => get('Admin/Statis/total_revenue', params);         /* 总收入 */
 export const revenueRanking   = params => get('Admin/Statis/project_revenue_ranking', params);          /* 项目营收排名*/
 export const revenuePayMethod   = params => get('Admin/Statis/pay_method_ranking', params);          /* 支付方式 排名*/
+export const revenueWater   = params => get('Admin/stat/water', params);          /* 营收流水*/
+export const revenueUppay   = params => post('Admin/stat/uppay', params);          /* 营收流水 修改支付方式*/
+export const revenuePrintApi   = params => post('Admin/stat/printcontrace', params);          /* 营收流水 打印*/
 
 
 export const revenueContract   = params => get('Admin/Statis/contract_statis', params);          /* 营收详情*/
 export const revenueDetails   = params => get('Admin/Statis/revenueDetails', params);          /* 营收分类详情*/
-
-
 
 /*
 staffAdd({

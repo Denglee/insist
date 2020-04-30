@@ -61,6 +61,10 @@
                     branding: false,
                     menubar: false,
                     convert_urls:false,
+
+                    relative_urls : true,
+                    document_base_url : this.GLOBAL.localUrl,
+
                     // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
                     // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
                     images_upload_handler: (blobInfo, success, failure) => {

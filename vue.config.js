@@ -2,12 +2,14 @@
 //官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
 //https://juejin.im/post/5bd02f98e51d457a944b634f
 // 这里只列一部分，具体配置参考文档
+
+
+
+const Timestamp = new Date().getTime();  //当前时间为了防止打包缓存不刷新，所以给每个js文件都加一个时间戳
 module.exports = {
-    configureWebpack: {
-        externals: {
-            // 'echarts': 'echarts' // 配置使用CDN
-        }
-    },
+
+    //configureWebpack 这部分打包文件添加时间戳，防止缓存不更新
+
 
     /*    chainWebpack: config => {
             //路径配置
@@ -55,6 +57,18 @@ module.exports = {
      *  有了map就可以像未加密的代码一样，准确的输出是哪一行哪一列有错。
      * */
     productionSourceMap: false,
+
+    configureWebpack: {
+        externals: {
+            // 'echarts': 'echarts' // 配置使用CDN
+        },
+
+        output: { // 输出重构  打包编译后的 文件名称  【模块名称.版本号.时间戳】
+
+            filename: `riches/js/[name].${Timestamp}.js`,
+            chunkFilename: `riches/js/[name].${Timestamp}.js`,
+        },
+    },
 
     // 它支持webPack-dev-server的所有选项
     devServer: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="index-container index-box">
+    <div class="contain-public index-box">
 
         <!--现有会员  新增会员 在场人数 -->
         <el-row :gutter="20" class="index-row">
@@ -133,8 +133,8 @@
                                     :style="PTpicStyle"
                                     :settings="picSettings2"/>
                             <ul class="total-right"  v-if="lessonGroup.rows.length >0">
-                                <li>团课上课人数： <span class="vipTipB">{{lessonGroup.rows[0].value}}</span></li>
-                                <li>团课预约人数： <span class="vipTipG">{{lessonGroup.rows[1].value}}</span></li>
+                                <li>团课上课节数： <span class="vipTipB">{{lessonGroup.rows[0].value}}</span></li>
+                                <li>团课预约节数： <span class="vipTipG">{{lessonGroup.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -147,8 +147,8 @@
                                     :style="PTpicStyle"
                                     :settings="picSettings2"/>
                             <ul class="total-right" v-if="lessonTrainer.rows.length >0">
-                                <li>私教课上课人数： <span class="vipTipYellow">{{lessonTrainer.rows[0].value}}</span></li>
-                                <li>私教课预约人数： <span class="vipTipY">{{lessonTrainer.rows[1].value}}</span></li>
+                                <li>私教课上课节数： <span class="vipTipYellow">{{lessonTrainer.rows[0].value}}</span></li>
+                                <li>私教课预约节数： <span class="vipTipY">{{lessonTrainer.rows[1].value}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -369,7 +369,7 @@
             getTotal(){
                 IndexTotal_membership().then(res => {
                     // console.log(res);
-                    this.chartVip.rows = res;
+                    this.chartVip.rows = res.data;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -379,7 +379,7 @@
             getNewMenber(){
                 IndexNew_membership().then(res => {
                     // console.log(res);
-                    this.addVip.rows = res;
+                    this.addVip.rows = res.data;
                 }).catch(res =>{
                     console.log(res);
                 });
@@ -389,8 +389,8 @@
             getStatistics(){
                 IndexStatistics().then(res => {
                     // console.log(res);
-                    let addTime = res.date.split(',');
-                    let addData = res.data.split(',');
+                    let addTime = res.data.date.split(',');
+                    let addData = res.data.data.split(',');
 
                     for(let i = 0;i < addTime.length;i++){
                         this.presentNum.rows.push({
@@ -408,8 +408,8 @@
             getDrawer(){
                 IndexDrawer().then(res => {
                     console.log(res);
-                    this.roomMan = res.man;
-                    this.roomWoman = res.woman;
+                    this.roomMan = res.data.man;
+                    this.roomWoman = res.data.woman;
                     // this.roomManRatio = res.man[2].ratio;
                 }).catch(res =>{
                     console.log(res);
@@ -420,10 +420,10 @@
             getCurriculum(){
                 IndexCurriculum().then(res => {
                     /*团课*/
-                    this.lessonGroup.rows = res.league;
+                    this.lessonGroup.rows = res.data.league;
 
                     /*私教*/
-                    this.lessonTrainer.rows = res.personal;
+                    this.lessonTrainer.rows = res.data.personal;
 
                 }).catch(res =>{
                     console.log(res);
@@ -434,8 +434,8 @@
             getPerformance(){
                 IndexPerformance().then(res => {
                     console.log(res);
-                    let incomeData = res;
-                    this.incomeTotal = res[6].price;
+                    let incomeData = res.data;
+                    this.incomeTotal = res.data[6].price;
                     this.incomeArr = this.incomeArr.map((item, index) => {
                         return {...item, ...incomeData[index]};
                     });
@@ -448,10 +448,10 @@
             /*获取  营收走势 收入趋势 数据*/
             getRevenue_trend(){
                 IndexRevenue_trend().then(res => {
-                    let comeTime = res[0].value.split(',');
-                    let comeVip = res[1].value.split(',');
-                    let comePT = res[2].value.split(',');
-                    let comeOther = res[3].value.split(',');
+                    let comeTime = res.data[0].value.split(',');
+                    let comeVip = res.data[1].value.split(',');
+                    let comePT = res.data[2].value.split(',');
+                    let comeOther = res.data[3].value.split(',');
                     this.comeIn.rows = [];
                     for(let i=0;i < comeTime.length;i++){
                         this.comeIn.rows.push({

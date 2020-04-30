@@ -224,23 +224,23 @@
                     console.log(res);
                     /* 已上课 与 未上课 */
                     let ptLesson = [];
-                    let ptHasLesson = res[0];
-                    let ptNoLesson = res[1];
+                    let ptHasLesson = res.data[0];
+                    let ptNoLesson = res.data[1];
                     ptLesson.push(ptHasLesson, ptNoLesson);
                     // console.log(ptLesson);
                     this.VipLesson.rows = ptLesson;
 
                     /*新增私教 与 续课*/
                     let ptAdd = [];
-                    let ptNewAdd1 = res[2];
-                    let ptContinue = res[3];
+                    let ptNewAdd1 = res.data[2];
+                    let ptContinue = res.data[3];
                     ptAdd.push(ptNewAdd1, ptContinue);
                     this.VipAdd.rows = ptAdd;
 
                     /*已跟进 与 未跟进*/
                     let ptFollow = [];
-                    let ptHaveFollow = res[4];
-                    let ptNoFollow = res[5];
+                    let ptHaveFollow = res.data[4];
+                    let ptNoFollow = res.data[5];
                     ptFollow.push(ptHaveFollow, ptNoFollow);
                     this.VipFollow.rows = ptFollow;
 

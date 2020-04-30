@@ -96,6 +96,10 @@
             <el-tab-pane :lazy='tabInfo.tabLazy' label="营收详细" name="revenueListD">
                 <RevenueList @showState1 ="showState1(arguments)"></RevenueList>
             </el-tab-pane>
+
+            <el-tab-pane :lazy='tabInfo.tabLazy' label="营收流水" name="revenueStream">
+                <revenueStream></revenueStream>
+            </el-tab-pane>
         </el-tabs>
 
         <!--私教 上课 表格 详情-->
@@ -115,7 +119,7 @@
 
     import navBread from '@/components/navBread/navBread'
 
-    import RevenueList from '@/views/Total/Statis/RevenueList'  //营收详情组件
+    import RevenueList from '@/views/Total/Renvenue/RevenueList'  //营收详情组件
 
     import {revenueTotal,revenueRanking,revenuePayMethod,
         revenueContract} from '@/assets/js/api' /*引用 营收总览 接口*/
@@ -124,7 +128,9 @@
 
     import ptLessonTable from '@/views/Total/details/VipPT/ptLessonTable'  // 私教课程 详情组件
     import ptLessonDetails from '@/views/Total/details/VipPT/ptLessonDetails'  // 私教课程详情组件
-    import RevenueDetails from '@/views/Total/Statis/RevenueDetails'  // 私教课程详情组件
+    import RevenueDetails from '@/views/Total/Renvenue/RevenueDetails'  // 详情组件
+
+    import revenueStream from '@/views/Total/Renvenue/revenueStream'  // 营收流水 详情组件
 
     export default {
         name: "StatisRevenue",
@@ -250,15 +256,15 @@
                 revenueTotal().then(res => {
                     console.log(res);
                     let MemberNum = [];
-                    let MemberNum1 = res[1];
-                    let MemberNum2 = res[2];
+                    let MemberNum1 = res.data[1];
+                    let MemberNum2 = res.data[2];
 
                     MemberNum.push(MemberNum1, MemberNum2);
                     this.revenueTotal.rows = MemberNum;
 
-                    let lastMonth2 = res[0].value;
-                    let lastMonth = res[1].value;
-                    let nowtMonth = res[2].value;
+                    let lastMonth2 = res.data[0].value;
+                    let lastMonth = res.data[1].value;
+                    let nowtMonth = res.data[2].value;
                     let RatioLast = lastMonth - lastMonth2;
                     let RatioNow  = nowtMonth - lastMonth;
 
@@ -277,7 +283,7 @@
                 revenueRanking().then(res => {
                     console.log(res);
 
-                    let incomeData = res;
+                    let incomeData = res.data;
                     let incomeData2 = incomeData.map((item, index) => {
                         return {...item, ...this.revenueRankingClass[index]};
                     });
@@ -302,7 +308,7 @@
             getRevenuePayMethod() {
                 revenuePayMethod().then(res => {
                     this.revenuePayMethods.rows = [];
-                    res.forEach((item,i)=>{
+                    res.data.forEach((item,i)=>{
                         this.revenuePayMethods.rows.push({
                             'name' : item.name,
                             '金额' : item.value,
@@ -348,6 +354,8 @@
             ptLessonTable,
             ptLessonDetails,
             RevenueDetails,
+
+            revenueStream,
         },
     }
 </script>

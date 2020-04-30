@@ -14,9 +14,9 @@
 
                 <!--saler 筛选-->
                 <div class="pt-screen">
-                    <el-input placeholder="会员姓名、电话" v-model="searchVal.keywords" class="pt-screen-input"
+                    <el-input placeholder="会员姓名、电话" v-model="searchVal.keywords" class="ptScreen-input"
                               clearable></el-input>
-                    <el-input placeholder="多少天未到场" v-model="searchVal.day" class="pt-screen-input"
+                    <el-input placeholder="多少天未到场" v-model="searchVal.day" class="ptScreen-input"
                               clearable></el-input>
                     <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public"
                                :loading="loadState.searchLoad">搜索

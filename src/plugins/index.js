@@ -92,3 +92,12 @@ Vue.component(VePie.name, VePie);
 Vue.component(VeRing.name, VeRing);
 // Vue.component(VeFunnel.name, VeLine);
 Vue.use(VCharts);
+
+
+/*9、打印   https://www.cnblogs.com/dhpong/p/10500370.html */
+import Print from 'vue-print-nb'
+Vue.use(Print);  //注册
+
+/*9、打印   https://www.cnblogs.com/dhpong/p/10500370.html */
+/*import Print from '@/assets/js/print'
+Vue.use(Print);  //注册*/

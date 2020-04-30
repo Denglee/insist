@@ -248,7 +248,7 @@
             getPTClassRanking() {
                 PTClassRanking().then(res => {
                     this.PTclass.rows = [];
-                    res.forEach((item,i)=>{
+                    res.data.forEach((item,i)=>{
                         this.PTclass.rows.push({
                             '姓名' : item.name,
                             '上课节数' : item.value,

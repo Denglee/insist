@@ -1,19 +1,5 @@
 @import "public";
 
-/*员工工资切换*/
-.staffTable-reword{
-  .royalty-td{
-    &:not(:last-of-type){
-      padding-bottom: 4px;
-      border-bottom: solid 1px #EBEEF5;
-    }
-    &:last-of-type{
-      padding-top: 4px;
-    }
-  }
-}
-
-
 /*员工列表*/
 .staffList-box{
   background-color: $color-White;
@@ -92,6 +78,9 @@
       }
       .iconfont{
         margin-right: 2px;
+      }
+      .icon-daka1{
+        font-size: 16px;
       }
       .el-icon-warning{
         margin-right: 4px;
@@ -196,5 +185,32 @@
     &:first-child{
       margin-right: 8%;
     }
+  }
+}
+
+/*员工工资  表格 */
+.staffTable-reword{
+  td:nth-child(5),
+  td:nth-child(6){
+    .cell{
+      padding: 0;
+    }
+  }
+}
+.staffList-table{
+  td:nth-child(9){
+    .cell{
+      padding: 0;
+    }
+  }
+}
+.royalty-td{
+  padding:0 10px;
+  &:not(:last-of-type){
+    padding-bottom: 6px;
+    border-bottom: solid 1px #EBEEF5;
+  }
+  &:last-of-type{
+    padding-top: 6px;
   }
 }

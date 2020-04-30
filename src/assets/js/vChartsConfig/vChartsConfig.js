@@ -1,34 +1,43 @@
+
+let toolTip= {
+    trigger: 'axis',
+    textStyle: {
+        fontSize:12,
+    },
+    formatter : function (params) {
+        var rec = '';
+        for(var i = 0;i < params.length;i++){
+            // console.log(params[i].data[1]);
+            let data = params[i].data[1];
+            if(data == undefined){
+                data = 0;
+            }
+            var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
+            ''+ params[i].axisValue + '</div>';
+            var reb = '<div style="margin: 4px">'+
+            '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
+            // '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
+            '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:' +
+            '<span style="display:inline-block;margin:0 4px;font-size:16px;">'+data+'</span>' +
+            '</div>';
+            rec= rec + reb;
+        }
+        return rea + rec;
+    },
+};
+
 /*折线图 配置*/
 let  lineExtendConfig = {
-    tooltip: {
-        trigger: 'axis',
-        textStyle: {
-            fontSize:12,
-        },
-        // formatter : function (params) {
-        //
-        //     var rec = '';
-        //     for(var i = 0;i < params.length;i++){
-        //         var rea = '<div style="margin:2px 0 0 4px;color:#f7f8f9;">' +
-        //             ''+ params[i].axisValue + '</div>';
-        //         var reb = '<div style="margin: 4px">'+
-        //             '<span style="display:inline-block;margin-right:2px;border-radius:8px;width:8px;height:8px;background-color:' + params[i].color +';"></span>' +
-        //             '<span style="display:inline-block;margin:2px 4px;">'+ params[i].seriesName+'</span>:  '+params[i].data+'' +
-        //             '</div>';
-        //         rec= rec + reb;
-        //     }
-        //     return rea + rec;
-        // },
-    },
+    tooltip:toolTip,
 
     grid: {
         // show:true,//是否显示直角坐标系网格。[ default: false ]
         // borderColor:"#c45455",//网格的边框颜色
         top: "30px",
-        left: "4%",
-        right: "4%",
+        left: "3%",
+        right: "3%",
         bottom: "4%",
-        width: "92%", //图例宽度
+        width: "94%", //图例宽度
         height: "80%", //图例高度
     },
 
@@ -63,24 +72,44 @@ let  lineExtendConfig = {
     },
     series: {
         type: 'line',
-        symbolSize: 8,   //设定实心点的大小
-        // lineStyle: {
-        //     normal: {
-        //         type: 'dashed',
-        //     }
-        // },
+        // animation:false,
+        //     borderWidth: 2,
+        symbolSize: 9,   //设定实心点的大小
+        symbolRotate : 10,
+            // 折线拐点的样式
+         itemStyle: {
+            emphasis:{ // 鼠标经过时：
+                symbolSize: 9,   //设定实心点的大小
+                borderWidth:1,
+
+                width:10,
+                height:10,
+                borderRadius:50,
+                // color:'#005ad4',
+                // borderColor:'#005ad4',
+            }
+        },
+
     },
+
 };
 
 /*柱状图 配置*/
 let histogramExtendConfig ={
+    tooltip:toolTip,
     grid: {
+        top: "30px",
+        left: "3%",
+        right: "3%",
+        bottom: "4%",
+        width: "94%", //图例宽度
+
         // show:true,//是否显示直角坐标系网格。[ default: false ]
         // borderColor:"#DADFE8",//网格的边框颜色
-        top: "30px",
-        left: "10px",
-        right: "20px",
-        bottom: "10px",
+        // top: "30px",
+        // left: "10px",
+        // right: "20px",
+        // bottom: "10px",
     },
     xAxis: {
         axisTick: {
@@ -115,8 +144,8 @@ let histogramExtendConfig ={
     },
 };
 
-
 let hisRevenueExtendConfig ={
+    // tooltip:toolTip,
     grid: {
         // show:true,//是否显示直角坐标系网格。[ default: false ]
         // borderColor:"#DADFE8",//网格的边框颜色
@@ -170,6 +199,7 @@ let hisRevenueExtendConfig ={
 
 /*柱状图 配置*/
 let barExtendConfig ={
+    tooltip:toolTip,
     grid: {
         // show:true,//是否显示直角坐标系网格。[ default: false ]
         // borderColor:"#DADFE8",//网格的边框颜色
@@ -227,11 +257,16 @@ let barExtendConfig ={
 
 /*饼状图配置*/
 let picExtendConfig = {
+
     tooltip: {
         trigger: 'item',
         position: 'right'
     },
     series:{
+        tooltip: {
+            trigger: 'item',
+            position: 'right'
+        },
         // offsetY: 100,
         // offsetX: 100,
         // radius: 70,

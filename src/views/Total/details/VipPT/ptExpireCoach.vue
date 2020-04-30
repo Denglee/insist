@@ -15,10 +15,10 @@
                 <!--saler 筛选-->
                 <div class="pt-screen">
                     <!--部门-->
-                    <el-select  filterable  v-model="searchVal.ship_id" placeholder="请选择卡种" class="ptSel-section">
+                    <el-select  filterable  v-model="searchVal.ship_id" placeholder="请选择卡种" class="ptScreen-select">
                         <el-option v-for="item in shipCard" :key="item.index" :label="item.name" :value="item.ship_id"></el-option>
                     </el-select>
-                    <el-input placeholder="剩余多少次过期" v-model="searchVal.keywords" class="pt-screen-input"
+                    <el-input placeholder="剩余多少次过期" v-model="searchVal.keywords" class="ptScreen-input"
                               clearable></el-input>
                     <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public"
                                :loading="loadState.searchLoad">搜索

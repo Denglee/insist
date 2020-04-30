@@ -1,0 +1,687 @@
+<include file="Public/header"/>
+<link href="$public/js/datepicker/datepicker.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated {:C('Animation')}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+
+                    <include file="Public/nav"/>
+
+                    <div class="row m-t-sm" style="float:right;margin-right:0px;margin-bottom:5px">
+                    	 
+                    <!--<button class=" menuid btn btn-primary btn-sm" id="types" data-toggle="modal" onclick="checkdata()"><i class="fa "></i> 修改支付方式</button>-->	
+ 					
+ 					<a  id="types" data-toggle="modal" onclick="checkdata()" class="menuid btn width_92 float-left" style='padding: 2px 10px;'>
+						<div class='key_shape_mid bg_stand_2' style="text-align: center;line-height: 57px;">
+							<i class="fa fa-file-archive-o" style="color:#fff;font-size: 25px;" ></i>
+						</div>                      		
+						<p style='margin-top:5px'>
+							修改支付方式
+						</p> 
+					</a>
+ <script>
+ // 支付方式修改
+	function checkdata(){
+		 var order_id = '';
+            $(".checked input[type='checkbox']").each(function(){
+                if( order_id == ''){
+                    order_id = $(this).val();
+                }else{
+                    order_id = order_id + ',' + $(this).val();
+                }
+            });
+			//alert(order_id);
+            if( order_id == ''){           	 
+                swal({title:"温馨提示",text:"请先选择一条记录"});   
+                var types=document.getElementById('types');
+            	types.setAttribute("data-target","");               
+                return false;
+            }else{
+            	var types=document.getElementById('types');
+            	types.setAttribute("data-target","#myModal");            
+            }
+		
+	}                   
+</script>           <a  onclick="checkactions()" class="menuid btn width_92 float-left" style='padding: 2px 10px;'>
+						<div class='key_shape_mid bg_stand_3' style="text-align: center;line-height: 57px;">
+							<i class="fa fa-clipboard" style="color:#fff;font-size: 25px;" ></i>
+						</div>                      		
+						<p style='margin-top:5px'>
+							小票打印
+						</p> 
+					</a>         
+                   	<!--<button type="submit" class="menuid btn btn-warning btn-sm" onclick="checkactions()"><i class="fa "></i> 小票打印</button>-->
+                   	   <if condition="$city_id eq 21">
+                   	   		<a  onclick="return exexport(21);"  class="menuid btn width_92 float-left" style='padding: 2px 10px;'>
+								<div class='key_shape_mid bg_stand_4' style="text-align: center;line-height: 57px;">
+									<i class="fa fa-sign-out" style="color:#fff;font-size: 25px;" ></i>
+								</div>                      		
+								<p style='margin-top:5px'>
+									导出
+								</p> 
+							</a> 
+                   	   			 <!--<a class="btn btn-warning btn-sm" onclick="return exexport(21);" href="#"><i class="fa fa-sign-out"></i> 导出 </a>-->
+                   	   	<else/>
+                   	   		<a  onclick="return exexport(1);"  class="menuid btn width_92 float-left" style='padding: 2px 10px;'>
+								<div class='key_shape_mid bg_stand_4' style="text-align: center;line-height: 57px;">
+									<i class="fa fa-sign-out" style="color:#fff;font-size: 25px;" ></i>
+								</div>                      		
+								<p style='margin-top:5px'>
+									导出
+								</p> 
+							</a> 
+                   	   			 <!--<a class="btn btn-warning btn-sm" onclick="return exexport(1);" href="#"><i class="fa fa-sign-out"></i> 导出 </a>-->
+                   	   </if>
+                       
+                    </div>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="row m-t-sm">
+                        <form class="form-horizontal m-t" method="get" id="dbform" name="dbform" action="{:U('Stat/water')}">
+
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <input type="hidden" class="form-control" name="saler_id" id="saler_id" value="">
+                                    <input type="text" class="form-control" name="salerSuggest" id="salerSuggest" value="" placeholder="顾问编号、姓名、手机">
+                                    <div class="input-group-btn">
+                                        <select onchange="staff(this.value)" id="aa" class="btn btn-white dropdown-toggle" data-toggle="dropdown" style="height: 34px;">
+			                            	<option >请选择</option>
+			                            	<volist name="staff" id="c">
+			                            	<option value="{$c.id}">{$c.name}</option>
+			                            	</volist>
+			                            </select>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="input-group"  style="width:100%;">
+                                    <select class="form-control m-b" id="card_type" name="card_type" style="width:99%;padding:0;">
+                                        <option value="100" <if condition="$card_type eq 100">selected</if> >=合同类型=</option>
+                                        <volist name="card_type_list" id="vo">
+                                            <option value="{$vo.id}" <if condition="$card_type eq $vo['id']">selected</if>>{$vo.catname}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="input-group"  style="width:100%;">
+                                    <select class="form-control m-b" id="order_type" name="order_type" style="width:99%;padding:0;">
+                                        <option value="100" <if condition="$order_type eq 100">selected</if>>=操作类型=</option>
+                                        <volist name="order_type_list" id="vo">
+                                            <option value="{$vo.id}" <if condition="$order_type eq $vo['id']">selected</if>>{$vo.catname}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <div class="input-group"  style="width:100%;">
+                                    <select class="form-control m-b" id="pay_type_list" name="pay_type_list" style="width:99%;padding:0;">
+                                        <option value="100" <if condition="$pay_type eq 100">selected</if>>=支付方式=</option>
+                                        <volist name="pay_type_list" id="vo">
+                                            <option value="{$vo.id}" <if condition="$pay_type eq $vo['id']">selected</if>>{$vo.catname}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="input-group" style="width:100%;">
+                                    <div id="datejs">
+                                        <div class="input-daterange input-group" id="datepicker" style="float:left">
+                                            <input name="st" id="starttime" class="laydate-icon form-control layer-date" placeholder="开始时间" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" value="{$st}">
+                                            <span class="input-group-addon">-</span>
+                                            <input name="et" id="endtime" class="laydate-icon form-control layer-date" placeholder="结束时间" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" value="{$et}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							
+							 <!--<div class="col-md-1">
+                                <div class="input-group"  style="width:100%;">
+                                	<input type="text" class="form-control" name="keywords" id="keywords" value="{$keywords}" placeholder="会员姓名、手机">
+                                </div>
+                            </div>-->
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="submit" id='but' class="btn btn-primary" onclick="checkaction1(1)"><i class="fa fa-search"></i>搜索</button>
+                                  </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="hr-line-dashed" style="margin-top:2px;margin-bottom:10px"></div>
+                    <div id="result_desc" class="alert alert-warning" style="margin-top:2px;margin-bottom:10px;">
+                        本次搜索：
+                        总计收入￥{$total_amount|default=0}元，退款￥{$total_refund|default=0}元；其中 会籍合同收入￥{$total_amount1|default=0}元，退款￥{$total_refund1|default=0}元； 私教合同收入￥{$total_amount2|default=0}元，退款￥{$total_refund2|default=0}元；游泳合同收入￥{$total_amount3|default=0}元，退款￥{$total_refund3|default=0}元；滑雪合同收入￥{$total_amount4|default=0}元，退款￥{$total_refund4|default=0}元；其他合同收入￥{$total_amount0|default=0}元，退款￥{$total_refund0|default=0}元；
+                    </div>
+                    <div class="hr-line-dashed" style="margin-top:2px;margin-bottom:10px"></div>
+                    <table class="table table-hover" id="dataTable" >      <!--table-bordered-->
+                        <thead>
+                        <tr style="background: #EEEEEE;">
+                        	<th style="text-align:center;width:1%"> <input type="checkbox" class="i-checks" id="chkall"></th>
+                            <th>时间</th>
+                            <th>会员</th>
+                            <th>合同号</th>
+                            <th>合同类型</th>
+                            <th>操作类型</th>
+                            <th>卡服务</th>
+
+                            <th>支付方式</th>
+                            <th>状态</th>
+                            <th>应收金额</th>
+                      <!--      <th>待付金额</th>-->
+                            <th>本次流水</th>
+                            <th>销售人</th>
+                            <th>收银人</th>
+
+                            <th width="15%">备注</th>
+							<th>操作</th>
+
+                        </tr>
+                        </thead>
+                        <tbody> 
+                        <if condition="$pay_type !=7">
+                        <volist name="data['list']" id="v" key='k'>
+                            <tr class="float-e-margins" id='{$v.id}' <if condition="$k %2 eq 0">style='background:#f7f7f7;'</if>>
+                            	<td style="text-align:center;width:1%" >
+                                    <input type="checkbox" id="ck_id" class="i-checks" name="checkid[]"  value="{$v.id}">
+                                </td>
+                                <td>{$v.order_time|date="Y-m-d H:i:s",###} </td>
+                                <td>
+                                    {$v.true_name}</br>
+                                    {$v.phone}
+                                </td>
+								<td>{$v.contract_number}</td>
+                                <td>
+                                    {$v.contract_type}
+                                </td>
+
+                                <td>
+                                    <if condition='($v["order_type"] eq 0)'>售入场卡
+                                        <elseif condition='($v["order_type"] eq 1)'/>售次卡
+                                        <elseif condition='($v["order_type"] eq 2)'/>售私教卡
+                                        <elseif condition='($v["order_type"] eq 3)'/>升级卡
+                                        <elseif condition='($v["order_type"] eq 4)'/>转让卡
+                                        <elseif condition='($v["order_type"] eq 5)'/>冻结卡
+                                        <elseif condition='($v["order_type"] eq 6)'/>补卡
+                                        <elseif condition='($v["order_type"] eq 7)'/>退款
+                                        <elseif condition='($v["order_type"] eq 8)'/>续年费
+                                        <elseif condition='($v["order_type"] eq 10)'/>押金
+                                        <elseif condition='($v["order_type"] eq 11)'/>售滑雪卡
+                                        <elseif condition='($v["order_type"] eq 20)'/>会员充值
+                                        <elseif condition='($v["order_type"] eq 21)'/>会员消费
+                                        <elseif condition='($v["order_type"] eq 22)'/>定金收取
+                                        <elseif condition='($v["order_type"] eq 23)'/>使用定金
+                                        <elseif condition='($v["order_type"] eq 24)'/>转课
+                                        <elseif condition='($v["order_type"] eq 28)'/>扫码购短信
+                                        <elseif condition='($v["order_type"] eq 29)'/>租柜
+                                        <elseif condition='($v["order_type"] eq 30)'/>续租
+                                        <elseif condition='($v["order_type"] eq 31)'/>租柜押金
+                                        <elseif condition='($v["order_type"] eq 32)'/><font color="red">退</font>租柜押金
+                                        <else />其他
+                                    </if>
+                                </td>
+                                <td>
+                                    {$v.order_name}
+                                </td>
+
+                                <td id="pays_{$v.id}">
+                                    <if condition='($v["pay_type"] eq 0)'>微信
+                                        <elseif condition='($v["pay_type"] eq 1)'/>支付宝
+                                        <elseif condition='($v["pay_type"] eq 2)'/>现金
+                                        <elseif condition='($v["pay_type"] eq 3)'/>刷卡
+                                        <elseif condition='($v["pay_type"] eq 4)'/>转账
+                                        <elseif condition='($v["pay_type"] eq 5)'/>应收
+                                        <elseif condition='($v["pay_type"] eq 6)'/>其他
+                                        <elseif condition='($v["pay_type"] eq 7)'/>组合支付
+                                        <elseif condition='($v["pay_type"] eq 8)'/>使用定金
+                                        <elseif condition='($v["pay_type"] eq 9)'/>平安
+                                        <else />
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition='($v["order_status"] eq 0)'>0=等待
+                                        <elseif condition='($v["order_status"] eq 1)'/>1=成功
+                                        <elseif condition='($v["order_status"] eq 2)'/>2=退款申请
+                                        <elseif condition='($v["order_status"] eq 3)'/>3=退款成功
+                                        <else />
+                                    </if>
+                                </td>
+                                <td>
+                                    {$v.order_price}
+                                </td>
+                                <!--<td>
+                                    0
+                                </td>-->
+                                <td>
+                                    <font color='red'>{$v.real_price}</font>
+                                </td>
+                                  <td>{$v.saler_name}</td>
+                                <td>{$v.cashier}</td>
+                                <td>
+                                    {$v.remark}
+                                </td>
+								<td>
+									<if condition="showButton(U('Stat/refund'))"></if>
+										<if condition="$v['order_status'] == 3 && $v['remark'] == '取消课程退费'">
+											<a class="J_alink btn mg0 btn-warning btn-sm" href="{:U('Stat/refund',array('id' => $v['id']))}">点击退费</a>
+										</if>
+									
+								</td>
+                            </tr>
+                        </volist>
+                        <else/>
+                         <volist name="payArray" id="v">
+                            <tr class="float-e-margins" id='{$v.id}'>
+                            	<td style="text-align:center;width:1%">
+                                    <input type="checkbox" id="ck_id" class="i-checks" name="checkid[]"  value="{$v.id}">
+                                </td>
+                                <td>{$v.order_time|date="Y-m-d H:i:s",###} </td>
+                                <td>
+                                    {$v.true_name}</br>
+                                    {$v.phone}
+                                </td>             
+                                <td>
+                                	{$v.contract_number}
+                                </td>
+                                <td>
+                                    {$v.contract_type}
+                                </td>
+
+                                <td>
+                                    <if condition='($v["order_type"] eq 0)'>售入场卡
+                                        <elseif condition='($v["order_type"] eq 1)'/>售次卡
+                                        <elseif condition='($v["order_type"] eq 2)'/>售私教卡
+                                        <elseif condition='($v["order_type"] eq 3)'/>升级卡
+                                        <elseif condition='($v["order_type"] eq 4)'/>转让卡
+                                        <elseif condition='($v["order_type"] eq 5)'/>冻结卡
+                                        <elseif condition='($v["order_type"] eq 6)'/>补卡
+                                        <elseif condition='($v["order_type"] eq 7)'/>退款
+                                        <elseif condition='($v["order_type"] eq 8)'/>续年费
+                                        <elseif condition='($v["order_type"] eq 10)'/>押金
+                                        <elseif condition='($v["order_type"] eq 11)'/>售滑雪卡
+                                        <elseif condition='($v["order_type"] eq 20)'/>会员充值
+                                        <elseif condition='($v["order_type"] eq 21)'/>会员消费
+                                        <elseif condition='($v["order_type"] eq 22)'/>定金收取
+                                        <elseif condition='($v["order_type"] eq 23)'/>使用定金
+                                        <elseif condition='($v["order_type"] eq 24)'/>转课
+                                        <elseif condition='($v["order_type"] eq 28)'/>扫码购短信
+                                        <elseif condition='($v["order_type"] eq 29)'/>租柜
+                                        <elseif condition='($v["order_type"] eq 30)'/>续租
+                                        <elseif condition='($v["order_type"] eq 31)'/>租柜押金
+                                        <elseif condition='($v["order_type"] eq 32)'/><font color="red">退</font>租柜押金
+                                        <else />其他
+                                    </if>
+                                </td>
+                                <td>
+                                    {$v.order_name}
+                                </td>
+
+                                <td id="pays_{$v.id}">
+                                     <if condition='($v["pay_type"] eq 0)'>微信
+                                        <elseif condition='($v["pay_type"] eq 1)'/>支付宝
+                                        <elseif condition='($v["pay_type"] eq 2)'/>现金
+                                        <elseif condition='($v["pay_type"] eq 3)'/>刷卡
+                                        <elseif condition='($v["pay_type"] eq 4)'/>转账
+                                        <else />
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition='($v["order_status"] eq 0)'>0=等待
+                                        <elseif condition='($v["order_status"] eq 1)'/>1=成功
+                                        <elseif condition='($v["order_status"] eq 2)'/>2=退款申请
+                                        <elseif condition='($v["order_status"] eq 3)'/>3=退款成功
+                                        <else />
+                                    </if>
+                                </td>
+                                <td>
+                                    {$v.order_price}
+                                </td>
+                                <td>
+                                    <font color='red'>{$v.real_price}</font>
+                                </td>
+                                <td>{$v.saler_name}</td>
+                                <td>{$v.cashier}</td>
+                                <td>
+                                    {$v.remark}
+                                </td>
+
+                            </tr>
+                        </volist>
+                        </if>
+                        </tbody>
+                    </table>                    
+                    	  {$data['page']}                                     
+                    <div class="hr-line-dashed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" style="width:800px">
+    <div class="modal-content animated bounceInRight">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+            </button>
+            <h4 class="modal-title">支付修改方式</h4>
+        </div>
+        <div class="modal-body">
+            <div class="ibox-content">
+                <form action="" method="post" id="commentForm" class="form-horizontal">
+                    <input type="hidden" id="order_id" name="order_id" value="">			
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group" id="give_day_id" style="display:block">
+                        <label class="col-sm-3 control-label">支付方式：</label>			
+                        <div class="col-sm-8" style='margin-top:8px !important'>
+                        	<select name="pay_type" id="pay_type">
+                        		<option value="">请选择</option>
+                        		<option value="0">微信</option>
+                        		<option value="1">支付宝</option>
+                        		<option value="2">现金</option>
+                        		<option value="3">刷卡</option>
+                        		<option value="4">转账</option>
+                        		<option value="5">应收</option>
+                        		<option value="6">其他</option>
+                        		<option value="7">组合支付</option>
+                        		<option value="8">使用定金</option>			                            		
+                        	</select>
+                        </div>			
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary" type="button" onclick='savePay()'>保存修改</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="$public/js/validate/validate.js"></script>
+<script src="$public/js/validate/messages.js"></script>
+<script src="$public/js/common.js"></script>
+<include file="Public/footer"/>
+
+<script src="$public/js/layer/laydate/laydate.js"></script>
+<link href="$public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="$public/js/sweetalert/sweetalert.min.js"></script>
+<script src="$public/js/table-checkbox.js"></script>
+
+<!--打印-->
+<script language="javascript" src="$public/js/LodopFuncs.js"></script>
+
+
+
+
+<script type="text/javascript">
+	 //获取员工信息列表
+  
+    
+  
+    $('#salerSuggest').keyup(function(){
+    	  var handleUrl = "{:U('Member/getSalerInfo')}";
+    	var saler=$('#salerSuggest').val();
+    	$.ajax({
+    		type:"post",
+            	url:handleUrl,
+            	dataType:'json',
+            	data:{keyword:saler,water:1},
+            	success:function(json){
+            		if(json.status =='1'){
+            			json = json.value;
+            			//console.log(json)
+            			$('#saler_id').val(json.id);
+            		}
+            	}
+    	})
+    })	
+	function staff(val,text)
+	{
+		 var name = $('#aa option:checked').html();
+		 $('#salerSuggest').val(name);
+		 $('#saler_id').val(val);
+
+	}
+</script>
+
+<script language="JavaScript" >
+
+    var start={elem:"#starttime",format:"YYYY-MM-DD",min:laydate.now(),max:"2099-06-16",istime:true,istoday:false,choose:function(datas){end.min=datas;end.start=datas}};
+    var end={elem:"#endtime",format:"YYYY-MM-DD",min:laydate.now(),max:"2099-06-16",istime:true,istoday:false,choose:function(datas){end.min=datas;end.start=datas}};
+
+    laydate(start);
+    laydate(end);
+
+    //$('#starttime').val(laydate.now(-7, 'YYYY-MM-DD'));
+
+    function checkaction1(v){
+        if(v=2){
+
+
+
+        } else if(v=1) {
+			var saler=document.getElementById('saler_id');
+			saler.blur();
+
+            document.dbform.action="{:U('Stat/water')}";
+
+
+            dbform.submit();
+        }
+    }
+
+	//保存支付方式修改结果
+		function  savePay(){
+			var pay_type=$('#pay_type').val();
+            var order_id = '';
+          $(".checked input[type='checkbox']").each(function(){
+                if( order_id == ''){
+                    order_id = $(this).val();
+                }else{
+                    order_id = order_id + ',' + $(this).val();
+                }
+            });
+			
+		 $.ajax({
+            	type:"post",
+            	url:"{:U('Stat/upPay')}",
+            	dataType:'json',
+            	data:{order_id:order_id,pay_type:pay_type},
+            	success:function(e)
+            	{        
+            		//console.log(e);
+            		if(e.msg=='1')               		            		
+            		{          
+ 
+            			$('#myModal').modal('hide');           		              			
+            			swal("支付方式修改成功！", "支付方式修改成功。", "success");
+            			var types=document.getElementById('types');
+            			types.setAttribute("data-target","");  
+            			if(order_id.indexOf(',') >'-1'){
+            				  var arr=order_id.split(",");           				
+            				  for(var index in arr){  
+               				  $('#pays_'+arr[index]).html(e.pay_type);	
+         					 }  
+            			}else{
+            					$('#pays_'+order_id).html(e.pay_type);
+            			}
+            			
+            		}else{
+            			$('#myModal').modal('hide')            			  
+            			swal("支付方式修改失败！", '请重试！', "error");
+            			var types=document.getElementById('types');
+            			types.setAttribute("data-target",""); 
+            			  return false;
+            		}
+            	}
+            });
+		}
+
+    function exexport(val){
+		if(val  == '21'){
+			document.dbform.action="{:U('Stat/ms_water')}";   //梦氏搞特殊   ,  execl要不一样
+		}else{
+			 document.dbform.action="{:U('Stat/waterexlexport_1')}";
+		}
+   		dbform.submit();
+    }
+
+	 function checkactions(){
+            //小票打印
+            var order_id = '';
+            $(".checked input[type='checkbox']").each(function(){
+                if( order_id == ''){
+                    order_id = $(this).val();
+                }else{
+                    order_id = order_id + ',' + $(this).val();
+                }
+            });
+
+            if( order_id == ''){
+                swal({title:"温馨提示",text:"请先选择一条记录"});
+                return false;
+            }
+            $.ajax({
+            	type:"post",
+            	url:"{:U('Stat/printContrace')}",
+            	dataType:'json',
+            	data:{order_id:order_id},
+            	success:function(e)
+            	{
+            		if(e.msg == 1)
+            		{
+            			myPrint(e.data);
+            			
+            			swal("小票打印成功！", "小票打印成功。", "success");
+            			setTimeout(function(){window.location.reload(); },2000);
+            		}else{
+            			swal("小票打印失败！", '请重试！', "error");
+            		}
+            	}
+            });
+            
+
+    }
+	 
+	 
+	var LODOP; //声明为全局变量
+    function myPrint(obj) {
+        CreatePrintPage(obj);
+        LODOP.PRINT();
+        //LODOP.PREVIEW();
+    };
+
+    function CreatePrintPage(json) {
+        //json 创建模拟服务器响应的订单信息对象
+//        var json = {"title":"结账单", "name":"张三", "phone": "138123456789", "orderTime": "2012-10-11 15:30:15",
+//            "orderNo": "20122157481315", "shop":"XX连锁", "total":25.10,"totalCount":6,
+//            "goodsList":[
+//                {"name":"菜心(无公害食品)", "price":5.00, "count":2, "total":10.08},
+//                {"name":"菜心(无公害食品)", "price":5.00, "count":2, "total":10.02},
+//                {"name":"旺菜", "price":4.50, "count":1, "total":4.50},
+//                {"name":"黄心番薯(有机食品)", "price":4.50, "count":1, "total":4.50}
+//            ]
+//        }
+        var hPos    =10,//小票上边距
+                pageWidth   =700,//小票宽度
+                rowHeight   =20,//小票行距
+        //获取控件对象
+                LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
+        //初始化
+        LODOP.PRINT_INIT("打印小票");
+        //添加小票标题文本
+        LODOP.ADD_PRINT_TEXT(hPos,50,pageWidth,rowHeight,'结账单');
+        LODOP.SET_PRINT_STYLEA(1,"FontSize",15);
+        hPos+=rowHeight;
+        //上边距往下移
+        hPos+=rowHeight;
+        //LODOP.SET_PRINT_STYLE("FontSize",12);
+        LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"姓名:");
+        LODOP.ADD_PRINT_TEXT(hPos,30,pageWidth,rowHeight,json.true_name);
+        //hPos+=rowHeight; //电话不换行
+        LODOP.ADD_PRINT_TEXT(hPos,90,pageWidth,rowHeight,"电话:");
+        LODOP.ADD_PRINT_TEXT(hPos,130,pageWidth,rowHeight,json.phone);
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"下单时间:");
+        LODOP.ADD_PRINT_TEXT(hPos,60,pageWidth,rowHeight,json.pay_time);
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"订单编号:");
+        LODOP.ADD_PRINT_TEXT(hPos,60,pageWidth,rowHeight,json.order_number);
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"门店名称:");
+        LODOP.ADD_PRINT_TEXT(hPos,60,pageWidth,rowHeight,json.city_name);
+
+        //上边距往下移
+        hPos+=rowHeight;
+       /* LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"备注:");*/
+        LODOP.ADD_PRINT_TEXT(hPos,1,260,100,json.remark);
+        hPos+=75;
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_LINE(hPos,2, hPos, pageWidth,2, 0);
+        hPos+=5;
+        LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,"消费类型");
+        LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,"单价");
+        LODOP.ADD_PRINT_TEXT(hPos,120,pageWidth,rowHeight,"数量");
+        LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,"小计");
+        hPos+=rowHeight;
+		LODOP.ADD_PRINT_TEXT(hPos,1,pageWidth,rowHeight,json.order_type);
+        LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,json.dec_price);
+        LODOP.ADD_PRINT_TEXT(hPos,125,pageWidth,rowHeight,json.buy_number);
+        LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,json.dec_price);
+
+        //商品遍历打印完毕,空一行
+        hPos+=rowHeight;
+        //合计
+        LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,"合计:  "+json.buy_number);
+        LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,"￥"+json.real_price);
+
+
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_LINE(hPos,2, hPos, pageWidth,2, 0);
+        hPos+=5;
+        //
+        LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,"标准金额:");
+        LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,"￥"+json.order_price);
+//      hPos+=rowHeight;
+//      LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,"优惠金额:");
+//      LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,"￥"+json.discount);
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,80,pageWidth,rowHeight,"实收金额:");
+        LODOP.ADD_PRINT_TEXT(hPos,150,pageWidth,rowHeight,"￥"+json.real_price);
+
+
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,2,pageWidth,rowHeight,(new Date()).toLocaleDateString()+" "+(new Date()).toLocaleTimeString())
+        hPos+=rowHeight;
+        LODOP.ADD_PRINT_TEXT(hPos,25,pageWidth,rowHeight,"谢谢惠顾,欢迎下次光临!");
+        //初始化打印页的规格
+        LODOP.SET_PRINT_PAGESIZE(3,pageWidth,75,json.title);
+
+        hPos+=rowHeight;
+
+    } 
+
+</script>
+
+
+
+
+
+
+</body></html>

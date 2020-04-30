@@ -161,6 +161,20 @@ const staticRoute = [
                 meta: {title: '租柜押金'},
             },
 
+            {
+                path: 'Recharge/index',   //充值卡合同
+                name: 'RechargeIndex',
+                component: () => import(/* webpackChunkName: "RechargeIndex" */ '@/views/Member/RechargeIndex'),
+                meta: {title: '充值卡合同'},
+            },
+
+            {
+                path: 'Item/group_card',   //团购卡
+                name: 'ItemGroupCard',
+                component: () => import(/* webpackChunkName: "ItemGroupCard" */ '@/views/Item/GroupCard'),
+                meta: {title: '团购卡'},
+            },
+
             /*员工*/
             {
                 path: 'Staff/index',   //员工列表

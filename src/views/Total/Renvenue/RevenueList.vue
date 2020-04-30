@@ -191,16 +191,16 @@
                     date:this.revenueDetails.month,
                 }).then(res => {
                     console.log(res.gather);
-                    let projectTotal = res.data;
+                    let projectTotal = res.data.data;
                     this.revenueProjectTotal = projectTotal; //全部
-                    let gatherArr = res.gather;
+                    let gatherArr = res.data.gather;
                     this.revenueType  = gatherArr;
+
 
                     let choosePro = JSON.parse(sessionStorage.getItem('choosePro')) ;  //选中的item 对应显隐
                     if (choosePro != null){   //如果不为空 则获取这里的值
                         this.projectChoose = choosePro;
                         let revenueProjectNow = this.toName(projectTotal,choosePro); //当先选中
-
 
                         this.totalVipOverdue.rows = [];    //图表清空 再添加数据
                         revenueProjectNow.forEach((item,index)=>{

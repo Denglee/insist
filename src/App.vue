@@ -57,5 +57,5 @@
   * */
 </script>
 <style lang="scss">
-  @import "//at.alicdn.com/t/font_1766146_vvrx4hmr0m.css";  /* <i class="iconfont "></i> 记得加calss iconfont iconFont 图标样式  */
+  @import "//at.alicdn.com/t/font_1766146_17xdl41j6s.css";  /* <i class="iconfont "></i> 记得加calss iconfont iconFont 图标样式  */
 </style>

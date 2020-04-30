@@ -6,7 +6,7 @@
             <el-tab-pane :lazy='tabLazy' label="打卡记录" name="StaffSalary">
                 <!--打卡记录筛选-->
                 <form class="pt-screen">
-                    <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="pt-screen-input"
+                    <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="ptScreen-input"
                               clearable></el-input>
                     <el-date-picker placeholder="请选择月份" class="month-inp" v-model="staffMonth" type="month"
                                     value-format="yyyy-MM"></el-date-picker>
@@ -32,7 +32,7 @@
                                     <!--sign-up  class  先注释-->
                                     <div class="cell"><i class="iconfont icon-shangban"></i>上班：{{item.up}}天</div>
                                     <!--sign-rest class  先注释-->
-                                    <div class="cell"><i class="iconfont icon-daka"></i>休息：{{item.rest}}天</div>
+                                    <div class="cell"><i class="iconfont icon-daka1"></i>休息：{{item.rest}}天</div>
                                     <div class="cell sign-warn"><i class="el-icon-warning"></i>异常：{{item.abnormal}}天</div>
                                 </td>
                             </tr>
@@ -354,6 +354,7 @@
 
             /*去员工页面*/
             goStaffIndex(val) {
+                sessionStorage.setItem('StaffIndexTabName','StaffSalary');
                 this.$router.push({
                     path: '/Staff/index',
                 });

@@ -134,7 +134,10 @@
             </el-form-item>
 
             <el-form-item label="提成方式" :label-width="formLabelWidth">
-                <el-checkbox-group v-model="addStaffForm.deduction_type" @change="CheckedtcType" class="inpStaffTel">
+
+                <div v-if="!deductionType" style="color: #606266;">暂无提成方式，请先添加</div>
+
+                <el-checkbox-group v-else v-model="addStaffForm.deduction_type" @change="CheckedtcType" class="inpStaffTel">
                     <el-checkbox name="DeductionType" v-for="(item,index) in deductionType" :label="item.id" :key="index">{{item.deduction_name}}</el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
@@ -313,7 +316,6 @@
                                 },1000);
                             }else {
                                 this.$message.error(res.info);
-                                console.log(res.info);
                             }
 
                             // this.reLoad();

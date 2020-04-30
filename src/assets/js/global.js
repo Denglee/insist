@@ -69,10 +69,11 @@ var localOrigin = window.location.origin;
 // console.log(localOrigin);
 if(localOrigin == 'http://localhost:8282'){
     localUrl = 'http://vikily.f3322.net:20000';
+    //192.168.0.133
 } else {
     localUrl = localOrigin;
 }
-// console.log(localUrl);
+console.log(localUrl);
 // const localUrl = 'http://vikily.f3322.net:20000';  //测试
 // const localUrl = 'https://spt.zmtek.net';  //系统正式
 // const localUrl = 'https://swim.zmtek.net';    //游泳馆正式

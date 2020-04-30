@@ -199,16 +199,16 @@
                 this.activeTabName = tabName;
             }
 
-            let localParment = JSON.parse(sessionStorage.getItem('localParment'));
+            let localParment = JSON.parse(sessionStorage.getItem('localParment'));//这里是去判断 sessionStorage有没有值
             console.log(localParment);
-            if(localParment == null){
-                getDepartment().then(res => {
+            if(localParment == null){  //如果没有  就去请求接口
+                getDepartment().then(res => {   //这是请求接口
                     console.log(res);
-                    this.salerGropu = res;
-                    sessionStorage.setItem('localParment',JSON.stringify(res))
+                    this.salerGropu = res;   //接口返回的值 赋值给定义的数组
+                    sessionStorage.setItem('localParment',JSON.stringify(res));  //sessionStorage存储值
                 });
             } else {
-                this.salerGropu = localParment;
+                this.salerGropu = localParment;   //有值 就直接使用 就不用请求接口
             }
         },
 

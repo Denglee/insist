@@ -18,17 +18,21 @@ import Axios from 'axios'
 /*引用axios*/
 Vue.prototype.$axios=Axios;
 
+
+
 /*第一层if判断生产环境和开发环境*/
 if (process.env.NODE_ENV === 'production') {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
   if (process.env.VUE_APP_FLAG === 'pro') {
     //production 生产环境发布 地址
-    Axios.defaults.baseURL = 'https://spt.zmtek.net';//正式 路径
+    let localUrl = window.location.origin;
+    Axios.defaults.baseURL = localUrl;//正式 路径
   } else {
     Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//测试环境路径
     // Vue.config.optimization.minimize(false);  //代码不压缩
   }
 } else {
+
   // dev 开发环境 本地 /api
   Axios.defaults.baseURL = '/api';
 }

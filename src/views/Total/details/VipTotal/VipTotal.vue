@@ -269,6 +269,7 @@
 
                 /*会员总览2 会员办卡走势*/
                 totalNewAdd: {
+
                     columns: ['日期', '新增会籍', '新增私教'],
                     rows: [],
                 },
@@ -297,16 +298,15 @@
             /* ==== 会员总览 ==== 接口1 获取数量 totalMember_number*/
             getTotalMember_number() {
                 totalMember_number().then(res => {
-                    console.log(res.info);
 
                     /*潜在 与 正式 会员*/
-                    this.totalVipNum.rows = res.info.card_status;
+                    this.totalVipNum.rows = res.data.card_status;
 
                     /*有效 与 过期 会员*/
-                    this.totalVipOverdue.rows = res.info.card_type;
+                    this.totalVipOverdue.rows = res.data.card_type;
 
                     /*私教会员*/
-                    this.totalVipPT.rows = res.info.member;
+                    this.totalVipPT.rows = res.data.member;
 
                 }).catch(res => {
                     console.log(res);
@@ -318,9 +318,9 @@
                 totalMember_trend().then(res => {
                     // console.log(res);
                     this.totalNewAdd.rows= [];
-                    let addTime = res[0].value.split(',');
-                    let addVip = res[1].value.split(',');
-                    let addPT = res[2].value.split(',');
+                    let addTime = res.data[0].value.split(',');
+                    let addVip = res.data[1].value.split(',');
+                    let addPT = res.data[2].value.split(',');
                     for(let i=0;i < addTime.length;i++){
                         this.totalNewAdd.rows.push({
                             '日期' : addTime[i],
@@ -338,9 +338,9 @@
             getTotalSub_card_trend() {
                 totalSub_card_trend().then(res => {
                     this.totalConsumeTrend.rows= [];
-                    let addTime = res[0].value.split(',');
-                    let addVip = res[1].value.split(',');
-                    let addPT = res[2].value.split(',');
+                    let addTime = res.data[0].value.split(',');
+                    let addVip = res.data[1].value.split(',');
+                    let addPT = res.data[2].value.split(',');
                     for(let i=0;i < addTime.length;i++){
                         this.totalConsumeTrend.rows.push({
                             '日期' : addTime[i],
@@ -357,11 +357,11 @@
             getTotalRefund_trend() {
                 totalRefund_trend().then(res => {
                     this.totalRefundTrend.rows= [];
-                    let addTime = res[0].value.split(',');
-                    let addVip = res[1].value.split(',');
-                    let addPT = res[2].value.split(',');
-                    let ptTrend = res[3].value.split(',');
-                    let ptChange = res[4].value.split(',');
+                    let addTime = res.data[0].value.split(',');
+                    let addVip = res.data[1].value.split(',');
+                    let addPT = res.data[2].value.split(',');
+                    let ptTrend = res.data[3].value.split(',');
+                    let ptChange = res.data[4].value.split(',');
                     for(let i=0;i < addTime.length;i++){
                         this.totalRefundTrend.rows.push({
                             '日期' : addTime[i],
@@ -381,8 +381,8 @@
             getTotalPassenger_trend() {
                 totalPassenger_trend().then(res => {
                     this.totalPassengerTrend.rows= [];
-                    let addTime = res[0].value.split(',');
-                    let addVip = res[1].value.split(',');
+                    let addTime = res.data[0].value.split(',');
+                    let addVip = res.data[1].value.split(',');
                     /*console.log(addTime);
                     console.log(addVip);*/
                     for(let i = 0; i < addTime.length; i++){

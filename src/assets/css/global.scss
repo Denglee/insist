@@ -5,6 +5,9 @@
 @mixin fontColor($color){
   color:$color;
 }
+.colorGray{
+  @include fontColor($color-inputBor);
+}
 .color-Pink{
   @include fontColor($color-Pink);
 }
@@ -85,7 +88,7 @@ $color-Yellow:#ffbe00;*/
 
 html, body {
   position: relative;
-  font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  //font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   //font-family: '黑体', Source Han Sans CN,PingFangSC-Regular,sans-serif,Helvetica Neue, Helvetica, Arial;
   line-height: 1.5;
   color: #323232;
@@ -150,7 +153,33 @@ input:-webkit-autofill {
 
 /*============ 初始样式 到此结束 ============*/
 
+
+/*通用*/
+.contain-public {
+  padding: 20px;
+  width: 100%;
+  min-height: calc(100vh - 106px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: $color-linghtWhite;
+  .bgWhite{
+    background-color: #fff;
+    padding: 20px;
+    min-height: 70vh;
+    border-radius: 20px;
+  }
+}
+
+.pubWidth {
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+
+
+
 /*============ 公共部分  开始 ============*/
+
 
 /*公共头部*/
 .icon {
@@ -170,7 +199,7 @@ input:-webkit-autofill {
 }
 .el-button {
   //font-size: 14px;
-  & >i{
+  & i{
     font-size: 16px;
   }
 
@@ -250,13 +279,14 @@ input:-webkit-autofill {
 }
 
 
-.index-container {
-  padding: 20px;
-  width: 100%;
-  min-height: calc(100vh - 106px);
-  box-sizing: border-box;
-  overflow-y: auto;
-  background-color: $color-linghtWhite;
+/*首页*/
+.index-item {
+  @include borRadis(20px);
+  background-color: #fff;
+  padding-bottom: 20px;
+  position: relative;
+  height: 320px;
+  margin-bottom: 30px;
 
   .el-date-editor .el-range-separator {
     width: 7%;
@@ -268,16 +298,6 @@ input:-webkit-autofill {
     line-height: 38px;
     margin-top: 6px;
   }
-}
-
-
-.index-item {
-  @include borRadis(20px);
-  background-color: #fff;
-  padding-bottom: 20px;
-  position: relative;
-  height: 320px;
-  margin-bottom: 30px;
 
   .el-input__icon {
     height: 50px;
@@ -361,10 +381,6 @@ $indexTitleHei: 44px;
   }
 }
 
-.pubWidth {
-  width: calc(100% - 40px);
-  margin: 0 auto;
-}
 
 
 /*覆盖*/
@@ -550,9 +566,9 @@ $borRadius:15px;
   border: 0;
   padding: 0 14px;
   i{
-    font-size: 16px;
+    font-size: 18px;
   }
-  .el-icon-delete{
+  .icon-shanchutianchong{
     &:hover{
       color: $color-Pink;
     }
@@ -564,7 +580,7 @@ $borRadius:15px;
   height: 32px;
   line-height: 32px;
   background:none;
-  border: 1px solid $color-GrayE5;
+  border: 1px solid $color-linghtBlue;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
@@ -621,10 +637,13 @@ $borRadius:15px;
 
 .btn-edit{
   color: #EBEEF5;
+  i{
+    font-size: 12px;
+  }
 }
 .icon-add{
-  font-size: 16px;
-  margin-right: 4px;
+  font-size: 14px !important;
+  margin-right: 4px !important;
 }
 .btn-add {
   margin: 20px;
@@ -644,7 +663,7 @@ $marRight:14px;
   margin-right:$marRight;
 }
 
-#app .ptSel-section {
+#app .ptScreen-select {
   width: 150px;
   margin-right: $marRight;
 }
@@ -653,7 +672,7 @@ $marRight:14px;
   width: 130px;
 }
 
-.pt-screen-input {
+.ptScreen-input {
   width: 220px;
   margin-right:$marRight ;
   .el-input-group__append {

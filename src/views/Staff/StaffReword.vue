@@ -6,13 +6,13 @@
             <el-tab-pane :lazy='tabLazy' label="员工工资" name="StaffSalary">
                 <div class="vip-tabBox">
                     <div class="pt-screen">
-                        <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="pt-screen-input" clearable></el-input>
-                        <el-select  filterable v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptSel-section">
+                        <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="ptScreen-input" clearable></el-input>
+                        <el-select  filterable v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptScreen-select">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
 
                         <el-date-picker
-                                class="ptSel-section"
+                                class="ptScreen-select"
                                 v-model="rewordParameter.date"
                                 type="month"
                                 placeholder="请选择月份"
@@ -78,7 +78,8 @@
             <!--tab2 提成设置 主页 -->
             <el-tab-pane :lazy='tabLazy' label="提成设置" name="StaffRoyalty">
                 <div class="clearfix">
-                    <el-button type="primary" class="fr btn-public" @click="btnAddRoyalty">添加提成</el-button>
+                    <el-button type="primary" class="fr btn-public" @click="btnAddRoyalty">
+                        <i class="icon-add el-icon-circle-plus-outline"></i>添加提成</el-button>
                 </div>
 
                 <el-table class="pub-table edit-table" :data="tableRoyalty" border>
@@ -93,13 +94,13 @@
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button size="mini"  class="btn-noBor" @click="EditGroup(scope.$index, scope.row)">
-                                <i class="el-icon-edit"></i>
+                                <i class="iconfont icon-bianjitianchong"></i>
                             </el-button>
                             <el-button size="mini"  class="btn-noBor" @click="btnGoRoyalty(scope.$index, scope.row)">
-                                <i class="el-icon-setting"></i>
+                                <i class="iconfont icon-shezhi"></i>
                             </el-button>
                             <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">
-                                <i class="el-icon-delete"></i>
+                                <i class="iconfont icon-shanchutianchong"></i>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -179,7 +180,7 @@
                                 <i class="el-icon-edit"></i>
                             </el-button>
                            <el-button class="btn-noBor" size="mini" @click="deleteSetUp(scope.$index, scope.row)">
-                               <i class="el-icon-delete"></i>
+                               <i class="el-icon-delete-solid"></i>
                            </el-button>
                         </template>
                     </el-table-column>

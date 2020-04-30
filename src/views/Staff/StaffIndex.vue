@@ -11,42 +11,42 @@
                     <el-button type="primary" class="btn-add fr btn-public" @click="btnAddStaff">添加员工</el-button>
                 </div>-->
                 <!--员工列表-->
-                <div class="vip-tabBox">
+                <div class="vip-tabBox clearfix">
                     <!--员工列表 筛选-->
                     <div class="pt-screen">
                         <!--在职-->
-                        <el-select  filterable v-model="lockStateVal" placeholder="是否在职" class="ptSel-section">
+                        <el-select  filterable v-model="lockStateVal" placeholder="是否在职" class="ptScreen-select">
                             <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
                         </el-select>
                         <!--职位-->
-                        <el-select  filterable v-model="userTypeListVal" placeholder="请选择岗位" class="ptSel-section">
+                        <el-select  filterable v-model="userTypeListVal" placeholder="请选择岗位" class="ptScreen-select">
                             <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
-                        <el-select  filterable v-model="group_id" placeholder="请选择部门" class="ptSel-section">
+                        <el-select  filterable v-model="group_id" placeholder="请选择部门" class="ptScreen-select">
                             <el-option v-for="item in groupArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <!--班次-->
-                        <el-select  filterable v-model="classes" placeholder="请选择班次" class="ptSel-section">
+                        <el-select  filterable v-model="classes" placeholder="请选择班次" class="ptScreen-select">
                             <el-option v-for="item in staffClassesArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
-                        <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="pt-screen-input" clearable></el-input>
+                        <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="ptScreen-input" clearable></el-input>
                         <!--搜索-->
                         <el-button icon="el-icon-search" @click="btnSeaStaff" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
-                        <div class="fr">
+                        <div class="fr" >
                             <el-tooltip class="item" effect="dark" content="删除" placement="bottom"
                                         popper-class="poper-del">
                                 <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-public btn-delete"></el-button>
                             </el-tooltip>
                             <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
-                                <el-button icon="el-icon-edit" @click="changeStaff()" class="btn-public btn-edit"></el-button>
+                                <el-button @click="changeStaff()" class="btn-public btn-edit"><i class="iconfont icon-bianjixiantiaoyangshi"></i>编辑</el-button>
                             </el-tooltip>
                             <el-button type="primary" class="btn-public btn-edit" @click="btnAddStaff">
                                 <i class="icon-add el-icon-circle-plus-outline"></i>添加员工</el-button>
                         </div>
                     </div>
                     <!--员工列表 表格-->
-                    <el-table class="pub-table" :data="tableStaff" border @selection-change="checkedStaff"
+                    <el-table class="pub-table staffList-table" :data="tableStaff" border @selection-change="checkedStaff"
                               ref="multipleTable" @row-click="handleRowClick">
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
@@ -128,10 +128,10 @@
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button class="btn-noBor" size="mini" @click="EditGroup(scope.$index, scope.row)">
-                                <i class="el-icon-edit"></i>
+                                <i class="iconfont icon-bianjitianchong"></i>
                             </el-button>
                             <el-button class="btn-noBor" size="mini" @click="deleteGroup(scope.$index, scope.row)">
-                                <i class="el-icon-delete"></i>
+                                <i class="iconfont icon-shanchutianchong"></i>
                             </el-button>
                         </template>
                     </el-table-column>
@@ -412,6 +412,9 @@
                     console.log(res.data);
                     console.log(this.groupType);
 
+                    setTimeout(()=>{
+                        this.btnSureGroup = false;
+                    },1000);
                     if(res.status ==1){
                         if(this.groupType == 1){
                             this.groupArr = res.data;
@@ -420,7 +423,6 @@
                             setTimeout(()=>{
                                 this.diaGroup = false;
                                 this.reLoad();
-                                this.btnSureGroup = true;
                             },1000);
                         }
                     }
