@@ -92,6 +92,8 @@ export const revenueWater   = params => get('Admin/stat/water', params);        
 export const revenueUppay   = params => post('Admin/stat/uppay', params);          /* 营收流水 修改支付方式*/
 export const revenuePrintApi   = params => post('Admin/stat/printcontrace', params);          /* 营收流水 打印*/
 
+export const analyzeApi   = params => post('Admin/stat/analyze', params);          /* 业绩分析*/
+
 
 export const revenueContract   = params => get('Admin/Statis/contract_statis', params);          /* 营收详情*/
 export const revenueDetails   = params => get('Admin/Statis/revenueDetails', params);          /* 营收分类详情*/

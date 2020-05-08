@@ -36,7 +36,7 @@
                         <div class="fr" >
                             <el-tooltip class="item" effect="dark" content="删除" placement="bottom"
                                         popper-class="poper-del">
-                                <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-public btn-delete"></el-button>
+                                <el-button icon="el-icon-delete"  @click="deleteStaff()" class="btn-public btn-delete">删除</el-button>
                             </el-tooltip>
                             <el-tooltip class="item" effect="dark" content="编辑" placement="bottom">
                                 <el-button @click="changeStaff()" class="btn-public btn-edit"><i class="iconfont icon-bianjixiantiaoyangshi"></i>编辑</el-button>

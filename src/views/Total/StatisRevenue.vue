@@ -37,7 +37,7 @@
                                              <i class="el-icon-top"></i>{{revenueRatio.nowMonth}}
                                         </span>
                                         <span v-else class="vipTipY revenue-tip revenue-tip2">
-                                             <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}1111
+                                             <i class="el-icon-bottom"></i>{{revenueRatio.nowMonth | mathFloor}}
                                         </span>
                                     </li>
                                 </ul>

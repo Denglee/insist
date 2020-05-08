@@ -258,7 +258,6 @@ $tabHei: 46px;
 
 
 
-
 /*营收总览*/
 .revenue-pie{
   min-height: 326px;
@@ -299,8 +298,11 @@ $tabHei: 46px;
   box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
 }
 
-
 /*营收总览*/
+.revenue-Stream{
+  padding-bottom: 10px;
+}
+
 .revenue-box {
   margin-top: 30px;
   padding: 0 10px;
@@ -383,7 +385,6 @@ $tabHei: 46px;
 }
 
 .RevenSel-checkbox{
-
   /*selecet 模拟 checkbox*/
    .el-select-dropdown__item.selected::after{
     content: "";

@@ -1,6 +1,6 @@
 // 打印类属性、方法定义
 /* eslint-disable */
-const Print = function (dom, options) {
+const Print =function(dom, options) {
     if (!(this instanceof Print)) return new Print(dom, options);
 
     this.options = this.extend({
@@ -10,8 +10,7 @@ const Print = function (dom, options) {
     if ((typeof dom) === "string") {
         this.dom = document.querySelector(dom);
     } else {
-        this.isDOM(dom)
-        this.dom = this.isDOM(dom) ? dom : dom.$el;
+        this.dom = dom;
     }
 
     this.init();
@@ -44,7 +43,7 @@ Print.prototype = {
         var textareas = document.querySelectorAll('textarea');
         var selects = document.querySelectorAll('select');
 
-        for (var k = 0; k < inputs.length; k++) {
+        for (var k in inputs) {
             if (inputs[k].type == "checkbox" || inputs[k].type == "radio") {
                 if (inputs[k].checked == true) {
                     inputs[k].setAttribute('checked', "checked")
@@ -53,18 +52,16 @@ Print.prototype = {
                 }
             } else if (inputs[k].type == "text") {
                 inputs[k].setAttribute('value', inputs[k].value)
-            } else {
-                inputs[k].setAttribute('value', inputs[k].value)
             }
         }
 
-        for (var k2 = 0; k2 < textareas.length; k2++) {
+        for (var k2 in textareas) {
             if (textareas[k2].type == 'textarea') {
                 textareas[k2].innerHTML = textareas[k2].value
             }
         }
 
-        for (var k3 = 0; k3 < selects.length; k3++) {
+        for (var k3 in selects) {
             if (selects[k3].type == 'select-one') {
                 var child = selects[k3].children;
                 for (var i in child) {
@@ -78,48 +75,26 @@ Print.prototype = {
                 }
             }
         }
-        // 包裹要打印的元素
-        // fix: https://github.com/xyl66/vuePlugs_printjs/issues/36
-        return this.wrapperRefDom(this.dom).outerHTML;
-    },
-    // 向父级元素循环，包裹当前需要打印的元素
-    // 防止根级别开头的 css 选择器不生效
-    wrapperRefDom: function (refDom) {
-        let prevDom = null
-        let currDom = refDom
-        while (currDom && currDom.tagName.toLowerCase() !== 'body') {
-            if (prevDom) {
-                let element = currDom.cloneNode(false)
-                element.appendChild(prevDom)
-                prevDom = element
-            } else {
-                prevDom = currDom.cloneNode(true)
-            }
 
-            currDom = currDom.parentElement
-        }
-
-        return currDom.tagName.toLowerCase() === 'body' ? currDom : prevDom
+        return this.dom.outerHTML;
     },
 
     writeIframe: function (content) {
         var w, doc, iframe = document.createElement('iframe'),
             f = document.body.appendChild(iframe);
         iframe.id = "myIframe";
-        //iframe.style = "position:absolute;width:0;height:0;top:-10px;left:-10px;";
-        iframe.setAttribute('style', 'position:absolute;width:0;height:0;top:-10px;left:-10px;');
+        iframe.style = "position:absolute;width:0;height:0;top:-10px;left:-10px;";
+
         w = f.contentWindow || f.contentDocument;
         doc = f.contentDocument || f.contentWindow.document;
         doc.open();
         doc.write(content);
         doc.close();
-        var _this = this
-        iframe.onload = function(){
-            _this.toPrint(w);
-            setTimeout(function () {
-                document.body.removeChild(iframe)
-            }, 100)
-        }
+        this.toPrint(w);
+
+        setTimeout(function () {
+            document.body.removeChild(iframe)
+        }, 100)
     },
 
     toPrint: function (frameWindow) {
@@ -138,14 +113,7 @@ Print.prototype = {
         } catch (err) {
             console.log('err', err);
         }
-    },
-    isDOM: (typeof HTMLElement === 'object') ?
-        function (obj) {
-            return obj instanceof HTMLElement;
-        } :
-        function (obj) {
-            return obj && typeof obj === 'object' && obj.nodeType === 1 && typeof obj.nodeName === 'string';
-        }
+    }
 };
 const MyPlugin = {}
 MyPlugin.install = function (Vue, options) {

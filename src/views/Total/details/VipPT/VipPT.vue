@@ -234,7 +234,7 @@
                     this.PTLesson.rows = res.data.course;
 
                     /*新增私教 与 续课*/
-                    this.PTAdd.rows = res.data.personal_card;
+                    this.PTAdd.rows = res.data.personal_card.slice(0, 5);
 
                     /*已跟进 与 未跟进*/
                     this.PTFollow.rows = res.data.member_follow;

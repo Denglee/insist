@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["error"],{bcec:function(e,r,t){"use strict";t.r(r);var n=function(){var e=this,r=e.$createElement,t=e._self._c||r;return t("div",{staticClass:"error-page"},[t("router-view")],1)},c=[],s=t("2877"),a={},l=Object(s["a"])(a,n,c,!1,null,null,null);r["default"]=l.exports}}]);

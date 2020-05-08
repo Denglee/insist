@@ -12,7 +12,7 @@
                                     value-format="yyyy-MM"></el-date-picker>
                     <el-button icon="el-icon-search" @click="btnSeaStaffSignin" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
 
-                    <el-button icon="el-icon-notebook-1" @click="singExport" class="btn-public fr">导出</el-button>
+                    <el-button icon="el-icon-notebook-1" @click="signExport" class="btn-public fr">导出</el-button>
                 </form>
                 <!--打卡记录 表格-->
                 <div class="">
@@ -127,7 +127,6 @@
 
             </el-tab-pane>
         </el-tabs>
-
 
         <!--时间设置 弹出-->
         <el-dialog title="班次设置" :visible.sync="EditTimeForm">
@@ -293,7 +292,7 @@
                 this.getStaffSignin();
             },
             /*考勤 导出*/
-            singExport() {
+            signExport() {
                 let localUrl = this.GLOBAL.localUrl;
                 let page = this.staffPage;
                 let keywords = this.staffName;

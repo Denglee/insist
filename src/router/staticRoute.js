@@ -226,12 +226,12 @@ const staticRoute = [
             //     component: () => import(/* webpackChunkName: "Statshop" */ '@/views/Total/Statshop'),
             //     meta: {title: '客流'},
             // },
-            {
-                path: 'Stat/water',  //营收流水
-                name: 'Statwater',
-                component: () => import(/* webpackChunkName: "Statwater" */ '@/views/Total/Statwater'),
-                meta: {title: '营收流水'},
-            },
+            // {
+            //     path: 'Stat/water',  //营收流水
+            //     name: 'Statwater',
+            //     component: () => import(/* webpackChunkName: "Statwater" */ '@/views/Total/Statwater'),
+            //     meta: {title: '营收流水'},
+            // },
             // {
             //     path: 'Stat/achievement',  //私教业绩
             //     name: 'Statachievement',
@@ -310,18 +310,18 @@ const staticRoute = [
             //     component: () => import(/* webpackChunkName: "Stathxwater" */ '@/views/Total/Stathxwater'),
             //     meta: {title: '储值卡流水'},
             // },
-            {
-                path: 'Member/expire_reminder',  //到期提醒
-                name: 'Memberexpire_reminder',
-                component: () => import(/* webpackChunkName: "Memberexpire_reminder" */ '@/views/Total/Memberexpire_reminder'),
-                meta: {title: '到期提醒'},
-            },
-            {
-                path: 'Stat/lazy',  //懒惰提醒
-                name: 'Statlazy',
-                component: () => import(/* webpackChunkName: "Statlazy" */ '@/views/Total/Statlazy'),
-                meta: {title: '懒惰提醒'},
-            },
+            // {
+            //     path: 'Member/expire_reminder',  //到期提醒
+            //     name: 'Memberexpire_reminder',
+            //     component: () => import(/* webpackChunkName: "Memberexpire_reminder" */ '@/views/Total/Memberexpire_reminder'),
+            //     meta: {title: '到期提醒'},
+            // },
+            // {
+            //     path: 'Stat/lazy',  //懒惰提醒
+            //     name: 'Statlazy',
+            //     component: () => import(/* webpackChunkName: "Statlazy" */ '@/views/Total/Statlazy'),
+            //     meta: {title: '懒惰提醒'},
+            // },
             {
                 path: 'Eigen/memstime',  //运动时长排名
                 name: 'Eigenmemstime',
@@ -622,6 +622,18 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Lotteryprize_list" */ '@/views/Market/Lotteryprize_list'),
                 meta: {title: '中奖名单'},
             },
+            {
+                path: 'Server/giftbag', //礼包
+                name: 'giftBag',
+                component: () => import(/* webpackChunkName: "giftBag" */ '@/views/Market/giftBag'),
+                meta: {title: '礼包'},
+            },
+            {
+                path: 'Item/enroll', //活动报名
+                name: 'ItemEnroll',
+                component: () => import(/* webpackChunkName: "ItemEnroll" */ '@/views/Market/ItemEnroll'),
+                meta: {title: '活动报名'},
+            },
 
             /*识别*/
             {
@@ -645,6 +657,14 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Venueindex" */ '@/views/Venue/Venueindex'),
                 meta: {title: '场馆设置'},
             },
+
+            {
+                path: 'Item/index',  //场馆售票
+                name: 'Itemindex',
+                component: () => import(/* webpackChunkName: "Itemindex" */ '@/views/Venue/Itemindex'),
+                meta: {title: '场馆售票'},
+            },
+
 
 
             /*场馆*/

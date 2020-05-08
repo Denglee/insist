@@ -200,7 +200,7 @@ input:-webkit-autofill {
 .el-button {
   //font-size: 14px;
   & i{
-    font-size: 16px;
+    font-size: 14px;
   }
 
   //& :focus,
@@ -293,7 +293,7 @@ input:-webkit-autofill {
     color: $color-Gray;
   }
 
-  .el-input__inner {
+  .el-input__inner{
     height: 38px;
     line-height: 38px;
     margin-top: 6px;
@@ -303,7 +303,14 @@ input:-webkit-autofill {
     height: 50px;
   }
 }
-
+.ptTable-assist{
+  .el-input__suffix-inner{
+    height: 38px;
+    line-height: 38px;
+    margin-top: 6px;
+    display: block;
+  }
+}
 
 .lesson-time {
   position: absolute;
@@ -384,6 +391,7 @@ $indexTitleHei: 44px;
 
 
 /*覆盖*/
+
 /*时间选择器*/
 .el-time-panel {
   .el-breadcrumb__separator {
@@ -557,8 +565,7 @@ $borRadius:15px;
     background-color: $color-linghtWhite;
   }
 }
-
-.el-date-editor {
+#app .el-date-editor {
   width: 260px;
   margin-right: 14px;
 }

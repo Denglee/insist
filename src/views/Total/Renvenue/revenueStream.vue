@@ -1,11 +1,12 @@
 <template>
-    <div>
-    　　<div>
+    <div ref="printRef" class="revenue-Stream">
+    　　<div class="no-print">
             <!--saler 筛选-->
             <div class="pt-screen">
                 <el-input placeholder="顾问编号、姓名、手机" v-model="searchVal.salerSuggest" class="ptScreen-input" clearable></el-input>
 
                 <el-select  filterable v-model="searchVal.saler_id" placeholder="请选择顾问" class="ptScreen-select">
+                    <el-option label="全部顾问" value=""></el-option>
                     <el-option v-for="item in dataArr.staffTypeArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
                 </el-select>
 
@@ -40,27 +41,20 @@
                <div class="fr">
                    <el-tooltip class="item" effect="dark" content="修改支付方式" placement="bottom">
                        <el-button @click="btnChangePay()" class="btn-public">
-                           <i class="iconfont icon-zhifufangshi"></i>
+                           <i class="iconfont icon-zhifufangshi"></i>修改
                        </el-button>
                    </el-tooltip>
 
-                   <el-tooltip class="item" effect="dark" content="小票打印" placement="bottom" v-show="checkedRows.length == 1">
-                       <el-button @click="canPrint()" class="btn-public" v-print="'#printTest'">
-<!--                       <el-button @click="canPrint()" class="btn-public">-->
-                           <i class="iconfont icon-weibiaoti-1yihuifu-02"></i>
-                       </el-button>
-                   </el-tooltip>
-
-                   <el-tooltip class="item" effect="dark" content="小票打印" placement="bottom" v-show="checkedRows.length != 1">
+                   <el-tooltip class="item" effect="dark" content="小票打印" placement="bottom">
                        <el-button @click="btnPrint()" class="btn-public">
-                           <i class="iconfont icon-weibiaoti-1yihuifu-02"></i>
+                           <i class="iconfont icon-weibiaoti-1yihuifu-02"></i>打印
                        </el-button>
                    </el-tooltip>
 
 
                    <el-tooltip class="item" effect="dark" content="导出" placement="bottom">
-                       <el-button @click="changeStaff()" class="btn-public">
-                           <i class="el-icon-notebook-1"></i>
+                       <el-button @click="streamExport()" class="btn-public">
+                           <i class="el-icon-notebook-1"></i>导出
                        </el-button>
                    </el-tooltip>
                </div>
@@ -125,10 +119,11 @@
                     :page-size ="searchVal.total"
                     @current-change="PageCurrent">
             </el-pagination>
+
         </div>
 
         <!--打印-->
-        <revenuePrint :printArr="printArr"></revenuePrint>
+        <revenuePrint :printArr="printArr" ref="sonPrint"></revenuePrint>
 
         <!--tab2 部门 添加 弹窗-->
         <el-dialog title="修改支付方式" :visible.sync="btnState.diaChangePay" width="400px">
@@ -155,12 +150,12 @@
         name: "revenueStream",  //营收流水
         data() {
             return {
-
                 printArr: {},  ////打印数组
 
                 checkedRows:[], //选中的值
 
                 btnState:{  //按钮状态
+                    printBox:false, /*打印框 显示*/
                     diaChangePay:false, /*支付方式弹窗*/
                     searchLoad:false,   /*查找提交*/
                     btnSurePay:false,   //修改支付方式 按钮
@@ -181,8 +176,8 @@
                     zmtek_ver:2,
                     saler_id:'', // 销售id
                     salerSuggest:'', // 销售下拉
-                    st:'2020-04-01',   //开始时间
-                    et:'2020-04-30',   //介绍时间
+                    st:'',   //开始时间
+                    et:'',   //介绍时间
                     card_type:'100', //合同类型
                     order_type:'100', //操作类型
                     pay_type_list:'100',  //支付方式
@@ -190,7 +185,7 @@
                 },
 
                 changePayArr:{  //修改支付方式
-                    order_id:'',
+                    orderID:'',
                     pay_type:'',
                 },
             }
@@ -213,7 +208,7 @@
 
                 this.changePayArr= {  /*赋值*/
                     pay_type : checkedRows[0].pay_type,
-                    order_id : idString,
+                    orderID : idString,
                 }
 
                 this.btnState.diaChangePay = true;  /*弹窗*/
@@ -265,42 +260,54 @@
                 if(checkedRows.length == 0){
                     this.$message.error('至少选一个操作对象');
                 }else if(checkedRows.length == 1){
-
+                    let orderID = checkedRows[0].id;
+                    console.log(orderID);
+                    this.childPirint(orderID);
                 }else {
                     this.$message.error('只能选一个');
                 }
                 return false
             },
 
-            /*有选中*/
-            canPrint(){
-                let checkedRows =  this.checkedRows;
-                console.log(checkedRows);
-                if(checkedRows.length == 0){
-                    this.$message.error('至少选一个操作对象');
-                } else if(checkedRows.length == 1){
+            /*打印接口*/
+            childPirint(orderID){
+                revenuePrintApi({order_id: orderID}).then(res => {
+                    console.log(res.data);
+                    if(res.status ==1){
+                        this.printArr = res.data;
+                        setTimeout(()=>{
+                            this.$print(this.$refs.printRef,{'no-print':'.no-print'});
+                        },500)
+                    }
+                    if(res.status ==0){
+                        this.$message({
+                            message: res.info,
+                            type: 'warning',
+                            duration: 1500,
+                            offset: 100,
+                        });
+                    }
+                }).catch(res => {
+                    console.log(res);
+                });
+            },
 
-                    let order_id = checkedRows[0].id;
-                    console.log(order_id);
-                    revenuePrintApi({order_id: order_id}).then(res => {
-                        console.log(res.data);
-                        if(res.status ==1){
-                            this.printArr = res.data;
-                        }
-                        if(res.status ==0){
-                            this.$message({
-                                message: res.info,
-                                type: 'warning',
-                                duration: 1500,
-                                offset: 100,
-                            });
-                        }
-                    }).catch(res => {
-                        console.log(res);
-                    });
-                }else{
-                    this.$message.error('只能选一个');
-                }
+            /*导出*/
+            streamExport(){
+                let localUrl = this.GLOBAL.localUrl;
+                let saler_id = this.searchVal.saler_id;
+                let salerSuggest = this.searchVal.salerSuggest;
+                let card_type = this.searchVal.card_type;
+                let order_type = this.searchVal.order_type;
+                let pay_type_list = this.searchVal.pay_type_list;
+                let st = this.searchVal.st;
+                let et = this.searchVal.et;
+
+                // /stat/waterexlexport_1.html?saler_id=&salerSuggest=&card_type=100&order_type=100&pay_type_list=100&st=2020-04-01&et=2020-04-30
+                let downUrl = localUrl + '/stat/waterexlexport_1.html?zmtek_ver=2&saler_id=' + saler_id + '&salerSuggest=' + salerSuggest +
+                    '&card_type=' + card_type+ '&order_type=' + order_type+ '&pay_type_list=' + pay_type_list+ '&st=' + st+ '&et=' + et;
+                console.log(downUrl);
+                window.location.href = downUrl;
             },
 
             /*流水查询*/
@@ -361,7 +368,7 @@
             },
 
         },
-        created() {
+        mounted() {
             this.getPTSaleroom();
         },
         components:{
