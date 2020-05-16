@@ -28,7 +28,7 @@
                     </el-input>
                 </el-form-item>
 
-                <el-button class="btnLogin" type="primary" @click="submitForm('loginForm')">登录</el-button>
+                <el-button type="submit"  class="btnLogin" @click="submitForm('loginForm')"  :loading="loadState.searchLoad" >登录</el-button>
 
                 <!--口碑不需要第三方登录-->
                 <el-divider>第三方登录</el-divider>
@@ -102,6 +102,9 @@
         inject: ['reLoad'],
         data() {
             return {
+                loadState: {  //按钮状态
+                    searchLoad:false
+                },
                 /*登录参数*/
                 wx: {
                     self_redirect: false,
@@ -196,51 +199,59 @@
 
             /*提交*/
             submitForm(loginForm) {
+                let that = this;
+
                 this.$refs[loginForm].validate((valid) => {
 
+                    this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
 
-                    // let that = this;
-                    // let username = that.loginForm.username;
-                    // let password = that.loginForm.password;
-                    // ApiloginIn({
-                    //     username: username,
-                    //     password: password,
-                    // }).then(res => {
-                    //     console.log(res);
-                    //     if (res.status == 1) {
-                    //         let loginData = res.data;
-                    //         console.log(loginData);
-                    //         that.ACTLogin(loginData);
-                    //         this.$message({
-                    //             message: res.info,
-                    //             type: 'success',
-                    //             duration: 1500,
-                    //             offset: 100,
-                    //         });
-                    //         // return false;
-                    //         setTimeout(() => {
-                    //             /* this.$router.replace({
-                    //                  path: "/redirect",
-                    //                  query: {
-                    //                      nextPath: '/index'
-                    //                  }
-                    //              });*/
-                    //             that.$router.push({path: '/index'});
-                    //         }, 1500);
-                    //
-                    //     }
-                    //     if (res.status == 0) {
-                    //         this.$message({
-                    //             message: res.info,
-                    //             type: 'error',
-                    //             duration: 3000,
-                    //             offset: 40,
-                    //         });
-                    //     }
-                    // });
+                    let that = this;
+                    let username = that.loginForm.username;
+                    let password = that.loginForm.password;
+                    ApiloginIn({
+                        username: username,
+                        password: password,
+                    }).then(res => {
+                        console.log(res);
+                        if (res.status == 1) {
+                            let loginData = res.data;
+                            console.log(loginData);
+                            that.ACTLogin(loginData);
+                            // this.$message({
+                            //     message: res.info,
+                            //     type: 'success',
+                            //     duration: 1500,
+                            //     offset: 100,
+                            // });
 
 
-                    // return  false;
+                            this.alertTip();
+
+                            return false;
+
+                            setTimeout(() => {
+                                /* this.$router.replace({
+                                     path: "/redirect",
+                                     query: {
+                                         nextPath: '/index'
+                                     }
+                                 });*/
+                                that.$router.push({path: '/index'});
+                            }, 6000);
+
+                        }
+                        if (res.status == 0) {
+                            this.$message({
+                                message: res.info,
+                                type: 'error',
+                                duration: 3000,
+                                offset: 40,
+                            });
+                        }
+                    });
+
+                    return  false;
+
                     if (valid && btnStatusLogin) {
                         this.tips = "拖动左边滑块完成上方拼图";
                         console.log(`${btnStatusLogin}`);

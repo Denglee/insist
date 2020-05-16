@@ -64,13 +64,12 @@
                         <div class="present-top present-TopL">
                             <p class="title">在场人数</p>
                             <p class="num">
-                                0
-                                <!--{{presentNo}}-->
+                                {{presentNo}}
                             </p>
                         </div>
                         <div class="present-top present-TopR">
                             <p class="title">客流人数</p>
-                            <p class="num">0   <!--{{customerNo}}--></p>
+                            <p class="num">{{customerNo}}</p>
                         </div>
                     </div>
                     <div class="line-present">
@@ -282,8 +281,8 @@
                 },
 
                 progerssStroke:'square',  /*progress*/
-                presentNo:'20',  /*在场人数*/
-                customerNo:'20',  /*客流人数*/
+                presentNo:0,  /*在场人数*/
+                customerNo:0,  /*客流人数*/
 
                 datePresent: '',        /*在场人数 时间选择*/
                 dateLesson: '',        /*课程分析 时间选择*/
@@ -388,7 +387,9 @@
             /*获取  在场人数 数据*/
             getStatistics(){
                 IndexStatistics().then(res => {
-                    // console.log(res);
+                    // console.log(res.data.today);
+                    this.customerNo = res.data.current;
+                    this.presentNo = res.data.today;
                     let addTime = res.data.date.split(',');
                     let addData = res.data.data.split(',');
 

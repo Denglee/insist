@@ -512,8 +512,14 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Devicemanagebracelet" */ '@/views/Equipment/managebracelet'),
                 meta: {title: '手环终端'},
             },
+            {
+                path: 'Devicemanage/relay',   //中继
+                name: 'DevicemanageRelay',
+                component: () => import(/* webpackChunkName: "DevicemanageRelay" */ '@/views/Equipment/DevicemanageRelay'),
+                meta: {title: '中继'},
+            },
 
-            /*项目*/
+
             {
                 path: 'Xb/project', //项目列表
                 name: 'Xbproject',

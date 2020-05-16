@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*lideng*/
-@import "public";
+@import "themeColor";
 
 @mixin fontColor($color){
   color:$color;
@@ -149,10 +149,7 @@ input:-webkit-autofill {
   white-space: nowrap
 }
 
-
-
 /*============ 初始样式 到此结束 ============*/
-
 
 /*通用*/
 .contain-public {
@@ -176,10 +173,7 @@ input:-webkit-autofill {
 }
 
 
-
-
 /*============ 公共部分  开始 ============*/
-
 
 /*公共头部*/
 .icon {
@@ -293,24 +287,24 @@ input:-webkit-autofill {
     color: $color-Gray;
   }
 
-  .el-input__inner{
-    height: 38px;
-    line-height: 38px;
-    margin-top: 6px;
-  }
+  //.el-input__inner{
+  //  height: 38px;
+  //  line-height: 38px;
+  //  margin-top: 6px;
+  //}
 
   .el-input__icon {
     height: 50px;
   }
 }
-.ptTable-assist{
-  .el-input__suffix-inner{
-    height: 38px;
-    line-height: 38px;
-    margin-top: 6px;
-    display: block;
-  }
-}
+//.ptTable-assist{
+//  .el-input__suffix-inner{
+//    //height: 38px;
+//    //line-height: 38px;
+//    //margin-top: 6px;
+//    //display: block;
+//  }
+//}
 
 .lesson-time {
   position: absolute;
@@ -387,7 +381,6 @@ $indexTitleHei: 44px;
     line-height: $indexTitleHei;
   }
 }
-
 
 
 /*覆盖*/
@@ -602,11 +595,11 @@ $borRadius:15px;
 .btn-public {
   letter-spacing: 1.5px;
   background-color: $color-MediumBlue;
-  height: 33px;
-  line-height: 33px;
+  height: 32px;
+  line-height: 32px;
   padding: 0 10px;
   color: #fff;
-  border: solid 1px $color-MediumBlue;
+  border: 0;
 
   &:hover,
   &:focus {
@@ -680,7 +673,7 @@ $marRight:14px;
 }
 
 .ptScreen-input {
-  width: 220px;
+  width: 180px;
   margin-right:$marRight ;
   .el-input-group__append {
     background-color: $color-MediumBlue;
@@ -823,39 +816,34 @@ $tabHei: 46px;
 }
 
 
-.ve-funnel{
-  > div{
-    height: 200px !important;
-  }
-}
-
 /* 时间筛选 选择器*/
-.time-box{
+.time-selMonth{
   position: relative;
-  width: 140px;
+  width: 120px;
   cursor: pointer;
-}
+
 //.el-date-editor .el-input{
 //  width: 100%;
 //}
-.time-val{
-  position: absolute;
-  width: 100%;
-  height: 32px;
-  line-height: 32px;
-  border: solid 1px $color-linghtBlue;
-  color: $color-Gray;
-  border-radius: 4px;
-  padding: 0 8px 0 12px;
-  font-size: 14px;
-  & > i{
+  .time-selVal{
+    position: absolute;
+    width: 100%;
     height: 32px;
     line-height: 32px;
+    border: solid 1px $color-linghtBlue;
+    color: $color-Gray;
+    border-radius: 4px;
+    padding: 0 8px 0 12px;
+    font-size: 14px;
+    & > i{
+      height: 32px;
+      line-height: 32px;
+    }
   }
-}
-.timeSel-box{
-  opacity: 0;
-  width: 138px !important;
+  .timeSel-box{
+    opacity: 0;
+    width: 100% !important;
+  }
 }
 
 
@@ -936,6 +924,11 @@ $tabHei: 46px;
   }
 }
 
+.ve-funnel{
+  > div{
+    height: 200px !important;
+  }
+}
 
 .chart{
   .ve-pie{
@@ -1008,6 +1001,17 @@ $tabHei: 46px;
       .icon-qixianka{
         font-size: 14px;
       }
+    }
+  }
+}
+
+
+
+/*媒体查询*/
+@media all and (max-width: 1600px) {
+  .pt-screen {
+    & > div{
+      margin-bottom: 10px;
     }
   }
 }

@@ -19,7 +19,6 @@ import Axios from 'axios'
 Vue.prototype.$axios=Axios;
 
 
-
 /*第一层if判断生产环境和开发环境*/
 if (process.env.NODE_ENV === 'production') {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/

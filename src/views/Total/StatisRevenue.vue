@@ -165,6 +165,7 @@
                     ptLessonD:false,
                     revenueDetails:false,
                 },
+
                 hasAxios:{  //是否调用接口状态
                     revenueTotal:false,
                     revenueDetails:false,
@@ -245,16 +246,21 @@
 
             /* 零、 tab切换  */
             tabTotal(tab, event) {
+
+                console.log(tab.label);
                 let tabName = tab.name;
                 this.callTabApi(tabName);
                 sessionStorage.setItem('StatisRevenueTabName',tabName);
+
+                // document.title= tab.label;
+                this.$route.meta.title = tab.label;
             },
 
             /* 一、营收总览 */
             /*1.1、总收入*/
             getRevenueTotal() {
                 revenueTotal().then(res => {
-                    console.log(res);
+                    // console.log(res);
                     let MemberNum = [];
                     let MemberNum1 = res.data[1];
                     let MemberNum2 = res.data[2];
@@ -281,14 +287,14 @@
             /*1.2、项目营收排名*/
             getRevenueRanking() {
                 revenueRanking().then(res => {
-                    console.log(res);
+                    // console.log(res);
 
                     let incomeData = res.data;
                     let incomeData2 = incomeData.map((item, index) => {
                         return {...item, ...this.revenueRankingClass[index]};
                     });
 
-                    console.log(incomeData2);
+                    // console.log(incomeData2);
 
                     this.revenueRanking.rows = [];
                     incomeData2.forEach((item,i)=>{
@@ -344,8 +350,21 @@
             }else {
                 this.tabInfo.activeTabName = tabName;
             }
+
+            let StatisRevenueList = sessionStorage.getItem('StatisRevenueList');
+            if(StatisRevenueList != null){
+                this.showState ={
+                        tabRevenueState:false,  //tab 显隐
+                        ptLessonD:false,
+                        revenueDetails:true,
+                };
+            }
+
             this.callTabApi(tabName);
+
+            /*this.$route.meta.title = tabName;*/
         },
+
 
         components: {
             navBread,

@@ -213,6 +213,7 @@
 
             /* 查看更多 */
             btnTotalMore(e1) {
+                window.sessionStorage.setItem('statisShowDetail',e1);
                 console.log('查看更多 e1'+e1);
                 this.$emit('showState',e1)
             },

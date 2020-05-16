@@ -6,7 +6,7 @@
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal" >
-              <VipTotal @showState="showState(e1)"></VipTotal>
+              <VipTotal @showState="showState($event)"></VipTotal>
             </el-tab-pane>
 
             <!-- tabItem2 私教 -->
@@ -80,7 +80,16 @@
             <!--滑雪提醒-->
             <li v-if="showStateArr.skiExpireD">
                 <navBread @GoBack="goBack('VipMembership','skiExpireD')" breadTitle="会籍" breadContent1="滑雪提醒"></navBread>
-                <MBexpireSki :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireSki>
+                <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"></TotalTrend>
+            </li>
+
+        </ul>
+
+        <ul>
+            <!--客流趋势-->
+            <li v-if="showStateArr.totalTrend">
+                <navBread @GoBack="goBack('VipTotal','totalTrend')" breadTitle="总览" breadContent1="客流趋势"></navBread>
+                <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"></TotalTrend>
             </li>
         </ul>
 
@@ -90,6 +99,8 @@
 <script>
     import navBread from '@/components/navBread/navBread'  //面包屑导航 组件
     import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
+
+    import TotalTrend from '@/views/Total/details/VipTotal/totalTrend'  //客流趋势 组件
 
     import ptSaleroom from '@/views/Total/details/VipPT/ptSaleroom'  //私教销售额 组件
     import ptClassNumber from '@/views/Total/details/VipPT/ptClassNumber'  // 私教 数量 详情组件
@@ -135,6 +146,8 @@
                     vSalesD: false,
                     vNumD: false,
                     vLessonD: false,
+
+                    totalTrend:false,
                 },
 
             }
@@ -162,6 +175,8 @@
                 this.showStateArr[e2] = false;   //隐藏当前 表格详情
                 this.showStateArr.tabPaneState = true; //显示对应tab
                 this.activeName = e1; //VipTotal VipPT VipMembership
+
+                sessionStorage.removeItem('statisShowDetail');
             },
 
             /*接口调用*/
@@ -192,13 +207,16 @@
             },
         },
         created() {
+            /*tab 显影*/
             let tabName = sessionStorage.getItem('StatiSIndexTabName');
+            console.log(tabName);
             if(tabName == null){
                 tabName = this.activeTabName;
             }else {
                 this.activeTabName = tabName;
             }
 
+            /*部门存储*/
             let localParment = JSON.parse(sessionStorage.getItem('localParment'));//这里是去判断 sessionStorage有没有值
             console.log(localParment);
             if(localParment == null){  //如果没有  就去请求接口
@@ -210,14 +228,25 @@
             } else {
                 this.salerGropu = localParment;   //有值 就直接使用 就不用请求接口
             }
+
+            /*详情 显影*/
+            let statisShowDetail =sessionStorage.getItem('statisShowDetail');
+            if(statisShowDetail){
+                console.log(statisShowDetail);
+                this.showStateArr.tabPaneState = false;
+                this.showStateArr[statisShowDetail] = true;
+            }
         },
 
         components: {
+
             navBread,
             monthSceen,
             VipTotal,
             VipPT,
             VipMembership,
+
+            TotalTrend,
 
             ptSaleroom,
             ptClassNumber,

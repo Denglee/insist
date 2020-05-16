@@ -1,6 +1,6 @@
 <template>
-    <div class="time-box">
-        <div class="time-val flex-between">
+    <div class="time-selMonth">
+        <div class="time-selVal flex-between">
             {{monthScreen.monthText}}
             <i class="el-icon-caret-bottom"></i>
         </div>

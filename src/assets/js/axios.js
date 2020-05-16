@@ -38,7 +38,7 @@ axios.interceptors.response.use(response => {
     }
     if(!response.data.info){
         console.log('暂无权限');
-        Message.error('无操作权限，请联系管理员！');
+        // Message.error('无操作权限，请联系管理员！');
     }
     return response;
 }, error => {

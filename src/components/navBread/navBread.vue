@@ -38,11 +38,9 @@
             }
         },
         data() {
-            return {}
-        },
-        methods: {},
-        created() {
-
+            return {
+                path:'',
+            }
         },
     }
 </script>

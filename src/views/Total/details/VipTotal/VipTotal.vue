@@ -34,14 +34,14 @@
                 </div>
             </el-col>
             <!--私教会员-->
-            <el-col :md="16" :lg="16">
+            <el-col :md="8" :lg="8">
                 <div class="index-item">
                     <header class="index-item-title">
-                        <div class="title">会员卡</div>
+                        <div class="title">私教</div>
                     </header>
                     <el-row>
                         <!--有效会员-->
-                        <el-col :md="12">
+                        <el-col :md="24">
                             <div class="total-box">
                                 <div class="total-left">
                                     <div class="pic-content">
@@ -69,7 +69,81 @@
                             </div>
                         </el-col>
                         <!--潜在会员-->
-                        <el-col :md="12">
+                        <el-col :md="12" style="display: none;">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipNum"
+                                                :legend-visible="false"
+                                                :colors="totalVipQz"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
+                                </div>
+                                <ul class="total-right" v-if="totalVipNum.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipNum.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipNum.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipNum.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipNum.rows[1].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipNum.rows[2].name}}：
+                                        <span class="color-MediumBlue">{{totalVipNum.rows[2].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Yellow"></i>{{totalVipNum.rows[3].name}}：
+                                        <span class="color-Yellow">{{totalVipNum.rows[3].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue2"></i>{{totalVipNum.rows[4].name}}：
+                                        <span class="color-MediumBlue2">{{totalVipNum.rows[4].value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+            </el-col>
+
+            <el-col :md="8" :lg="8">
+                <div class="index-item">
+                    <header class="index-item-title">
+                        <div class="title">会籍</div>
+                    </header>
+                    <el-row>
+                        <!--有效会员-->
+                        <el-col :md="12" style="display: none;">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipOverdue"
+                                                :legend-visible="false"
+                                                :colors="OverdueColor"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
+                                </div>
+                                <ul class="total-right" v-if="totalVipOverdue.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipOverdue.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipOverdue.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipOverdue.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipOverdue.rows[1].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-MediumBlue"></i>{{totalVipOverdue.rows[2].name}}：
+                                        <span class="color-MediumBlue">{{totalVipOverdue.rows[2].value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </el-col>
+                        <!--潜在会员-->
+                        <el-col :md="24">
                             <div class="total-box">
                                 <div class="total-left">
                                     <div class="pic-content">
@@ -113,6 +187,9 @@
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">会员办卡走势</div>
+                <div class="vipNav-rBox">
+                    <monthSceen  @getMonthScreen="timeNewAdd"></monthSceen>
+                </div>
             </header>
             <ul class="index-item-tipUl">
                 <li><img src="~@/assets/icon/vipTotal/vipT-addCard.png" alt="" class="vipT-addCard">会籍卡</li>
@@ -131,6 +208,9 @@
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">消耗趋势</div>
+                <div class="vipNav-rBox">
+                    <monthSceen  @getMonthScreen="timeConsumeTrend"></monthSceen>
+                </div>
             </header>
             <ul class="index-item-tipUl">
                 <li><img src="~@/assets/icon/vipTotal/vipT-xhOnce.png" alt="">次卡</li>
@@ -149,6 +229,9 @@
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">转卡退款人数走势</div>
+                <div class="vipNav-rBox">
+                    <monthSceen  @getMonthScreen="timeRefundTrend"></monthSceen>
+                </div>
             </header>
             <ul class="index-item-tipUl">
                 <li><img src="~@/assets/icon/vipTotal/vipT-xhOnce.png" alt="">会籍退款</li>
@@ -169,6 +252,13 @@
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
                 <div class="title">每日客流走势</div>
+
+                <div class="vipNav-rBox">
+                    <!--<monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>-->
+                    <el-button class="btn-ptMore" @click="btnTotalMore('totalTrend')">
+                        更多 <i class="el-icon-arrow-right"></i>
+                    </el-button>
+                </div>
             </header>
             <ve-line
                     :data="totalPassengerTrend"
@@ -186,7 +276,7 @@
     import {totalMember_number, totalMember_trend, totalPassenger_trend, totalRefund_trend, totalSub_card_trend,} from '@/assets/js/api' /*引用 会员总览 接口*/
 
     import {lineExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
-
+    import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
     export default {
         name: "VipTotal",
         data() {
@@ -333,6 +423,22 @@
                     console.log(res);
                 });
             },
+            // 消耗趋势 七天 日期筛选
+            timeNewAdd(val){
+                console.log(val);
+                if(val.time){
+                    console.log(val.time);
+                    // this.searchVal.day =val.time;
+                    // this.searchVal.date = '';
+
+                }
+                if(val.day){    //传月份
+                    console.log(val.day);
+                    // this.searchVal.day = '';
+                    // this.searchVal.date = val.day;
+                }
+
+            },
 
             /*会员总览 接口3 消耗趋势 totalSub_card_trend*/
             getTotalSub_card_trend() {
@@ -351,6 +457,22 @@
                 }).catch(res => {
                     console.log(res);
                 });
+            },
+            // 消耗趋势 七天 日期筛选
+            timeConsumeTrend(val){
+                console.log(val);
+                if(val.time){
+                    console.log(val.time);
+                    // this.searchVal.day =val.time;
+                    // this.searchVal.date = '';
+
+                }
+                if(val.day){    //传月份
+                    console.log(val.day);
+                    // this.searchVal.day = '';
+                    // this.searchVal.date = val.day;
+                }
+
             },
 
             /*会员总览 接口4 退款,转让走势  totalRefund_trend*/
@@ -376,6 +498,22 @@
                     console.log(res);
                 });
             },
+            // 转让走势 七天 日期筛选
+            timeRefundTrend(val){
+                console.log(val);
+                if(val.time){
+                    console.log(val.time);
+                    // this.searchVal.day =val.time;
+                    // this.searchVal.date = '';
+
+                }
+                if(val.day){    //传月份
+                    console.log(val.day);
+                    // this.searchVal.day = '';
+                    // this.searchVal.date = val.day;
+                }
+
+            },
 
             /*会员总览 接口5 客流走势 totalPassenger_trend*/
             getTotalPassenger_trend() {
@@ -398,6 +536,15 @@
                 });
             },
 
+
+
+            /*查看更多*/
+            btnTotalMore(el){
+                console.log(el);
+                this.$emit('showState',el);
+                window.sessionStorage.setItem('statisShowDetail',el);
+            },
+
         },
         created() {
             /*调用 ==== 会员总览1 ==== 会员数量*/
@@ -410,6 +557,9 @@
             this.getTotalRefund_trend();
             /*调用 会员总览5 客流走势*/
             this.getTotalPassenger_trend();
+        },
+        components: {
+            monthSceen,
         },
     }
 </script>

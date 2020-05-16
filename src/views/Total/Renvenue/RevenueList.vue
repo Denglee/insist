@@ -5,7 +5,7 @@
             <div class="pt-screen">
 
                 <el-select  v-model="projectChoose" multiple   collapse-tags
-                        :popper-class="RevenSelCheckbox"       @change = 'chooseProject($event)' class="inp-mar14">
+                        :popper-class="RevenSelCheckbox"   @change = 'chooseProject($event)' class="inp-mar14">
                     <el-option v-for="(item, index) in revenueProjectTotal"
                                :key="item.index"
                                :value="item.id"
@@ -297,7 +297,9 @@
             /*去详情页*/
             goRenDetai(val,val2){
                 // console.log(val);
+                // console.log(val2);
                 this.$emit('showState1','revenueDetails',val2);
+                sessionStorage.setItem('StatisRevenueList',JSON.stringify(val2));
             },
 
 
@@ -308,9 +310,9 @@
 
         },
 
-
         created() {
             this.getRevenueContract();
+
         },
     }
 </script>

@@ -54,11 +54,11 @@
     import navBread from '@/components/navBread/navBread'
     export default {
         name: "RevenueDetails",
-        props:{
-            RevenueData:{
-                type:Object,
-            }
-        },
+        // props:{
+        //     RevenueData:{
+        //         type:Object,
+        //     }
+        // },
         data() {
             return {
                 loadState:{
@@ -66,15 +66,17 @@
                 },
 
                 revenueDetails:[],  //详情 数组
+                RevenueData:[],
 
                 pageTotal: 10 ,
                 searchVal:{   //请求参数数组
                     zmtek_ver:2,
-                    id:this.RevenueData.id,
+                    id:'',
                     date:'',
                     total:10,   //页面显示数
                     p:1,       //页码
                 }
+
             }
         },
         methods: {
@@ -105,7 +107,69 @@
             /*返回上一页*/
             goBack(){
                 this.$emit('GoBack');
+                sessionStorage.removeItem('StatisRevenueList');
             },
+
+            backHis(){
+                let that = this;
+                that.pushHistory();
+                window.addEventListener("popstate", function(e) {
+                    console.log('点击返回');
+                    that.goBack();
+                }, false);
+
+                // onunload
+            },
+
+            rufush(){
+                console.log('kaishi');
+                window.onbeforeunload = function(e) {
+                    console.log('监听刷新');
+                    // window.location.reload();
+                    // if ( e && e.stopPropagation ){
+                    //     e.stopPropagation();
+                    // } else{
+                    //     window.event.cancelBubble = true;
+                    // }
+
+                    // return false;
+
+                    // var dialogText = 'CSDN 吴小迪';
+                    // e.returnValue = dialogText;
+                    // return dialogText;
+
+                    // var dialogText = 'Dialog text here';
+                    // e.returnValue = dialogText;
+                    // return dialogText;
+
+                    //鼠标相对于用户屏幕的水平位置 - 窗口左上角相对于屏幕左上角的水平位置 = 鼠标在当前窗口上的水平位置
+                    // var n = window.event.screenX - window.screenLeft;
+                    // //鼠标在当前窗口内时，n<m，b为false；鼠标在当前窗口外时，n>m，b为true。20这个值是指关闭按钮的宽度
+                    // var b = n > document.documentElement.scrollWidth-20;
+                    // //鼠标在客户区内时，window.event.clientY>0；鼠标在客户区外时，window.event.clientY<0
+                    // if(b && window.event.clientY < 0 || window.event.altKey || window.event.ctrlKey){
+                    //     //关闭浏览器时你想做的事
+                    //     alert("关闭");
+                    // }else if(event.clientY > document.body.clientHeight || event.altKey){
+                    //     //刷新浏览器时你想做的事
+                    //     alert("刷新");
+                    // }
+                }
+            },
+
+            pushHistory() {
+                // let path ='';
+                console.log(this.GLOBAL.localUrl);   //http://vikily.f3322.net:20000
+                let localUrl = this.GLOBAL.localUrl;
+                let path ='#'+this.$route.path;
+                console.log(path);
+                let state = {
+                    title: "title",
+                    url:path,
+                };
+                window.history.pushState(state, "title", path);
+            },
+
 
             /*分页*/
             PageCurrent(page) {
@@ -116,6 +180,17 @@
         },
         created() {
             this.getRevenueDetails();
+
+            let choosePro = JSON.parse(sessionStorage.getItem('StatisRevenueList')) ;  //选中的item 对应显隐
+            if (choosePro != null){   //如果不为空 则获取这里的值
+                console.log(choosePro);
+                this.RevenueData = choosePro;
+                this.searchVal.id =choosePro.id;
+            }
+
+            this.backHis();
+
+            this.rufush();
         },
         components: {
             navBread

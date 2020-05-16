@@ -35,6 +35,11 @@ export const IndexCurriculum       = params => post('admin/Web/curriculum', para
 export const IndexPerformance      = params => post('admin/Web/performance', params);           /*营收业绩 收支统计*/
 export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', params);         /*收支趋势*/
 
+/* ==-- B22、前台 --== */
+/*1、登记*/
+export const checkFaceApi    = params => post('admin/Web/match', params);         /*收支趋势*/
+
+
 
 /* ==-- C、统计 会员总览 --== */
 /*1、会员总览*/

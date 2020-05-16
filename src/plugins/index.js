@@ -15,13 +15,16 @@ import Vue from 'vue'
 
 /* 3、 引入 element*/
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import '@/assets/theme/index.css'
+
 Vue.use(ElementUI, {
-    size: 'middle'
+    size: 'small'
 });
 
+
+
 /* 1、引入自定义的全局的css*/
-import '@/assets/css/global.scss'
+import '@/assets/css/allGlobal.scss'
 import '@/assets/css/animate37.css'
 
 
