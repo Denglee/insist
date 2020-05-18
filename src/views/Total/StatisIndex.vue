@@ -80,7 +80,7 @@
             <!--滑雪提醒-->
             <li v-if="showStateArr.skiExpireD">
                 <navBread @GoBack="goBack('VipMembership','skiExpireD')" breadTitle="会籍" breadContent1="滑雪提醒"></navBread>
-                <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"></TotalTrend>
+                <MBexpireSki :ptSalesPage="10" :salerGropu="salerGropu"></MBexpireSki>
             </li>
 
         </ul>
@@ -88,8 +88,8 @@
         <ul>
             <!--客流趋势-->
             <li v-if="showStateArr.totalTrend">
-                <navBread @GoBack="goBack('VipTotal','totalTrend')" breadTitle="总览" breadContent1="客流趋势"></navBread>
-                <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"></TotalTrend>
+<!--                <navBread @GoBack="goBack('VipTotal','totalTrend')" breadTitle="总览" breadContent1="客流趋势"></navBread>-->
+                <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"  @GoBack="goBack('VipTotal','totalTrend')"></TotalTrend>
             </li>
         </ul>
 
@@ -165,6 +165,8 @@
                 console.log(e1);
                 this.showStateArr.tabPaneState = false;
                 this.showStateArr[e1] = true;  //表格显示
+
+                this.$route.meta.title = '要修改的内容'
             },
 
             /* 返回上一页 */

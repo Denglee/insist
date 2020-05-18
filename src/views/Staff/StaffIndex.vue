@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-contain">
+    <div class="layoutR-contain animated fadeIn">
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
@@ -191,7 +191,7 @@
                 lockStateVal:0, // 1.0、在职状态
                 userTypeList:this.GLOBAL.userTypeList,    // 1.2、 职位
                 userTypeListVal:'10000', /* 职位 岗位 选中值*/
-                group_id:'',  //部门id
+                group_id:'',  //部门id 
                 classes:'', //班次
                 staffInpVal:'', // 1.3、输入
                 userTypeGroupVal:'', //1.4 部门

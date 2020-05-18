@@ -93,7 +93,6 @@
                 this.$router.push({path:'/index'});
             },
 
-
             goNext(e){
                 console.log(e);
                 let trainerId = e.currentTarget.dataset.datanum;
@@ -101,7 +100,6 @@
                 this.dataNum = trainerId;
                 // this.$router.push({path:trainerId});
             },
-
         },
 
         created() {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="layoutR-contain">
+        <div class="layoutR-contain animated fadeIn">
             <!--右边iframe-->
             <publicIframe/>
 

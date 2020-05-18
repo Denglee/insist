@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-contain">
+    <div class="layoutR-contain animated fadeIn">
         <publicIframe/>
 
         <!--<div style="height: 600px;background-color: #ffa300;">dsa</div>-->

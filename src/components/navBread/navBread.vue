@@ -1,15 +1,14 @@
 <template>
-    <div>
-        <el-breadcrumb separator="/" class="nav-bread">
-            <el-breadcrumb-item >
-                <span class="hover-bread" @click="$emit('GoBack')" >
-                      <i class="el-icon-back"></i>{{ breadTitle }}
-                </span>
-            </el-breadcrumb-item>
-            <el-breadcrumb-item>{{ breadContent1 }}</el-breadcrumb-item>
-            <!--<el-breadcrumb-item>{{ breadContent2 }}</el-breadcrumb-item>-->
-        </el-breadcrumb>
-    </div>
+
+    <el-breadcrumb separator="/" class="nav-bread">
+        <el-breadcrumb-item >
+            <span class="hover-bread" @click="$emit('GoBack')" >
+                  <i class="el-icon-back"></i>{{ breadTitle }}
+            </span>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ breadContent1 }}</el-breadcrumb-item>
+        <!--<el-breadcrumb-item>{{ breadContent2 }}</el-breadcrumb-item>-->
+    </el-breadcrumb>
 </template>
 
 <script>

@@ -8,7 +8,7 @@
                 <div class="pt-screen">
                     <el-date-picker
                             value-format="yyyy-MM"
-                            class="month-inp"
+                            class="month-picker"
                             v-model="searchVal.date"
                             type="month"
                             placeholder="选择月">

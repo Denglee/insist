@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-contain">
+    <div class="layoutR-contain animated fadeIn">
 
         <el-tabs v-model="activeName" class="vip-tabBox pubWidth  tab-header" id="staffPay-tabBox" @tab-click="tabTotal">
             <!--tab1 打卡记录-->
@@ -8,7 +8,7 @@
                 <form class="pt-screen">
                     <el-input placeholder="请输入会员姓名、电话" v-model="staffName" class="ptScreen-input"
                               clearable></el-input>
-                    <el-date-picker placeholder="请选择月份" class="month-inp" v-model="staffMonth" type="month"
+                    <el-date-picker placeholder="请选择月份" class="month-picker" v-model="staffMonth" type="month"
                                     value-format="yyyy-MM"></el-date-picker>
                     <el-button icon="el-icon-search" @click="btnSeaStaffSignin" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
 

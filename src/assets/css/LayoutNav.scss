@@ -64,40 +64,43 @@
     .layoutR-header{
       width: 100%;
     }
-    .layoutR-contain{
-      width: 100%;
-      min-height: calc(100vh - 106px);
-      box-sizing: border-box;
-      overflow-y: auto;
-      background-color: $color-linghtWhite;
-    }
+  }
+  .layoutR-contain{
+    width: 100%;
+    min-height: calc(100vh - 106px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: $color-linghtWhite;
   }
 
   /*回到顶部*/
-  .back-top{
-    width: 100%;
-    min-height: calc(100vh - 106px);
-    .el-backtop{
-      z-index: 2020;
-      right: 60px!important;
-      bottom: 100px!important;
-      background: none;
-      box-shadow: none;
+  .el-backtop{
+    z-index: 2020;
+    right: 60px!important;
+    bottom: 100px!important;
+    background: none;
+    box-shadow: none;
+    width: 50px;
+    height: 50px;
+    span{
+      display: block;
       width: 50px;
       height: 50px;
-      span{
-        display: block;
-        width: 50px;
-        height: 50px;
-        background: url("~@/assets/images/icon_goTop.png") no-repeat;
+      background: url("~@/assets/images/icon_goTop.png") no-repeat;
+      background-size: 100%;
+      //box-shadow: 6px 6px 6px rgba(0,0,0, .12);
+      &:hover{
+        background: url("~@/assets/images/icon_goTop2.png") no-repeat;
         background-size: 100%;
-        //box-shadow: 6px 6px 6px rgba(0,0,0, .12);
-        &:hover{
-          background: url("~@/assets/images/icon_goTop2.png") no-repeat;
-          background-size: 100%;
-        }
       }
     }
+  }
+
+
+  /*.back-top{
+    width: 100%;
+    //min-height: calc(100vh - 106px);
+
     .back-content{
       height: 100%;
       width: 100%;
@@ -107,7 +110,7 @@
       line-height: 40px;
       color: #1989fa;
     }
-  }
+  }*/
 }
 
 /*侧边 一级导航*/

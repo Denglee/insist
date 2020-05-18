@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-contain">
+    <div class="layoutR-contain animated fadeIn">
 
         <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" id="staffPay-tabBox" v-show="tabStaffSalary">
             <!--tab1 员工工资-->

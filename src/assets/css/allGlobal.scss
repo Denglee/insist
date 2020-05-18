@@ -2,82 +2,79 @@
 /*lideng*/
 @import "themeColor";
 
-@mixin fontColor($color){
-  color:$color;
+@mixin fontColor($color) {
+  color: $color;
 }
-.colorGray{
+
+.colorGray {
   @include fontColor($color-inputBor);
 }
-.color-Pink{
+
+.color-Pink {
   @include fontColor($color-Pink);
 }
-.color-MediumBlue{
+
+.color-MediumBlue {
   @include fontColor($color-MediumBlue);
 }
-.color-MediumBlue2{
+
+.color-MediumBlue2 {
   @include fontColor($color-MediumBlue2);
 }
-.color-Violet{
+
+.color-Violet {
   @include fontColor($color-Violet);
 }
-.color-GreenBlue{
+
+.color-GreenBlue {
   @include fontColor($color-GreenBlue);
 }
-.color-LigntBlue{
+
+.color-LigntBlue {
   @include fontColor($color-LigntBlue);
 }
-.color-LigntBlue2{
+
+.color-LigntBlue2 {
   @include fontColor($color-LigntBlue2);
 }
-.color-Yellow{
+
+.color-Yellow {
   @include fontColor($color-Yellow);
 }
 
 
-/*$color-Pink:#ff8a7e;
-$color-MediumBlue:#005ad4;
-$color-MediumBlue2:#00a0e9;
-$color-Violet:#8763ce;
-$color-GreenBlue:#1eaaa1;
-$color-LigntBlue:#4ccbeb;
-$color-LigntBlue2:#5b5ec7;
-$color-Yellow:#ffbe00;*/
-//['#ff8a7e','#005ad4','#00a0e9','#8763ce','#1eaaa1','#4ccbeb','#5b5ec7','#ffbe00']
-//$color-Pink:#ff8a7e;
-//$color-MediumBlue:#005ad4;
-//$color-MediumBlue2:#00a0e9;
-//$color-Violet:#8763ce;
-//$color-GreenBlue:#1eaaa1;
-//$color-LigntBlue:#4ccbeb;
-//$color-LigntBlue2:#5b5ec7;
-//$color-Yellow:#ffbe00;
-
 ///*项目营收*/
-.colorBgGreenLignt{
-  background-color:#ff8a7e;
-}
-.colorBgViolet{
-  background-color:#005ad4;
-}
-.colorBgPink{
-  background-color:#00a0e9;
-}
-.colorBgRed{
-  background-color:#8763ce;
-}
-.colorBgGreen{
-  background-color:#1eaaa1;
-}
-.colorBgBlueDark{
-  background-color:#4ccbeb;
-}
-.colorBgYellow{
-  background-color:#5b5ec7;
-}
-.colorBgBlueGreen{
-  background-color:#ffbe00;
+.colorBgGreenLignt {
+  background-color: #ff8a7e;
 }
 
+.colorBgViolet {
+  background-color: #005ad4;
+}
+
+.colorBgPink {
+  background-color: #00a0e9;
+}
+
+.colorBgRed {
+  background-color: #8763ce;
+}
+
+.colorBgGreen {
+  background-color: #1eaaa1;
+}
+
+.colorBgBlueDark {
+  background-color: #4ccbeb;
+}
+
+.colorBgYellow {
+  background-color: #5b5ec7;
+}
+
+.colorBgBlueGreen {
+  background-color: #ffbe00;
+}
 
 
 * {
@@ -159,7 +156,8 @@ input:-webkit-autofill {
   box-sizing: border-box;
   overflow-y: auto;
   background-color: $color-linghtWhite;
-  .bgWhite{
+
+  .bgWhite {
     background-color: #fff;
     padding: 20px;
     min-height: 70vh;
@@ -170,6 +168,16 @@ input:-webkit-autofill {
 .pubWidth {
   width: calc(100% - 40px);
   margin: 0 auto;
+}
+
+#iframe {
+  width: 100%;
+  /*height: 100%;*/
+  display: block;
+  min-height: calc(100vh - 106px);
+  padding-right: 10px;
+  box-sizing: border-box;
+  /*margin-top: 108px;*/
 }
 
 
@@ -187,13 +195,15 @@ input:-webkit-autofill {
 /*element*/
 .el-button--small {
   font-size: 14px;
-  & >i{
+
+  & > i {
     font-size: 18px;
   }
 }
+
 .el-button {
   //font-size: 14px;
-  & i{
+  & i {
     font-size: 14px;
   }
 
@@ -221,9 +231,11 @@ input:-webkit-autofill {
   display: flex;
   justify-content: space-between;
 }
-.flex{
+
+.flex {
   display: flex;
 }
+
 /*.layoutR-contain {
     .index-row{
         //padding: 0;
@@ -243,30 +255,34 @@ input:-webkit-autofill {
 
 
 /*404*/
-.lostPage-box{
+.lostPage-box {
   width: 100%;
   height: 100vh;
   text-align: center;
   background: url("../images/bg/bg_404.png") no-repeat 50% 50%;
   background-size: cover;
-  .title-404{
+
+  .title-404 {
     color: #fff;
     font-size: 28px;
     padding-top: 60vh;
   }
-  .el-button{
-    border:none;
+
+  .el-button {
+    border: none;
     padding: 16px 30px;
     font-size: 20px;
     font-weight: 500;
   }
-  .btn-backIndex{
+
+  .btn-backIndex {
     background-color: $color-Pink;
     color: #fff;
     margin-right: 70px;
     margin-top: 48px;
-    &:hover{
-      background-color:#fff;
+
+    &:hover {
+      background-color: #fff;
       color: $color-Pink;
     }
   }
@@ -297,6 +313,7 @@ input:-webkit-autofill {
     height: 50px;
   }
 }
+
 //.ptTable-assist{
 //  .el-input__suffix-inner{
 //    //height: 38px;
@@ -406,6 +423,7 @@ $indexTitleHei: 44px;
   .el-time-spinner__item {
     height: 31px;
     line-height: 31px;
+
     &:hover:not(.disabled):not(.active) {
       background: $color-thBG;
       cursor: pointer;
@@ -415,6 +433,7 @@ $indexTitleHei: 44px;
       //margin: 0 auto;
     }
   }
+
   .active:not(.disabled) {
     color: $color-MediumBlue;
     font-weight: 700;
@@ -424,9 +443,10 @@ $indexTitleHei: 44px;
 }
 
 /*input*/
-.el-button{
+.el-button {
   padding: 8px 14px;
 }
+
 .el-input__inner,
 .el-input__icon {
   height: 34px;
@@ -464,7 +484,8 @@ $indexTitleHei: 44px;
     background-color: #fafafa;
   }
 }
-$borRadius:15px;
+
+$borRadius: 15px;
 //.el-table--border{
 //  border-right: solid 1px;
 //  border-bottom: solid 1px;
@@ -472,42 +493,32 @@ $borRadius:15px;
 .pub-table {
   border-radius: $borRadius;
   margin: 20px 0;
-  thead tr:first-child{
+
+  thead tr:first-child {
     th {
       background-color: $color-thBG;
       padding: 7px 0;
     }
-    //th:first-child {
-    //  border-top-left-radius: $borRadius;
-    //}
-    //th:last-child {
-    //  border-top-right-radius: $borRadius;
-    //}
+
   }
-  td{
+
+  td {
     padding: 9px 0;
   }
 
-  //tr:last-child {
-  //  td:first-child {
-  //    border-bottom-left-radius:$borRadius;
-  //  }
-  //  td:last-child {
-  //    border-bottom-right-radius:$borRadius;
-  //  }
-  //}
-
-  /*#EFF2F9*/
 }
+
 .edit-table {
-  tr{
-    & td:last-child{
+  tr {
+    & td:last-child {
       padding: 2px 0;
     }
-    .el-button{
+
+    .el-button {
       padding: 4px 20px 4px 0;
       background: none;
-      &:hover{
+
+      &:hover {
         background: none;
       }
     }
@@ -515,8 +526,8 @@ $borRadius:15px;
 }
 
 /*分页*/
-.el-pager  {
-  li{
+.el-pager {
+  li {
     height: 22px;
     line-height: 22px;
     min-width: auto !important;
@@ -524,52 +535,64 @@ $borRadius:15px;
     padding: 0;
     font-weight: 400;
   }
-  .btn-quicknext{
+
+  .btn-quicknext {
     font-size: 12px;
   }
+
   .more::before {
     line-height: 22px;
   }
 }
-.el-pagination{
+
+.el-pagination {
   padding: 2px 0;
-   button,
-   span:not([class*=suffix]) {
+
+  button,
+  span:not([class*=suffix]) {
     height: 22px;
     line-height: 22px;
     min-width: 24px !important;
   }
+
   .el-pagination__editor.el-input .el-input__inner {
     height: 22px;
     line-height: 22px;
   }
+
   .el-pagination__editor.el-input {
     width: 40px;
     font-size: 13px;
   }
 }
-.el-pagination.is-background{
+
+.el-pagination.is-background {
   .el-pager li:not(.disabled).active {
     background-color: $color-MediumBlue !important;
   }
+
   .btn-next,
   .btn-prev,
-  .el-pager li{
+  .el-pager li {
     background-color: $color-linghtWhite;
   }
 }
+
 #app .el-date-editor {
   width: 260px;
   margin-right: 14px;
 }
-.btn-noBor{
+
+.btn-noBor {
   border: 0;
   padding: 0 14px;
-  i{
+
+  i {
     font-size: 18px;
   }
-  .icon-shanchutianchong{
-    &:hover{
+
+  .icon-shanchutianchong {
+    &:hover {
       color: $color-Pink;
     }
   }
@@ -579,7 +602,7 @@ $borRadius:15px;
   width: 70px;
   height: 32px;
   line-height: 32px;
-  background:none;
+  background: none;
   border: 1px solid $color-linghtBlue;
   border-radius: 6px;
   font-size: 14px;
@@ -587,11 +610,13 @@ $borRadius:15px;
   color: rgba(151, 151, 151, 1);
   padding: 0;
   margin-left: 20px;
-  &:hover{
+
+  &:hover {
     background: none;
     color: $color-MediumBlue;
   }
 }
+
 .btn-public {
   letter-spacing: 1.5px;
   background-color: $color-MediumBlue;
@@ -609,9 +634,10 @@ $borRadius:15px;
   }
 }
 
-.btn-delete{
+.btn-delete {
   background-color: $color-Pink;
   border: solid 1px $color-Pink;
+
   &:hover,
   &:focus {
     color: #fff;
@@ -619,48 +645,51 @@ $borRadius:15px;
     background-color: $color-Pink;
   }
 }
-.el-tooltip__popper.is-dark{
+
+.el-tooltip__popper.is-dark {
   background-color: rgb(37, 57, 84) !important;
   border: solid 1px rgb(37, 57, 84);
   color: #fff;
-  .popper__arrow{
+
+  .popper__arrow {
     border-bottom-color: rgb(37, 57, 84) !important;
   }
-  .popper__arrow::after{
+
+  .popper__arrow::after {
     border-bottom-color: rgb(37, 57, 84) !important;
   }
 }
 
-.el-select-dropdown__item.selected{
+.el-select-dropdown__item.selected {
   font-weight: 500;
 }
 
-.btn-edit{
+.btn-edit {
   color: #EBEEF5;
-  i{
+
+  i {
     font-size: 12px;
   }
 }
-.icon-add{
+
+.icon-add {
   font-size: 14px !important;
   margin-right: 4px !important;
 }
+
 .btn-add {
   margin: 20px;
 }
 
-.pt-screen {
-  //padding: 20px 20px 0;
-}
 
-$marRight:14px;
-#app .month-inp {
+$marRight: 14px;
+#app .month-picker {
   width: 180px;
   margin-right: $marRight;
 }
 
 .inp-mar14 {
-  margin-right:$marRight;
+  margin-right: $marRight;
 }
 
 #app .ptScreen-select {
@@ -674,7 +703,8 @@ $marRight:14px;
 
 .ptScreen-input {
   width: 180px;
-  margin-right:$marRight ;
+  margin-right: $marRight;
+
   .el-input-group__append {
     background-color: $color-MediumBlue;
     border: solid 1px $color-MediumBlue;
@@ -705,9 +735,10 @@ $marRight:14px;
 $tabMarR: 20px;
 $tabHei: 46px;
 /* ~~这是分割线~~ 导航头部 ==*/
-.tab-header{
+.tab-header {
   .el-tabs__header {
     margin: 50px 0 0;
+
     .el-tabs__nav-wrap::after {
       height: 0;
     }
@@ -725,12 +756,12 @@ $tabHei: 46px;
       color: $color-White;
       padding: 0;
       //padding-left:  10px;
-      &:not(.is-active){
+      &:not(.is-active) {
         &:hover {
           //color: $color-linghtBlue;
           //background-color: ;
           background-color: $color-linghtWhite !important;
-          color: $color-MediumBlue  !important;
+          color: $color-MediumBlue !important;
         }
       }
 
@@ -740,6 +771,7 @@ $tabHei: 46px;
     .el-tabs__active-bar {
       width: 0 !important;
     }
+
     .is-active {
       width: 220px;
       margin-left: -17px;
@@ -748,6 +780,7 @@ $tabHei: 46px;
       background: url("~@/assets/images/staff/elTab_gray.png") no-repeat;
       background-size: 100% 100%;
       color: $color-Black;
+
       &:hover {
         color: $color-MediumBlue;
       }
@@ -766,32 +799,36 @@ $tabHei: 46px;
   }
 }
 
-#staffPay-tabBox{
-  .el-tab-pane{
+#staffPay-tabBox {
+  .el-tab-pane {
     background-color: $color-White;
   }
 
-  .el-tabs__item{
-    &:not(.is-active){
+  .el-tabs__item {
+    &:not(.is-active) {
       &:hover {
         //color: $color-linghtBlue;
         //background-color: ;
         color: $color-Black !important;
-        background-color: $color-White  !important;
+        background-color: $color-White !important;
       }
     }
   }
-  .el-tabs__header{
+
+  .el-tabs__header {
     .is-active {
       background: url("~@/assets/images/staff/elTab_white.png") no-repeat;
       background-size: 100% 100%;
       color: $color-Black;
+
       &:hover {
         color: $color-MediumBlue;
       }
+
       &:before {
         background: $color-White;
       }
+
       &:after {
         background: $color-GrayE5;
       }
@@ -799,7 +836,7 @@ $tabHei: 46px;
   }
 }
 
-.addForm-box{
+.addForm-box {
   width: 94%;
   margin: 20px auto;
   background-color: $color-White;
@@ -809,23 +846,23 @@ $tabHei: 46px;
 }
 
 //弹出表单
-.dia-form{
-  .dia-inp{
+.dia-form {
+  .dia-inp {
     width: calc(100% - 60px);
   }
 }
 
 
 /* 时间筛选 选择器*/
-.time-selMonth{
+.time-selMonth {
   position: relative;
   width: 120px;
   cursor: pointer;
 
-//.el-date-editor .el-input{
-//  width: 100%;
-//}
-  .time-selVal{
+  //.el-date-editor .el-input{
+  //  width: 100%;
+  //}
+  .time-selVal {
     position: absolute;
     width: 100%;
     height: 32px;
@@ -835,12 +872,14 @@ $tabHei: 46px;
     border-radius: 4px;
     padding: 0 8px 0 12px;
     font-size: 14px;
-    & > i{
+
+    & > i {
       height: 32px;
       line-height: 32px;
     }
   }
-  .timeSel-box{
+
+  .timeSel-box {
     opacity: 0;
     width: 100% !important;
   }
@@ -848,36 +887,43 @@ $tabHei: 46px;
 
 
 /*修改版 月份选择器*/
-.month-select{
+.month-select {
   /*左边选择*/
-  .el-picker-panel__sidebar{
+  .el-picker-panel__sidebar {
     width: 96px;
     padding: 10px;
-    .el-picker-panel__shortcut{
+
+    .el-picker-panel__shortcut {
       background: $color-thBG;
       padding: 3px 0 0 12px;
       border-radius: 4px;
       margin-bottom: 10px;
       font-size: 12px;
-      &:hover{
+
+      &:hover {
         background-color: $color-MediumBlue;
         color: #fff;
       }
     }
   }
+
   /*右边月份选择器*/
   .el-month-table {
     margin-top: 20px;
-    td{
+
+    td {
       padding: 0;
+
       .cell {
         border-radius: 4px;
         height: 32px;
         line-height: 32px;
       }
     }
+
     td:not(.disabled) .cell {
       background: $color-thBG;
+
       &:hover {
         background-color: $color-MediumBlue;
         color: #fff;
@@ -885,8 +931,9 @@ $tabHei: 46px;
         width: 60px;
       }
     }
+
     /*选中*/
-    td.current:not(.disabled) .cell{
+    td.current:not(.disabled) .cell {
       background-color: $color-MediumBlue;
       color: #fff;
       border-radius: 4px;
@@ -898,16 +945,20 @@ $tabHei: 46px;
 /*框架 自带板 选择器*/
 .el-month-table {
   margin-top: 20px;
-  td{
+
+  td {
     padding: 0;
+
     .cell {
       border-radius: 4px;
       height: 32px;
       line-height: 32px;
     }
   }
+
   td:not(.disabled) .cell {
     background: $color-thBG;
+
     &:hover {
       background-color: $color-MediumBlue;
       color: #fff;
@@ -915,8 +966,9 @@ $tabHei: 46px;
       width: 60px;
     }
   }
+
   /*选中*/
-  td.current:not(.disabled) .cell{
+  td.current:not(.disabled) .cell {
     background-color: $color-MediumBlue;
     color: #fff;
     border-radius: 4px;
@@ -924,49 +976,54 @@ $tabHei: 46px;
   }
 }
 
-.ve-funnel{
-  > div{
+.ve-funnel {
+  > div {
     height: 200px !important;
   }
 }
 
-.chart{
-  .ve-pie{
-    > div:first-child{
+.chart {
+  .ve-pie {
+    > div:first-child {
       height: 250px !important;
     }
   }
-  .ve-histogram{
-    > div:first-child{
+
+  .ve-histogram {
+    > div:first-child {
       height: 250px !important;
     }
   }
-  .ve-line{
-    > div:first-child{
+
+  .ve-line {
+    > div:first-child {
       height: 200px !important;
     }
   }
-  .ve-bar{
-    > div:first-child{
+
+  .ve-bar {
+    > div:first-child {
       height: 200px !important;
     }
   }
 }
-.chartRevenue{
-  .ve-bar{
-    > div:first-child{
+
+.chartRevenue {
+  .ve-bar {
+    > div:first-child {
       height: 240px !important;
     }
   }
-  .ve-histogram{
-    > div:first-child{
+
+  .ve-histogram {
+    > div:first-child {
       height: 190px !important;
     }
   }
 }
 
 /*图表 三连排*/
-.total-box{
+.total-box {
   //border:solid 1px red;
   display: flex;
   align-items: center;
@@ -976,29 +1033,34 @@ $tabHei: 46px;
   //height: 200px;
   margin-top: 20px;
   //width: 30%;
-  &:not(:last-of-type){
-   border-right: solid 1px  $color-linghtWhite;
+  &:not(:last-of-type) {
+    border-right: solid 1px $color-linghtWhite;
     //margin-right: 5%;
   }
-  .total-left{
+
+  .total-left {
     padding-left: 5%;
   }
-  .total-right{
+
+  .total-right {
     color: #949494;
     font-size: 15px;
     padding-left: 10%;
     flex: 1;
-    li{
+
+    li {
       margin-bottom: 6px;
-      .iconfont{
+
+      .iconfont {
         margin-right: 4px;
       }
+
       span {
         font-size: 18px;
         font-weight: 600;
       }
 
-      .icon-qixianka{
+      .icon-qixianka {
         font-size: 14px;
       }
     }
@@ -1006,11 +1068,10 @@ $tabHei: 46px;
 }
 
 
-
 /*媒体查询*/
 @media all and (max-width: 1600px) {
   .pt-screen {
-    & > div{
+    & > div {
       margin-bottom: 10px;
     }
   }

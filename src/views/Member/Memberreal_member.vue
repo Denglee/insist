@@ -1,5 +1,5 @@
 <template>
-    <div class="layoutR-contain">
+    <div class="layoutR-contain animated fadeIn">
         <!--右边iframe-->
         <!--<publicIframe/>-->
 
@@ -41,15 +41,3 @@
         },
     }
 </script>
-
-<style lang="scss" scoped>
-    #iframe{
-        width: 100%;
-        /*height: 100%;*/
-        display: block;
-        height: calc( 100vh - 106px );
-        padding-right: 10px;
-        box-sizing: border-box;
-        /*margin-top: 108px;*/
-    }
-</style>

@@ -8,26 +8,23 @@
         <!--右侧主体内容-->
         <el-col :span="22" class="layout-right">
 
+            <!--右侧头部-->
             <header class="layoutR-header">
                 <!-- 头部 -->
                 <header-top/>
-
                 <!--左侧点击路由添加显示在头部导航-->
                 <tag-nav></tag-nav>
             </header>
 
-            <div class="back-top">
-                    <el-backtop :bottom="20">
-                        <el-tooltip content="回到顶部" placement="right">
-                            <span></span>
-                        </el-tooltip>
-                    </el-backtop>
+            <!--右边主体内容-->
+            <router-view></router-view>
 
-                <!--右边主体内容-->
-                <router-view></router-view>
-
-            </div>
-
+            <!--回到顶部-->
+            <el-backtop :bottom="20">
+                <el-tooltip content="回到顶部" placement="right">
+                    <span></span>
+                </el-tooltip>
+            </el-backtop>
 
         </el-col>
     </el-row>

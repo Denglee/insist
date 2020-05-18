@@ -4,6 +4,7 @@
   .index-item-tipUl li img {
     height: 12px;
   }
+
   .vipT-addCard {
     height: auto !important;
   }
@@ -16,7 +17,7 @@ $tabHei: 46px;
 
 /*  ~~这是分割线~~  第一个tab tabItem1会员总览   ==*/
 #pane-VipTotal,
-#pane-VipPT{
+#pane-VipPT {
   .comein-main {
     margin-bottom: 35px;
     padding-bottom: 40px;
@@ -29,48 +30,57 @@ $tabHei: 46px;
 }
 
 
-.revenue-item{
-  box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
-  border-radius:20px;
-  &:hover{
+.revenue-item {
+  box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, 0.79);
+  border-radius: 20px;
+
+  &:hover {
     cursor: pointer;
-    &:after{
+
+    &:after {
       transform: scale(1.01);
       transition: all 0.01s ease;
-      box-shadow:-1px 2px 12px 0px rgba(219,219,219,1);
+      box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, 1);
     }
 
   }
 }
-.revenueRatio-tip{
-  .vipNum{
+
+.revenueRatio-tip {
+  .vipNum {
     //right: 100px;
     position: static;
     margin: 70px 20px 0 0;
     color: #949494;
     font-size: 15px;
     padding-left: 4%;
-    li{
+
+    li {
       margin-top: 4px;
-      .iconfont{
+
+      .iconfont {
         margin-right: 4px;
       }
+
       span {
         font-size: 18px;
         font-weight: 600;
       }
     }
   }
-  .revenue-tip2{
-    font-size: 13px!important;
+
+  .revenue-tip2 {
+    font-size: 13px !important;
     margin-top: 2px;
   }
 }
-.revenue-tip{
+
+.revenue-tip {
   text-align: right;
   margin-left: 15px;
   float: right;
-  span{
+
+  span {
     font-weight: 500;
     font-size: 16px;
   }
@@ -124,30 +134,37 @@ $tabHei: 46px;
 .icon-PTtotal {
   height: 14px;
 }
-.ptContract-status1{
+
+.ptContract-status1 {
   color: $color-GreenBlue;
 }
-.ptContract-status2{
+
+.ptContract-status2 {
   color: $color-MediumBlue;
 }
-.ptContract-status4{
+
+.ptContract-status4 {
   color: $color-Pink;
 }
-.ptContract-status5{
-  color:$color-Pink;
+
+.ptContract-status5 {
+  color: $color-Pink;
 }
-.ptContract-diff{
-  color:$color-Pink;
+
+.ptContract-diff {
+  color: $color-Pink;
 }
+
 /*B22 销售额表格*/
-.pt-table{
+.pt-table {
   width: calc(100% - 40px) !important;
   margin: 20px auto;
 }
 
 .ptTable-assist {
-  padding:0 20px;
-  .pt-screen{
+  padding: 0 20px;
+
+  .pt-screen {
     margin: 20px 0 0;
   }
 }
@@ -158,29 +175,35 @@ $tabHei: 46px;
 }
 
 
-
 /* ~~这是分割线~~ 第三个tab  tabItem3 会籍 == */
 #pane-VipMembership {
   .el-date-editor .el-range-separator {
     padding: 0;
   }
+
   .index-item .el-input__icon {
     height: auto;
   }
 }
 
-.pt-sales,{
-  .pub-table{
+.pt-sales, {
+  .pub-table {
     min-height: 222px;
   }
 }
-.PTdetail-main{
+
+.PTdetail-main {
   box-sizing: border-box;
   overflow-y: auto;
   background-color: $color-linghtWhite;
   width: 100%;
   min-height: calc(100vh - 166px);
-  .detail-box{
+
+  .pub-table {
+    min-height: 222px;
+  }
+
+  .detail-box {
     background-color: #fff;
     min-height: 60vh;
     width: calc(100% - 40px);
@@ -188,10 +211,12 @@ $tabHei: 46px;
     border-radius: 20px;
     padding-bottom: 20px;
   }
-  .pub-table{
-    min-height: 222px;
+
+  .detail-padding {
+    padding: 20px;
   }
 }
+
 
 /*表格详情 查看更多*/
 .ptTable-detail {
@@ -209,172 +234,196 @@ $tabHei: 46px;
     padding: 20px;
   }
 }
-.ve-pie{
-  > div:first-child{
+
+.ve-pie {
+  > div:first-child {
     width: 220px !important;
     height: 220px !important;
   }
 }
 
-.reveue-listPie{
-  .ve-bar{
-    > div:first-child{
+.reveue-listPie {
+  .ve-bar {
+    > div:first-child {
       height: 240px !important;
     }
   }
-  .ve-histogram{
-    > div:first-child{
+
+  .ve-histogram {
+    > div:first-child {
       height: 300px !important;
     }
   }
 }
 
-.reveue-listPie{
+.reveue-listPie {
   margin-top: 10px;
-  .ve-pie{
-    > div:first-child{
+
+  .ve-pie {
+    > div:first-child {
       width: auto !important;
       height: auto !important;
     }
   }
 }
-.ve-line{
-  > div:first-child{
+
+.ve-line {
+  > div:first-child {
     height: 300px !important;
   }
 }
-.total-row{
-  .index-item{
+
+.total-row {
+  .index-item {
     min-height: 280px;
   }
 
 }
 
-.totalVip{
-  .vipNum{
+.totalVip {
+  .vipNum {
     margin: 20px 0 0 20%;
   }
 }
 
 
-
 /*营收总览*/
-.revenue-pie{
+.revenue-pie {
   min-height: 326px;
-  .index-item-tipUl{
+
+  .index-item-tipUl {
     margin-bottom: 20px;
   }
+
   i {
     font-weight: bold;
   }
 }
-.chartRevenue-bar{
+
+.chartRevenue-bar {
   height: 354px;
-  .ve-bar{
+
+  .ve-bar {
     margin-top: 10px;
-    & > div:first-child{
+
+    & > div:first-child {
       height: 340px !important;
     }
   }
 }
 
-.chartRevenue-histpgram{
-  .ve-histogram{
-    & > div:first-child{
+.chartRevenue-histpgram {
+  .ve-histogram {
+    & > div:first-child {
       height: 240px !important;
     }
   }
 }
 
-.revenue-item{
-  .index-item-tipUl li{
+.revenue-item {
+  .index-item-tipUl li {
     margin-right: 20px;
-    span{
+
+    span {
       margin-right: 4px;
     }
   }
 }
-.revenue-ptLesson{
-  box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
+
+.revenue-ptLesson {
+  box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, .79);
 }
 
 /*营收总览*/
-.revenue-Stream{
+.revenue-Stream {
   padding-bottom: 10px;
 }
 
 .revenue-box {
   margin-top: 30px;
   padding: 0 10px;
-  .index-item{
+
+  .index-item {
     min-height: 140px;
-    box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
+    box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, 0.79);
     margin-bottom: 20px;
     padding: 0 20px;
   }
-  .index-item-title{
+
+  .index-item-title {
     padding: 0;
   }
 
-  .reItem-box{
-    .el-col{
+  .reItem-box {
+    .el-col {
       width: 20%;
     }
   }
 
-  .reItem-box_0{
-    .revenue-item{
+  .reItem-box_0 {
+    .revenue-item {
       color: #fff;
       background-color: #ff8a7e;
     }
   }
-  .reItem-box_1{
-    .revenue-item{
+
+  .reItem-box_1 {
+    .revenue-item {
       color: #fff;
-      background-color:#ffbe00;
+      background-color: #ffbe00;
     }
   }
-  .reItem-box_2{
-    .revenue-item{
+
+  .reItem-box_2 {
+    .revenue-item {
       color: #fff;
-      background-color:#00a0e9;
+      background-color: #00a0e9;
     }
   }
-  .reItem-box_3{
-    .revenue-item{
+
+  .reItem-box_3 {
+    .revenue-item {
       color: #fff;
       background-color: #005ad4;
     }
   }
-  .revenue-listUl{
+
+  .revenue-listUl {
     position: relative;
-    li{
+
+    li {
       display: inline-block;
       width: 25%;
     }
   }
-  .revenue-list{
+
+  .revenue-list {
     margin-top: 16px;
     padding: 10px 0;
     text-align: center;
     min-height: 144px;
-    .revenLiest-title{
+
+    .revenLiest-title {
       border-bottom: solid 1px #fff;
       padding-bottom: 10px;
       margin-bottom: 10px;
       font-size: 14px;
     }
-    .revenList{
+
+    .revenList {
       font-size: 12px;
     }
-    .revenList-totalNum{
+
+    .revenList-totalNum {
       font-size: 16px;
     }
-    .revenList-icon{
-      .iconfont{
+
+    .revenList-icon {
+      .iconfont {
         font-size: 26px;
       }
-      .icon-heji{
+
+      .icon-heji {
         font-size: 22px;
         position: absolute;
         top: 2px;
@@ -384,25 +433,28 @@ $tabHei: 46px;
   }
 }
 
-.RevenSel-checkbox{
+.RevenSel-checkbox {
   /*selecet 模拟 checkbox*/
-   .el-select-dropdown__item.selected::after{
+  .el-select-dropdown__item.selected::after {
     content: "";
   }
-  .el-select-dropdown__item.selected .check{
-    background-color:#005ad4;
-    border-color:#005ad4;
+
+  .el-select-dropdown__item.selected .check {
+    background-color: #005ad4;
+    border-color: #005ad4;
   }
+
   .el-select-dropdown__item.selected {
-    span{
+    span {
       font-weight: 400;
     }
   }
 
-  .el-select-dropdown__item.selected  .check:after{
+  .el-select-dropdown__item.selected .check:after {
     transform: rotate(45deg) scaleY(1);
   }
-  .el-select-dropdown__item .check::after{
+
+  .el-select-dropdown__item .check::after {
     box-sizing: content-box;
     content: "";
     border: 1px solid #fff;
@@ -418,10 +470,10 @@ $tabHei: 46px;
     transform-origin: center;
   }
 
-  .el-select-dropdown__item .check{
+  .el-select-dropdown__item .check {
     display: inline-block;
     position: relative;
-    top:2px;
+    top: 2px;
     border: 1px solid #dcdfe6;
     border-radius: 2px;
     box-sizing: border-box;
@@ -429,16 +481,17 @@ $tabHei: 46px;
     height: 14px;
     background-color: #fff;
     z-index: 1;
-    transition: border-color .25s cubic-bezier(.71,-.46,.29,1.46),background-color .25s cubic-bezier(.71,-.46,.29,1.46);
+    transition: border-color .25s cubic-bezier(.71, -.46, .29, 1.46), background-color .25s cubic-bezier(.71, -.46, .29, 1.46);
   }
 
 }
 
-.revenue-listTop{
-  box-shadow: -1px 2px 12px 0px rgba(219,219,219,.79);
+.revenue-listTop {
+  box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, .79);
   border-radius: 20px;
   padding: 20px;
-  .pt-screen{
+
+  .pt-screen {
     margin-bottom: 20px;
   }
 }
