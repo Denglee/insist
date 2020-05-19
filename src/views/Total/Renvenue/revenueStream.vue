@@ -126,7 +126,7 @@
         <revenuePrint :printArr="printArr" ref="sonPrint"></revenuePrint>
 
         <!--tab2 部门 添加 弹窗-->
-        <el-dialog title="修改支付方式" :visible.sync="btnState.diaChangePay" width="400px">
+        <el-dialog  :append-to-body="true" title="修改支付方式" :visible.sync="btnState.diaChangePay" width="400px">
             <el-form :model="changePayArr" class="dia-form" label-width="60">
                 <el-select  filterable v-model="changePayArr.pay_type" placeholder="请选择支付方式" style="width: 100%">
                     <el-option v-for="item in dataArr.payTypeArr" :key="item.index" :label="item.catname" :value="item.id"></el-option>

@@ -9,12 +9,12 @@
 
 
         <!-- 多图片预览弹窗 -->
-        <el-dialog :visible.sync="dialogVisible">
+        <el-dialog  :append-to-body="true" :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
         </el-dialog>
 
         <!-- 剪裁组件弹窗 -->
-        <el-dialog :visible.sync="cropperModel" width="1100px" :before-close="beforeClose">
+        <el-dialog  :append-to-body="true" :visible.sync="cropperModel" width="1100px" :before-close="beforeClose">
             <Cropper :img-file="file" ref="vueCropper" :fixedNumber="fixedNumber" @upload="upload">
             </Cropper>
         </el-dialog>

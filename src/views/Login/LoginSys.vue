@@ -166,20 +166,20 @@
         },
 
         methods: {
-            alertTip() {
-                this.$alert("     <div class='alertTip-box'>\n" +
-                    "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
-                    "            <div class='alertTip-sub'>[系统合同到期后，免费使用三个月。时间以合同到期日为准]</div>\n" +
-                    "        </div>", {
-                    dangerouslyUseHTMLString: true,
-                    customClass:'tipBox',
-                    confirmButtonText: '加油',
-                }).then(() => {
-                    this.$router.push({path: '/index'});
-                }).catch(() => {
-                    this.$router.push({path: '/index'});
-                });
-            },
+            // alertTip() {
+            //     this.$alert("     <div class='alertTip-box'>\n" +
+            //         "            <div>疫情无情人有情，公司决定对所有用户延时一个季度的系统使用权，智迈科技与您一起共克艰难</div>\n" +
+            //         "            <div class='alertTip-sub'>[系统合同到期后，免费使用三个月。时间以合同到期日为准]</div>\n" +
+            //         "        </div>", {
+            //         dangerouslyUseHTMLString: true,
+            //         customClass:'tipBox',
+            //         confirmButtonText: '加油',
+            //     }).then(() => {
+            //         this.$router.push({path: '/index'});
+            //     }).catch(() => {
+            //         this.$router.push({path: '/index'});
+            //     });
+            // },
 
 
             ...mapActions({
@@ -217,17 +217,17 @@
                             let loginData = res.data;
                             console.log(loginData);
                             that.ACTLogin(loginData);
-                            // this.$message({
-                            //     message: res.info,
-                            //     type: 'success',
-                            //     duration: 1500,
-                            //     offset: 100,
-                            // });
+                            this.$message({
+                                message: res.info,
+                                type: 'success',
+                                duration: 1500,
+                                offset: 100,
+                            });
 
 
-                            this.alertTip();
+                            // this.alertTip();
 
-                            return false;
+                            // return false;
 
                             setTimeout(() => {
                                 /* this.$router.replace({
@@ -237,7 +237,7 @@
                                      }
                                  });*/
                                 that.$router.push({path: '/index'});
-                            }, 6000);
+                            }, 1500);
 
                         }
                         if (res.status == 0) {

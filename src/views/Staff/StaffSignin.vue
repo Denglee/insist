@@ -129,7 +129,7 @@
         </el-tabs>
 
         <!--时间设置 弹出-->
-        <el-dialog title="班次设置" :visible.sync="EditTimeForm">
+        <el-dialog  :append-to-body="true" title="班次设置" :visible.sync="EditTimeForm">
             <el-form v-model="calssTimeForm" :label-width="formLabelWidth" class="class-time">
                 <el-form-item label="正班">
                     <el-time-picker

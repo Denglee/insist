@@ -3,7 +3,7 @@
 
         <el-button type="button" @click="stateArr.diaTrack = true">拍照</el-button>
 
-        <el-dialog title="人脸识别" :visible.sync="stateArr.diaTrack" @open="checkFace" @close="stopCheck"
+        <el-dialog  :append-to-body="true" title="人脸识别" :visible.sync="stateArr.diaTrack" @open="checkFace" @close="stopCheck"
                    custom-class="face-dialog" :close-on-click-modal="false">
             <div class="demo-container">
                 <video id="videoFace" width="640" height="480" preload autoplay loop muted class="face-video" ref="videoRef"></video>

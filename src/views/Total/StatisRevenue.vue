@@ -13,7 +13,6 @@
                             <ul class="index-item-tipUl">
                                 <li><span class="addVip-tagB"></span>上月</li>
                                 <li><span class="addVip-tagY"></span>本月</li>
-
                             </ul>
 
                             <div class="flex-between revenueRatio-tip clearfix chart">
@@ -120,16 +119,12 @@
     import navBread from '@/components/navBread/navBread'
 
     import RevenueList from '@/views/Total/Renvenue/RevenueList'  //营收详情组件
-
     import {revenueTotal,revenueRanking,revenuePayMethod,
         revenueContract} from '@/assets/js/api' /*引用 营收总览 接口*/
-
     import {lineExtendConfig,hisRevenueExtendConfig,picExtendConfig,barExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
-
     import ptLessonTable from '@/views/Total/details/VipPT/ptLessonTable'  // 私教课程 详情组件
     import ptLessonDetails from '@/views/Total/details/VipPT/ptLessonDetails'  // 私教课程详情组件
     import RevenueDetails from '@/views/Total/Renvenue/RevenueDetails'  // 详情组件
-
     import revenueStream from '@/views/Total/Renvenue/revenueStream'  // 营收流水 详情组件
 
     export default {

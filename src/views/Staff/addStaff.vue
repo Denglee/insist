@@ -18,7 +18,7 @@
                 </el-upload>
 
                 <!--弹出放大效果-->
-                <el-dialog :visible.sync="diaVisible">
+                <el-dialog  :append-to-body="true" :visible.sync="diaVisible">
                     <img width="100%" :src="addStaffForm.userimage" alt="">
                 </el-dialog>
             </el-form-item>

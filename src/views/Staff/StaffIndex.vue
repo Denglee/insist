@@ -144,13 +144,11 @@
         <div v-if="addStaffState" class="vip-tabBox">
             <navBread @GoBack="goBack('staffListState','addStaffState')" breadTitle="员工列表"
                       :breadContent1="editStaffMark"></navBread>
-
             <addStaff :editStaffMark="editStaffMark" :editStaff = 'editStaff'></addStaff>
         </div>
 
-
         <!--tab2 部门 添加 弹窗-->
-        <el-dialog :title="diaGroupTitle" :visible.sync="diaGroup" width="600px">
+        <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="diaGroup" width="600px" >
             <el-form :model="setupGroup" class="dia-form" :label-width="formLabelRoyalty">
                 <el-form-item label="部门名称" >
                     <el-input v-model="setupGroup.name" placeholder="请输入部门名字" class="dia-inp" autocomplete="off"></el-input>

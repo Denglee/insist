@@ -144,7 +144,7 @@
         </el-tabs>
 
         <!--提成 名称 种类 添加 弹窗-->
-        <el-dialog :title="deductInfo.RoyaltyTitle" :visible.sync="dialogRoyalty" width="600px">
+        <el-dialog  :append-to-body="true" :title="deductInfo.RoyaltyTitle" :visible.sync="dialogRoyalty" width="600px">
             <el-form :model="deductInfo" :label-width="formLabelRoyalty" class="dia-form">
                 <el-form-item label="提成名称" >
                     <el-input v-model="deductInfo.deduction_name" placeholder="请输入提成名称" autocomplete="off" class="dia-inp"></el-input>
@@ -189,7 +189,7 @@
         </div>
 
         <!--提成 上线  添加 弹窗-->
-        <el-dialog :title="setRoyalty.setTitle" :visible.sync="dialogSetRoyalty" width="600px">
+        <el-dialog  :append-to-body="true" :title="setRoyalty.setTitle" :visible.sync="dialogSetRoyalty" width="600px">
             <el-form :model="setRoyalty" :label-width="formLabelRoyalty" class="dia-form" :rules="setRules" ref="setRoyalty1">
                 <el-form-item label="提成下限" prop="dn">
                     <el-input v-model="setRoyalty.dn" placeholder="请输入提成下限" autocomplete="off" class="dia-inp"></el-input>

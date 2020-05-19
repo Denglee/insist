@@ -58,7 +58,7 @@
         </div>
 
         <!--更换密码弹出-->
-        <el-dialog title="更换密码"
+        <el-dialog  :append-to-body="true" title="更换密码"
                    :visible.sync="diaChangePass"
                    custom-class="passAlert"
                    width="600px">
