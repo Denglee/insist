@@ -6,15 +6,15 @@
         </div>
 
         <el-date-picker
-                class="timeSel-box"
-                :popper-class="monthSelect"
-                v-model="monthScreen.monthVal"
-                type="month"
-                placeholder="选择月"
-                value-format="yyyy-MM"
-                format="yyyy年MM月"
-                @change="monthSel"
-                :picker-options="pickerOptions2">
+            class="timeSel-box"
+            :popper-class="monthSelect"
+            v-model="monthScreen.monthVal"
+            type="month"
+            placeholder="选择月"
+            value-format="yyyy-MM"
+            format="yyyy年MM月"
+            @change="monthSel"
+            :picker-options="pickerOptions2">
         </el-date-picker>
 
     </div>
@@ -22,7 +22,7 @@
 
 <script>
     export default {
-        name: "monthSceen",
+        name: "monthSceen",  // 七天 30天 月份选择器
         data() {
             const that = this;
             return {

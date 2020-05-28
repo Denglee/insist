@@ -15,7 +15,7 @@
     import {t} from "element-ui/src/locale";
 
     export default {
-        name: "navBread",
+        name: "navBread",   //面包屑导航
         props: {
             breadTitle: {
                 type: String,

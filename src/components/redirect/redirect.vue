@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "redirect",
+        name: "redirect",  //空白页 用于刷新
         data() {
             return {}
         },

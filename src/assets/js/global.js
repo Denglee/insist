@@ -102,6 +102,54 @@ let royaltyType =[
     {id:2, catname:'上课节数百分比',},
 ];
 
+/*潜在会员*/
+// 获取渠道
+let getChannel = [
+    {id:0, name:'未填'},
+    {id:1, name:'外出获取'},
+    {id:2, name:'自有网络'},
+    {id:3, name:'大众点评'},
+    {id:4, name:'美团'},
+    {id:5, name:'其他第三方平台'},
+    {id:6, name:'直接到访(WI)'},
+    {id:7, name:'朋友转介绍(BR)'},
+    {id:8, name:'拉访(DI)'},
+    {id:9, name:'电话咨询(TI)'},
+    {id:10, name:'其他'},
+    {id:11, name:'全民健身'},
+];
+
+// 渠道属性
+let channelArr = [
+    {id:0, name:'未填'},
+    {id:1, name:'人力推广'},
+    {id:2, name:'广告'},
+    {id:3, name:'公司网络'},
+    {id:4, name:'市场活动'},
+    {id:5, name:'其他'},
+    {id:6, name:'营销活动'},
+];
+
+// 跟进等级
+let followLevel = [
+    {id:0, name:'未填'},
+    {id:1, name:'1级'},
+    {id:2, name:'2级'},
+    {id:3, name:'3级'},
+    {id:4, name:'4级'},
+    {id:5, name:'5级'},
+];
+
+// 客户分类
+let customerType = [
+    {id:0, name:'未填'},
+    {id:1, name:'A类用户'},
+    {id:2, name:'B类用户'},
+    {id:3, name:'C类用户'},
+    {id:4, name:'D类用户'},
+    {id:5, name:'BR特别多'},
+    {id:6, name:'投诉多'},
+];
 
 
 /*elementui把上传的图片转为base64
@@ -146,4 +194,9 @@ export default {
     getEleBase64:getEleBase64,
     getToday:getToday(),
     btnStateChange:btnStateChange,
+
+    getChannel,
+    channelArr,
+    followLevel,
+    customerType,
 }

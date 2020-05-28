@@ -38,6 +38,7 @@
     import { VueCropper } from 'vue-cropper';
     // console.log(VueCropper);
     export default {
+        name:'cropper',  //裁切
         data () {
             return {
                 previews: {}, // 预览数据

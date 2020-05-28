@@ -94,6 +94,11 @@
         },
         data() {
             return {
+                pages:{
+                    pagerCount:4,
+                },
+
+
                 loadState: {
                     searchLoad: false,  //搜索按钮 load 状态
                 },

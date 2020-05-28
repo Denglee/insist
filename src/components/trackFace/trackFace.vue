@@ -1,16 +1,22 @@
 <template>
     <div class="testTracking">
 
-        <el-button type="button" @click="stateArr.diaTrack = true">拍照</el-button>
+        <el-button type="button" @click="stateShow.diaTrack = true">拍照</el-button>
 
-        <el-dialog  :append-to-body="true" title="人脸识别" :visible.sync="stateArr.diaTrack" @open="checkFace" @close="stopCheck"
+        <el-dialog  :append-to-body="true" title="人脸识别" :visible.sync="stateShow.diaTrack" @open="checkFace" @close="stopCheck"
                    custom-class="face-dialog" :close-on-click-modal="false">
             <div class="demo-container">
-                <video id="videoFace" width="640" height="480" preload autoplay loop muted class="face-video" ref="videoRef"></video>
-                <canvas id="canvasFace" width="640" height="480" class="face-canvas" ref="canvasRef"></canvas>
+                <div v-if="!matchArr.userbase">
+                    <video id="videoFace" width="640" height="480" preload autoplay loop muted class="face-video" ref="videoRef"></video>
+                    <canvas id="canvasFace" width="640" height="480" class="face-canvas" ref="canvasRef"></canvas>
+                </div>
+                <div v-else>
+                    <img :src="matchArr.userbase" alt="">
+                    <el-button @click="sendFace" class="btn-sendFace">确定</el-button>
+                </div>
+                <el-button @click="restraCheck" class="btn-restart">重新拍照</el-button>
             </div>
         </el-dialog>
-
     </div>
 </template>
 
@@ -26,7 +32,7 @@
 
         data(){
             return {
-                stateArr:{
+                stateShow:{
                     diaTrack:false,   //识别框 弹出状态
                 },
 
@@ -45,11 +51,12 @@
         methods:{
             /*监测人脸*/
             checkFace() {
-                this.$message('chenggong',1500);
-                return false
+                // this.$message('chenggong',1500);
+                // return false
 
                 let that = this;
-                this.stateArr.diaTrack = true;  //弹窗显示
+                this.stateShow.diaTrack = true;  //弹窗显示
+                this.matchArr.userbase = '';
                 this.$nextTick(function () { //dom已更新
                     const video = this.trackArr.mediaStreamTrack = document.getElementById('videoFace');
                     const canvas = document.getElementById('canvasFace');
@@ -64,14 +71,20 @@
                             if (event.data.length === 0) {
                                 console.log('当前画面没有人脸');
                             } else {
+                                console.log('jiancedaole');
                                 isChecked = '已经有值';
                                 let userBase = that.getBase64();       //获取到的图片转bese64，传后台
                                 that.matchArr.userbase = userBase;
+
+                                that.stopCheck();
+
+                                return false
+
                                 checkFaceApi( that.matchArr).then(res=>{
                                     console.log(res);
                                     if(res.status == 1){      //比对成功
                                         setTimeout(function () {
-                                            that.stateArr.diaTrack = false;
+                                            that.stateShow.diaTrack = false;
                                             that.stopCheck();
                                         },800)
                                         that.$message({
@@ -104,6 +117,17 @@
                 });
             },
 
+            // face传给外面fowm
+            sendFace() {
+                 this.stateShow.diaTrack = false;
+                 this.$emit('getFace', this.matchArr.userbase);
+            },
+
+            // 重新监测
+            restraCheck(){
+                this.checkFace();
+            },
+
             /*转base64*/
             getBase64() {
                 let canvas = document.getElementById('canvasFace');
@@ -115,6 +139,7 @@
                 return dataURL;
             },
 
+            // 停止监测
             stopCheck(){
                 if(!this.trackArr.mediaStreamTrack){
                     return
@@ -124,6 +149,7 @@
                 this.trackArr.trackerTask.stop();
             },
         },
+
         destroyed () {
             this.stopCheck();
         },
@@ -138,9 +164,10 @@
 </script>
 
 <style lang="scss">
-    .testTracking .face-dialog{
+    .face-dialog{
         padding:0 30px 30px;
         width: 700px;
+        /*height: 20vh;*/
         overflow: hidden;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -189,6 +216,18 @@
             position: absolute;
             top: 10px;
             left: 0;
+        }
+        .btn-sendFace{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 111;
+        }
+        .btn-restart{
+            position: absolute;
+            bottom: 0;
+            left: 200px;
+            z-index: 111;
         }
     }
 

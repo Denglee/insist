@@ -1,9 +1,9 @@
 <template>
     <div class="layoutR-contain animated fadeIn">
-        <publicIframe/>
-<!--        <trackFace></trackFace>-->
+        <!--<publicIframe/>-->
+        <!--<trackFace></trackFace>-->
 
-        <!--http://192.168.0.133:20000/Admin/Reception/index/phone/18815254796.html-->
+
 
     </div>
 </template>
@@ -12,7 +12,7 @@
     import trackFace from '@/components/trackFace/trackFace'
 
     export default {
-        name: "Receptionindex",
+        name: "Receptionindex",  //前台-会员登记
         data() {
             return {
 

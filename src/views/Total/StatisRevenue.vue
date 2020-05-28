@@ -139,14 +139,14 @@
 
             return {
                 revenueRankingClass: [
-                    {class: "colorBgGreenLignt", color: '#ff8a7e',},
-                    {class: "colorBgViolet", color: '#005ad4',},
-                    {class: "colorBgPink", color: '#00a0e9',},
-                    {class: "colorBgRed", color: '#8763ce',},
-                    {class: "colorBgGreen", color: '#1eaaa1',},
-                    {class: "colorBgBlueDark", color: '#4ccbeb',},
-                    {class: "colorBgYellow", color: '#5b5ec7',},
-                    {class: "colorBgBlueGreen", color: '#ffbe00',},
+                    {class: "bgcPink", color: '#ff8a7e',},
+                    {class: "bgcMediumBlue", color: '#005ad4',},
+                    {class: "bgcMediumBlue2", color: '#00a0e9',},
+                    {class: "bgcViolet", color: '#8763ce',},
+                    {class: "bgcGreenBlue", color: '#1eaaa1',},
+                    {class: "bgcLigntBlue", color: '#4ccbeb',},
+                    {class: "bgcLigntBlue2", color: '#5b5ec7',},
+                    {class: "bgcYellow", color: '#ffbe00',},
                 ],
 
                 tabInfo:{

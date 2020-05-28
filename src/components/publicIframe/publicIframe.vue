@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "publicIframe",
+        name: "publicIframe",   //firame
         data() {
             return{
                 localUrl:this.GLOBAL.localUrl,

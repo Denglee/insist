@@ -36,7 +36,7 @@
             </el-form-item>
 
             <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
-                <el-input v-model="addStaffForm.name" autocomplete="off" placeholder="请输入姓名"class="inpStaffTel" clearable></el-input>
+                <el-input v-model="addStaffForm.name" autocomplete="off" placeholder="请输入姓名" class="inpStaffTel" clearable></el-input>
             </el-form-item>
 
             <el-form-item label="编号" :label-width="formLabelWidth" prop="user_no">

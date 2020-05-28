@@ -1,0 +1,1100 @@
+<include file="Public/header"/>
+<style>
+label {font-size:12px;cursor:pointer;}
+label i {font-size:12px;font-style:normal;display:inline-block;width:12px;height:12px;text-align:center;line-height:12px;color:#fff;vertical-align:middle;margin:-2px 2px 1px 0px;border:#1BB394 1px solid;}
+input[type="checkbox"],input[type="radio"] {display:none;}
+input[type="checkbox"]:checked + i,input[type="radio"]:checked + i {background:#1BB394;}
+/*@keyframes personalSug{
+	0%{transform: scale(0.2);opacity: 0;}
+	100%{ transform: scale(1);opacity: 1;}
+}*/
+#sal
+{
+	position: absolute;
+	z-index: 999;
+	margin-top:35px;
+	background: #fff;	
+	/*opacity: 0.8;*/
+}
+#add_sal{
+	border:1px solid #F8F8F8;
+}
+/*@media screen and (min-width: 1221px) {
+	position: '';
+	background: #fff;
+	margin-top: 0px;
+}*/
+.mg0{
+	margin-bottom: 5px !important;
+}
+.member-headimg
+{
+
+	max-width: 100px;
+	width: 100%;
+	max-height: 90px;
+	height: auto;
+	cursor: pointer;
+	transition: all 0.6s;
+	-moz-transition: all 0.6s; /* Firefox 4 */
+	-webkit-transition: all 0.6s; /* Safari 和 Chrome */
+	-o-transition: all 0.6s; /* Opera */
+}
+
+/*.member-headimg:hover
+{
+	transform: scale(2);
+}*/
+</style>
+<link href="$public/js/datepicker/datepicker.css" rel="stylesheet">
+
+<div class="wrapper wrapper-content animated {:C('Animation')}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+					<!--<a  class="menuid btn width_92 float-left" href="javascript:history.go(-1)" style='padding: 2px 10px;'>
+                       		 <div class='key_shape_mid bg_stand_0 '>
+                        		<img src="$public/images/reception/return.png" alt="返回" title="返回" class='key_icon_mid' />
+                       		 </div>                      		
+                       		<p style='margin-top:5px'>返回</p> 
+                    </a>-->
+					 <a  class="menuid btn width_92 float-left"  href="{:U('Member/index')}" style='padding: 2px 10px;'>     <!--onclick="reloadPage(window)"-->
+                       		 <div class='key_shape_mid bg_stand_1'>
+                        		<img src="$public/images/reception/refresh.png" alt="刷新" title="刷新" class='key_icon_mid' />
+                       		 </div>                      		
+                       		<p style='margin-top:5px'>刷新</p> 
+                    </a>
+                   	<if condition="showButton(U('Member/index_excel'))"> 
+	                    <a  class="menuid btn width_92 float-right" onclick="return exexport();" href="#" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_9'>
+	                        		<img src="$public/images/reception/export.png" alt="会员导出" title="会员导出" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>会员导出</p> 
+	                    </a>
+	                </if>
+	                <if condition="showButton(U('Member/latent_service_follow'))"> 
+	                    <a  class="menuid btn width_92 float-right" onclick="server(1)" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_8'>
+	                        		<img src="$public/images/reception/serviceFollow.png" alt="客服跟进" title="客服跟进" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>客服跟进</p> 
+	                    </a>
+	                </if>
+	                <if condition="showButton(U('Member/latent_reception_follow'))"> 
+	                    <a  class="menuid btn width_92 float-right" onclick="fontDesk(2)" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_7'>
+	                        		<img src="$public/images/reception/frontDeskFollow.png" alt="前台跟进" title="前台跟进" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>前台跟进</p> 
+	                    </a>
+	               </if>
+	                <if condition="showButton(U('Member/latent_saler_follow'))"> 
+	                     <a  class="menuid btn width_92 float-right" onclick="saler(3)" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_6'>
+	                        		<img src="$public/images/reception/salerFollow.png" alt="顾问跟进" title="顾问跟进" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>顾问跟进</p> 
+	                    </a>
+	                </if>
+	                <if condition="showButton(U('Member/latent_coach_follow'))"> 
+	                     <a  class="menuid btn width_92 float-right" onclick="coach(4)" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_5'>
+	                        		<img src="$public/images/reception/coachFollow.png" alt="教练跟进" title="教练跟进" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>教练跟进</p> 
+	                    </a>
+	               </if>
+	                <if condition="showButton(U('Member/latent_updateSaler'))">     
+	                    <a  class="menuid btn width_92 float-right" data-toggle="modal" data-target="#myModal201" data-id="201" href="#" style='padding: 2px 10px;outline: none;'>
+	                       		 <div class='key_shape_mid bg_stand_4'>
+	                        		<img src="$public/images/reception/changeSaler.png" alt="分配顾问" title="分配顾问" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>分配顾问</p> 
+	                    </a>
+	                </if>
+	                <if condition="showButton(U('Member/del'))">     
+	                    <a  class="menuid btn width_92 float-right" onclick="deleteMember();" style='padding: 2px 10px;'>
+	                       		 <div class='key_shape_mid bg_stand_3'>
+	                        		<img src="$public/images/reception/delete.png" alt="删除会员" title="删除会员" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>删除会员</p> 
+	                    </a>
+	                </if>
+	                <if condition="showButton(U('Member/latent_add'))"> 
+						<a  class="menuid btn width_92 float-right" href="{:U('Member/latent_add',array('flag'=>1))}" style='padding: 2px 10px;'>
+	                       		 <div class='key_shape_mid bg_stand_2'>
+	                        		<img src="$public/images/reception/newAdd.png" alt="会员新增" title="会员新增" class='key_icon_mid' />
+	                       		 </div>                      		
+	                       		<p style='margin-top:5px'>会员新增</p> 
+	                    </a>   
+	                </if>    
+                      <!--  <a class="menuid btn btn-info btn-sm" data-toggle="modal" data-target="#myModal100" data-id="100" href="#"><i class="fa "></i> 定金收取</a>-->                 
+     
+             <!--       <div class="hr-line-dashed"></div>-->
+					<div class="row m-t-sm" style="float:right;margin-right:15px;margin-bottom:5px;width: 100%;">
+               				 <form class="form-horizontal m-t" method="get" name="dbform" id='frm'  action="{:U('Member/index')}">
+               				 	<div class="line-solid-1" style='padding-top:10px'></div>
+               				 	<!--会员-->
+			              		<div class="col-md-2">
+	                                <div class="input-group" style="width:100%;">
+	                                	<span id="search_member" style="color:#686B6D;display:none;margin-top:-18px;color:dodgerblue;">注：生日格式2001-01-10</span>
+					                    <input type="hidden" value="" name="user_id" id="user_id"/>
+					                    <input type="text" id="keywords" name="keywords" value="{$keywords}" placeholder="会员姓名、电话、生日" class="border-radius-6 form-control" >
+					                    <!--<span style="color:#ccc">客户姓名、电话、卡号、生日、身份证,生日格式2000-01-01</span>-->
+					                    <!--<div class="input-group-btn">
+					                   		 <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+					               		</div>-->
+					                </div>
+                            	</div>
+                            	<!--顾问-->
+                            	<div class="col-md-2" id="gwen">
+               				 		<span id="search_saler" style="color:#686B6D;display:none;margin-top:-18px;color:dodgerblue;">顾问查询:</span>
+                                <div class="input-group" style="width:100%;">                          	
+                                    <input type="hidden" class="form-control" name="saler_id" id="saler_id" value="{$saler_id}">
+				                    <input type="text" class="border-radius-6 form-control" name="salerSuggest" id="salerSuggest" value="{$saler_name}"  placeholder="顾问编号、姓名、电话">
+				                    <div class="input-group-btn">
+                                        <select onchange="saler(this.value)" style='display: none;' id="bb"   class="btn btn-white dropdown-toggle" data-toggle="dropdown" style="height: 34px;">
+			                            </select>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        </ul>
+                                    </div>
+				                   <!--<div class="input-group-btn">
+				                        <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+				                            <span class="caret"></span>
+				                        </button>
+				                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+				                        </ul>
+				                    </div>-->
+                                </div>
+                            	</div>
+                            	
+                            	<div class="col-sm-5" style='display: none;width:60%;' id='sal' >
+								<div style="width: 99%;" class="clearfix" id='add_sal'>
+									<foreach  name='saler' item='v'>
+										<span style='display:block;color:#000000;width: 75px;float: left;margin: 0px 0;margin-left:0px;text-align: left;height: 35px;line-height: 35px;'>
+										<label id="{$v.id}"><input type='checkbox' <if condition=" $v['type'] eq 1">checked='checked'</if> id="saler_{$v.id}"  value="{$v.id}" name="saler_{$v.id}"/><i>✓</i>{$v.name}
+										</label>
+										</span>
+									</foreach>
+								</div>
+			              		</div>
+			              		
+<!--			              		
+                            	<div class="col-md-1">
+	                                <div class="input-group"  style="width:100%;">
+
+	                                    <select class="form-control m-b " name="customer_classified" style="width:99%;padding:0;">
+	                                          <option value="" >客户分类</option>
+				                              <option value="1"  >A类用户</option>
+							                  <option value="2"  >B类用户</option>
+							                  <option value="3"  >C类用户</option>
+							                  <option value="4"  >D类用户</option>
+							                  <option value="5"  >BR特别多</option>
+							                  <option value="6"  >投诉多</option>
+	                                    </select>
+	                                </div>
+                            	</div>-->
+                            	<!--顾问分配清况-->
+               				<div class="col-md-1" >
+                                <div class="input-group" style="width:100%;">
+                                    <select class="form-control m-b " id="fpsaler" name="fpsaler" style="width:99%;padding:0;">
+                                            <option value="3" >分配类型</option>
+						                    <option value="0" >公海会员</option>
+                            				<option value="1" >已分配</option>
+                                    </select>
+                                </div>
+                           </div>        
+                            	<div class="col-md-1">
+	                                <div class="input-group"  style="width:100%;">
+	                                	<!--<input  value='' type="hidden" id='follow_level' name="follow_level"/>
+	                                    <button class="border-radius-16 button-outline btn bg_stand_3 dropdown-toggle" style='color:#fff;min-width:90px !important;padding: 5px 12px;'  id='follow'  data-toggle="dropdown">跟进等级<span class="caret"></span></button>
+								        <ul class="dropdown-menu" style='min-width:90% !important;left: 0px !important;'>
+								          <li><a href="#" onclick="level(1,'1级')">1级</a></li>
+								          <li><a href="#" onclick="level(2,'2级')">2级</a></li>
+								          <li><a href="#" onclick="level(3,'3级')">3级</a></li>
+								          <li><a href="#" onclick="level(4,'4级')">4级</a></li>
+								          <li><a href="#" onclick="level(5,'5级')">5级</a></li>
+								        </ul>-->
+	                                    <select class="form-control m-b " name="follow_level" style="width:99%;padding:0;">
+	                                          <option value="" >跟进等级</option>
+							                  <option value="1" >1级</option>
+							                  <option value="2" >2级</option>
+							                  <option value="3" >3级</option>
+							                  <option value="4" >4级</option>
+							                  <option value="5" >5级</option>
+	                                    </select>
+	                                </div>
+                            	</div>
+                            	<div class="col-md-1">
+	                                <div class="input-group"  style="width:100%;">
+	                                	<!--<input type="hidden" name='source_channel' id="source_channel" value=""/>   <!--此处不填，不要记忆性查询-->
+	                                    <!--<button class="border-radius-16 button-outline btn bg_stand_4 dropdown-toggle" style='color:#fff;min-width:90px !important;padding: 5px 12px;'  id='source'  data-toggle="dropdown">获取渠道<span class="caret"></span></button>
+								        <ul class="dropdown-menu" style='min-width:120% !important;left: 0px !important;'>
+								        	 <volist name="source_list" id="v">
+								         		 <li><a href="#" onclick="source({$v.id},'{$v.catname}')">{$v.catname}</a></li>
+								         	 </volist>
+								        </ul>-->
+								        <input type="hidden" name='source_channel' id="source_channel" value=""/>
+	                                    <select class="form-control m-b " name="source" onchange="select_source(this.value)" style="width:99%;padding:0;">
+	                                          <option value="" >获取渠道</option>
+	                                           <volist name="source_list" id="v">
+	                                          	<option value="{$v.id}"  >{$v.catname}</option>
+	                                           </volist>
+	                                    </select>
+	                                </div>
+                            	</div>
+
+                            	<script>
+                            		function select_source(val){
+ 											$('#source_channel').val(val);
+                            		}
+                            	</script>
+                            	
+               				 	
+                            	
+                            	<div class="col-md-3">
+                            		 
+	                                <div class="input-group" style="width:100%;">
+	                                	<span id="search_time"  style="color:#686B6D;display:none;margin-top:-18px;color:dodgerblue;">录入时间:</span>
+	                                    <div id="datejs">
+	                                    	
+	                                        <div class="input-daterange input-group" id="datepicker" style="float:left">	       
+	                                            <input name="st_time" id="starttime" class="border-radius-6 laydate-icon form-control layer-date" placeholder="开始时间" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" value="{$time}">
+	                                            <span class="input-group-addon">-</span>
+	                                            <input name="end_time" id="endtime" class="border-radius-6 laydate-icon form-control layer-date" placeholder="结束时间" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" value="{$end_time}">
+	                                      		
+	                                        </div>
+	                                      
+	                                    </div>
+	                                </div>
+                           		</div>
+                            	<div class="col-md-2">
+	                                <div class="input-group">
+	                                    <span class="input-group-btn">
+	                                       <button type="submit" class="border-radius-16 btn btn-primary" id='seach'><i class="fa fa-search"></i>搜索</button>
+	                                  </span>
+	                                </div>
+                            	</div>
+            					 
+               				 </form>
+                    </div>
+
+                    <table class="table  table-hover" id="dataTable">   <!-- id="dataTable"  table-hover-->
+                            <thead>
+                            <tr style='background: #E1E1E1;'>
+                                <th style="text-align:center;width:1%"> <input type="checkbox" class="i-checks" id="chkall"></th>
+                                <th>照片</th>
+                                <th width="7%">姓名</th>
+                                <th>性别</th>
+                                <th>电话</th>
+                                <th>生日</th>
+                                <th>身份证</th>
+                                <th>录入日期</th>
+                                <th>会籍顾问</th>
+                                <th>跟进状态</th>
+                                <th>最后跟进</th>
+                                <th>账户余额</th>
+                                <th>获取渠道</th>
+                                <th>渠道属性</th>
+                                <th>跟进等级</th>
+                                <th>客户分类</th>
+                                <if condition="$city_id eq 107">    <!--业务部-->
+                                	<th>公司</th>
+                                </if>
+                                <!--<th width="20%">操作</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="data['list']" id="v">
+                                <tr class="float-e-margins">
+                                    <td style="text-align:center;width:1%">
+                                        <input type="checkbox" id="ck_id" class="i-checks" name="checkid[]"  value="{$v.id}">
+                                    </td>
+                                    <td>
+                                    	<if condition="showButton(U('Member/latent_member_detail'))"> 
+	                                    	<a href="{:U('Member/latent_member_detail',array('user_id'=>$v['id'],'ps'=>$p))}">
+			                                	 <if condition="$v['headimg'] neq 'member.png' && $v ">
+					                                  	<img class=" member-headimg " src="{$v['headimg']}" id='headimg' <if condition="$v['sex'] eq 2"> onerror="javascript:this.src='__ROOT__/d/image/girl.png'"<else/> onerror="javascript:this.src='__ROOT__/d/image/boy.png' "</if>/>
+					                             <else/>
+					                                	<!--<if condition="$v['sex'] eq 2"> 
+					                                		  <img class="member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/girl.png" id='headimg' />
+					                                	<else/>
+					                                		  <img class=" member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/boy.png" id='headimg'  />
+					                                	</if>	-->
+					                                	<if condition="$v['headimgurl'] neq 'member.png' && $v['headimgurl'] ">
+						      								<img class="member-headimg bg-gray-E6E7E8" src="{$v['headimgurl']}?s={$s}" id='headimg' />
+						                                <else />
+						                                	<if condition="$v['sex'] eq 2">   <!--女的显示girl图片, 其余全部显示男生头像-->
+						                                		  <img class="member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/girl.png" id='headimg' />
+						                                	<else/>
+						                                		  <img class=" member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/boy.png" id='headimg'   />
+						                                	</if>
+						                             	</if>
+							                     </if>
+					                    	</a>
+					                   	<else/>
+					                   			<if condition="$v['headimg'] neq 'member.png' && $v ">
+					                                  	<img class=" member-headimg " src="{$v['headimg']}" id='headimg' onclick='authority()' <if condition="$v['sex'] eq 2"> onerror="javascript:this.src='__ROOT__/d/image/girl.png'"<else/> onerror="javascript:this.src='__ROOT__/d/image/boy.png' "</if>/>
+					                             <else/>
+					                             	<if condition="$v['headimgurl'] neq 'member.png' && $v['headimgurl'] ">
+					      								<img class="member-headimg bg-gray-E6E7E8" src="{$v['headimgurl']}" id='headimg' onclick='authority()'/>
+					                                <else />
+					                                	<if condition="$v['sex'] eq 2">   <!--女的显示girl图片, 其余全部显示男生头像-->
+					                                		  <img class="member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/girl.png" id='headimg' onclick='authority()'/>
+					                                	<else/>
+					                                		  <img class=" member-headimg bg-gray-E6E7E8" src="__ROOT__/d/image/boy.png" id='headimg'   onclick='authority()'/>
+					                                	</if>
+					                             	</if>
+							                     </if>
+					                   	</if>
+                                	</td>
+                                	 <td>
+                                	 	<if condition="showButton(U('Member/latent_member_detail'))"> 
+		                                 	<a href="{:U('Member/latent_member_detail',array('user_id'=>$v['id'],'ps'=>$p))}">
+		                                 			 <font color="blue">{$v.true_name}</font>
+		                                    </a> 
+		                                <else/>
+		                                	<span onclick='authority()'>
+		                                 			 <font color="blue">{$v.true_name}</font>
+		                                 	</span>
+		                                </if>
+                                    </td>
+                                   	 <td>
+                                        <if condition='($v["sex"] eq 1)'>男
+                                            <elseif condition='($v["sex"] eq 2)'/>女
+                                            <elseif condition='($v["sex"] eq 0)'/>保密
+                                        </if>
+                                    </td>
+                                    <td>
+                                        {$v.phone}
+                                    </td>
+                                     <td>
+                                        {$v.birthday}
+                                    </td>
+                                      <td>
+                                        {$v.identify_no}
+                                    </td>
+                                    <td>
+                                        {$v.member_time|default=""|date='Y-m-d H:i:s', ###}
+                                    </td>
+                                    <td>
+                                        {$v.saler_name}
+                                    </td>
+                                    <td>
+                                    	<if condition="$v['last_follow_time'] gt 0">
+                                    		跟进
+                                    	<else/>
+                                    		未跟进
+                                    	</if>
+                                        
+                                    </td>
+                                    <td>
+                                        <if condition='($v["last_follow_time"] gt 0)'>
+                                            {$v.last_follow_time|default=""|date='Y-m-d', ###}
+                                        <else/>
+                                        	无
+                                        </if>
+                                    </td>
+									<td>
+										{$v.surplus}
+									</td>
+                                    <td>
+                                        <if condition='($v["source_channel"] eq 0)'>未填
+                                            <elseif condition='($v["source_channel"] eq 1)'/>外出获取
+                                            <elseif condition='($v["source_channel"] eq 2)'/>自有网络
+                                            <elseif condition='($v["source_channel"] eq 3)'/>大众点评
+                                            <elseif condition='($v["source_channel"] eq 4)'/>美团
+                                            <elseif condition='($v["source_channel"] eq 5)'/>其他第三方平台
+                                            <elseif condition='($v["source_channel"] eq 6)'/>直接到访(WI)
+                                            <elseif condition='($v["source_channel"] eq 7)'/>朋友转介绍(BR)
+                                            <elseif condition='($v["source_channel"] eq 8)'/>拉访(DI)
+                                            <elseif condition='($v["source_channel"] eq 9)'/>电话咨询(TI)
+                                            <elseif condition='($v["source_channel"] eq 10)'/>其他
+                                            <elseif condition='($v["source_channel"] eq 11)'/>全民健身
+                                        </if>
+                                    </td>
+
+                                    <td>
+                                        <if condition='($v["channel_property"] eq 0)'>未填
+                                            <elseif condition='($v["channel_property"] eq 1)'/>人力推广
+                                            <elseif condition='($v["channel_property"] eq 2)'/>广告
+                                            <elseif condition='($v["channel_property"] eq 3)'/>公司网络
+                                            <elseif condition='($v["channel_property"] eq 4)'/>市场活动
+                                            <elseif condition='($v["channel_property"] eq 5)'/>其他
+                                            <elseif condition='($v["channel_property"] eq 6)'/>营销活动
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition='($v["follow_level"] eq 0)'>未填
+                                            <elseif condition='($v["follow_level"] eq 1)'/>1级
+                                            <elseif condition='($v["follow_level"] eq 2)'/>2级
+                                            <elseif condition='($v["follow_level"] eq 3)'/>3级
+                                            <elseif condition='($v["follow_level"] eq 4)'/>4级
+                                            <elseif condition='($v["follow_level"] eq 5)'/>5级
+                                        </if>
+                                    </td>
+                                    <td>
+                                        <if condition='($v["customer_classified"] eq 0)'>未填
+                                            <elseif condition='($v["customer_classified"] eq 1)'/>A类用户
+                                            <elseif condition='($v["customer_classified"] eq 2)'/>B类用户
+                                            <elseif condition='($v["customer_classified"] eq 3)'/>C类用户
+                                            <elseif condition='($v["customer_classified"] eq 4)'/>D类用户
+                                            <elseif condition='($v["customer_classified"] eq 5)'/>BR特别多
+                                            <elseif condition='($v["customer_classified"] eq 6)'/>投诉多
+                                        </if>
+                                    </td>
+									<if condition="$city_id eq 107"> 
+									<td>
+										<if condition="$v['company']">
+											{$v['company']}
+										<else/>
+											无
+										</if>
+									</td> 	
+									</if>
+
+                                    <!--<td>
+                                        <a href="{:U('Member/add',array('id'=>$v['id'],'flag'=>1))}" class="btn mg0 btn-success btn-xs" title='信息编辑'>信息编辑</a>
+										<a href="{:U('Member/buy_card',array('id'=>$v['id'],'flag'=>1,'url_type'=>1))}" class="btn mg0 btn-warning btn-xs" title='会员入会'>会员入会</a>
+									
+                                    	<a href="{:U('Member/special_card',array('id'=>$v['id'],'flag'=>1,'url_type'=>1))}" style='background-color:#CC00CC;border: 1px solid #CC00CC;' class="btn mg0 btn-danger btn-xs" title='特殊次卡'>特殊次卡</a>
+
+										<a href="{:U('Member/buy_sijiao',array('id'=>$v['id'],'flag'=>1,'url_type'=>1))}" style='background-color:#663399;border: 1px solid #663399;' class="btn mg0 btn-primary btn-xs" title='购私教卡'>购私教卡</a>							
+                                        	
+                                        <a href="{:U('Member/buy_storecard',array('id'=>$v['id'],'flag'=>1,'url_type'=>1))}" class="btn mg0 btn-primary btn-xs" title='购储值卡' style='background-color:#00CC99;border: 1px solid #00CC99;'>购储值卡</a>
+										<a class="btn mg0 btn-warning btn-xs" data-toggle="modal" data-target="#myModal101" data-id="{$v['id']}" href="#" title='会员充值'style='background-color:#CC9999;border: 1px solid #CC9999;'>会员充值</a>									
+										<a href="{:U('Member/follow_log',array('user_id'=>$v['id'],'flag'=>0))}" class="btn mg0 btn-primary btn-xs" title='跟进详情' style='background-color:#00CCFF;border: 1px solid #00CCFF;'>跟进详情</a>
+                                     
+                                       <a class="mg0 btn btn-info btn-xs" data-toggle="modal" data-target="#myModal100" data-id="{$v['id']}" href="#" title='定金收取' style='background-color:#CCCC66;border: 1px solid #CCCC66;'>定金收取</a>                                
+                                    </td>-->
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        {$data['page']}
+                        <div class="hr-line-dashed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Member/myModal"/>
+<include file="Member/myModal201"/>
+<include file="Member/myModal100"/>
+<include file="Member/myModal101"/>
+<script src="$public/js/validate/validate.js"></script>
+<script src="$public/js/validate/messages.js"></script>
+<script src="$public/js/common.js"></script>
+<!-- 多选
+<script src="$public/js/table-checkbox.js"></script>
+-->
+<include file="Public/footer"/>
+<script src="$public/js/layer/laydate/laydate.js"></script>
+<link href="$public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="$public/js/sweetalert/sweetalert.min.js"></script>
+
+<script language="JavaScript" >
+/*点图片个名字提示无权限*/
+	function authority(){
+		layer.msg('当前账户无此权限',{icon:0,time:1000},function(){});
+	}
+/*客户分类*/
+function customer(val,html){
+	$('#customer').html(html+"<span class='caret'></span>");
+	if(val == ''){
+		$('#customer').html('客户分类'+"<span class='caret'></span>");
+		$('#customer_classified').val('');
+	}else{
+		$('#customer_classified').val(val);
+	}
+}
+/*跟进等级*/
+function level(val,html){
+	$('#follow').html(html+"<span class='caret'></span>");
+	if(val == ''){
+		$('#follow').html('跟进等级'+"<span class='caret'></span>");
+		$('#follow_level').val('');
+	}else{
+		$('#follow_level').val(val);
+	}
+}
+/*获取渠道*/
+function source(val,html){
+	$('#source').html(html+"<span class='caret'></span>");
+	if(val == ''){
+		$('#source').html('获取渠道'+"<span class='caret'></span>");
+		$('#source_channel').val('');
+	}else{
+		$('#source_channel').val(val);
+	}
+}
+function saler(val,text)
+{
+	 var name = $('#bb option:checked').html();
+	 $('#saler_name').val(name);
+	 $('#saler_id').val(val);
+}
+/*顾问鼠标操作*/
+//	function funSalDown(){
+//		$('#sal').show();
+//	}
+//
+//	function funsalUp(){
+//			$('#sal').hide();	
+//	}
+//	function funsUp(){
+//		$('#sal').show();
+//	}
+/*顾问划入划出*/
+$(function() {
+	$("#salerSuggest").hover(function() {
+		$("#sal").show();
+	},function(){
+		$("#sal").hide();
+	});
+	$("#sal").hover(function() {
+		$(this).show();
+	}, function() {
+		$(this).hide();
+	})
+
+})
+
+	/*点击显示上方信息*/
+	var boo=0;
+ 	var canUse=document.getElementsByTagName("body")[0].style;
+    if(typeof canUse.animation!="undefined"||typeof canUse.WebkitAnimation!="undefined"){
+       	boo=1;/*支持动画*/
+    }else{
+       	boo=0;/*不支持动画*/
+    }
+ 	$('#salerSuggest').click(function(){
+ 		actionIn("#search_saler",'salerSuggest',1,""); 		
+ 		$('#salerSuggest').attr('placeholder','');
+	})
+ 	function actionIn(obj,actionName,time,speed){
+		$(obj).show();
+		if(boo==1)$(obj).css({"animation":actionName+" "+time+"s"+" "+speed,"animation-fill-mode":"forwards"});
+		$(obj).css('display','block');
+	}
+ 	$('#salerSuggest').blur(function(){
+ 		var saler_name=$('#salerSuggest').val();
+ 		if(saler_name == ''){
+ 			$('#salerSuggest').attr('placeholder','顾问编号、姓名、电话');
+ 			$('#search_saler').css('display','none');
+ 		} 		
+ 	})
+ 	/*会员搜搜操作*/
+ 	$('#keywords').click(function(){
+ 		actionIn("#search_member",'keywords',1,""); 		
+ 		$('#keywords').attr('placeholder','');
+	})
+ 	$('#keywords').blur(function(){
+ 		var keywords=$('#keywords').val();
+ 		if(keywords == ''){
+ 			$('#keywords').attr('placeholder','会员姓名、电话、生日');
+ 			$('#search_member').css('display','none');
+ 		} 		
+ 	})
+ 	/*时间搜索*/
+ 	$('#starttime').click(function(){
+ 		actionIn("#search_time",'starttime',1,""); 		
+	})
+ 	$('#starttime').blur(function(){
+ 		var starttime=$('#starttime').val();
+ 		if(starttime == ''){
+ 			$('#search_time').css('display','none');
+ 		} 		
+ 	})
+ 	$('#endtime').click(function(){
+ 		actionIn("#search_time",'endtime',1,""); 		
+	})
+ 	$('#endtime').blur(function(){
+ 		var endtime=$('#endtime').val();
+ 		if(endtime == ''){
+ 			$('#search_time').css('display','none');
+ 		} 		
+ 	})
+ 	/*时间区*/
+    var start={elem:"#starttime",format:"YYYY-MM-DD",min:laydate.now(),max:"2099-06-16",istime:true,istoday:false,choose:function(datas){end.min=datas;end.start=datas}};
+    var end={elem:"#endtime",format:"YYYY-MM-DD",min:laydate.now(),max:"2099-06-16",istime:true,istoday:false,choose:function(datas){end.min=datas;end.start=datas}};
+	console.log(start)
+	console.log(end)
+    laydate(start);
+    laydate(end);
+	function funDown(){
+		$("#type_four").slideDown(1000);		
+	}
+	function funUp(){
+		setTimeout(function(){
+			$("#type_four").slideUp(1000);
+		},3000);
+	}
+
+	function exexport(){  //导出
+		$('#frm').attr('action',"{:U('Member/index_excel')}");
+        $('#frm').submit();
+        $('#frm').attr('action',"");
+        
+    }
+    $(function () {
+        var rows=document.getElementById("dataTable").rows;
+        if(rows.length>0){
+            for(var i=1;i<rows.length;i++){
+                (function(i){
+
+                    //var temp=rows[i].cells[0].childNodes[1].value;
+                    var obj=rows[i];
+                    obj.onclick=function(){
+                        if( rows[i].classList.contains("active") ){
+                            rows[i].classList.remove("active")
+                        }else{
+                            rows[i].classList.add("active")
+                        }
+                        if(rows[i].cells[0].childNodes[1].classList.contains("checked")){
+                            rows[i].cells[0].childNodes[1].classList.remove("checked");
+                        }else{
+                            rows[i].cells[0].childNodes[1].classList.add("checked");
+                        }
+                    };
+
+                })(i)
+            }
+        }
+    })
+
+	//显示
+	function coach_show()
+	{
+		$('#coach').show();
+//		$('#frm').attr('method','post');
+	}
+	function coach_hide()
+	{
+		$('#coach').hide();
+//		$('#frm').attr('method','get');
+	}
+	function sta_show()
+	{
+		$('#sta').show();
+		$('#gwen').hide();
+//		$('#frm').attr('method','post');
+	}
+	function sta_hide()
+	{
+		$('#sta').hide();
+		$('#gwen').show();
+//		$('#frm').attr('method','get');
+	}
+    //客服跟进
+    function server(v){
+
+        var member_id = '';
+        $(".checked input[type='checkbox']").each(function(){
+            member_id = $(this).val();
+        });
+        if( member_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+        var title ='客服跟进';
+//      var url="{:U('Member/follow_index_add1')}?type="+v+'&id='+member_id;
+//      window.location.href=url;
+        layerfrm(title,'90%','90%',"{:U('Member/latent_service_follow')}" + "?type=" + v +  "&id=" + member_id );
+
+    }
+    
+       //前台跟进
+    function fontDesk(v){
+
+        var member_id = '';
+        $(".checked input[type='checkbox']").each(function(){
+            member_id = $(this).val();
+        });
+        if( member_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+        var title ='前台跟进';
+//      var url="{:U('Member/follow_index_add1')}?type="+v+'&id='+member_id;
+//      window.location.href=url;
+        layerfrm(title,'90%','90%',"{:U('Member/latent_reception_follow')}" + "?type=" + v +  "&id=" + member_id );
+
+    }
+    
+         //顾问跟进
+    function saler(v){
+
+        var member_id = '';
+        $(".checked input[type='checkbox']").each(function(){
+            member_id = $(this).val();
+        });
+        if( member_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+        var title ='顾问跟进';
+//      var url="{:U('Member/follow_index_add1')}?type="+v+'&id='+member_id;
+//      window.location.href=url;
+        layerfrm(title,'90%','90%',"{:U('Member/latent_saler_follow')}" + "?type=" + v +  "&id=" + member_id );
+
+    }
+    
+          //教练跟进
+    function coach(v){
+
+        var member_id = '';
+        $(".checked input[type='checkbox']").each(function(){
+            member_id = $(this).val();
+        });
+        if( member_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+        var title ='教练跟进';
+//      var url="{:U('Member/follow_index_add1')}?type="+v+'&id='+member_id;
+//      window.location.href=url;
+        layerfrm(title,'90%','90%',"{:U('Member/latent_coach_follow')}" + "?type=" + v +  "&id=" + member_id );
+
+    }
+	
+	//搜索条件
+	function search_All()
+	{
+		$('#search').show();
+		
+	}
+	function search_hide()
+	{
+		$('#search').hide();
+	}
+
+    function checkaction(v){ 
+        if(v==2){ 
+            //alert('2');
+            document.dbform.action="{:U('Ordermange/exportorder')}"; 
+            dbform.submit(); 
+        } else if(v==1) {
+            //alert('1');
+            document.dbform.action="{:U('Member/index')}"; 
+            dbform.submit();
+        }
+    }
+    //会员信息删除
+    function deleteMember() {
+
+        var card_id = '';
+        $(".checked input[type='checkbox']").each(function () {
+            if( card_id == ''){
+                card_id = $(this).val();
+            }else{
+                card_id = card_id + ',' + $(this).val();
+            }
+        });
+        if (card_id == '') {
+            swal({title: "温馨提示", text: "请先选择一条记录"})
+
+            return false;
+        }
+
+        var card_type  = $("#card_type").val();//会员卡类型：1=入场会员卡 2=私教卡
+        var use_type   = $("#use_type").val();//消费类型 1=天卡,2=次卡
+
+        swal({
+                    title: "您确定要删除此会员吗",
+                    text: "正在删除中...",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "是的！",
+                    cancelButtonText: "我考虑一下…",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.post("{:U('Member/del')}", {id: card_id}, function (json) {
+                      console.log(json);
+                            if (json.status == 1) {
+								//2秒后刷新页面，足够显示swal()的信息								
+                             	 swal("删除成功！", "您已经成功删除会员信息", "success");
+                             	 setTimeout(function(){window.location.reload(); },1000);
+//                            window.location.reload();
+//                              window.location.href = "{:U('Member/history_card')}";
+//								layer.msg("删除成功", {icon: 1, time: 1000}, function () {
+//                    	 		
+//                      		 });
+								
+                            } else {
+                                swal("删除失败！", "删除会员信息失败。", "error");
+                            }
+                        });
+
+                    } else {
+
+                        swal("已取消", "您取消了删除会员信息操作！", "error");
+                    }
+                });
+
+    }
+
+    //分配顾问
+    $('#myModal201').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+        var card_id = '';
+        $(".checked input[type='checkbox']").each(function(){
+            if( card_id == ''){
+                card_id = $(this).val();
+            }else{
+                card_id = card_id + ',' + $(this).val();
+            }
+        });
+        if( card_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+        $("#card_id1").val(card_id);
+		$.post( "{:U('Member/getgwinfo_ajax')}", {
+            id:card_id
+        }, function (r) {
+            $("#pub09").html(r.pub09);
+            $("#number").html(r.number);
+            $("#member_names").html(r.member_names);
+
+
+        });
+        
+
+   });
+
+    //定金收取
+    $('#myModal100').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+        var member_id = btn.data("id");
+//      var member_id = '';
+//      $(".checked input[type='checkbox']").each(function(){
+//          member_id = $(this).val();
+//      });
+
+        if( member_id == ''){
+            swal({title:"温馨提示",text:"请先选择一条记录"})
+
+            return false;
+        }
+
+        $.post( "{:U('Member/ajaxMemberInfo')}", {
+            id: member_id
+        }, function (r) {
+
+            $("#member_id100").val(member_id);
+            $("#pub100").html(r.pub1);
+			$('#flag100').val(1);
+        });
+
+
+    });
+
+
+    //查看会员详情
+    $('#myModal').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+        var id = btn.data("id");
+        //alert(id);
+        $.post( "{:U('Member/ajaxMemberInfo')}", {
+            id: id
+        }, function (r) {
+			console.log(r);
+            $("#pub111").html(r.pub1);
+            $("#pub112").html(r.pub2);
+            $("#pub113").html(r.pub3);
+            $("#pub114").html(r.pub4);
+//            $("#pub115").html(r.pub5);
+            $("#pub116").html(r.pub6);
+            $("#pub117").html(r.pub7);
+            $("#pub118").html(r.pub8);
+		    $("#pub119").html(r.pub119);
+            $("#pub120").html(r.pub120);
+
+        });
+
+    });
+	
+	 //会员充值
+    $('#myModal101').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+        var user_id = btn.data("id");
+		if(!user_id){
+			 swal({title:"温馨提示",text:"请先选择一条记录"})
+			 $('#myModal101').hide();
+            return false;
+		}
+		$("#user_id101").val(user_id);
+//      $.post( "{:U('Member/ajaxMemberInfo')}", {
+//          id: user_id
+//      }, function (r) {
+//			console.log(r);
+//			console.log(user_id);
+//          $("#user_id101").val(user_id);
+//          $("#pub101").html(r.pub1);
+//
+//      });
+
+    });
+    //获取员工信息列表
+    var handleUrl = "{:U('Member/getSalerInfo', '', '')}" + '?keyword=';
+
+    var dataBsSuggest = $("#salerSuggest").bsSuggest({
+        indexId: 0, //data.value 的第几个数据，作为input输入框的内容
+        indexKey: 2, //data.value 的第几个数据，作为input输入框的内容
+        allowNoKeyword: false, //是否允许无关键字时请求数据
+        multiWord: false, //以分隔符号分割的多关键字支持
+        separator: ",", //多关键字支持时的分隔符，默认为空格
+        getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+        effectiveFields:["id","user_no","name"],
+        effectiveFieldsAlias:{id: "ID",user_no:"编号",name:"姓名"},
+        showHeader: true,
+        url: handleUrl , /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+        processData: function(json){
+            json = json.value;
+            // url 获取数据时，对数据的处理，作为 getData 的回调函数
+            var i, len, data = {value: []};
+            if(!json || json.length == 0) {
+                return false;
+            }
+            len = json.length;
+            for (i = 0; i < len; i++) {
+                data.value.push({
+                    "id": json[i].id,
+                    "user_no": json[i].user_no,
+                    "name":json[i].name
+                });
+            }
+            console.log(data);
+            return data;
+        }
+    }).on("onDataRequestSuccess",
+            function(e, result) {
+                //console.log("onDataRequestSuccess: ", result)
+            }).on("onSetSelectValue",
+            function(e, keyword) {
+                //console.log("onSetSelectValue: ", keyword)
+//              $("#saler_id").val(keyword.id);
+                $('#sal').show();				
+				var result=$('#saler_'+keyword.id).val();
+				if(result){
+					$('#saler_'+keyword.id).attr('checked','checked');
+				}else{
+					var html='';
+					html ="<span style='display:block;width: 85px;float: left;margin: 5px 0;text-align: center;height: 35px;line-height: 35px;'>"+
+					"<label id="+keyword.id+"><input type='checkbox' checked='checked' value="+keyword.id+" name=saler_"+keyword.id+"><i>✓</i>"+keyword.key+"</label></span>";
+					console.log(html);
+					$('#add_sal').append(html);
+				}
+//				var clear=document.getElementById('clearSaler');
+//				clear.style.display='block';
+				//清除搜索框的名字,方便重新搜索
+				$('#salerSuggest').val('');
+            }).on("onUnsetSelectValue",
+            function(e) {
+                //console.log("onUnsetSelectValue")
+            });
+
+    //获取教练信息列表
+    var handleUrl = "{:U('Member/getPersonalInfo', '', '')}" + '?keyword=';
+
+    var dataBsSuggest = $("#personalSuggest").bsSuggest({
+        indexId: 0, //data.value 的第几个数据，作为input输入框的内容
+        indexKey: 2, //data.value 的第几个数据，作为input输入框的内容
+        allowNoKeyword: false, //是否允许无关键字时请求数据
+        multiWord: false, //以分隔符号分割的多关键字支持
+        separator: ",", //多关键字支持时的分隔符，默认为空格
+        getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+        effectiveFields:["id","user_no","name"],
+        effectiveFieldsAlias:{id: "ID",user_no:"编号",name:"姓名"},
+        showHeader: true,
+        url: handleUrl , /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+        processData: function(json){
+            json = json.value;
+            // url 获取数据时，对数据的处理，作为 getData 的回调函数
+            var i, len, data = {value: []};
+            if(!json || json.length == 0) {
+                return false;
+            }
+            len = json.length;
+            for (i = 0; i < len; i++) {
+                data.value.push({
+                    "id": json[i].id,
+                    "user_no": json[i].user_no,
+                    "name":json[i].name
+                });
+            }
+            console.log(data);
+            return data;
+        }
+    }).on("onDataRequestSuccess",
+            function(e, result) {
+                //console.log("onDataRequestSuccess: ", result)
+            }).on("onSetSelectValue",
+            function(e, keyword) {
+                //console.log("onSetSelectValue: ", keyword)
+                $("#personal_id").val(keyword.id);
+            }).on("onUnsetSelectValue",
+            function(e) {
+                //console.log("onUnsetSelectValue")
+            });
+
+	 //获取会员信息列表
+//  var handleUrl = "{:U('Member/getMemberInfo', '', '')}" + '?member_type=2&keyword=';
+//
+//  var dataBsSuggest = $("#keywords").bsSuggest({
+//    indexId: 0, //data.value 的第几个数据，作为input输入框的内容
+//    indexKey: 2, //data.value 的第几个数据，作为input输入框的内容
+//    allowNoKeyword: false, //是否允许无关键字时请求数据
+//    multiWord: false, //以分隔符号分割的多关键字支持
+//    separator: ",", //多关键字支持时的分隔符，默认为空格
+//    getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+//    effectiveFields:["phone","true_name","birthday"],
+//    effectiveFieldsAlias:{phone:"手机号",true_name:"姓名",birthday:'生日'},
+//    showHeader: true,
+//    url: handleUrl , /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+//    processData: function(json){
+//      json = json.value;
+//      // url 获取数据时，对数据的处理，作为 getData 的回调函数
+//      var i, len, data = {value: []};
+//      if(!json || json.length == 0) {
+//        return false;
+//      }
+//      len = json.length;
+//      for (i = 0; i < len; i++) {
+//        data.value.push({
+//          "id": json[i].id,
+//          "phone": json[i].phone,
+//          "true_name":json[i].true_name,
+//          "birthday":json[i].birthday
+//        });
+//      }
+//      //console.log(data);
+//      return data;
+//    }
+//  }).on("onDataRequestSuccess",
+//          function(e, result) {
+//            //console.log("onDataRequestSuccess: ", result)
+//          }).on("onSetSelectValue",
+//          function(e, keyword) {
+//				 console.log(keyword);
+//				 $("#user_id").val(keyword.id);
+//			  	 $('#keywords').val(keyword.key);
+//          }).on("onUnsetSelectValue",
+//          function(e) {
+//            //console.log("onUnsetSelectValue")
+//          });
+
+</script>
+</body></html>
