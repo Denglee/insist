@@ -4,8 +4,10 @@
         <!--<publicIframe/>-->
 
         <!--<div>潜在会员</div>-->
-        <!--<iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
-        <div v-show="pageState.memberPage">
+<!--        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
+
+
+        <div v-show="pageState.memberIndex">
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
                 <ul>
@@ -60,6 +62,7 @@
                         <el-date-picker
                                 v-model="timeVip"
                                 type="daterange"
+                                unlink-panels
                                 range-separator="至"
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期"
@@ -92,7 +95,7 @@
                         </el-table-column>
                         <el-table-column prop="true_name" label="姓名" class="className">
                             <template slot-scope="scope">
-                                <div class="color-MediumBlue" @click.stop="goVipInfo">{{scope.row.true_name}}</div>
+                                <div class="color-MediumBlue member-name" @click.stop="goVipInfo">{{scope.row.true_name}}</div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="sex" label="性别">
@@ -171,22 +174,39 @@
         </div>
 
 
-        <addNewVip v-if="pageState.addNewVip" @GoBack="goBack('addNewVip')"></addNewVip>
+        <addNewMember v-if="pageState.addNewMember" @GoBack="goBack('addNewMember')"></addNewMember>
 
         <followTab v-if="pageState.followTab" @GoBack="goBack('followTab')"></followTab>
 
-        <memberInfo v-if="pageState.memberInfo" @GoBack="goBack('memberInfo')"
-                    @funcPageShow="funcPageShow"></memberInfo>
+        <!--二级 会员信息-->
+        <memberInfo v-if="pageState.memberInfo" @GoBack="goBack(arguments,'memberIndex')"
+                    @changePageShow="changePageShow(arguments, 'memberInfo')"></memberInfo>
 
+        <!--会员信息 =》会员充值-->
+        <menberRecharge v-if="pageState.menberRecharge" @GoBack="goBack(arguments,'memberInfo')"
+                        @changePageShow="changePageShow(arguments,'memberInfo')"></menberRecharge>
+
+        <!--三级 会员操作-->
+        <memberEdit  v-if="pageState.memberEdit" @GoBack="goBack(arguments,'memberInfo')"
+                     @changePageShow="changePageShow(arguments,'memberEdit')"></memberEdit>
+
+        <memberHistory v-if="pageState.memberHistory" @GoBack="goBack(arguments,'memberEdit')"
+                       @changePageShow="changePageShow(arguments,'memberEdit')"></memberHistory>
     </div>
 </template>
 
 
 <script>
     import navRefush from '@/components/navRefush/navRefush'  /*按钮组件*/
-    import addNewVip from "./memberEvent/addNewVip";  /*会员新增*/
-    import followTab from "./memberEvent/followTab";  /*教练跟进*/
-    import memberInfo from "./memberEvent/memberInfo";  /*教练跟进*/
+    import addNewMember from "./memberIndex/addNewMember";  /*会员新增*/
+    import followTab from "./memberIndex/followTab";  /*教练跟进*/
+
+    import memberInfo from "./memberInfo/memberInfo";  /*会员信息 二级首页*/
+    import menberRecharge from "./memberInfo/menberRecharge";  /*会员充值*/
+
+    import memberEdit from "./memberEdit/memberEdit";  /*会员编辑 三级首页*/
+    import memberHistory from './memberEdit/membeHistory'
+
     export default {
         name: "Memberindex",
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -204,19 +224,23 @@
 
                 // 页面显影
                 pageState:{
-                    memberPage:true,  //首页
-                    addNewVip:false,   //会员新增
-                    followTab:false,  //教练跟进
-                    memberInfo:false,  //潜在会员信息
-                    vipRecharge:false,  //潜在会员信息
+                    memberIndex:false,     //首页
+                    addNewMember:false,   //会员新增
+                    followTab:false,      //教练跟进
+
+                    memberInfo:false,  //潜在会员信息 二级首页
+                    menberRecharge:false,  //会员充值
+
+                    memberEdit:false,   //信息操作 三级首页 操作
+                    memberHistory:false,
 
                 },
 
                 // 新增会员按钮组
                 btnVip:[
-                    { name:"会员新增", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'addNewVip' ,pageName:'addNewVip'},
-                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewVip'},
-                    { name:"删除会员", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip', pageName:'addNewVip'},
+                    { name:"会员新增", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'addNewMember' ,pageName:'addNewMember'},
+                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewMember'},
+                    { name:"删除会员", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip', pageName:'addNewMember'},
                 ],
 
                 // 跟进按钮组
@@ -327,28 +351,91 @@
         methods: {
             // 去会员详情页
             goVipInfo(){
-                console.log('sd');
-                this.funcPageShow('memberInfo');
+                this.changePageShow('memberInfo','memberInfo');
+            },
+
+            /*存储页面*/
+            sessionNowPage(NowPage,indexPage){
+                let memberNowPage = {
+                    NowPage:NowPage,
+                    indexPage:indexPage,
+                }
+                sessionStorage.setItem('memberNowPage', JSON.stringify(memberNowPage));
+
+                /*清空 状态  复制初始化data 为了方便 按钮显隐   方便 返回上一页 隐藏上一页*/
+                let pageData =this.$options.data.call(this).pageState;
+                this.pageState = pageData;
             },
 
             // 隐藏第一页 显示二级页面 并存储
-            funcPageShow(methodsName, pageName = 'memberPage'){
-                console.log(methodsName);
+            changePageShow(nowPage, indexPage='memberIndex'){
+                /*说明：nowPage=当前页        indexPage=归属页
+                 用法： this.$emit('changePageShow',pageName,'memberEdit'); */
+                if(typeof (nowPage) =='object' ){
+                    nowPage  = nowPage[0];
+                }
+                console.log(nowPage);
 
+                this.sessionNowPage(nowPage,indexPage);
+                this.pageState[nowPage] = true;        //nowPage =》 当前页面 显示
 
-                this.pageState[methodsName] = true;  //methodsName =》 二级页面
-                this.pageState[pageName] = false;    //pageName => index页面
-                sessionStorage.setItem('memberPage', methodsName);
+               /* /!*一级 首页会员列表 *!/
+                if(indexPage == 'memberIndex'){
+                    this.sessionNowPage(nowPage,indexPage);
+                    this.pageState[nowPage] = true;        //nowPage =》 二级页面
+                }
+
+                /!*二级 会员信息*!/
+                if(indexPage == 'memberInfo'){
+                    this.sessionNowPage(nowPage,indexPage);
+                    this.pageState[nowPage] = true;       //nowPage =》 二级页面
+                    // if(nowPage != 'memberInfo'){
+                    //     this.pageState.memberInfo = false;    //indexPage => index页面
+                    // }
+                }
+
+                /!*三级 操作会员*!/
+                if(indexPage == 'memberEdit'){
+                    this.sessionNowPage(nowPage,indexPage);
+                    this.pageState[nowPage] = true;       //nowPage =》 二级页面
+                    // if(nowPage != 'memberEdit'){
+                    //     this.pageState.memberEdit = false;    //indexPage => index页面
+                    // }
+                }*/
+
             },
 
-            // 返回上一页 并清空
-            goBack(secendPage){
-                console.log(this.checkedRows);
-                let row = this.checkedRows;
 
-                this.pageState[secendPage] = false;   //隐藏二级页
-                this.pageState.memberPage = true; //显示首页
-                sessionStorage.removeItem('memberPage');
+            // 返回上一页 并清空
+            goBack(previousPage, indexPage = 'memberIndex'){
+                /*说明：previousPage=上一页        indexPage=归属页
+                  用法：this.$emit('GoBack','memberInfo','memberEdit'); */
+                if(typeof (previousPage) =='object' ){
+                    previousPage  = previousPage[0];
+                }
+                console.log(previousPage);
+
+              /*  /!*返回三级 首页*!/
+                if(indexPage == 'memberEdit'){
+                    this.sessionNowPage(previousPage,indexPage);
+                    this.pageState[indexPage] = true;
+                }
+                /!*返回子级 首页*!/
+                if(indexPage == 'memberInfo'){
+                    this.sessionNowPage(previousPage,indexPage);
+                    this.pageState[indexPage] = true;
+                }*/
+
+                /*返回一级首页*/
+                if(indexPage == 'memberIndex'){
+                    sessionStorage.removeItem('memberNowPage');
+                    this.pageState =this.$options.data.call(this).pageState;
+                    // this.pageState[indexPage] = true; //显示首页
+                }else{
+                    this.sessionNowPage(previousPage,indexPage);
+
+                }
+                this.pageState[indexPage] = true; //显示首页
             },
 
             // 选择判断
@@ -370,25 +457,19 @@
                 console.log(`点击事件类别：  ${methodsName}`);   //事件分类
 
                 // 会员新增
-                if(methodsName == 'addNewVip'){
-                    this.funcPageShow(methodsName);
+                if(methodsName == 'addNewMember'){
+                    this.changePageShow('addNewMember');
                 }
 
                 // 教练跟进
                 if(methodsName == 'followTab'){
                     console.log(methodsName);
                     console.log(pageName);
-                    // let checkedRows = this.checkedRowsFunc();
-                    // if(checkedRows){
-                    //     this.funcPageShow(secendPage);
-                    // }
-
-                    this.funcPageShow(methodsName);
+                    this.changePageShow('followTab');
 
                     let followVipInfo =  JSON.stringify(this.checkedRows);
                     sessionStorage.setItem('followVipInfo', followVipInfo);   /*存储预备会员信息*/
-                    sessionStorage.setItem('followPageName', pageName);    /*存储页面名字*/
-
+                    sessionStorage.setItem('followPageName', pageName);    /*存储切换选中的跟随页面名字*/
                 }
 
             },
@@ -403,7 +484,6 @@
             handleRowClick(row, column, event){
                 // let list = this.saleRoomInfo;
                 // list.forEach(function(row) {
-                //
                 //     vm.$refs.multipleTable.toggleRowSelection(row,true)
                 //
                 // });
@@ -428,20 +508,36 @@
         },
         created() {
             /*详情 显影*/
-            let memberPage = sessionStorage.getItem('memberPage');
-
-            if(memberPage){
-                console.log(`二级页面： ${memberPage}`);
-                this.funcPageShow(memberPage);
+            let memberNowPage = JSON.parse(sessionStorage.getItem('memberNowPage'));
+            if(memberNowPage != null){
+                console.log(memberNowPage);
+                this.changePageShow(memberNowPage.NowPage,memberNowPage.indexPage);
+            } else {
+                this.pageState.memberIndex = true;
             }
+
+
+            /*let userId=this.$route.params.user_id;
+            // console.log(userId);
+            if(!userId){
+                userId = '';
+            }
+            let iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/'+userId+'.html';
+            console.log(iframeUrl);
+
+            this.localSrc = iframeUrl;*/
         },
         components:{
             navRefush,
 
-            addNewVip,
+            addNewMember,
             followTab,
             memberInfo,
 
+            menberRecharge,  //会员充值
+
+            memberEdit,
+            memberHistory,
         }
 
     }
@@ -460,6 +556,13 @@
             color: #fff;
             font-size: 22px;
         }
-
+    }
+    .member-name{
+        /*background: red;*/
+        padding: 7px 10px;
+        &:hover{
+            color: rgba(0, 90, 212, 0.8);
+            /*font-weight: 600;*/
+        }
     }
 </style>

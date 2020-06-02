@@ -1,17 +1,13 @@
 <template>
   <div id="app">
     <!--<router-view v-if="isRouterAlive" :key="key"/>-->
-
-
     <router-view v-if="isRouterAlive"></router-view>
-
-
 
   </div>
 </template>
 
 <style lang="scss">
-  @import "//at.alicdn.com/t/font_1766146_836o1qnzm9q.css";  /* <i class="iconfont "></i> 记得加calss iconfont iconFont 图标样式  */
+  @import "//at.alicdn.com/t/font_1766146_2d9bvuo1bmd.css";  /* <i class="iconfont "></i> 记得加calss iconfont iconFont 图标样式  */
 </style>
 
 <script>

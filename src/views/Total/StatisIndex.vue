@@ -1,8 +1,15 @@
 <template>
     <div class="total-vipBox">
+<!--    <div class="layoutR-contain animated fadeIn total-vipBox">-->
+
+        <div class="shop-sel" v-show="showStateArr.tabPaneState">
+            <el-select  filterable v-model="shopId" placeholder="选择门店" class="ptScreen-select ">
+                <el-option v-for="item in shopArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            </el-select>
+        </div>
 
         <!--选项卡-->
-        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" v-show="showStateArr.tabPaneState">
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" v-show="showStateArr.tabPaneState" >
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal" >
@@ -88,7 +95,7 @@
         <ul>
             <!--客流趋势-->
             <li v-if="showStateArr.totalTrend">
-<!--                <navBread @GoBack="goBack('VipTotal','totalTrend')" breadTitle="总览" breadContent1="客流趋势"></navBread>-->
+                <!--<navBread @GoBack="goBack('VipTotal','totalTrend')" breadTitle="总览" breadContent1="客流趋势"></navBread>-->
                 <TotalTrend :ptSalesPage="10" :salerGropu="salerGropu"  @GoBack="goBack('VipTotal','totalTrend')"></TotalTrend>
             </li>
         </ul>
@@ -149,6 +156,14 @@
 
                     totalTrend:false,
                 },
+
+                shopArr:[
+                    {id:'shop0', name:'总店0'},
+                    {id:'shop1', name:'门店1'},
+                    {id:'shop2', name:'门店2'},
+                ],
+
+                shopId:'',
 
             }
         },

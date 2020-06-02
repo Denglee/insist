@@ -1,6 +1,6 @@
 <template>
     <div class="layoutR-contain animated fadeIn">
-        <!--<publicIframe/>-->
+        <publicIframe/>
         <!--<trackFace></trackFace>-->
 
 

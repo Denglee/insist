@@ -39,24 +39,24 @@
                     </div>
                     <ul class="total-right" v-if="PTAdd.rows.length >0">
                         <li>
-                             <i class="iconfont icon-huiyuan1-01 color-Yellow"></i>
-                            {{PTAdd.rows[0].name}}： <span class="color-Yellow">{{PTAdd.rows[0].value}}</span>
-                        </li>
-                        <li>
                              <i class="iconfont icon-huiyuan1-01 color-Pink"></i>
-                            {{PTAdd.rows[1].name}}： <span class="color-Pink">{{PTAdd.rows[1].value}}</span>
-                        </li>
-                        <li>
-                             <i class="iconfont icon-huiyuan1-01 color-LigntBlue"></i>
-                            {{PTAdd.rows[2].name}}： <span class="color-LigntBlue">{{PTAdd.rows[2].value}}</span>
+                            {{PTAdd.rows[0].name}}： <span class="color-Pink">{{PTAdd.rows[0].value}}</span>
                         </li>
                         <li>
                              <i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>
-                            {{PTAdd.rows[3].name}}： <span class="color-MediumBlue">{{PTAdd.rows[3].value}}</span>
+                            {{PTAdd.rows[1].name}}： <span class="color-MediumBlue">{{PTAdd.rows[1].value}}</span>
                         </li>
                         <li>
-                             <i class="iconfont icon-huiyuan1-01 color-GreenBlue"></i>
-                            {{PTAdd.rows[4].name}}： <span class="color-GreenBlue">{{PTAdd.rows[4].value}}</span>
+                             <i class="iconfont icon-huiyuan1-01 color-MediumBlue2"></i>
+                            {{PTAdd.rows[2].name}}： <span class="color-MediumBlue2">{{PTAdd.rows[2].value}}</span>
+                        </li>
+                        <li>
+                             <i class="iconfont icon-huiyuan1-01 color-LigntBlue"></i>
+                            {{PTAdd.rows[3].name}}： <span class="color-LigntBlue">{{PTAdd.rows[3].value}}</span>
+                        </li>
+                        <li>
+                             <i class="iconfont icon-huiyuan1-01 color-Yellow"></i>
+                            {{PTAdd.rows[4].name}}： <span class="color-Yellow">{{PTAdd.rows[4].value}}</span>
                         </li>
                     </ul>
                 </el-col>
@@ -138,7 +138,7 @@
         data() {
             this.totalPTColor = ['#8763ce','#1eaaa1'];
             this.totalColor = ['#4CCBEB', '#005AD4']; //会员总览 潜在会员 自定义的颜色
-            this.OverdueColor = ['#FFBE00', '#FF8A7E', '#4CCBEB', '#005AD4','#1eaaa1'];
+            this.OverdueColor = ['#FF8A7E', '#005AD4',  '#00a0e9','#4ccbeb','#FFBE00'];
             this.followColor=['#FF8A7E', '#005AD4'];
             this.histogramExtend = histogramExtendConfig;
             return {

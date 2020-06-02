@@ -46,7 +46,7 @@
 
 <script>
     import navRefush from '@/components/navRefush/navRefush';
-    import followTrainer from "../memberFollow/followTrainer";  /*教练跟进*/
+    import followTrainer from "../memberIndex/followTrainer";  /*教练跟进*/
     export default {
         name: "followTab",  //教练跟进
         data() {
@@ -85,7 +85,7 @@
             }
 
             /*获取预备会员信息*/
-            let followVipInfo =JSON.parse(sessionStorage.getItem('followVipInfo'));
+            let followVipInfo = JSON.parse(sessionStorage.getItem('followVipInfo'));
             if(followVipInfo){
                 console.log(`当前页面followVipInfo： ${followVipInfo}`);
                 this.followVipInfo = followVipInfo;

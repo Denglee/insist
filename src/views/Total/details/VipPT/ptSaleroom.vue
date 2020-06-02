@@ -2,7 +2,35 @@
     <div :class="ptSalesPage == 10 ? 'PTdetail-main' : '' ">
         <div class="detail-box">
             <header class="index-item-title flex-between">
-                <div class="title">私教销售额详情</div>
+                <div>
+                    <span>私教销售额详情</span>
+                    <div class="total-subTotal">
+                        <div class="total-subTotalName color-Pink">
+                            <i class="iconfont icon-xiaoshoutongji"></i>会籍卡:100张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张。
+                        </div>
+
+                    </div>
+                </div>
                 <div class="vipNav-rBox">
                     <monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>
                     <el-button v-show="ptSalesPage == 5" class="btn-ptMore" @click="btnTotalMore('tabPaneState','ptSalesD')">
@@ -16,10 +44,25 @@
                 <div class="pt-screen">
                     <!--部门-->
                     <el-select  filterable v-model="searchVal.group" placeholder="请选择部门" class="ptScreen-select">
-                        <el-option v-for="item in salerGropu" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="(item, index) in salerGropu" :key="index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
+
                     <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.search" class="ptScreen-input" clearable></el-input>
+
+                    <el-date-picker
+                            v-model="salerTime"
+                            type="daterange"
+                            unlink-panels
+                            range-separator="至"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            value-format="yyyy-MM-dd"
+                            calss="ptScreen-select">
+                    </el-date-picker>
+
                     <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="loadState.searchLoad">搜索</el-button>
+
+                    <el-button icon="el-icon-notebook-1" @click="signExport" class="btn-public fr">导出</el-button>
                 </div>
 
                 <!-- 表格-->
@@ -66,6 +109,7 @@
 
                 saleRoomInfo: [], //销售额数组
 
+                salerTime:'',
                 pageTotal:10,   //总条目数
                 searchVal:{   //销售额参数数组
                     zmtek_ver:2,
@@ -75,10 +119,17 @@
                     total:this.ptSalesPage,   //页面显示数
                     p:1,       //页码
                     search:'',
+
+
                 }
             }
         },
         methods: {
+            // 导出
+            signExport(){
+
+            },
+
             /*销售额查询*/
             getPTSaleroom(){
                 PTSaleroom(this.searchVal).then(res => {

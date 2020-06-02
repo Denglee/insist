@@ -183,10 +183,41 @@
             </el-col>
         </el-row>
 
+        <totalOffice></totalOffice>
+
         <!-- A2 会员办卡走势-->
         <div class="index-item comein-main">
             <header class="index-item-title flex-between">
-                <div class="title">会员办卡走势</div>
+                <div class="title">
+                    <span>会员办卡走势</span>
+                    <div class="total-subTotal">
+                        <div class="total-subTotalName color-Pink">
+                            <i class="iconfont icon-xiaoshoutongji"></i>会籍卡:100张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张;
+                        </div>
+
+                        <div class="total-subTotalName color-MediumBlue">
+                            <i class="iconfont icon-xiaoshoutongji"></i>私教卡:200张。
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="vipNav-rBox">
                     <monthSceen  @getMonthScreen="timeNewAdd"></monthSceen>
                 </div>
@@ -268,6 +299,103 @@
                     :extend = 'lineExtend'
             ></ve-line>
         </div>
+
+        <!-- A6  每日客流人数 男女占比-->
+        <el-row :gutter="30" class="total-row">
+            <!--会员数量-->
+            <el-col :md="16" :lg="16" >
+                <div class="index-item">
+                    <header class="index-item-title">
+                        <div class="title">每日客流人数男女占比</div>
+                    </header>
+                    <el-row>
+                        <el-col :md="12">
+                            <div class="total-box totalBorder">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-ring :data="totalVipPT"
+                                                 :legend-visible="false"
+                                                 :colors="totalVip"
+                                                 :style="picStyle"
+                                                 :extend = 'firstPieEctend'
+                                                 :settings="ringSettings">
+                                        </ve-ring>
+                                    </div>
+                                </div>
+                                <ul class="total-right" v-if="totalVipPT.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-huiyuan1-01 color-MediumBlue2"></i>{{totalVipPT.rows[0].name}}：
+                                        <span class="color-MediumBlue2">{{totalVipPT.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-huiyuan1-01 color-MediumBlue"></i>{{totalVipPT.rows[1].name}}：
+                                        <span class="color-MediumBlue">{{totalVipPT.rows[1].value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </el-col>
+                        <el-col :md="12">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipNum"
+                                                :legend-visible="false"
+                                                :colors="totalVipQz"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
+                                </div>
+                                <ul class="total-right" v-if="totalVipNum.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipNum.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipNum.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipNum.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipNum.rows[1].value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+
+            </el-col>
+
+            <el-col :md="8" :lg="8">
+                <div class="index-item">
+                    <header class="index-item-title">
+                        <div class="title">每月客流人数男女占比</div>
+                    </header>
+                    <el-row>
+                        <!--潜在会员-->
+                        <el-col :md="24">
+                            <div class="total-box">
+                                <div class="total-left">
+                                    <div class="pic-content">
+                                        <ve-pie :data="totalVipNum"
+                                                :legend-visible="false"
+                                                :colors="totalVipQz"
+                                                :style="picStyle"
+                                                :settings="picSettings"></ve-pie>
+                                    </div>
+                                </div>
+                                <ul class="total-right" v-if="totalVipNum.rows.length >0">
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-Pink"></i>{{totalVipNum.rows[0].name}}：
+                                        <span class="color-Pink">{{totalVipNum.rows[0].value}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-qixianka color-LigntBlue"></i>{{totalVipNum.rows[1].name}}：
+                                        <span class="color-LigntBlue">{{totalVipNum.rows[1].value}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -277,6 +405,8 @@
 
     import {lineExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
     import monthSceen from '@/components/monthSceen/monthSceen'  //7天时间筛选组件
+
+    import totalOffice from "./totalOffice";
     export default {
         name: "VipTotal",
         data() {
@@ -290,11 +420,17 @@
 
             return {
 
+                total:[
+                    { time:'2020-05-26', name:"汇金店", personNnm:223, lessonNum:0, orderNum:0, signNum:0, trainerNum:10, orderNum2:0, lessonNum2:0, signNum2:10, trainerNum2:0},
+                    { time:'2020-05-27', name:"现代美居广场店", personNnm:223, lessonNum:10, orderNum:0, signNum:10, trainerNum:0, orderNum2:10, lessonNum2:0, signNum2:10, trainerNum2:0},
+                ],
+
                 /* == 会员总览 eCharts 对应宽高 == */
                 picStyle: {
                     height: '180px',
                     width: '180px',
                 },
+
                 firstPieEctend:{
                     tooltip: {
                         trigger: 'item',
@@ -560,6 +696,8 @@
         },
         components: {
             monthSceen,
+            totalOffice,
         },
     }
 </script>
+

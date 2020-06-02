@@ -497,6 +497,7 @@
 
         /*页面刷新*/
         beforeRouteEnter(to, from, next) {
+            let that = this;
             console.log(to);
             console.log(from);
             if (from.name == 'login') {

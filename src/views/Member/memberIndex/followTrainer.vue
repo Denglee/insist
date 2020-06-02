@@ -262,7 +262,7 @@
 
         },
         created() {
-            let true_name = this.followVipInfo[0].true_name;
+            let true_name = this.followVipInfo[0].true_name || '';
             this.formFollowT.true_name = true_name
         },
     }

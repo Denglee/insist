@@ -13,7 +13,9 @@
         </div>
         <div class="bgWhite-public">
             <div class="bgWhite-padd20">
+                潜在会员信息
 
+                <el-button  type="primary" @click="btnMethods('btnEdit','memberEdit')">操作</el-button>
             </div>
         </div>
 
@@ -29,8 +31,8 @@
             return {
                 // 新增会员按钮组
                 btnVip:[
-                    { name:"会员充值", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'vipRecharge' ,pageName:'vipRecharge'},
-                    { name:"修改余额", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewVip'},
+                    { name:"会员充值", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'menberRecharge' ,pageName:'menberRecharge'},
+                    { name:"教练跟进", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewVip'},
                     { name:"定金收取", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip', pageName:'addNewVip'},
                 ],
             }
@@ -39,7 +41,8 @@
             // 返回上一页
             SecondBackBtn(){
                 console.log('二级导航返回点击事件');
-                this.$emit('GoBack');
+
+                this.$emit('GoBack','memberIndex','memberInfo');
                 sessionStorage.removeItem('followPageName');
                 sessionStorage.removeItem('followVipInfo');
             },
@@ -47,14 +50,18 @@
 
             // 按钮组 点击事件
             btnMethods(methodsName,pageName) {
-                console.log(`会员页面：  ${methodsName}`);   //事件分类
-                console.log(`会员页面：  ${pageName}`);   //事件分类
-
-                this.$emit('funcPageShow','vipRecharge');
 
                 // 会员新增
-                if (methodsName == 'addNewVip') {
-                    this.funcPageShow(methodsName);
+                if (methodsName == 'btnEdit') {
+                    /*首页 页面显影*/
+                    console.log(pageName);
+                    this.$emit('changePageShow',pageName,'memberInfo');
+                }
+
+                // 会员充值
+                if (methodsName == 'menberRecharge') {
+                    /*首页 页面显影*/
+                    this.$emit('changePageShow',pageName,'memberInfo');
                 }
 
             },

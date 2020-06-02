@@ -1,5 +1,5 @@
 <template>
-    <div class="btnNav-flex">
+    <div class="btnNav-flex btnNav-maxWidth">
         <button class="btnNav-box" v-if="btnBack" @click="SecondBack">
             <i class="el-icon-back"></i>
             <span>返回</span>
