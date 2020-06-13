@@ -4,9 +4,9 @@
         <!--<publicIframe/>-->
 
         <!--<div>潜在会员</div>-->
-<!--        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
+        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>
 
-
+<!--
         <div v-show="pageState.memberIndex">
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
@@ -36,7 +36,7 @@
 
                 <header class="index-item-title">会籍统计</header>
                 <div class="bgWhite-padd20">
-                    <!--saler 筛选-->
+                    &lt;!&ndash;saler 筛选&ndash;&gt;
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.keywords" class="ptScreen-input" clearable></el-input>
 
@@ -74,7 +74,7 @@
                         </button>
                      </div>
 
-                    <!-- 表格-->
+                    &lt;!&ndash; 表格&ndash;&gt;
                     <el-table class="pub-table" border
                               :data="saleRoomInfo"
                               @selection-change="checkedStaff"
@@ -178,20 +178,21 @@
 
         <followTab v-if="pageState.followTab" @GoBack="goBack('followTab')"></followTab>
 
-        <!--二级 会员信息-->
+        &lt;!&ndash;二级 会员信息&ndash;&gt;
         <memberInfo v-if="pageState.memberInfo" @GoBack="goBack(arguments,'memberIndex')"
                     @changePageShow="changePageShow(arguments, 'memberInfo')"></memberInfo>
 
-        <!--会员信息 =》会员充值-->
+        &lt;!&ndash;会员信息 =》会员充值&ndash;&gt;
         <menberRecharge v-if="pageState.menberRecharge" @GoBack="goBack(arguments,'memberInfo')"
                         @changePageShow="changePageShow(arguments,'memberInfo')"></menberRecharge>
 
-        <!--三级 会员操作-->
+        &lt;!&ndash;三级 会员操作&ndash;&gt;
         <memberEdit  v-if="pageState.memberEdit" @GoBack="goBack(arguments,'memberInfo')"
                      @changePageShow="changePageShow(arguments,'memberEdit')"></memberEdit>
 
         <memberHistory v-if="pageState.memberHistory" @GoBack="goBack(arguments,'memberEdit')"
                        @changePageShow="changePageShow(arguments,'memberEdit')"></memberHistory>
+        -->
     </div>
 </template>
 
@@ -517,7 +518,7 @@
             }
 
 
-            /*let userId=this.$route.params.user_id;
+            let userId=this.$route.params.user_id;
             // console.log(userId);
             if(!userId){
                 userId = '';
@@ -525,7 +526,7 @@
             let iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/'+userId+'.html';
             console.log(iframeUrl);
 
-            this.localSrc = iframeUrl;*/
+            this.localSrc = iframeUrl;
         },
         components:{
             navRefush,

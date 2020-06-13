@@ -243,7 +243,7 @@
                                 });
 
                                 setTimeout(() => {
-                                    /* this.$router.replace({
+                                    /* this.$routerConfigure.replace({
                                          path: "/redirect",
                                          query: {
                                              nextPath: '/index'

@@ -17,6 +17,10 @@
             </div>
         </div>
 
+        <!--tab2 部门 添加 弹窗-->
+        <el-dialog  :append-to-body="true" title="相见时难别亦难" :visible.sync="diaChange" width="600px" >
+            <div>东风无力百花残</div>
+        </el-dialog>
     </div>
 </template>
 
@@ -30,7 +34,10 @@
                 // 新增会员按钮组
                 btnVip:[
                     { name:"操作记录", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'memberHistory' ,pageName:'memberHistory'},
+                    { name:"修改状态", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'memberChange' ,pageName:'memberChange'},
                 ],
+
+                diaChange:false,
             }
         },
         methods: {
@@ -48,15 +55,16 @@
                 // 会员新增
                 if (methodsName == 'memberHistory') {
                     console.log('btnEdit');
-
                     /*首页 页面显影*/
                     this.$emit('changePageShow',pageName,'memberEdit');
                 }
 
                 // 会员新增
-                if (methodsName == 'menberRecharge') {
+                if (methodsName == 'memberChange') {
                     /*首页 页面显影*/
-                    this.$emit('changePageShow',pageName,'memberEdit');
+                    console.log('修改状态');
+                    this.diaChange = true;
+                    // this.$emit('changePageShow',pageName,'memberEdit');
                 }
 
             },

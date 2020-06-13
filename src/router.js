@@ -75,7 +75,7 @@ router.beforeEach((to, from, next) => {
             // 防止因重定向到error页面造成beforeEach死循环
             next()
         } else {
-            initRoute(router).then(() => {
+            initRoute(routerConfigure).then(() => {
                 let isPermission = false
                 console.log("进入权限判断")
                 permissionList.forEach((v) => {

@@ -356,14 +356,15 @@ $tabHei: 46px;
 
   .reItem-box {
     .el-col {
-      width: 20%;
+      width: 25%;
+      min-width: 400px;
     }
   }
 
   .reItem-box_0 {
     .revenue-item {
       color: #fff;
-      background-color: #ff8a7e;
+      background-color: rgba(255, 138, 126, 0.7);
     }
   }
 
@@ -377,23 +378,25 @@ $tabHei: 46px;
   .reItem-box_2 {
     .revenue-item {
       color: #fff;
-      background-color: #00a0e9;
+      background-color: rgba(0, 160, 233, 0.7);
     }
   }
 
   .reItem-box_3 {
     .revenue-item {
       color: #fff;
-      background-color: #005ad4;
+      background-color: rgba(0, 90, 212, 0.7);
     }
   }
 
   .revenue-listUl {
     position: relative;
-
+    margin-top: -18px;
     li {
       display: inline-block;
-      width: 25%;
+      //width: 25%;
+      width: 50%;
+      margin-top: 20px;
     }
   }
 
@@ -402,7 +405,6 @@ $tabHei: 46px;
     padding: 10px 0;
     text-align: center;
     min-height: 144px;
-
     .revenLiest-title {
       border-bottom: solid 1px #fff;
       padding-bottom: 10px;
@@ -415,19 +417,21 @@ $tabHei: 46px;
     }
 
     .revenList-totalNum {
-      font-size: 16px;
+      font-size: 18px;
     }
 
     .revenList-icon {
       .iconfont {
-        font-size: 26px;
+        font-size: 14px;
+        margin-right: 4px;
       }
 
       .icon-heji {
-        font-size: 22px;
-        position: absolute;
-        top: 2px;
-        right: 22px;
+        font-size: 14px;
+        margin-right: 4px;
+        //position: absolute;
+        //top: 2px;
+        //right: 22px;
       }
     }
   }
@@ -490,7 +494,6 @@ $tabHei: 46px;
   box-shadow: -1px 2px 12px 0px rgba(219, 219, 219, .79);
   border-radius: 20px;
   padding: 20px;
-
   .pt-screen {
     margin-bottom: 20px;
   }
@@ -517,6 +520,7 @@ $tabHei: 46px;
 }
 
 .total-subTotal{
+  //display: none;
   display: inline-flex;
   margin-left: 20px;
   .total-subTotalName{

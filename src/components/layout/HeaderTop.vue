@@ -305,7 +305,7 @@
             //     // });
             //     // // return false;
             //     // setTimeout(() => {
-            //     //     that.$router.push({path: '/index'});
+            //     //     that.$routerConfigure.push({path: '/index'});
             //     // }, 1500);
             //     this.$message({
             //         message:'登录过期',
@@ -316,7 +316,7 @@
             //     });
             //
             //     setTimeout(() =>{
-            //         this.$router.push({path:'/login'});
+            //         this.$routerConfigure.push({path:'/login'});
             //     },1500)
             // }
         },

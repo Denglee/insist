@@ -56,23 +56,20 @@
                             </div>
                             <ul class="revenue-listUl">
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-chongzhi-"></i></div>
-                                    <div class="revenList">充值金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-chongzhi-"></i>充值金额</div>
                                     <div class="revenList-totalNum">{{proItem.up_price}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-zengsong"></i></div>
-                                    <div class="revenList">赠送金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-zengsong"></i>赠送金额</div>
                                     <div class="revenList-totalNum">{{proItem.give_price}}</div>
                                 </li>
+
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i></div>
-                                    <div class="revenList">使用金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用金额</div>
                                     <div class="revenList-totalNum">{{proItem.use_price}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i></div>
-                                    <div class="revenList">剩余金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
                                     <div class="revenList-totalNum">{{proItem.left_price}}</div>
                                 </li>
                             </ul>
@@ -86,24 +83,20 @@
                             </div>
                             <ul class="revenue-listUl">
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i></div>
-                                    <div class="revenList">总数量</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
                                     <div class="revenList-totalNum">{{proItem.total_number}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i></div>
-                                    <div class="revenList">缴定金</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i>缴定金</div>
                                     <div class="revenList-totalNum">{{proItem.up_price}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i></div>
-                                    <div class="revenList">使用定金</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用定金</div>
                                     <div class="revenList-totalNum">{{proItem.use_price}}</div>
                                 </li>
 
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i></div>
-                                    <div class="revenList">剩余金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
                                     <div class="revenList-totalNum">{{proItem.left_price}}</div>
                                 </li>
                             </ul>
@@ -117,24 +110,20 @@
                             </div>
                             <ul class="revenue-listUl">
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i></div>
-                                    <div class="revenList">总数量</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
                                     <div class="revenList-totalNum">{{proItem.total_number}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i></div>
-                                    <div class="revenList">销售金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i>销售金额</div>
                                     <div class="revenList-totalNum">{{proItem.income}}</div>
                                 </li>
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i></div>
-                                    <div class="revenList">退款金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i>退款金额</div>
                                     <div class="revenList-totalNum">{{proItem.refund_price}}</div>
                                 </li>
 
                                 <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i></div>
-                                    <div class="revenList">合计金额</div>
+                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i>合计金额</div>
                                     <div class="revenList-totalNum">{{proItem.total_price}}</div>
                                 </li>
                             </ul>
@@ -316,7 +305,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    @import "@/assets/css/totalVip.scss";
-</style>

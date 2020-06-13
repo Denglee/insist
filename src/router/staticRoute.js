@@ -598,6 +598,13 @@ const staticRoute = [
             },
 
             /*营销*/
+
+            {
+                path: 'Market/giftbag', //
+                name: 'MarketGiftBag',
+                component: () => import(/* webpackChunkName: "MarketGiftBag" */ '@/views/Market/giftBag'),
+                meta: {title: '礼包'},
+            },
             {
                 path: 'Member/marketing', //会籍分销
                 name: 'Membermarketing',

@@ -286,9 +286,9 @@
 
                 <div class="vipNav-rBox">
                     <!--<monthSceen  @getMonthScreen="getMonthScreen"></monthSceen>-->
-                    <el-button class="btn-ptMore" @click="btnTotalMore('totalTrend')">
-                        更多 <i class="el-icon-arrow-right"></i>
-                    </el-button>
+<!--                    <el-button class="btn-ptMore" @click="btnTotalMore('totalTrend')">-->
+<!--                        更多 <i class="el-icon-arrow-right"></i>-->
+<!--                    </el-button>-->
                 </div>
             </header>
             <ve-line
@@ -301,8 +301,8 @@
         </div>
 
         <!-- A6  每日客流人数 男女占比-->
-        <el-row :gutter="30" class="total-row">
-            <!--会员数量-->
+       <!-- <el-row :gutter="30" class="total-row">
+            &lt;!&ndash;会员数量&ndash;&gt;
             <el-col :md="16" :lg="16" >
                 <div class="index-item">
                     <header class="index-item-title">
@@ -368,7 +368,7 @@
                         <div class="title">每月客流人数男女占比</div>
                     </header>
                     <el-row>
-                        <!--潜在会员-->
+                        &lt;!&ndash;潜在会员&ndash;&gt;
                         <el-col :md="24">
                             <div class="total-box">
                                 <div class="total-left">
@@ -395,7 +395,7 @@
                     </el-row>
                 </div>
             </el-col>
-        </el-row>
+        </el-row>-->
     </div>
 </template>
 

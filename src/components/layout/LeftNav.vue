@@ -98,7 +98,7 @@
                 let trainerId = e.currentTarget.dataset.datanum;
                 console.log(`${trainerId}`);
                 this.dataNum = trainerId;
-                // this.$router.push({path:trainerId});
+                // this.$routerConfigure.push({path:trainerId});
             },
         },
 

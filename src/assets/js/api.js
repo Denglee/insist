@@ -103,6 +103,11 @@ export const analyzeApi   = params => post('Admin/stat/analyze', params);       
 export const revenueContract   = params => get('Admin/Statis/contract_statis', params);          /* 营收详情*/
 export const revenueDetails   = params => get('Admin/Statis/revenueDetails', params);          /* 营收分类详情*/
 
+
+/*礼包*/
+export const giftBag   = params => get('Admin/server/giftbag', params);          /* 获取礼包列表*/
+export const addGiftBagApi   = params => post('Admin/server/addgiftbag', params);          /* 添加礼包*/
+
 /*
 staffAdd({
     userimage:userimage,

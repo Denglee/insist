@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!--<router-view v-if="isRouterAlive" :key="key"/>-->
+    <!--<routerConfigure-view v-if="isRouterAlive" :key="key"/>-->
     <router-view v-if="isRouterAlive"></router-view>
 
   </div>

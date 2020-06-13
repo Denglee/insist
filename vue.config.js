@@ -58,12 +58,24 @@ module.exports = {
      * */
     productionSourceMap: false,
 
+    css: {
+        // 是否使用css分离插件 ExtractTextPlugin
+        extract: {
+            // https://www.cnblogs.com/1rookie/p/11589863.html
+            //一种方式，每次打包后的css文件名会变更新。
+            filename: `riches/css/[name].${Timestamp}.css`,
+            chunkFilename: `riches/css/[name].${Timestamp}.css`,
+        }
+    },
     configureWebpack: {
-        externals: {
-            // 'echarts': 'echarts' // 配置使用CDN
-        },
+        // externals: {
+        //     // 'echarts': 'echarts' // 配置使用CDN
+        //     // 修改打包后css文件名
+        // },
 
         output: { // 输出重构  打包编译后的 文件名称  【模块名称.版本号.时间戳】
+            // filename: `riches/js/[name].js?v=${Timestamp}`,
+            // chunkFilename: `riches/js/[name].js?v=${Timestamp}`,
 
             filename: `riches/js/[name].${Timestamp}.js`,
             chunkFilename: `riches/js/[name].${Timestamp}.js`,

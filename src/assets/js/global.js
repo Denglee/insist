@@ -62,6 +62,12 @@ function getToday() {
     return formatDate;
 }
 
+/*时间戳转换 */
+function formatTime(dataStr, pattern = 'YYYY-MM-DD'){
+    // return this.$moment(dataStr).format(pattern)
+}
+
+
 // 全局 js
 let localUrl = '';  //全局路径
 var localOrigin = window.location.origin;
@@ -195,6 +201,7 @@ export default {
     getToday:getToday(),
     btnStateChange:btnStateChange,
 
+    formatTime:formatTime(),
     getChannel,
     channelArr,
     followLevel,

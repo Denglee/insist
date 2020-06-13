@@ -175,9 +175,9 @@
             //         customClass:'tipBox',
             //         confirmButtonText: '加油',
             //     }).then(() => {
-            //         this.$router.push({path: '/index'});
+            //         this.$routerConfigure.push({path: '/index'});
             //     }).catch(() => {
-            //         this.$router.push({path: '/index'});
+            //         this.$routerConfigure.push({path: '/index'});
             //     });
             // },
 
@@ -230,7 +230,7 @@
                             // return false;
 
                             setTimeout(() => {
-                                /* this.$router.replace({
+                                /* this.$routerConfigure.replace({
                                      path: "/redirect",
                                      query: {
                                          nextPath: '/index'
@@ -343,7 +343,7 @@
                                 });
                                 // return false;
                                 setTimeout(() => {
-                                    /* this.$router.replace({
+                                    /* this.$routerConfigure.replace({
                                          path: "/redirect",
                                          query: {
                                              nextPath: '/index'
@@ -436,7 +436,7 @@
 
 
                                 setTimeout(() => {
-                                    /* this.$router.replace({
+                                    /* this.$routerConfigure.replace({
                                          path: "/redirect",
                                          query: {
                                              nextPath: '/index'

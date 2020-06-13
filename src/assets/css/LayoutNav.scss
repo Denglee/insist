@@ -359,7 +359,8 @@ $tagNavHei:36px;
     text-decoration: none;
     border-right: solid 1px rgba(37,57,84,.1);
     border-bottom: solid 1px rgba(37,57,84,.1);
-
+    min-width: 76px;
+    padding-right: 24px;
     &:hover {
       background-color: $color-linghtWhite;
       color: $color-Black;
@@ -378,6 +379,9 @@ $tagNavHei:36px;
       text-align: center;
       border-radius: 50%;
       font-size: 14px;
+      position: absolute;
+      right: 2px;
+      top: 12px;
       &:hover {
         //color: $color-Pink;
       }
