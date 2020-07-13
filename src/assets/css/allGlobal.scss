@@ -6,6 +6,11 @@
   color: $color;
 }
 
+
+.fontGray {
+  @include fontColor($color-fontGray);
+}
+
 .colorGray {
   @include fontColor($color-inputBor);
 }

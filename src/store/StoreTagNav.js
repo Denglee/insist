@@ -21,7 +21,6 @@ const getters = {
             state.StateUserInfo = userInfo;
             return userInfo;
         }else {
-            console.log('asdasdasdasdasdfadfasdf');
             Message({
                 message:'登录过期,请重新登录。',
                 // icon:'fail',
@@ -75,12 +74,12 @@ const mutations = {
         }
     },
 
-    /*登录状态*/
+    /*登录状态  */
     mutSetLoginStatus(state, name) {
         localStorage.setItem('isLogin', true);
     },
 
-    /*退出登录*/
+    /*退出登录 */
     mutLOginOut(){
         localStorage.removeItem('userInfo');
         state.StateUserInfo = '';
@@ -96,8 +95,6 @@ const mutations = {
         console.log(data);
         state.staffClasses = data;
     },
-
-
 
 };
 

@@ -583,7 +583,7 @@ const staticRoute = [
                 meta: {title: '收款'},
             },
 
-            /*服务*/
+            /*服务 */
             {
                 path: 'Server/index',  //节日祝福
                 name: 'Serverindex',
@@ -598,7 +598,6 @@ const staticRoute = [
             },
 
             /*营销*/
-
             {
                 path: 'Market/giftbag', //
                 name: 'MarketGiftBag',
@@ -644,7 +643,8 @@ const staticRoute = [
             {
                 path: 'Item/enroll', //活动报名
                 name: 'ItemEnroll',
-                component: () => import(/* webpackChunkName: "ItemEnroll" */ '@/views/Market/ItemEnroll'),
+                // component: () => import(/* webpackChunkName: "ItemEnroll" */ '@/views/Market/ItemEnroll'),  //正式
+                component: () => import(/* webpackChunkName: "ItemEnroll" */ '@/views/Item/ItemEnroll'),       //为了编辑页面
                 meta: {title: '活动报名'},
             },
 

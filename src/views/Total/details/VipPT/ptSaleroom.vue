@@ -115,18 +115,29 @@
                     zmtek_ver:2,
                     day:4,  //1 = 今天 2 = 昨天  3 = 过去七天  4 = 过去三十天
                     date:'',
+                    city_id:17,
                     group:'',
                     total:this.ptSalesPage,   //页面显示数
                     p:1,       //页码
                     search:'',
-
-
                 }
             }
         },
         methods: {
             // 导出
             signExport(){
+                let localUrl = this.GLOBAL.localUrl;
+                let day = this.searchVal.day;
+                let date = this.searchVal.date;
+                let group = this.searchVal.group;
+                let p = this.searchVal.p;
+                let search = this.searchVal.search;
+                let is_export  = true;
+
+                // http://vikily.f3322.net:20000/staff/excel_sign.html?starttime=2020-03-01&keywords=&user_type=10000&p=1
+                let downUrl = localUrl + '/Statis/saleroom?zmtek_ver=2&p=' + p + '&day=' + day + '&group=' + group+ '&search=' + search+ '&is_export=' + is_export;
+                console.log(downUrl);
+                window.location.href = downUrl;
 
             },
 

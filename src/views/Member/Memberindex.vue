@@ -4,9 +4,8 @@
         <!--<publicIframe/>-->
 
         <!--<div>潜在会员</div>-->
-        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>
+        <!--<iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
 
-<!--
         <div v-show="pageState.memberIndex">
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
@@ -36,7 +35,7 @@
 
                 <header class="index-item-title">会籍统计</header>
                 <div class="bgWhite-padd20">
-                    &lt;!&ndash;saler 筛选&ndash;&gt;
+                    <!--saler 筛选-->
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.keywords" class="ptScreen-input" clearable></el-input>
 
@@ -74,7 +73,7 @@
                         </button>
                      </div>
 
-                    &lt;!&ndash; 表格&ndash;&gt;
+                    <!-- 表格-->
                     <el-table class="pub-table" border
                               :data="saleRoomInfo"
                               @selection-change="checkedStaff"
@@ -178,21 +177,20 @@
 
         <followTab v-if="pageState.followTab" @GoBack="goBack('followTab')"></followTab>
 
-        &lt;!&ndash;二级 会员信息&ndash;&gt;
+        <!--二级 会员信息-->
         <memberInfo v-if="pageState.memberInfo" @GoBack="goBack(arguments,'memberIndex')"
                     @changePageShow="changePageShow(arguments, 'memberInfo')"></memberInfo>
 
-        &lt;!&ndash;会员信息 =》会员充值&ndash;&gt;
+        <!--会员信息 =》会员充值-->
         <menberRecharge v-if="pageState.menberRecharge" @GoBack="goBack(arguments,'memberInfo')"
                         @changePageShow="changePageShow(arguments,'memberInfo')"></menberRecharge>
 
-        &lt;!&ndash;三级 会员操作&ndash;&gt;
+        <!--三级 会员操作-->
         <memberEdit  v-if="pageState.memberEdit" @GoBack="goBack(arguments,'memberInfo')"
                      @changePageShow="changePageShow(arguments,'memberEdit')"></memberEdit>
 
         <memberHistory v-if="pageState.memberHistory" @GoBack="goBack(arguments,'memberEdit')"
                        @changePageShow="changePageShow(arguments,'memberEdit')"></memberHistory>
-        -->
     </div>
 </template>
 
@@ -240,8 +238,8 @@
                 // 新增会员按钮组
                 btnVip:[
                     { name:"会员新增", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'addNewMember' ,pageName:'addNewMember'},
-                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewMember'},
                     { name:"删除会员", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip', pageName:'addNewMember'},
+                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewMember'},
                 ],
 
                 // 跟进按钮组
@@ -434,7 +432,6 @@
                     // this.pageState[indexPage] = true; //显示首页
                 }else{
                     this.sessionNowPage(previousPage,indexPage);
-
                 }
                 this.pageState[indexPage] = true; //显示首页
             },
@@ -545,25 +542,5 @@
 </script>
 
 <style lang="scss">
-    .icon_man{
-        width: 36px;
-        height: 36px;
-        line-height: 36px;
-        text-align: center;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto;
-        i{
-            color: #fff;
-            font-size: 22px;
-        }
-    }
-    .member-name{
-        /*background: red;*/
-        padding: 7px 10px;
-        &:hover{
-            color: rgba(0, 90, 212, 0.8);
-            /*font-weight: 600;*/
-        }
-    }
+    @import "../../assets/css/member";
 </style>
