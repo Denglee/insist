@@ -40,7 +40,6 @@ export const IndexRevenue_trend    = params => post('admin/Web/revenue_trend', p
 export const checkFaceApi    = params => post('admin/Web/match', params);         /*收支趋势*/
 
 
-
 /* ==-- C、统计 会员总览 --== */
 /*1、会员总览*/
 export const totalMember_number   = params => post('admin/statis/member_number', params);         /* 会员数量*/
@@ -48,6 +47,7 @@ export const totalMember_trend    = params => post('admin/statis/member_trend', 
 export const totalSub_card_trend  = params => post('admin/statis/sub_card_trend', params);        /* 消耗趋势*/
 export const totalRefund_trend    = params => post('admin/statis/refund_transfer_trend', params); /* 退款,转让走势*/
 export const totalPassenger_trend = params => post('admin/statis/passenger_trend', params);       /* 客流走势*/
+
 
 /* 2、私教 */
 export const PTprivateMember   = params => post('admin/statis/private_member_statis', params);         /* 私教 统计 会员数量*/
@@ -58,12 +58,14 @@ export const PTclassNumber  = params => get('Admin/Statis/classNumber', params);
 export const PTperNumPri  = params => get('Admin/Statis/perNumPri', params);         /* 私教上课列表 */
 export const PTperNumPriparticulars  = params => get('Admin/Statis/perNumPriparticulars', params); /* 私教上课 详情 */
 
+
 //2.1  到期提醒
 export const PTexpireSki    = params => get('Admin/statis/expire_ski', params);         /* 到期滑雪 详情 */
 export const PTexpireCoach  = params => get('Admin/statis/expire_coach', params);         /* 到期私教 详情 */
 export const PTexpireReminder  = params => get('Admin/statis/expire_reminder', params);         /* 期限到期 详情 */
 export const PTexpireNum    = params => get('Admin/statis/expire_num', params);         /* 到期次卡 详情 */
 export const PTexpireLazy   = params => get('Admin/statis/lazy', params);         /* 懒惰提醒 详情 */
+
 
 /*3、会籍*/
 export const VipMemberTkClass   = params => post('Admin/Statis/member_tk_class', params);         /* 教练上课排名*/
@@ -89,6 +91,12 @@ export const staffSignin   = params => get('admin/staff/signin', params);       
 export const staffSetcommutertime   = params => get('admin/Staff/setcommutertime', params);         /* 考勤 列表*/
 
 
+
+export const getChedulingApi   = params => post('admin/staff/getChedulingInfo', params);         /* 考勤 排班 */
+export const updateChedulingApi   = params => post('/admin/staff/updateCheduling', params);         /* 考勤 排班 更新 */
+
+
+
 /*  === E、营收 ==*/
 export const revenueTotal   = params => get('Admin/Statis/total_revenue', params);         /* 总收入 */
 export const revenueRanking   = params => get('Admin/Statis/project_revenue_ranking', params);          /* 项目营收排名*/
@@ -99,7 +107,6 @@ export const revenuePrintApi   = params => post('Admin/stat/printcontrace', para
 
 export const analyzeApi   = params => post('Admin/stat/analyze', params);          /* 业绩分析*/
 
-
 export const revenueContract   = params => get('Admin/Statis/contract_statis', params);          /* 营收详情*/
 export const revenueDetails   = params => get('Admin/Statis/revenueDetails', params);          /* 营收分类详情*/
 
@@ -107,6 +114,17 @@ export const revenueDetails   = params => get('Admin/Statis/revenueDetails', par
 /*礼包*/
 export const giftBag   = params => get('Admin/server/giftbag', params);          /* 获取礼包列表*/
 export const addGiftBagApi   = params => post('Admin/server/addgiftbag', params);          /* 添加礼包*/
+
+
+/*setUp 权限*/
+export const AddPromiseGroupApi   = params => post('Admin/auth/addGroup', params);          /* 添加权限组 */
+export const AllPromiseGroupApi   = params => post('Admin/auth/getGroup', params);          /* 获取所有权限组*/
+export const AllPromiseRoleApi   = params => post('Admin/auth/getRole', params);          /* 获取所有角色*/
+
+export const AllPromiseApi   = params => post('Admin/auth/getAuth', params);          /* 获取所有权限*/
+export const AddPromiseRoleApi   = params => post('Admin/auth/addAuth', params);          /* 添加基础权限*/
+export const UpdataPromiseRoleApi   = params => post('Admin/auth/updateAuth', params);          /* 更新基础权限*/
+
 
 /*
 staffAdd({

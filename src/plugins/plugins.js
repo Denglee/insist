@@ -29,7 +29,6 @@ import '@/assets/css/animate37.css'
 
 
 
-
 /* 2.1、 全局 通用iframe 组件*/
 import publicIframe from '@/components/publicIframe/publicIframe'
 Vue.component(publicIframe.name,publicIframe);
@@ -107,3 +106,4 @@ Vue.use(Print);  //注册
 /* 2、 引用 自定义 全局js*/
 import GLOBAL from  '@/assets/js/global.js'
 Vue.prototype.GLOBAL = GLOBAL;
+

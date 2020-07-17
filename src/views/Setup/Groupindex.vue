@@ -1,32 +1,35 @@
 <template>
     <div class="layoutR-contain animated fadeIn">
         <!--右边iframe-->
-        <!--<publicIframe/>-->
+        <publicIframe/>
 
-        <div v-show="showState.showGroupIndex">
+       <!-- <div v-show="showState.showGroupIndex">
 
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
-                <ul>
+               &lt;!&ndash; <ul>
                     <li class="btnNav-flex btnNav-vip">
                         <button class="btnNav-box" v-for="(item,index) in btnVip" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
                             <i class="iconfont" :class="item.iconClass"></i>
                             <span>{{item.name}}</span>
                         </button>
                     </li>
-                </ul>
+                </ul>&ndash;&gt;
             </div>
 
             <div class="bgWhite-public">
 
-                <header class="index-item-title">角色管理</header>
+                <header class="index-item-title">权限组</header>
                 <div class="bgWhite-padd20">
 
-                    <!--表格-->
-                    <el-table class="pub-table edit-table" :data="groupTable" border>
+                    &lt;!&ndash;表格&ndash;&gt;
+                    <el-table class="pub-table edit-table" :data="promiseGroupArr" border>
                         <el-table-column type="index" label="序号" width="50px"></el-table-column>
                         <el-table-column prop="id" label="ID"></el-table-column>
-                        <el-table-column prop="title" label="角色名称" ></el-table-column>
+                        <el-table-column prop="name" label="名称" ></el-table-column>
+
+
+                       &lt;!&ndash; <el-table-column prop="title" label="角色名称" ></el-table-column>
                         <el-table-column prop="describe" label="角色描述"></el-table-column>
                         <el-table-column prop="city_name" label="所属企业"></el-table-column>
                         <el-table-column prop="status" label="状态">
@@ -34,19 +37,20 @@
                                 <div v-if="scope.row.status == 0 " class="ptContract-status1">显示</div>
                                 <div v-if="scope.row.status == 1 " class="ptContract-status2">不显示</div>
                             </template>
-                        </el-table-column>
+                        </el-table-column>&ndash;&gt;
+
                         <el-table-column label="操作" width="300">
                             <template slot-scope="scope">
-                                <el-button size="mini" class="btn-noBor" @click="btnSetPower(scope.$index, scope.row)">权限设置</el-button>
-                                <el-button size="mini" class="btn-noBor" @click="btnGroupMember(scope.$index, scope.row)">成员管理</el-button>
-                                <el-button size="mini" class="btn-noBor" @click="editGroup(scope.$index, scope.row)">编辑</el-button>
-                                <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>
+                                <el-button size="mini" class="btn-noBor" @click="btnSetPower(scope.$index, scope.row)">权限组设置</el-button>
+                                <el-button size="mini" class="btn-noBor" @click="btnGroupRole(scope.$index, scope.row)">角色管理</el-button>
+                                &lt;!&ndash;<el-button size="mini" class="btn-noBor" @click="editGroup(scope.$index, scope.row)">编辑</el-button>
+                                <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>&ndash;&gt;
                             </template>
                         </el-table-column>
                     </el-table>
 
 
-                    <!--tab2 部门 添加 弹窗-->
+                    &lt;!&ndash;tab2 部门 添加 弹窗&ndash;&gt;
                     <el-dialog  :append-to-body="true" :title="diaTitle.diaGroupTitle" :visible.sync="showState.diaGroup" width="600px" >
                         <el-form :model="setupGroup" class="dia-form" :label-width="formLabelWidth">
                             <el-form-item label="是否启用" >
@@ -71,7 +75,8 @@
             </div>
         </div>
 
-        <!--<groupMember v-show="showState.showGroupMember"  @GoBack="goBack(arguments)"></groupMember>-->
+        &lt;!&ndash;<groupMember v-show="showState.showGroupMember"  @GoBack="goBack(arguments)"></groupMember>&ndash;&gt;
+        <groupRole v-show="showState.showGroupRole"  @GoBack="goBack(arguments)"></groupRole>
 
         <el-dialog  :append-to-body="true" :title="diaTitle.diaPowerTitle" :visible.sync="showState.diaPower" width="80%" >
 
@@ -86,18 +91,20 @@
                 <el-button @click="showState.diaPower = false" plain>取 消</el-button>
                 <el-button type="primary" @click="sureDiaPower()" :loading="btnLoad.btnSurePower">确 定</el-button>
             </div>
-        </el-dialog>
+        </el-dialog>-->
 
     </div>
 </template>
 
 <script>
+    import { AllPromiseApi, AllPromiseGroupApi, AllPromiseRoleApi, AddPromiseGroupApi} from '../../assets/js/api'
     import navRefush from '@/components/navRefush/navRefush' /*按钮组件  */
     /*import groupMember from "./groupMember/groupMember";  */
+    import groupRole from "./groupMember/groupRole";
     import groupPowerMenu from "./groupMember/groupPowerMenu";
 
     export default {
-        name: "Groupindex",   //角色管理 。
+        name: "Groupindex",   //权限组 所有权限 。
         data() {
             return {
                 activeName:'first',
@@ -106,34 +113,6 @@
                     child: 'child',
                     label: 'label'
                 },
-
-                setNavLeftOne:[
-                    {
-                        id:1 ,
-                        value:'前台',
-                        firstItem:[
-                            {
-                                id:'fir1',
-                                value:'团课',
-                                secItem:[
-                                    {
-                                        id:'sec2' ,
-                                        value:'员工',
-                                        thItem:[
-                                            {
-                                                id:'sec2' ,
-                                                value:'员工',
-                                            }
-                                        ]
-                                    },
-                                ]
-                            },
-                            {id:'fir2', value:'私教'},
-                        ]
-                    },
-                    {id:2 , value:'员工'},
-                    {id:3 , value:'个人'},
-                ],
 
                 //A1 弹窗
                 formLabelWidth:'90px',
@@ -152,11 +131,12 @@
 
                 //  显隐状态
                 showState:{
-                    showGroupIndex:true,  //角色管理
+                    showGroupIndex:true,  //权限组管理
                     showGroupMember:false,  //系统用户
+                    showGroupRole:false,  //用户 角色
 
                     diaGroup:false,  //添加角色弹窗
-                    diaPower:true,  //权限弹窗
+                    diaPower:false,  //权限弹窗
                 },
 
                 // 按钮点击状态
@@ -169,9 +149,9 @@
                 },
 
                 // 导航操作按钮组
-                btnVip:[
-                    { name:"添加角色", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'diaGroup' ,pageName:'addNewMember'},
-                ],
+                /*btnVip:[
+                    { name:"添加权限组", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'diaGroup' ,pageName:'addNewMember'},
+                ],*/
 
                 // 启用状态
                 groupStatus:[
@@ -181,13 +161,48 @@
                 ],
 
                 // table数据
-                groupTable: [
-                    {id:444, title:'前台', describe:'前台', city_name:'智迈科技', status:1}
-                ],
+                promiseGroupArr:[],
+                // groupTable: [
+                //     {id:444, title:'前台', describe:'前台', city_name:'智迈科技', status:1}
+                // ],
 
             }
         },
         methods: {
+            /* api1 - 获取所有权限*/
+            FnGetAllPromise(){
+                AllPromiseApi().then(res=>{
+                    console.log(res);
+                }).catch(res=>{
+
+                })
+            },
+            /* api2 - 获取所有权限组*/
+            FnGetAllPromiseGroup(){
+                AllPromiseGroupApi().then(res=>{
+                    console.log(res);
+                    this.promiseGroupArr = res.data;
+                }).catch(res=>{
+
+                })
+            },
+            /* api3 - 获取所有角色*/
+            FnGetAllPromiseRole(){
+                AllPromiseRoleApi().then(res=>{
+                    console.log(res);
+                }).catch(res=>{
+
+                })
+            },
+            /* api4 - 添加权限组*/
+            FnAddPromiseGroup(){
+                AddPromiseGroupApi().then(res=>{
+                    console.log(res);
+                }).catch(res=>{
+
+                })
+            },
+
             //A1 权限设置
             btnSetPower(){
                 this.showState.diaPower = true;
@@ -232,14 +247,14 @@
                 sessionStorage.removeItem('groupNowPage');
             },
 
-            //G1 进入系统用户页面 成员管理
-            btnGroupMember(){
-                // this.pageShow('showGroupMember','showGroupIndex')
-                // sessionStorage.setItem('groupNowPage','showGroupMember');
+            //G1 进入系统用户页面 角色管理
+            btnGroupRole(){
+                this.pageShow('showGroupRole','showGroupIndex')
+                sessionStorage.setItem('groupNowPage','showGroupRole');
 
-                this.$router.push({
+                /*this.$router.push({
                     path:'/User/index'
-                })
+                })*/
             },
 
             //H1 页面显影方法
@@ -259,18 +274,24 @@
                 this.showState.showGroupIndex = true;
             }
 
+            // 调用获取所有权限 api
+            this.FnGetAllPromise();
+            this.FnGetAllPromiseGroup();
+            this.FnGetAllPromiseRole();
+            this.FnAddPromiseGroup();
+
 
         },
         components:{
             navRefush,
 
             /*groupMember*/
-
+            groupRole,
             groupPowerMenu,
         }
     }
 </script>
 
 <style lang="scss">
-    @import "../../assets/css/setUp";
+    @import "../../assets/css";
 </style>

@@ -8,7 +8,7 @@
            <i class="el-icon-plus avatar-uploader-icon"
               :style="{width:width+'px',height:height+'px','line-height':height+'px','font-size':height/6+'px'}"></i>
         </el-upload>
-        <div>
+        <div>le
             <img v-if="imageUrl" :src="imageUrl" class="avatar" ref="singleImg">
         </div>
 

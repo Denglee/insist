@@ -81,6 +81,13 @@
   background-color: $color-Yellow !important;
 }
 
+@mixin fontSize($size) {
+  font-size: $size ;
+}
+
+.font-size12{
+  @include fontSize(12px);
+}
 
 * {
   margin: 0;

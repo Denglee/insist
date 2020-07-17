@@ -7,7 +7,14 @@
 
 const Timestamp = new Date().getTime();  //当前时间为了防止打包缓存不刷新，所以给每个js文件都加一个时间戳
 module.exports = {
-
+    pluginOptions: {
+        i18n: {
+            // locale: 'fr',
+            // fallbackLocale: 'zh-CN',
+            // localeDir: 'assets/locales',
+            // enableInSFC: true
+        }
+    },
     //configureWebpack 这部分打包文件添加时间戳，防止缓存不更新
 
 
@@ -19,7 +26,7 @@ module.exports = {
         },*/
     // 部署生产环境和开发环境下的URL。
     // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上
-    //例如 https://www.my-app.com/。如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。
+    //例如 https://www.my-app.com/。如果应用被部署在pluginOptions一个子路径上，你就需要用这个选项指定这个子路径。
     // 例如，如果你的应用被部署在 https://www.my-app.com/my-app/，
     // 则设置 baseUrl 为 /my-app/。
     // publicPath: process.env.NODE_ENV === "production" ? "http://192.168.0.133:20000/" : "/",
@@ -93,16 +100,23 @@ module.exports = {
 
         // 配置多个代理
         proxy: {
-            "/api": {
+            "/": {
                 target: "http://vikily.f3322.net:20000",// 测试答咔访问的接口域名
+                // target: "http://192.168.0.65:8000",// 测试答咔访问的接口域名
                 // target: "http://spt.zmtek.net",// 正式答咔系统访问的接口域名
                 // target: "https://swim.zmtek.net",// 正式游泳馆访问的接口域名
+                ws: true,// 是否启用websockets
+                changeOrigin: true, //开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+            },
+           /* "/api": {
+                target: "http://vikily.f3322.net:20000",// 测试答咔访问的接口域名
                 ws: true,// 是否启用websockets
                 changeOrigin: true, //开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
                 pathRewrite: {
                     '^/api': '' //这里理解成用'/api'代替target里面的地址,比如我要调用'http://40.00.100.100:3002/user/add'，直接写'/api/user/add'即可
                 }
-            },
+            },*/
         }
     }
+
 };

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 // 引入插件，放在此处引用是为了下面的router和store中可能会用到某些插件的功能。
-import './plugins/index'
+import './plugins/plugins'
 
 import App from './App.vue'
 
@@ -11,6 +11,9 @@ import store from './store'
 Vue.config.productionTip = false;
 
 import Axios from 'axios'
+
+/*这个是重点，国际化必须有的*/
+import i18n from './assets/i81n/i18n'
 
 // import '../mock/index.js'
 
@@ -33,7 +36,8 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 
   // dev 开发环境 本地 /api
-  Axios.defaults.baseURL = '/api';
+  // Axios.defaults.baseURL = '/api';
+  Axios.defaults.baseURL = '/';
 }
 
 
@@ -41,5 +45,6 @@ if (process.env.NODE_ENV === 'production') {
 let Vm  = new Vue({
   router,
   store,
+  i18n,    //国际化必须有
   render: h => h(App)
 }).$mount('#app')

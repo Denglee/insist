@@ -163,7 +163,7 @@
                     >
                     </el-time-picker>
                 </el-form-item>
-                <el-form-item label="正班">
+                <el-form-item label="中班">
                     <el-time-picker
                             v-model="calssTimeForm.start_time_a"
                             placeholder="选择时间"
@@ -179,7 +179,7 @@
                     >
                     </el-time-picker>
                 </el-form-item>
-                <el-form-item label="正班">
+                <el-form-item label="晚班">
                     <el-time-picker
                             v-model="calssTimeForm.start_time_e"
                             placeholder="选择时间"

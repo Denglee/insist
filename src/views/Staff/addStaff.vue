@@ -63,7 +63,8 @@
             </el-form-item>
 
             <el-form-item label="班次" :label-width="formLabelWidth">
-                <el-select  filterable v-model="addStaffForm.classes" placeholder="请选择班次" class="inpStaffTel">
+                <el-select  filterable v-model="addStaffForm.classes" placeholder="请选择班次" class="inpStaffTel"
+                            @visible-change="selectClasses">
                     <el-option v-for="item in classesType" :key="item.value" :label="item.value" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
@@ -159,12 +160,20 @@
                 <el-button  type="primary" @click="postStaffAdd('addStaffForm')">提交</el-button>
             </el-form-item>
         </el-form>
+
+        <!--tab2 排班弹窗-->
+        <el-dialog :close-on-click-modal="false" :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupEdit"  width="80%"
+                   custom-class="sched-dialog">
+            <Scheduling @closeClassesDia = 'closeClassesDia' ref="childSchedu"></Scheduling>
+        </el-dialog>
+
     </div>
 </template>
 
 <script>
     import navBread from '@/components/navBread/navBread'
     import tinymce from '@/components/tinymce/tinymce'
+    import Scheduling from "./Scheduling";   //排班组件
     import {staffAdd,staffDeduct,staffGroup} from '@/assets/js/api' /*引用 员工 接口*/
     export default {
         name: "addStaff",
@@ -178,8 +187,14 @@
             'editStaff':{},
         },
         data() {
-
             return {
+                staffId:'',
+                diaGroupTitle:'排班设置',
+                showState:{
+                    diaGroupEdit:false,   //排版 弹窗 显隐
+                },
+
+
                 /* == 添加员工 ==*/
                 formLabelWidth:'120px',
                 diaHeadImgUrl: '',  //头像放大 url
@@ -198,7 +213,7 @@
                     lock:'0', // 状态 离职 在职
                     user_no:'', //编号
                     phone:'', //电话
-                    classes:'', //班次 1 = 正常 2 = 早 3 = 中 4 = 晚
+                    classes:'', //班次 1 = 正常 2 = 早 3 = 中 4 = 晚 5 自定义
                     group_id:'', //部门id
                     salary:'',//基本工资
                     deduction_type:[], //提成方式
@@ -226,6 +241,7 @@
                     {id:'2',value:'早班'},
                     {id:'3',value:'中班'},
                     {id:'4',value:'晚班'},
+                    {id:'5',value:'排班'},
                 ], //班次
 
                 addRules: {
@@ -254,7 +270,24 @@
                 }
             }
         },
+
         methods: {
+            closeClassesDia(){
+                this.showState.diaGroupEdit = false;
+            },
+
+            // 班次选择 时间
+            selectClasses(val){
+                let that =this;
+                if(val == false){
+                    if(this.addStaffForm.classes == 5){
+                        that.showState.diaGroupEdit = true;
+                        that.$nextTick(()=>{
+                            this.$refs.childSchedu.FnGetCheduling();
+                        });
+                    }
+                }
+            },
 
             // 鼠标单击的事件
             onClick (e, editor) {
@@ -380,6 +413,13 @@
         },
         created() {
 
+            let staffId = this.editStaff.id;
+            console.log(staffId);
+            if(staffId){
+                sessionStorage.setItem('staffId',staffId);
+            }
+
+
             /*调用 获取 部门*/
             this.getStaffGroup();
 
@@ -392,7 +432,9 @@
         },
         components:{
             navBread,
-            tinymce
+            tinymce,
+
+            Scheduling
         }
     }
 </script>

@@ -55,6 +55,7 @@
                 </div>
             </div>
 
+            <!--<LangeSelect></LangeSelect>-->
         </div>
 
         <!--更换密码弹出-->
@@ -87,6 +88,7 @@
 <script>
 
     import {ApiloginOut,ApiChangePass,ApiTopSearch} from '@/assets/js/api'
+    import LangeSelect from "../LangeSelect/LangeSelect";
 
     import {mapState,mapActions, mapGetters} from 'vuex'
     let btnStateChange = true;  //修改密码按钮点击状态
@@ -325,6 +327,9 @@
             ...mapGetters({
                 UserInfo:'StoreTagNav/getsUserInfo'
             })
+        },
+        components:{
+            LangeSelect
         },
     }
 </script>

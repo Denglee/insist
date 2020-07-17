@@ -84,6 +84,7 @@
                                 <div v-if="scope.row.classes == 2">早班</div>
                                 <div v-if="scope.row.classes == 3">中班</div>
                                 <div v-if="scope.row.classes == 4">晚班</div>
+                                <div v-if="scope.row.classes == 5">排班</div>
                             </template>
                         </el-table-column>
 
@@ -200,6 +201,7 @@
                     {id:2,name:'早班'},
                     {id:3,name:'中班'},
                     {id:4,name:'晚班'},
+                    {id:5,name:'排班'},
                 ],
 
                 staffDeductArr:[], //提成

@@ -253,3 +253,38 @@
     padding-top: 6px;
   }
 }
+
+
+//班次排班
+.schedu-ul{
+  padding: 10px 0;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+  margin: 10px 0;
+  li{
+    width: 50%;
+    display: inline-flex;
+    margin-bottom: 2px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+.schedu-day{
+  margin-right: 10px;
+  min-width: 100px;
+}
+.schedu-type{
+
+}
+.schedu-classes{
+  display: inline-block;
+}
+.sched-dialog{
+  //border: solid 1px red;
+  margin-top: 50px!important;
+  max-width: 800px !important;
+}
+.schedu-button{
+  width: 100%;
+  text-align: center;
+}
