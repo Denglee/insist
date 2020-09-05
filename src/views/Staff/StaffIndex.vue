@@ -46,7 +46,8 @@
                         </div>
                     </div>
                     <!--员工列表 表格-->
-                    <el-table class="pub-table staffList-table" :data="tableStaff" border @selection-change="checkedStaff"
+                    <el-table class="pub-table staffList-table" :data="tableStaff" border
+                              @selection-change="checkedStaff"
                               ref="multipleTable" @row-click="handleRowClick">
                         <el-table-column type="selection" width="55"></el-table-column>
                         <el-table-column prop="name" label="姓名"></el-table-column>
@@ -129,10 +130,10 @@
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button class="btn-noBor" size="mini" @click="EditGroup(scope.$index, scope.row)">
-                                <i class="iconfont icon-bianjitianchong"></i>
+                                <i class="iconfont icon-bianjitianchong"></i>编辑
                             </el-button>
                             <el-button class="btn-noBor" size="mini" @click="deleteGroup(scope.$index, scope.row)">
-                                <i class="iconfont icon-shanchutianchong"></i>
+                                <i class="iconfont icon-shanchutianchong"></i>删除
                             </el-button>
                         </template>
                     </el-table-column>

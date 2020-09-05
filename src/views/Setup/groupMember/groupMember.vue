@@ -1,8 +1,5 @@
 <template>
-    <div class="layoutR-contain animated fadeIn">
-        <!--右边iframe-->
-        <!--<publicIframe/>-->
-
+    <div>
         <div class="btnNav-contain">
             <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left" @SecondBack="BtnSecondBack"></navRefush>
             <ul>
@@ -14,6 +11,7 @@
                 </li>
             </ul>
         </div>
+
         <div class="bgWhite-public">
             <header class="index-item-title">后台管理</header>
             <div class="bgWhite-padd20">
@@ -47,7 +45,7 @@
 
 
                 <!--tab2 添加弹窗-->
-              <!--  <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupAdd" width="600px" >
+                <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupAdd" width="600px" >
                     <el-form :model="setupGroupAdd" class="dia-form" :label-width="formLabelWidth" ref="addProForm">
                         <el-form-item label="是否启用" >
                             <el-select  filterable v-model="setupGroupEdit.status" placeholder="是否启用" class="dia-inp">
@@ -80,18 +78,18 @@
                         <el-button @click="showState.diaGroupAdd = false" plain>取 消</el-button>
                         <el-button type="primary" @click="sureAddDiaGroup()" :loading="btnLoad.btnSureAddGroup">确 定</el-button>
                     </div>
-                </el-dialog>-->
+                </el-dialog>
 
                 <!--tab2 编辑弹窗-->
                 <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupEdit" width="600px" >
-                    <el-form :model="gMemberTableArr" class="dia-form" :label-width="formLabelWidth" ref="editProForm">
-                      <!--  <el-form-item label="所属角色" >
+                    <el-form :model="setupGroupEdit" class="dia-form" :label-width="formLabelWidth" ref="editProForm">
+                        <el-form-item label="所属角色" >
                             <el-input v-model="setupGroupEdit.group_id" placeholder="setupGroup" class="dia-inp" autocomplete="off"></el-input>
-                        </el-form-item>-->
-                        <el-form-item label="用户名" >
-                            <el-input v-model="gMemberTableArr.city_name" placeholder="用户名" class="dia-inp" autocomplete="off"></el-input>
                         </el-form-item>
-                       <!-- <el-form-item label="姓名"  prop="name" :rules="{ required: true, message: '姓名不能为空', trigger: 'blur' }">
+                        <el-form-item label="用户名" >
+                            <el-input v-model="setupGroupEdit.username" placeholder="用户名" class="dia-inp" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="姓名"  prop="name" :rules="{ required: true, message: '姓名不能为空', trigger: 'blur' }">
                             <el-input v-model="setupGroupEdit.name" placeholder="姓名" class="dia-inp" autocomplete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="电话"  prop="phone" :rules="{ required: true, message: '电话不能为空', trigger: 'blur' }">
@@ -99,7 +97,7 @@
                         </el-form-item>
                         <el-form-item label="备注" >
                             <el-input v-model="setupGroupEdit.remark" placeholder="备注" class="dia-inp" autocomplete="off"></el-input>
-                        </el-form-item>-->
+                        </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="showState.diaGroupEdit = false" plain>取 消</el-button>
@@ -107,23 +105,21 @@
                     </div>
                 </el-dialog>
 
+
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
     import navRefush from '@/components/navRefush/navRefush'  /*按钮组件*/
-
     export default {
-        name: "userIndex", //后台管理员
+        name: "groupMember",
         data() {
             return {
-
                 // 按钮点击状态
                 btnLoad:{
-                    btnBack:false,  //返回按钮是否显示
+                    btnBack:true,  //返回按钮是否显示
                     search:false,   //搜索按钮点击状态
                     btnSureAddGroup:false,
                     btnSureEditGroup:false,
@@ -171,14 +167,9 @@
                     remark:'',
                 },
 
-                gMemberTableArr:{},
-
-                gMemberTable: [
-                    {id:1, city_name:'智迈科技',
-                        remark:'智迈科技',name:'智迈科技',
-                        phone:'176****9466',getGroupName:'前台', last_time:'2020',last_ip:'192.168.0.11',status:'1' }
+                gMemberTable:[
+                    {id:1, city_name:'智迈科技', remark:'智迈科技',name:'智迈科技', phone:'176****9466',getGroupName:'前台', last_time:'2020',last_ip:'192.168.0.11',status:'1' }
                 ],
-
 
                 // 导航操作按钮组
                 btnVip:[
@@ -187,8 +178,6 @@
             }
         },
         methods: {
-
-
             // Z1 返回上一页
             BtnSecondBack(){
                 console.log('返回点击事件');
@@ -216,8 +205,7 @@
             editGroup(index,val){
                 console.log(val);
                 this.showState.diaGroupEdit = true;
-                this.gMemberTableArr = JSON.parse(JSON.stringify(val));
-                // this.gMemberTableArr = this.gMemberTableArr.JSON.parse(JSON.stringify(val))
+                this.setupGroup = val;
             },
             //B2 编辑确定
             sureEditDiaGroup(){
@@ -259,24 +247,8 @@
         created() {
 
         },
-        // beforeCreate(){
-        //     // 创建之前
-        // },
-        // created(){
-        //     // 创建之后
-        // },
-        // beforeMount() {
-        //     // 挂在前
-        // },
-        // monted(){
-        //   //挂在后
-        // },
-        // /*创建 挂载 更新 销毁
-        // create mount update destory*/
-
         components:{
-            navRefush,
-
+            navRefush
         }
     }
 </script>

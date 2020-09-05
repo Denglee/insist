@@ -94,13 +94,13 @@
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button size="mini"  class="btn-noBor" @click="EditGroup(scope.$index, scope.row)">
-                                <i class="iconfont icon-bianjitianchong"></i>
+                                <i class="iconfont icon-bianjitianchong"></i>编辑
                             </el-button>
                             <el-button size="mini"  class="btn-noBor" @click="btnGoRoyalty(scope.$index, scope.row)">
-                                <i class="iconfont icon-shezhi"></i>
+                                <i class="iconfont icon-shezhi"></i>设置
                             </el-button>
                             <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">
-                                <i class="iconfont icon-shanchutianchong"></i>
+                                <i class="iconfont icon-shanchutianchong"></i>删除
                             </el-button>
                         </template>
                     </el-table-column>

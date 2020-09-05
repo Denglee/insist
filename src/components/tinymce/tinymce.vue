@@ -11,6 +11,9 @@
     import tinymce from 'tinymce/tinymce'
     import Editor from '@tinymce/tinymce-vue'
     import 'tinymce/themes/silver'
+
+    import {ApiImgUplod} from "../../assets/js/api";
+
     // 编辑器插件plugins
     // 更多插件参考：https://www.tiny.cloud/docs/plugins/
 
@@ -46,7 +49,7 @@
             },
             toolbar: {
                 type: [String, Array],
-                default: 'undo redo |  formatselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | lists image media table | removeformat'
+                default: 'undo redo |  formatselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | lists image imagetools media table | removeformat'
             },
         },
         data () {
@@ -72,7 +75,18 @@
                     // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
                     images_upload_handler: (blobInfo, success, failure) => {
                         const img = 'data:image/jpeg;base64,' + blobInfo.base64();
-                        success(img);
+                        console.log(img);
+                        // console.log(failure);
+
+                        // return false
+                        ApiImgUplod({
+                            img:img,
+                            phone:'17688829466',
+                            city_id:'17',
+                        }).then(res=>{
+                            console.log(res);
+                            success(res.data);
+                        });
                     }
                 },
                 myValue: this.value
@@ -91,6 +105,8 @@
             clear () {
                 this.myValue = ''
             },
+
+
 
         },
         watch: {

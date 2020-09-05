@@ -9,7 +9,8 @@
         </div>
 
         <!--选项卡-->
-        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header" v-show="showStateArr.tabPaneState" >
+        <el-tabs v-model="activeTabName" @tab-click="tabTotal" class="vip-tabBox pubWidth tab-header"
+                 v-show="showStateArr.tabPaneState" >
 
             <!--  tabItem1 会员总览 -->
             <el-tab-pane :lazy='tabLazy' label="会员总览" name="VipTotal" >
@@ -21,7 +22,7 @@
                 <VipPT  @showState="showState($event)"  :salerGropu="salerGropu"></VipPT>
             </el-tab-pane>
 
-            <!-- tabItem3 会籍 -->
+            <!-- tabItem3 会籍-->
             <el-tab-pane :lazy='tabLazy' label="会籍" name="VipMembership">
                 <VipMembership @showState="showState($event)" :salerGropu="salerGropu"></VipMembership>
             </el-tab-pane>

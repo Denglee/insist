@@ -245,6 +245,7 @@
             lookDetail(index, row){
                 console.log(index);
                 console.log(row);
+
             },
 
             /*2.2 搜索 筛选*/
@@ -283,7 +284,7 @@
                 sessionStorage.setItem('choosePro', JSON.stringify(val));
             },
 
-            /*去详情页*/
+            /*去详情页 */
             goRenDetai(val,val2){
                 // console.log(val);
                 // console.log(val2);

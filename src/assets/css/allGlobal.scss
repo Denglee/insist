@@ -625,9 +625,15 @@ $borRadius: 15px;
 .btn-noBor {
   border: 0;
   padding: 0 14px;
-
+  color: $color-MediumBlue;
+  font-size: 14px;
+  &:hover {
+    color: #333;
+  }
   i {
-    font-size: 18px;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-right: 4px;
   }
 
   .icon-shanchutianchong {
@@ -636,6 +642,19 @@ $borRadius: 15px;
     }
   }
 }
+
+/*.btn-noBor {
+  border: 0;
+  padding: 0 14px;
+  i {
+    font-size: 18px;
+  }
+  .icon-shanchutianchong {
+    &:hover {
+      color: $color-Pink;
+    }
+  }
+}*/
 
 .btn-ptMore {
   width: 70px;

@@ -1,0 +1,65 @@
+/*member  潜在会员、正式会员 样式*/
+@import "themeColor";
+
+.icon_man{
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  i{
+    color: #fff;
+    font-size: 22px;
+  }
+}
+.member-name{
+  /*background: red;*/
+  padding: 7px 10px;
+  &:hover{
+    color: rgba(0, 90, 212, 0.8);
+    /*font-weight: 600;*/
+  }
+}
+
+#memberInfo{
+  .bgWhite-public{
+    min-height: auto;
+  }
+
+}
+.memInfo-info{
+  margin-top: 20px;
+  div{
+    margin-bottom: 20px;
+  }
+}
+.memberInfo-header{
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
+.memInfo-price{
+  width: calc(100% - 40px);
+  margin: 20px auto !important;
+  border-radius: 20px;
+  font-size: 18px;
+  .el-col{
+    background-color: $color-White;
+    width: calc(33.333% - 13.33px);
+    height:231px;
+    box-shadow:-1px 2px 12px 0px rgba(219,219,219,0.79);
+    border-radius:25px;
+    padding: 30px 40px !important;
+    &:not(:last-of-type){
+      margin-right: 20px;
+    }
+  }
+  .num{
+    font-size:34px;
+  }
+}

@@ -34,9 +34,10 @@
                        </el-menu-item>-->
                     <el-menu-item v-else
                                   :index="index1+'' +'-'+ index2+''" :dataIndex2="index1+'' +'-'+ index2+''">
-                        <a href="javascript:;" @click="layoutGoPath(subItems.controller,subItems.action,subItems.name)">
-                            {{ subItems.name }}
-                        </a>
+                        <router-link :to="{path:'/'+subItems.controller+'/'+subItems.action}"
+                                     :dataPath="subItems.controller+'/'+subItems.action">
+                            {{subItems.name}}
+                        </router-link>
                     </el-menu-item>
 
                 </el-menu-item-group>
@@ -55,16 +56,13 @@
 			return {
 				localUrl:this.GLOBAL.localUrl,
 				isCollapse: true,
-
-				openedPageList2:[],
-			}
+			};
 		},
 
 		methods: {
 
 			//store 里 StoreTagNav中 actions 的getNavList方法  获取左侧路由导航
 			...mapActions({
-				actTagPages: "StoreActiveNav/actTagPages",
 				getNavList: "StoreTagNav/actNavList",
 			}),
 
@@ -93,11 +91,6 @@
 			/*回到首页*/
 			goIndex(){
 				this.$router.push({path:'/index'});
-				this.openedPageList2 = [{
-					name:'首页',
-					path: '/index',
-					title: '',
-                }];
 			},
 
 			goNext(e){
@@ -107,73 +100,17 @@
 				this.dataNum = trainerId;
 				// this.$routerConfigure.push({path:trainerId});
 			},
-
-			layoutGoPath(path1,path2,name){
-				console.log(this.tagPages);
-				console.log(this.openedPageList2);
-				let path = '/'+path1+''+'/'+''+path2+'';
-				let openedPageList2 = this.openedPageList2;
-				if(openedPageList2.length == 0){
-					console.log(`127--  ${path}`);
-					openedPageList2.push({
-						name:name,
-						path: path,
-						title: '',
-					});
-					console.log(this.openedPageList2)
-					this.actTagPages(this.openedPageList2);
-				} else {
-					console.log(openedPageList2);
-					let hasSome = openedPageList2.some(item=>{
-						if(item.path == path){
-							return true
-						}
-					})
-					console.log(hasSome);
-					if(!hasSome){
-						openedPageList2.push({
-							name:name,
-							path: path,
-							title: '',
-						});
-						console.log(openedPageList2);
-						this.actTagPages(openedPageList2);
-					}
-				}
-
-				this.$router.push({
-					path:path,
-				});
-
-			},
 		},
 
 		created() {
 			this.getNavObj();
-
-			if(this.tagPages){
-				console.log(this.tagPages);
-				this.openedPageList2 = this.tagPages;
-			}else{
-				console.log(this.tagPages);
-				this.openedPageList2 = [];
-			}
-
-
 		},
 		computed:{
+			//获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
 			...mapGetters({
-				tagPages: "StoreActiveNav/getsTagPages",
 				StateNavList: "StoreTagNav/getNavList",
 				UserInfo:'StoreTagNav/getsUserInfo'
 			}),
-
-
-			//获取 store 中 StoreTagNav。js 的 gState 页面通过{{gState}}直接用
-			// ...mapGetters({
-			// 	StateNavList: "StoreTagNav/getNavList",
-			// 	UserInfo:'StoreTagNav/getsUserInfo'
-			// }),
 		}
 	};
 </script>

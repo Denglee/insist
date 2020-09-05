@@ -36,8 +36,8 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 
   // dev 开发环境 本地 /api
-  // Axios.defaults.baseURL = '/api';
   Axios.defaults.baseURL = '/';
+  // Axios.defaults.baseURL = '/';
 }
 
 

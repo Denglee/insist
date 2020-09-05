@@ -19,7 +19,7 @@
 
                 <el-form-item prop="password">
                     <el-input v-model="loginForm.password"
-                              placeholder="账号"
+                              placeholder="密码"
                               type="password"
                               clearable
                               :show-password=true

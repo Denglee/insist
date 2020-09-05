@@ -99,6 +99,7 @@
                     <el-input v-model="addAuthForm.title" placeholder="按钮、积分" class="dia-inp" autocomplete="off"></el-input>
                     <div>示例：{score}>50 and {score}<200</div>
                 </el-form-item>-->
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="showState.diaAddAuth = false" plain>取 消</el-button>

@@ -190,7 +190,7 @@
             </ul>
             <div class="line-comeIn">
                 <ve-line
-                        :color="comeInColor"
+                        :colors="comeInColor"
                         :data="comeIn"
                         :legend-visible="false"
                         :style="ComeInLineStyle"
@@ -207,21 +207,20 @@
 
     import {IndexTotal_membership,IndexNew_membership,IndexStatistics,IndexDrawer,IndexCurriculum,IndexPerformance,IndexRevenue_trend} from '@/assets/js/api'   /*引用 首页 接口*/
     import {lineExtendConfig,histogramExtendConfig} from '@/assets/js/vChartsConfig/vChartsConfig'   //vcharts配置
-
+    import {mapActions, mapGetters} from 'vuex'
     export default {
         name: "index",
         inject: ['reLoad'],
 
         data() {
+	        this.lineExtend = lineExtendConfig;
 
             this.VipColor = ['#ff8a7e','#4ccbeb','#005ad4']; // 自定义的颜色
-            this.addVipColor =  ['#4ccbeb', '#5b5ec7','#ffbe00' ]; // 自定义的颜色
+            /*this.addVipColor =  ['#4ccbeb', '#5b5ec7','#ffbe00' ]; // 自定义的颜色*/
             this.presentColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; //自定义的颜色
             this.lessonGroupColor =  ['#4CCBEB', '#005AD4']; // 自定义的颜色
             this.lessonTrainerColor =  ['#FF8A7E', '#FFBE00']; //自定义的颜色
-            this.comeInColor = ['#FF8A7E', '#4CCBEB', '#005AD4']; // 自定义的颜色
-
-            this.lineExtend = lineExtendConfig;
+            this.comeInColor = ['#ff8a7e', '#4CCBEB', '#005AD4']; // 自定义的颜色
 
             return {
                 LineStyle:{
@@ -363,6 +362,10 @@
         },
 
         methods: {
+	        //store 里 StoreTagNav中 actions 的getNavList方法  获取左侧路由导航
+	        ...mapActions({
+		        actTagPages: "StoreActiveNav/actTagPages",
+	        }),
 
             /*获取  现有会员 数据*/
             getTotal(){
@@ -492,8 +495,20 @@
             /*收入趋势 调用*/
             this.getRevenue_trend();
 
+
+
         },
 
+        mounted(){
+	        window.sessionStorage.removeItem('openedPageList2');
+	        let openedPageList2=[{
+		        name:'首页',
+		        path: '/index',
+		        title: '',
+	        }];
+
+	        this.actTagPages(openedPageList2);
+        },
 
         /*页面刷新*/
         beforeRouteEnter(to, from, next) {
@@ -503,8 +518,10 @@
             if (from.name == 'login') {
                 console.log('我从登陆页过来的 正在刷新……');
                 next(vm => {
-                    window.location.reload();
-                })
+	                that.reload();
+                });
+
+                // window
             } else {
                 next()
             }

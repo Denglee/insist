@@ -80,6 +80,8 @@ export const staffIndex   = params => get('admin/staff/index', params);         
 export const staffAdd   = params => post('admin/staff/add', params);         /* 添加员工*/
 export const staffDel   = params => post('admin/staff/del', params);         /* 删除员工*/
 
+export const ApiImgUplod = params => post('/api/Test/testUplod', params); /*HeaderTop 头部搜索*/
+
 export const staffSalaryMenuid  = params => get('admin/staff/salary/menuid', params);         /* 员工工资列表*/
 export const staffRewardPunish   = params => get('admin/staff/reward_punish', params);         /* 员工奖惩*/
 

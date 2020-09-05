@@ -3,8 +3,8 @@
         <div class="headerTop-user">
 
             <div class="clearfix">
-                <div class="header-cityName ellipsis" @click="goIndex()" :title="UserInfo.city_name">
-                    <i class="el-icon-s-home"></i>{{UserInfo.city_name  || "智迈科技"}} - 后台首页
+                <div class="header-cityName ellipsis" @click="goIndex()" :title="userInfo.city_name">
+                    <i class="el-icon-s-home"></i>{{userInfo.city_name  || "智迈科技"}} - 后台首页
                 </div>
 
                 <a :href="localUrl+ '/admin/index/index.html'" title="旧版地址" class="header-cityName goOldUrl">回到旧版</a>
@@ -31,12 +31,12 @@
 
                 <!--头部用户信息+退出+更换密码 -->
                 <div class="headerTop-userInfo">
-                    <img class="userHeader" :src='localUrl+"/"+UserInfo.logo || "assets/images/logo-daka.png"' alt="">
+                    <img class="userHeader" :src='localUrl+"/"+userInfo.logo || "assets/images/logo-daka.png"' alt="">
                     <el-dropdown class="dropdown-header">
                         <div class="el-dropdown-link">
                             <div class="user-name">
-                                <div>{{UserInfo.username}}</div>
-                                <div>{{UserInfo.auth_name}}</div>
+                                <div>{{userInfo.username}}</div>
+                                <!--<div>{{userInfo.auth_name}}</div>-->
                             </div>
                             <div><i class="el-icon-caret-bottom"></i></div>
 
@@ -44,6 +44,9 @@
                         <el-dropdown-menu slot="dropdown"
                                           hide-timeout="30000"
                                           class="dropdown-HeaderTop">
+                            <el-dropdown-item style="text-align: center; color: #fff;">
+                                {{userInfo.auth_name}}
+                            </el-dropdown-item>
                             <el-dropdown-item command="a">
                                 <el-button type="text" @click="diaChangePass = true">更换密码</el-button>
                             </el-dropdown-item>
@@ -163,7 +166,7 @@
         methods: {
             ...mapActions({
                 ACTlogout:'StoreTagNav/ACTlogout',   //store里 loginOut 退出登录方法
-                mutUserInfo:'StoreTagNav/actUserInfo',
+                mutuserInfo:'StoreTagNav/actuserInfo',
             }),
 
             /*退出登录*/
@@ -239,7 +242,7 @@
                             btnStateChange = true;
                         },1000);
 
-                        let uid = this.UserInfo.uid;
+                        let uid = this.userInfo.uid;
                         let old_password = this.changePassForm.oldPass;
                         let new_password = this.changePassForm.newPass;
                         console.log(`${uid},${old_password},${new_password}`);
@@ -289,45 +292,26 @@
             },
 
         },
+
         created() {
-            /*获取用户信息*/
-            // this.mutUserInfo();
-
-            // console.log(this.UserInfo);
-
-            // let city_name = this.UserInfo.city_name;
-            // console.log(city_name);
-            // if(this.UserInfo == undefined){
-            //     console.log('asd');
-            //     // this.$message({
-            //     //     message: res.info,
-            //     //     type: 'success',
-            //     //     duration: 1500,
-            //     //     offset: 100,
-            //     // });
-            //     // // return false;
-            //     // setTimeout(() => {
-            //     //     that.$routerConfigure.push({path: '/index'});
-            //     // }, 1500);
-            //     this.$message({
-            //         message:'登录过期',
-            //         // icon:'fail',
-            //         duration:2000,
-            //         type:'error',
-            //         offset:100,
-            //     });
-            //
-            //     setTimeout(() =>{
-            //         this.$routerConfigure.push({path:'/login'});
-            //     },1500)
-            // }
+            let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            console.log(userInfo);
+            if(!userInfo){
+                this.$message({
+                    message:'登录过期',
+                    // icon:'fail',
+                    duration:2000,
+                    type:'error',
+                    offset:100,
+                });
+                setTimeout(() =>{
+                    this.$router.push({path:'/login'});
+                },1500)
+            }else{
+                this.userInfo = userInfo;
+            }
         },
 
-        computed: {
-            ...mapGetters({
-                UserInfo:'StoreTagNav/getsUserInfo'
-            })
-        },
         components:{
             LangeSelect
         },

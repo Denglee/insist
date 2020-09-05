@@ -1,6 +1,6 @@
 <template>
     <keep-alive>
-        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>
+        <!--<iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
     </keep-alive>
 </template>
 
@@ -18,9 +18,9 @@
             /*console.log(this.$route);
             console.log(this.localUrl);
             console.log(this.$route.fullPath);*/
-            let nextUrl = this.localUrl + '/Admin' + this.$route.fullPath;
+            /*let nextUrl = this.localUrl + '/Admin' + this.$route.fullPath;
             console.log(nextUrl);
-            this.localSrc = nextUrl;
+            this.localSrc = nextUrl;*/
         },
 
     }

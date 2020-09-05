@@ -1,0 +1,49 @@
+/*member  设置木块 setUp 样式*/
+@import "themeColor";
+
+.power-item{
+  display: inline-block;
+  padding: 10px 0;
+}
+
+.tab-power{
+  border: solid 1px #ffa300;
+}
+
+/*第一级*/
+.power-container{
+  display: flex;
+  align-items: center;
+  border-left: solid 1px #ffa300;
+  //width: calc(100% - 140px);
+  min-height: 40px;
+  &:not(:last-of-type){
+    border-bottom: solid 1px #ffa300;
+  }
+}
+
+.power-title{
+  width: 166px;
+  display: inline-block;
+  text-align: center;
+  padding: 10px;
+}
+
+/*第二级*/
+.power-box{
+  display: inline-block;
+  width: 100%;
+}
+
+
+
+/*第四级*/
+//.power-four-box{
+//  border-left: solid 1px #ffa300;
+//}
+.power-five{
+  border: solid 1px green;
+  margin: 14px;
+  width: 100%;
+  /*display: inline-block;*/
+}

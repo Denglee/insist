@@ -6,42 +6,12 @@ const state = {
     openedPageList: [],
 
     // 缓存的页面
-    cachedPageName: [],
-    
-    tagPages: [],
+    cachedPageName: []
 }
 
-const getters= {
-    
-    // 监听 获取state 中的 stateName值
-    getsTagPages(state){
-        let tagPages = state.tagPages;
-  
-        if(tagPages == undefined || tagPages.length ==0){
-            console.log(tagPages);
-            let tagPages = JSON.parse(sessionStorage.getItem("openedPageList2"));
-            console.log(tagPages);
-            if (tagPages) {
-                state.tagPages = tagPages;
-                return state.tagPages;
-            }
-        }else{
-            console.log(tagPages);
-            return  state.tagPages;
-        }
-    },
-    
-};
-
 const mutations = {
-    
-    mutTagPages(state,data){
-        console.log(data);
-        state.tagPages= data;
-        return  state.tagPages;
-    },
-    
     addTagNav(state, data){
+        
         console.log(data);
         /*window.sessionStorage.setItem('openedPageList',JSON.stringify(state.openedPageList));*/
         
@@ -58,7 +28,6 @@ const mutations = {
         console.log(state.openedPageList);
         
     },
-    
     removeTagNav(state, data){
         if(data){
             for(let [i, v] of state.openedPageList.entries()){
@@ -84,18 +53,9 @@ const mutations = {
     }
 }
 
-const actions = {
-    actTagPages({commit},name){
-        console.log(name);
-        window.sessionStorage.setItem('openedPageList2',JSON.stringify(name));
-        return commit ('mutTagPages',name);    //mutationsName 是mutations 中的 mutationsName(state)
-    },
-};
 
 export default {
-    namespaced: true, //所属的模块名
+    namespaced: true,  //所属的模块名
     state,
-    getters,
-    mutations,
-    actions,
-};
+    mutations
+}
