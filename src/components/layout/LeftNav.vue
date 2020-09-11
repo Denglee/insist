@@ -92,12 +92,16 @@
 
 			/*回到首页*/
 			goIndex(){
+				console.log('sd');
 				this.$router.push({path:'/index'});
+				this.openedPageList2 = [];
 				this.openedPageList2 = [{
 					name:'首页',
 					path: '/index',
 					title: '',
                 }];
+				this.actTagPages(this.openedPageList2);
+
 			},
 
 			goNext(e){
@@ -112,6 +116,7 @@
 				console.log(this.tagPages);
 				console.log(this.openedPageList2);
 				let path = '/'+path1+''+'/'+''+path2+'';
+				console.log(path);
 				let openedPageList2 = this.openedPageList2;
 				if(openedPageList2.length == 0){
 					console.log(`127--  ${path}`);

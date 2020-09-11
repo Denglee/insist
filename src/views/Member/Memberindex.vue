@@ -1,12 +1,12 @@
 <template>
     <div class="layoutR-contain animated fadeIn">
         <!--右边iframe-->
-        <publicIframe/>
+        <!--<publicIframe/>-->
 
         <!--<div>潜在会员</div>-->
 <!--        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
 
-      <!--  <div v-show="pageState.memberIndex">
+        <div v-show="pageState.memberIndex">
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
                 <ul>
@@ -35,7 +35,7 @@
 
                 <header class="index-item-title">会籍统计</header>
                 <div class="bgWhite-padd20">
-                    &lt;!&ndash;saler 筛选&ndash;&gt;
+                    <!--saler 筛选-->
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.keywords" class="ptScreen-input" clearable></el-input>
 
@@ -73,7 +73,7 @@
                         </button>
                      </div>
 
-                    &lt;!&ndash; 表格&ndash;&gt;
+                    <!-- 表格-->
                     <el-table class="pub-table" border
                               :data="saleRoomInfo"
                               @selection-change="checkedStaff"
@@ -177,20 +177,20 @@
 
         <followTab v-if="pageState.followTab" @GoBack="goBack('followTab')"></followTab>
 
-        &lt;!&ndash;二级 会员信息&ndash;&gt;
+        <!--二级 会员信息-->
         <memberInfo v-if="pageState.memberInfo" @GoBack="goBack(arguments,'memberIndex')"
                     @changePageShow="changePageShow(arguments, 'memberInfo')"></memberInfo>
 
-        &lt;!&ndash;会员信息 =》会员充值&ndash;&gt;
+        <!--会员信息 =》会员充值-->
         <menberRecharge v-if="pageState.menberRecharge" @GoBack="goBack(arguments,'memberInfo')"
                         @changePageShow="changePageShow(arguments,'memberInfo')"></menberRecharge>
 
-        &lt;!&ndash;三级 会员操作&ndash;&gt;
+        <!--三级 会员操作-->
         <memberEdit  v-if="pageState.memberEdit" @GoBack="goBack(arguments,'memberInfo')"
                      @changePageShow="changePageShow(arguments,'memberEdit')"></memberEdit>
 
         <memberHistory v-if="pageState.memberHistory" @GoBack="goBack(arguments,'memberEdit')"
-                       @changePageShow="changePageShow(arguments,'memberEdit')"></memberHistory>-->
+                       @changePageShow="changePageShow(arguments,'memberEdit')"></memberHistory>
     </div>
 </template>
 
@@ -377,31 +377,6 @@
 
                 this.sessionNowPage(nowPage,indexPage);
                 this.pageState[nowPage] = true;        //nowPage =》 当前页面 显示
-
-               /* /!*一级 首页会员列表 *!/
-                if(indexPage == 'memberIndex'){
-                    this.sessionNowPage(nowPage,indexPage);
-                    this.pageState[nowPage] = true;        //nowPage =》 二级页面
-                }
-
-                /!*二级 会员信息*!/
-                if(indexPage == 'memberInfo'){
-                    this.sessionNowPage(nowPage,indexPage);
-                    this.pageState[nowPage] = true;       //nowPage =》 二级页面
-                    // if(nowPage != 'memberInfo'){
-                    //     this.pageState.memberInfo = false;    //indexPage => index页面
-                    // }
-                }
-
-                /!*三级 操作会员*!/
-                if(indexPage == 'memberEdit'){
-                    this.sessionNowPage(nowPage,indexPage);
-                    this.pageState[nowPage] = true;       //nowPage =》 二级页面
-                    // if(nowPage != 'memberEdit'){
-                    //     this.pageState.memberEdit = false;    //indexPage => index页面
-                    // }
-                }*/
-
             },
 
 
@@ -414,21 +389,10 @@
                 }
                 console.log(previousPage);
 
-              /*  /!*返回三级 首页*!/
-                if(indexPage == 'memberEdit'){
-                    this.sessionNowPage(previousPage,indexPage);
-                    this.pageState[indexPage] = true;
-                }
-                /!*返回子级 首页*!/
-                if(indexPage == 'memberInfo'){
-                    this.sessionNowPage(previousPage,indexPage);
-                    this.pageState[indexPage] = true;
-                }*/
-
                 /*返回一级首页*/
                 if(indexPage == 'memberIndex'){
                     sessionStorage.removeItem('memberNowPage');
-                    this.pageState =this.$options.data.call(this).pageState;
+                    this.pageState =this.$options.data.call(this).pageState;  //重置data
                     // this.pageState[indexPage] = true; //显示首页
                 }else{
                     this.sessionNowPage(previousPage,indexPage);
@@ -514,16 +478,6 @@
                 this.pageState.memberIndex = true;
             }
 
-
-            let userId=this.$route.params.user_id;
-            // console.log(userId);
-            if(!userId){
-                userId = '';
-            }
-            let iframeUrl = this.localUrl + '/Admin' + this.$route.fullPath+'/user_id/'+userId+'.html';
-            console.log(iframeUrl);
-
-            this.localSrc = iframeUrl;
         },
         components:{
             navRefush,

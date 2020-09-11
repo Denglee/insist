@@ -500,14 +500,15 @@
         },
 
         mounted(){
-	        window.sessionStorage.removeItem('openedPageList2');
-	        let openedPageList2=[{
-		        name:'首页',
-		        path: '/index',
-		        title: '',
-	        }];
-
-	        this.actTagPages(openedPageList2);
+	        // window.sessionStorage.removeItem('openedPageList2');
+            //
+	        // let openedPageList2=[{
+		    //     name:'首页',
+		    //     path: '/index',
+		    //     title: '',
+	        // }];
+            //
+	        // this.actTagPages(openedPageList2);
         },
 
         /*页面刷新*/

@@ -56,6 +56,12 @@
 				let path = e.target.getAttribute('Path');
 				console.log(path);
 				this.$router.push({path:path});
+				// this.$forceUpdate();
+				// if(path == '/index'){
+				// 	console.log(this.openedPageList2);
+				// 	this.openedPageList2 = [];
+                // }
+
 				// this.$routerConfigure.replace({
 				//     path: "/redirect",
 				//     query: {
@@ -64,12 +70,12 @@
 				// });
 			},
 
-			// reloadRouter(e){
-			//     let Path = e.target.getAttribute('Path');
-			//     console.log(Path);
-			//     this.$routerConfigure.push({path:Path});
-			//     this.$forceUpdate();
-			// },
+			/*reloadRouter(e){
+			    let Path = e.target.getAttribute('Path');
+			    console.log(Path);
+			    this.$routerConfigure.push({path:Path});
+			    this.$forceUpdate();
+			},*/
 
 			addTagNav(){
 				// 如果需要缓存则必须使用组件自身的name，而不是router的name
@@ -88,27 +94,21 @@
 				// 如果没有前一个Tag，则加载默认页面
 
 				console.log(item);
-				console.log(index);
 
-				this.openedPageList2.splice(index, 1);
-
-				console.log(this.openedPageList2)
-				this.actTagPages(this.openedPageList2);
-
-				if (this.$route.path == item.path) {
-					if (index) {
-						this.$router.push(this.openedPageList2[index - 1].path);
-					} else {
-						this.$router.push(this.defaultPage);
-						if (this.$route.path == "/index") {
-							// let data = {
-							// 	name:'首页',
-							// 	path: '/index',
-							// 	title: '',
-                            // }
-							// window.sessionStorage.setItem('openedPageList2',JSON.stringify(data));
-						}
-					}
+                if(item.path != '/index'){
+                    this.openedPageList2.splice(index, 1);
+                    if(this.openedPageList2.length == 0){
+	                    let openedPageList2=[{
+	                        name:'首页',
+	                        path: '/index',
+	                        title: '',
+	                    }];
+	                    this.$router.push('/index');
+	                    this.actTagPages(openedPageList2);
+                    }else{
+	                    this.actTagPages(this.openedPageList2);
+	                    this.$router.push(this.openedPageList2[index - 1].path);
+                    }
 				}
 			},
 			scrollToCurTag(){

@@ -47,7 +47,7 @@
 
 
                 <!--tab2 添加弹窗-->
-              <!--  <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupAdd" width="600px" >
+                <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupAdd" width="600px" >
                     <el-form :model="setupGroupAdd" class="dia-form" :label-width="formLabelWidth" ref="addProForm">
                         <el-form-item label="是否启用" >
                             <el-select  filterable v-model="setupGroupEdit.status" placeholder="是否启用" class="dia-inp">
@@ -80,7 +80,7 @@
                         <el-button @click="showState.diaGroupAdd = false" plain>取 消</el-button>
                         <el-button type="primary" @click="sureAddDiaGroup()" :loading="btnLoad.btnSureAddGroup">确 定</el-button>
                     </div>
-                </el-dialog>-->
+                </el-dialog>
 
                 <!--tab2 编辑弹窗-->
                 <el-dialog  :append-to-body="true" :title="diaGroupTitle" :visible.sync="showState.diaGroupEdit" width="600px" >
@@ -217,7 +217,7 @@
                 console.log(val);
                 this.showState.diaGroupEdit = true;
                 this.gMemberTableArr = JSON.parse(JSON.stringify(val));
-                // this.gMemberTableArr = this.gMemberTableArr.JSON.parse(JSON.stringify(val))
+                // this.gMemberTableArr = this.gMemberTableArr.JSON.parse(JSON.stringify(val));
             },
             //B2 编辑确定
             sureEditDiaGroup(){

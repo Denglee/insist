@@ -172,7 +172,7 @@ Vue.use(Progress);
 // Vue.use(TimelineItem);
 // Vue.use(Link);
 Vue.use(Divider);
-// Vue.use(Image);
+Vue.use(Image);
 // Vue.use(Calendar);
 Vue.use(Backtop);
 // Vue.use(PageHeader);

@@ -30,6 +30,7 @@ if (process.env.NODE_ENV === 'production') {
     let localUrl = window.location.origin;
     Axios.defaults.baseURL = localUrl;//正式 路径
   } else {
+    // Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//测试环境路径
     Axios.defaults.baseURL = 'http://vikily.f3322.net:20000';//测试环境路径
     // Vue.config.optimization.minimize(false);  //代码不压缩
   }

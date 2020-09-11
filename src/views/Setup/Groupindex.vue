@@ -1,20 +1,20 @@
 <template>
     <div class="layoutR-contain animated fadeIn">
         <!--右边iframe-->
-        <publicIframe/>
+        <!--<publicIframe/>-->
 
-       <!-- <div v-show="showState.showGroupIndex">
+        <div v-show="showState.showGroupIndex">
 
             <div class="btnNav-contain">
                 <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
-               &lt;!&ndash; <ul>
+               <!-- <ul>
                     <li class="btnNav-flex btnNav-vip">
                         <button class="btnNav-box" v-for="(item,index) in btnVip" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
                             <i class="iconfont" :class="item.iconClass"></i>
                             <span>{{item.name}}</span>
                         </button>
                     </li>
-                </ul>&ndash;&gt;
+                </ul>-->
             </div>
 
             <div class="bgWhite-public">
@@ -22,14 +22,14 @@
                 <header class="index-item-title">权限组</header>
                 <div class="bgWhite-padd20">
 
-                    &lt;!&ndash;表格&ndash;&gt;
+                    <!--表格-->
                     <el-table class="pub-table edit-table" :data="promiseGroupArr" border>
                         <el-table-column type="index" label="序号" width="50px"></el-table-column>
                         <el-table-column prop="id" label="ID"></el-table-column>
                         <el-table-column prop="name" label="名称" ></el-table-column>
 
 
-                       &lt;!&ndash; <el-table-column prop="title" label="角色名称" ></el-table-column>
+                       <!-- <el-table-column prop="title" label="角色名称" ></el-table-column>
                         <el-table-column prop="describe" label="角色描述"></el-table-column>
                         <el-table-column prop="city_name" label="所属企业"></el-table-column>
                         <el-table-column prop="status" label="状态">
@@ -37,20 +37,19 @@
                                 <div v-if="scope.row.status == 0 " class="ptContract-status1">显示</div>
                                 <div v-if="scope.row.status == 1 " class="ptContract-status2">不显示</div>
                             </template>
-                        </el-table-column>&ndash;&gt;
+                        </el-table-column>-->
 
                         <el-table-column label="操作" width="300">
                             <template slot-scope="scope">
                                 <el-button size="mini" class="btn-noBor" @click="btnSetPower(scope.$index, scope.row)">权限组设置</el-button>
                                 <el-button size="mini" class="btn-noBor" @click="btnGroupRole(scope.$index, scope.row)">角色管理</el-button>
-                                &lt;!&ndash;<el-button size="mini" class="btn-noBor" @click="editGroup(scope.$index, scope.row)">编辑</el-button>
-                                <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>&ndash;&gt;
+                                <!--<el-button size="mini" class="btn-noBor" @click="editGroup(scope.$index, scope.row)">编辑</el-button>
+                                <el-button size="mini" class="btn-noBor" @click="deleteGroup(scope.$index, scope.row)">删除</el-button>-->
                             </template>
                         </el-table-column>
                     </el-table>
 
-
-                    &lt;!&ndash;tab2 部门 添加 弹窗&ndash;&gt;
+                    <!--tab2 部门 添加 弹窗-->
                     <el-dialog  :append-to-body="true" :title="diaTitle.diaGroupTitle" :visible.sync="showState.diaGroup" width="600px" >
                         <el-form :model="setupGroup" class="dia-form" :label-width="formLabelWidth">
                             <el-form-item label="是否启用" >
@@ -75,7 +74,7 @@
             </div>
         </div>
 
-        &lt;!&ndash;<groupMember v-show="showState.showGroupMember"  @GoBack="goBack(arguments)"></groupMember>&ndash;&gt;
+        <!--<groupMember v-show="showState.showGroupMember"  @GoBack="goBack(arguments)"></groupMember>-->
         <groupRole v-show="showState.showGroupRole"  @GoBack="goBack(arguments)"></groupRole>
 
         <el-dialog  :append-to-body="true" :title="diaTitle.diaPowerTitle" :visible.sync="showState.diaPower" width="80%" >
@@ -91,15 +90,15 @@
                 <el-button @click="showState.diaPower = false" plain>取 消</el-button>
                 <el-button type="primary" @click="sureDiaPower()" :loading="btnLoad.btnSurePower">确 定</el-button>
             </div>
-        </el-dialog>-->
+        </el-dialog>
 
     </div>
 </template>
 
 <script>
     import { AllPromiseApi, AllPromiseGroupApi, AllPromiseRoleApi, AddPromiseGroupApi} from '../../assets/js/api'
-    import navRefush from '@/components/navRefush/navRefush' /*按钮组件  */
-    /*import groupMember from "./groupMember/groupMember";  */
+    import navRefush from '@/components/navRefush/navRefush' /* 按钮组件 */
+    /*import groupMember from "./groupMember/groupMember"; */
     import groupRole from "./groupMember/groupRole";
     import groupPowerMenu from "./groupMember/groupPowerMenu";
 
