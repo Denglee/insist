@@ -7,7 +7,7 @@
                 <el-select  v-model="projectChoose" multiple   collapse-tags
                         :popper-class="RevenSelCheckbox"   @change = 'chooseProject($event)' class="inp-mar14">
                     <el-option v-for="(item, index) in revenueProjectTotal"
-                               :key="item.index"
+                               :key="index"
                                :value="item.id"
                                :label="item.name">
                         <span class="check"></span>
@@ -23,7 +23,7 @@
                     placeholder="选择月">
                 </el-date-picker>
                 <!--搜索-->
-                <el-button icon="el-icon-search" @click="btnSeaDetail" class="btn-public" :loading="btnLoad.search">搜索</el-button>
+                <el-button icon="el-icon-search" @click="btnSeaDetail" class="btn-public" :loading="btnState.search">搜索</el-button>
             </div>
 
             <div class="reveue-listPie">
@@ -45,90 +45,91 @@
                     <div class="title">{{tItem.name}}</div>
                 </header>
                 <el-col :md="8" :lg="6" v-for="(item,index2) in projectChoose" :key="index2">
-                    <div v-for="(proItem,proIndex) in revenueProject" :key="proIndex" v-if = "item == proItem.id && tItem.id == proItem.gather_id"
-                         @click="goRenDetai('revenueDetails',proItem)" class="index-item revenue-item">
+                    <div v-for="(proItem,proIndex) in revenueProject" :key="proIndex">
+                        <div  v-if = "item == proItem.id && tItem.id == proItem.gather_id"
+                              @click="goRenDetai('revenueDetails',proItem)" class="index-item revenue-item">
 
-                        <!--余额-->
-                        <div class="revenue-list" v-if="proItem.id == 20">
-                            <div class="revenLiest-title flex-between">
-                                <div>{{proItem.name}}</div>
-                                <div>查看详情</div>
+                            <!--余额-->
+                            <div class="revenue-list" v-if="proItem.id == 20">
+                                <div class="revenLiest-title flex-between">
+                                    <div>{{proItem.name}}</div>
+                                    <div>查看详情</div>
+                                </div>
+                                <ul class="revenue-listUl">
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-chongzhi-"></i>充值金额</div>
+                                        <div class="revenList-totalNum">{{proItem.up_price}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-zengsong"></i>赠送金额</div>
+                                        <div class="revenList-totalNum">{{proItem.give_price}}</div>
+                                    </li>
+
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用金额</div>
+                                        <div class="revenList-totalNum">{{proItem.use_price}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
+                                        <div class="revenList-totalNum">{{proItem.left_price}}</div>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="revenue-listUl">
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-chongzhi-"></i>充值金额</div>
-                                    <div class="revenList-totalNum">{{proItem.up_price}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-zengsong"></i>赠送金额</div>
-                                    <div class="revenList-totalNum">{{proItem.give_price}}</div>
-                                </li>
 
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用金额</div>
-                                    <div class="revenList-totalNum">{{proItem.use_price}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
-                                    <div class="revenList-totalNum">{{proItem.left_price}}</div>
-                                </li>
-                            </ul>
-                        </div>
+                            <!--定金-->
+                            <div class="revenue-list" v-else-if="proItem.id == 22">
+                                <div class="revenLiest-title flex-between">
+                                    <div>{{proItem.name}}</div>
+                                    <div>查看详情</div>
+                                </div>
+                                <ul class="revenue-listUl">
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
+                                        <div class="revenList-totalNum">{{proItem.total_number}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-jine"></i>缴定金</div>
+                                        <div class="revenList-totalNum">{{proItem.up_price}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用定金</div>
+                                        <div class="revenList-totalNum">{{proItem.use_price}}</div>
+                                    </li>
 
-                        <!--定金-->
-                        <div class="revenue-list" v-else-if="proItem.id == 22">
-                            <div class="revenLiest-title flex-between">
-                                <div>{{proItem.name}}</div>
-                                <div>查看详情</div>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
+                                        <div class="revenList-totalNum">{{proItem.left_price}}</div>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="revenue-listUl">
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
-                                    <div class="revenList-totalNum">{{proItem.total_number}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i>缴定金</div>
-                                    <div class="revenList-totalNum">{{proItem.up_price}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shiyong"></i>使用定金</div>
-                                    <div class="revenList-totalNum">{{proItem.use_price}}</div>
-                                </li>
 
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shengyujine"></i>剩余金额</div>
-                                    <div class="revenList-totalNum">{{proItem.left_price}}</div>
-                                </li>
-                            </ul>
-                        </div>
+                            <!--会籍卡1-->
+                            <div class="revenue-list" v-else>
+                                <div class="revenLiest-title flex-between">
+                                    <div>{{proItem.name}}</div>
+                                    <div>查看详情</div>
+                                </div>
+                                <ul class="revenue-listUl">
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
+                                        <div class="revenList-totalNum">{{proItem.total_number}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-jine"></i>销售金额</div>
+                                        <div class="revenList-totalNum">{{proItem.income}}</div>
+                                    </li>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i>退款金额</div>
+                                        <div class="revenList-totalNum">{{proItem.refund_price}}</div>
+                                    </li>
 
-                        <!--会籍卡1-->
-                        <div class="revenue-list" v-else>
-                            <div class="revenLiest-title flex-between">
-                                <div>{{proItem.name}}</div>
-                                <div>查看详情</div>
+                                    <li>
+                                        <div class="revenList-icon"><i class="iconfont icon-heji"></i>合计金额</div>
+                                        <div class="revenList-totalNum">{{proItem.total_price}}</div>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="revenue-listUl">
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-shuliang"></i>总数量</div>
-                                    <div class="revenList-totalNum">{{proItem.total_number}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-jine"></i>销售金额</div>
-                                    <div class="revenList-totalNum">{{proItem.income}}</div>
-                                </li>
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-tuikuan"></i>退款金额</div>
-                                    <div class="revenList-totalNum">{{proItem.refund_price}}</div>
-                                </li>
-
-                                <li>
-                                    <div class="revenList-icon"><i class="iconfont icon-heji"></i>合计金额</div>
-                                    <div class="revenList-totalNum">{{proItem.total_price}}</div>
-                                </li>
-                            </ul>
                         </div>
-
                     </div>
                 </el-col>
             </el-row>
@@ -155,7 +156,7 @@
                 },
 
                 RevenSelCheckbox:'RevenSel-checkbox',
-                btnLoad:{
+                btnState:{
                   search:false,  //搜索按钮
                 },
 
@@ -252,10 +253,10 @@
             btnSeaDetail(){
                 if(!this.revenueDetails.month){
                     this.$message.warning('请选择月份');
-                    this.GLOBAL.btnStateChange(this,'btnLoad','search',false);
+                    this.GLOBAL.btnStateChange(this,'btnState','search',false);
                     return
                 }
-                this.GLOBAL.btnStateChange(this,'btnLoad','search');
+                this.GLOBAL.btnStateChange(this,'btnState','search');
 
                 this.getRevenueContract();
             },

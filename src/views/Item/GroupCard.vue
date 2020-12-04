@@ -6,7 +6,7 @@
             <div class="pt-screen">
                 <!--部门-->
                 <el-select  filterable v-model="searchVal.group" placeholder="请选择部门" class="ptScreen-select">
-                    <el-option v-for="item in salerGropu" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in salerGropu" :key="index" :label="item.name" :value="item.id"></el-option>
                 </el-select>
                 <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.search" class="ptScreen-input" clearable></el-input>
                 <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="btnState.searchLoad">搜索</el-button>

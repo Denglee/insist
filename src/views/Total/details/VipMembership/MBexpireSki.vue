@@ -16,12 +16,12 @@
                 <div class="pt-screen">
                     <!--部门-->
                     <el-select  filterable v-model="searchVal.ship_id" placeholder="请选择卡种" class="ptScreen-select">
-                        <el-option v-for="item in shipCard" :key="item.index" :label="item.name" :value="item.ship_id"></el-option>
+                        <el-option v-for="( item, index ) in shipCard" :key="index" :label="item.name" :value="item.ship_id"></el-option>
                     </el-select>
                     <el-input placeholder="剩余多少次过期" v-model="searchVal.keywords" class="ptScreen-input"
                               clearable></el-input>
                     <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public"
-                               :loading="loadState.searchLoad">搜索
+                               :loading="btnState.searchLoad">搜索
                     </el-button>
                 </div>
 
@@ -94,7 +94,7 @@
         },
         data() {
             return {
-                loadState: {
+                btnState: {
                     searchLoad: false,  //搜索按钮 load 状态
                 },
 
@@ -154,7 +154,7 @@
 
             /*搜索筛选*/
             btnSeaSaler() {
-                this.GLOBAL.btnStateChange(this, 'loadState', 'searchLoad')
+                this.GLOBAL.btnStateChange(this, 'btnState', 'searchLoad')
                 this.getPTSaleroom();
             },
 

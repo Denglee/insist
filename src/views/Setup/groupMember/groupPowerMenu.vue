@@ -16,87 +16,88 @@
             </el-tab-pane>-->
             <el-tab-pane v-for="(item,index) in TreeData" :label="item.label" :key="index">
 
-                <div v-for="(firstItem, firIndex) in item.firstchild" :key="firIndex" class="power-container power-one" v-if="firstItem.secendchild">
-                    <h4 class="power-title">er - {{firstItem.label}}</h4>
+                <div v-for="(firstItem, firIndex) in item.firstchild" :key="firIndex" class="power-container power-one" >
+                    <div v-if="firstItem.secendchild">
+                        <h4 class="power-title">er - {{firstItem.label}}</h4>
 
-                    <ul class="power-box  power-two-box">
+                        <ul class="power-box  power-two-box">
 
-                        <li v-for="(secItem, secIndex) in firstItem.secendchild" :key="secIndex" class="power-container power-two">
-                            <h4 class="power-title  power-two-title">san - {{secItem.label}}</h4>
+                            <li v-for="(secItem, secIndex) in firstItem.secendchild" :key="secIndex" class="power-container power-two">
+                                <h4 class="power-title  power-two-title">san - {{secItem.label}}</h4>
 
 
-                            <ol class="power-box power-three-box">
-                                <li v-for="(thirdItem, thirdIndex) in secItem.thirdchild" :key="thirdIndex" class="power-container power-three"
-                                    v-if="thirdItem.fourthchild">
-                                    <h4 class="power-title  power-three-title">si - {{thirdItem.label}}</h4>
+                                <ol class="power-box power-three-box">
+                                    <li v-for="(thirdItem, thirdIndex) in secItem.thirdchild" :key="thirdIndex" class="power-container power-three"
+                                        v-if="thirdItem.fourthchild">
+                                        <h4 class="power-title  power-three-title">si - {{thirdItem.label}}</h4>
 
-                                    <ul class="power-box power-four-box">
-                                        <li v-for="(fourthItem, fourthIndex) in thirdItem.fourthchild" :key="fourthIndex"
-                                            class="power-container power-four" v-if="fourthItem.fivechild">
+                                        <ul class="power-box power-four-box">
+                                            <li v-for="(fourthItem, fourthIndex) in thirdItem.fourthchild" :key="fourthIndex"
+                                                class="power-container power-four" v-if="fourthItem.fivechild">
 
-                                            <h4 class="power-title  power-five-title">wu - {{fourthItem.label}}</h4>
+                                                <h4 class="power-title  power-five-title">wu - {{fourthItem.label}}</h4>
 
-                                            <ul class="power-box power-five-box">
-                                                <li v-for="(fiveItem, fiveIndex) in fourthItem.fivechild" :key="fiveIndex"
-                                                    class="power-container" v-if="fourthItem.fivechild">
+                                                <ul class="power-box power-five-box">
+                                                    <li v-for="(fiveItem, fiveIndex) in fourthItem.fivechild" :key="fiveIndex"
+                                                        class="power-container" v-if="fourthItem.fivechild">
+                                                        <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
+                                                            <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
+                                                                {{item.name}}
+                                                            </el-checkbox>
+                                                        </el-checkbox-group>
+                                                    </li>
+                                                    <li v-else>
+                                                        <!--{{fourthItem}}-->
+                                                        <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
+                                                            <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
+                                                                {{item.name}}
+                                                            </el-checkbox>
+                                                        </el-checkbox-group>
+                                                    </li>
+                                                </ul>
+
+                                            </li>
+                                            <li v-else class="power-container power-three">
+                                                <!--{{thirdItem}}-->
+                                                <h4 class="power-title  power-five-title">wu - {{fourthItem.label}}</h4>
+                                                <div>
                                                     <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
                                                         <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
                                                             {{item.name}}
                                                         </el-checkbox>
                                                     </el-checkbox-group>
-                                                </li>
-                                                <li v-else>
-                                                    <!--{{fourthItem}}-->
-                                                    <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
-                                                        <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
-                                                            {{item.name}}
-                                                        </el-checkbox>
-                                                    </el-checkbox-group>
-                                                </li>
-                                            </ul>
+                                                </div>
 
-                                        </li>
-                                        <li v-else class="power-container power-three">
-                                            <!--{{thirdItem}}-->
-                                            <h4 class="power-title  power-five-title">wu - {{fourthItem.label}}</h4>
-                                            <div>
-                                                <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
-                                                    <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
-                                                        {{item.name}}
-                                                    </el-checkbox>
-                                                </el-checkbox-group>
-                                            </div>
+                                            </li>
+                                        </ul>
 
-                                        </li>
-                                    </ul>
+                                    </li>
+                                    <li v-else class="power-container power-three">
+                                        <!--{{secItem}}-->
+                                        <h4 class="power-title  power-three-title">si - {{thirdItem.label}}</h4>
+                                        <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
+                                            <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
+                                                {{item.name}}
+                                            </el-checkbox>
+                                        </el-checkbox-group>
+                                    </li>
+                                </ol>
 
-                                </li>
-                                <li v-else class="power-container power-three">
-                                    <!--{{secItem}}-->
-                                    <h4 class="power-title  power-three-title">si - {{thirdItem.label}}</h4>
-                                    <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
-                                        <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
-                                            {{item.name}}
-                                        </el-checkbox>
-                                    </el-checkbox-group>
-                                </li>
-                            </ol>
-
-                        </li>
-                        <li class="power-container power-two">
-                            <!-- {{firstItem}}-->
-                            <h4 class="power-title  power-three-title">si - {{firstItem.label}}</h4>
-                            <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
-                                <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
-                                    {{item.name}}
-                                </el-checkbox>
-                            </el-checkbox-group>
-                        </li>
-                    </ul>
-
-                </div>
-                <div v-else class="power-container power-one">
-                    {{item}}
+                            </li>
+                            <li class="power-container power-two">
+                                <!-- {{firstItem}}-->
+                                <h4 class="power-title  power-three-title">si - {{firstItem.label}}</h4>
+                                <el-checkbox-group v-model="formAddNew.consume_type" class="inpStaffTel">
+                                    <el-checkbox name="consumeType" v-for="(item,index) in consumeType" :label="item.id" :key="index">
+                                        {{item.name}}
+                                    </el-checkbox>
+                                </el-checkbox-group>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else class="power-container power-one">
+                        {{item}}
+                    </div>
                 </div>
 
             </el-tab-pane>

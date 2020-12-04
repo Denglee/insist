@@ -28,7 +28,7 @@
                     </el-input>
                 </el-form-item>
 
-                <el-button type="submit"  class="btnLogin" @click="submitForm('loginForm')"  :loading="loadState.searchLoad" >登录</el-button>
+                <el-button type="submit"  class="btnLogin" @click="submitForm('loginForm')"  :loading="btnState.searchLoad" >登录</el-button>
 
                 <!--口碑不需要第三方登录-->
                 <el-divider>第三方登录</el-divider>
@@ -102,7 +102,7 @@
         inject: ['reLoad'],
         data() {
             return {
-                loadState: {  //按钮状态
+                btnState: {  //按钮状态
                     searchLoad:false
                 },
                 /*登录参数*/
@@ -203,7 +203,7 @@
 
                 this.$refs[loginForm].validate((valid) => {
 
-                    this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
+                    this.GLOBAL.btnStateChange(this,'btnState','searchLoad');
 
                     let that = this;
                     let username = that.loginForm.username;

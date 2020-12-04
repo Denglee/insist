@@ -128,7 +128,7 @@
     import revenueStream from '@/views/Total/Renvenue/revenueStream'  // 营收流水 详情组件
 
     export default {
-        name: "StatisRevenue",
+        name: "StatRevenue",
         data() {
             this.revenueRankingColor = ['#ff8a7e','#005ad4','#00a0e9','#8763ce','#1eaaa1','#4ccbeb','#5b5ec7','#ffbe00']; //总收入
             this.totalColor = ['#ff8a7e', '#005ad4', '#00a0e9', '#8763ce', '#1eaaa1']; //会员总览 潜在会员 自定义的颜色

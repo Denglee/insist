@@ -705,6 +705,13 @@ $borRadius: 15px;
 }
 
 //按钮组
+.bespeak-navUl{
+  text-align: right;
+  .btnNav-flex{
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
 .btnNav-flex {
   background-color: #fff;
   //min-width: 210px;
@@ -930,10 +937,15 @@ $tabHei: 46px;
   /* ~~这是分割线~~ 导航 中间主体  box  ==*/
   .el-tab-pane {
     background-color: $color-linghtWhite;
-    min-height: 70vh;
+    //min-height: 70vh;
     border-radius: 0 20px 20px;
     padding: 30px 20px 1px;
     margin-bottom: 20px;
+  }
+}
+.tabHeight{
+  .el-tab-pane {
+    min-height: 40vh;
   }
 }
 

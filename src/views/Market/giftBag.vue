@@ -6,19 +6,19 @@
                 <nav class="pt-screen">
 
                     <el-select  filterable v-model="giftArr.scene" placeholder="模式" class="ptScreen-select">
-                        <el-option v-for="item in sceneType" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="( item, index ) in sceneType" :key="index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
 
                     <el-select  filterable v-model="giftArr.type" placeholder="类型" class="ptScreen-select">
-                        <el-option v-for="item in giftType" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="( item, index ) in giftType" :key="index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
 
-                    <el-button icon="el-icon-search" @click="btnSeaGift" :loading="btnLoad.search" class="btn-public">搜索</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaGift" :loading="btnState.search" class="btn-public">搜索</el-button>
 
                     <div class="fr" >
 
-                        <el-button icon="el-icon-delete"  @click="deleteGift()" class="btn-public btn-delete" :loading="btnLoad.delete">删除礼包</el-button>
-                        <el-button @click="changeGift()" class="btn-public btn-edit" :loading="btnLoad.edit"><i class="iconfont icon-bianjixiantiaoyangshi"></i>编辑礼包</el-button>
+                        <el-button icon="el-icon-delete"  @click="deleteGift()" class="btn-public btn-delete" :loading="btnState.delete">删除礼包</el-button>
+                        <el-button @click="changeGift()" class="btn-public btn-edit" :loading="btnState.edit"><i class="iconfont icon-bianjixiantiaoyangshi"></i>编辑礼包</el-button>
 
                         <el-button type="primary" class="btn-public btn-edit" @click="btnAddGift">
                             <i class="icon-add el-icon-circle-plus-outline"></i>添加礼包</el-button>
@@ -129,7 +129,7 @@
                     {id:'2', name:'分享礼包'},
                 ],
 
-                btnLoad:{
+                btnState:{
                     search:false,
                     delete:false,
                     edit:false,
@@ -160,13 +160,13 @@
             /*搜索*/
             btnSeaGift(){
                 console.log(this.giftArr);
-                this.GLOBAL.btnStateChange(this,'btnLoad','search');
+                this.GLOBAL.btnStateChange(this,'btnState','search');
                 this.getGiftBag();
             },
 
             // 修改
             changeGift(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','edit');
+                this.GLOBAL.btnStateChange(this,'btnState','edit');
                 let giftArr = this.checkedRows;
                 console.log(giftArr);
 
@@ -190,7 +190,7 @@
 
             // 删除
             deleteGift(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','delete');
+                this.GLOBAL.btnStateChange(this,'btnState','delete');
 
                 let giftArr = this.checkedRows;
                 console.log(giftArr);

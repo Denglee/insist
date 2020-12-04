@@ -142,10 +142,10 @@ Vue.use(FormItem);
 Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tag);
-// Vue.use(Tree);
+Vue.use(Tree);
 // Vue.use(Alert);
 // Vue.use(Slider);
-// Vue.use(Icon);
+Vue.use(Icon);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
@@ -173,7 +173,7 @@ Vue.use(Progress);
 // Vue.use(Link);
 Vue.use(Divider);
 Vue.use(Image);
-// Vue.use(Calendar);
+Vue.use(Calendar);
 Vue.use(Backtop);
 // Vue.use(PageHeader);
 // Vue.use(CascaderPanel);
@@ -206,6 +206,10 @@ import '@/assets/css/animate37.css'
 /* 2.1、 全局 通用iframe 组件*/
 import publicIframe from '@/components/publicIframe/publicIframe'
 Vue.component(publicIframe.name,publicIframe);
+
+/* 2.1、 全局 通用 nav 刷新 返回 组件*/
+import navRefush from '@/components/navRefush/navRefush';
+Vue.component(navRefush.name,navRefush);
 
 /* 2.2、  引用 自定义  回到顶部*/
 // import goTop from "@/components/goTop";

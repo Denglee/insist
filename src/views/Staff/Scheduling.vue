@@ -19,7 +19,7 @@
 
                     <!-- 班次 -->
                     <el-select  filterable v-model="item.classes" placeholder="请选择班次" class="ptScreen-select" v-else>
-                        <el-option v-for="item in staffClassesArr" :key="item.id" :label="item.name"  :value=item.id></el-option>
+                        <el-option v-for="( item, index ) in staffClassesArr" :key="item.id" :label="item.name"  :value=item.id></el-option>
                     </el-select>
 
                 </div>

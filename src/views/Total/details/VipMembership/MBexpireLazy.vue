@@ -19,7 +19,7 @@
                     <el-input placeholder="多少天未到场" v-model="searchVal.day" class="ptScreen-input"
                               clearable></el-input>
                     <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public"
-                               :loading="loadState.searchLoad">搜索
+                               :loading="btnState.searchLoad">搜索
                     </el-button>
                 </div>
 
@@ -94,7 +94,7 @@
         },
         data() {
             return {
-                loadState: {
+                btnState: {
                     searchLoad: false,  //搜索按钮 load 状态
                 },
 
@@ -154,7 +154,7 @@
 
             /*搜索筛选*/
             btnSeaSaler() {
-                this.GLOBAL.btnStateChange(this, 'loadState', 'searchLoad')
+                this.GLOBAL.btnStateChange(this, 'btnState', 'searchLoad')
                 this.getPTSaleroom();
             },
 

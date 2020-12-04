@@ -45,7 +45,6 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush';
     import followTrainer from "../memberIndex/followTrainer";  /*教练跟进*/
     export default {
         name: "followTab",  //教练跟进
@@ -92,7 +91,7 @@
             }
         },
         components:{
-            navRefush,
+
             followTrainer,
         },
     }

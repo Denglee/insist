@@ -3,7 +3,7 @@
         <!--右边iframe-->
         <!--<publicIframe/>-->
         <div class="btnNav-contain">
-            <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
+            <navRefush :btnBack="btnState.btnBack" class="btnNav-left"></navRefush>
             <ul>
                 <li class="btnNav-flex btnNav-vip">
                    <button class="btnNav-box" v-for="(item,index) in btnAuth" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
@@ -63,12 +63,12 @@
             <el-form :model="authParams" class="dia-form" :label-width="formLabelWidth" ref="addAuthForm" :rules="addProRules">
                 <el-form-item label="是否启用" >
                     <el-radio-group v-model="authParams.is_show">
-                        <el-radio name="is_check" v-for="item in authStatus" :key="item.index" :label="item.id">{{item.name}}</el-radio>
+                        <el-radio name="is_check" v-for="( item, index ) in authStatus" :key="index" :label="item.id">{{item.name}}</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="所属权限组" >
                     <el-select  filterable v-model="authParams.pid"  class="dia-inp">
-                        <el-option v-for="item in authMenuArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="( item, index ) in authMenuArr" :key="index" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                     <div class="auth-form-tip">默认一级权限组，请选择自定义权限所属功能，便于权限分配</div>
                 </el-form-item>
@@ -81,17 +81,17 @@
                 </el-form-item>
                 <el-form-item label="是否默认" >
                     <el-radio-group v-model="authParams.is_default">
-                        <el-radio name="is_check" v-for="item in authIsDefault" :key="item.index" :label="item.id">{{item.name}}</el-radio>
+                        <el-radio name="is_check" v-for="( item, index ) in authIsDefault" :key="index" :label="item.id">{{item.name}}</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="是否菜单" >
                     <el-radio-group v-model="authParams.is_menu">
-                        <el-radio name="is_check" v-for="item in authIsMenu" :key="item.index" :label="item.id">{{item.name}}</el-radio>
+                        <el-radio name="is_check" v-for="( item, index ) in authIsMenu" :key="index" :label="item.id">{{item.name}}</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="是否登录" >
                     <el-radio-group v-model="authParams.is_check">
-                        <el-radio name="is_check" v-for="item in authIsCheck" :key="item.index" :label="item.id">{{item.name}}</el-radio>
+                        <el-radio name="is_check" v-for="( item, index ) in authIsCheck" :key="index" :label="item.id">{{item.name}}</el-radio>
                     </el-radio-group>
                 </el-form-item>
 
@@ -103,7 +103,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="showState.diaAddAuth = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaAddAuth()" :loading="btnLoad.btnSureAddAuth">确 定</el-button>
+                <el-button type="primary" @click="sureDiaAddAuth()" :loading="btnState.btnSureAddAuth">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -112,7 +112,7 @@
 
 <script>
     import {AllPromiseApi,UpdataPromiseRoleApi, AddPromiseRoleApi} from '../../assets/js/api'
-    import navRefush from '@/components/navRefush/navRefush' /*按钮组件  */
+
     export default {
         name: "Authindex",  //权限管理
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
@@ -121,7 +121,7 @@
 
                 //验证规则
                 addProRules: {},
-                btnLoad: {
+                btnState: {
                     btnBack:false,
                     btnSureAddAuth:false,
                 },
@@ -279,12 +279,12 @@
 
             /* 添加 确定 点击 事件*/
             sureDiaAddAuth(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','btnSureAddAuth');
+                this.GLOBAL.btnStateChange(this,'btnState','btnSureAddAuth');
                 let diaType =  this.diaInfoArr.diaType;
                 console.log(diaType);
                 let that = this;
                 that.$refs["addAuthForm"].validate((valid) => {
-                    this.GLOBAL.btnStateChange(this, 'btnLoad', 'diaAddAuth');
+                    this.GLOBAL.btnStateChange(this, 'btnState', 'diaAddAuth');
                     if (valid) {
                         if(diaType == 'add'){
                             this.FnAddPromiseRole();
@@ -307,7 +307,7 @@
             this.FnGetAllPromise();
         },
         components:{
-            navRefush,
+
         },
     }
 </script>

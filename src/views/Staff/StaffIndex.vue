@@ -16,23 +16,23 @@
                     <div class="pt-screen">
                         <!--在职-->
                         <el-select  filterable v-model="lockStateVal" placeholder="是否在职" class="ptScreen-select">
-                            <el-option v-for="item in lockState" :key="item.index" :label="item.value" :value="item.lock"></el-option>
+                            <el-option v-for="( item, index ) in lockState" :key="index" :label="item.value" :value="item.lock"></el-option>
                         </el-select>
                         <!--职位-->
                         <el-select  filterable v-model="userTypeListVal" placeholder="请选择岗位" class="ptScreen-select">
-                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in userTypeList" :key="index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
                         <!--部门-->
                         <el-select  filterable v-model="group_id" placeholder="请选择部门" class="ptScreen-select">
-                            <el-option v-for="item in groupArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in groupArr" :key="index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <!--班次-->
                         <el-select  filterable v-model="classes" placeholder="请选择班次" class="ptScreen-select">
-                            <el-option v-for="item in staffClassesArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in staffClassesArr" :key="index" :label="item.name" :value="item.id"></el-option>
                         </el-select>
                         <el-input placeholder="请输入姓名或电话号码" v-model="staffInpVal" class="ptScreen-input" clearable></el-input>
                         <!--搜索-->
-                        <el-button icon="el-icon-search" @click="btnSeaStaff" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaStaff" :loading="btnState.searchLoad" class="btn-public">搜索</el-button>
                         <div class="fr" >
                             <el-tooltip class="item" effect="dark" content="删除" placement="bottom"
                                         popper-class="poper-del">
@@ -179,7 +179,7 @@
             return {
                 activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
-                loadState: {  //按钮状态
+                btnState: {  //按钮状态
                     searchLoad:false
                 },
 
@@ -283,7 +283,7 @@
 
             /*1.1、筛选 员工*/
             btnSeaStaff(){
-                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
+                this.GLOBAL.btnStateChange(this,'btnState','searchLoad');
                 this.staffPage = 1;
                 this.getStaffIndex();
             },
@@ -305,7 +305,7 @@
                 console.log(checkedRows);
                 console.log(checkedRows.length);
                 if(checkedRows.length == 0){
-                    this.$message.error('至少选一个操作对象');
+                    this.$message.error('请至少选择一个操作对象');
                 } else if(checkedRows.length == 1){
                     console.log(checkedRows[0].id);
                     staffDel({

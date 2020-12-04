@@ -18,7 +18,7 @@
                         calss="ptScreen-select">
                 </el-date-picker>
 
-                <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="loadState.searchLoad">搜索</el-button>
+                <el-button icon="el-icon-search" @click="btnSeaSaler" class="btn-public" :loading="btnState.searchLoad">搜索</el-button>
 
             </div>
 
@@ -95,9 +95,6 @@
         name: "totalOffice",  //客流走势详情
         data() {
             return {
-
-
-
                 num:0,
                 data:"xiangduole",
 
@@ -108,8 +105,7 @@
                     { time:'2020-05-26', name:"汇金店", personNnm:223, lessonNum:0, orderNum:0, signNum:0, trainerNum:10, orderNum2:0, lessonNum2:0, signNum2:10, trainerNum2:0},
                     { time:'2020-05-27', name:"现代美居广场店", personNnm:223, lessonNum:10, orderNum:0, signNum:10, trainerNum:0, orderNum2:10, lessonNum2:0, signNum2:10, trainerNum2:0},
                 ],
-
-                loadState:{
+                btnState:{
                     searchLoad:false,  //搜索按钮 load 状态
                 },
 
@@ -123,8 +119,6 @@
                     total:this.ptSalesPage,   //页面显示数
                     p:1,       //页码
                     search:'',
-
-
                 }
             }
         },
@@ -136,8 +130,6 @@
             btnSeaSaler(){
                 console.log(this.dayTrend);
             },
-
-
 
         },
         destroyed(){

@@ -74,7 +74,7 @@
 
                     <el-form-item :label-width="formLabelWidth">
                         <el-button  type="primary" @click="postGiftAdd('addGiftForm')"
-                                    :loading="btnLoad.submit">提交</el-button>
+                                    :loading="btnState.submit">提交</el-button>
                         <el-button @click="backNext">返回</el-button>
                     </el-form-item>
 
@@ -85,7 +85,6 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush'
     import {addGiftBagApi} from '../../../assets/js/api'
     export default {
         name: "addGiftBag",
@@ -101,7 +100,7 @@
         data() {
             return {
                 formLabelWidth:'100px',
-                btnLoad:{
+                btnState:{
                     submit:false
                 },
 
@@ -147,7 +146,7 @@
 
             // 提交
             postGiftAdd(formName){
-                this.GLOBAL.btnStateChange(this,'btnLoad','submit');
+                this.GLOBAL.btnStateChange(this,'btnState','submit');
 
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -195,7 +194,7 @@
             }
         },
         components:{
-            navRefush,
+
         },
     }
 </script>

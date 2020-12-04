@@ -4,7 +4,7 @@
 
         <div class="shop-sel" v-show="showStateArr.tabPaneState">
             <el-select  filterable v-model="shopId" placeholder="选择门店" class="ptScreen-select ">
-                <el-option v-for="item in shopArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                <el-option v-for="( item, index ) in shopArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
         </div>
 
@@ -29,7 +29,7 @@
         </el-tabs>
 
         <ul>
-            <!--私教销售额查询 表格 详情-->
+            <!--私教销售额查询 表格 详情 -->
             <li v-if="showStateArr.ptSalesD">
                 <navBread @GoBack="goBack('VipPT','ptSalesD')" breadTitle="私教" breadContent1="私教销售额详情"></navBread>
                 <ptSaleroom :ptSalesPage="10" :salerGropu="salerGropu"></ptSaleroom>

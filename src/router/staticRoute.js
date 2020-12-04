@@ -21,12 +21,12 @@ const staticRoute = [
         path: '/',
         component: Layout,
         children: [
-
+            
             /*前台*/
             {
                 path: 'Reception/index',   //会员登记
-                name: 'Receptionindex',
-                component: () => import(/* webpackChunkName: "Receptionindex" */ '../views/Reception/Receptionindex'),
+                name: 'ReceptionIndex',
+                component: () => import(/* webpackChunkName: "ReceptionIndex" */ '../views/Reception/ReceptionIndex'),
                 meta: {title: '会员登记',keepAlive: true},
             },
             {
@@ -47,17 +47,30 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "Alipayindex" */ '../views/Reception/Alipayindex'),
                 meta: {title: '口碑码管理'},
             },
+            {
+                path: 'Reception/bracelet_info',   //手环消费信息
+                name: 'ReceptionBracelet_info',
+                component: () => import(/* webpackChunkName: "ReceptionBracelet_info" */ '../views/Reception/ReceptionBracelet_info'),
+                meta: {title: '手环消费信息'},
+            },
+            {
+                path: 'Reception/auto_bracelet_log',   //自动手环机记录
+                name: 'ReceptionAuto_bracelet_log',
+                component: () => import(/* webpackChunkName: "ReceptionAuto_bracelet_log" */ '../views/Reception/ReceptionAuto_bracelet_log'),
+                meta: {title: '自动手环机记录'},
+            },
+            
             /*会员*/
             {
                 path: 'Member/index',   //潜在会员
-                name: 'Memberindex',
-                component: () => import(/* webpackChunkName: "Memberindex" */ '../views/Member/Memberindex'),
+                name: 'MemberIndex',
+                component: () => import(/* webpackChunkName: "MemberIndex" */ '../views/Member/PotentialMembers/memberIndex/MemberIndex'),
                 meta: {title: '潜在会员'},
             },
             {
                 path: 'Member/real_member', //正式会员
-                name: 'Memberreal_member',
-                component: () => import(/* webpackChunkName: "Memberreal_member" */ '../views/Member/Memberreal_member'),
+                name: 'Member_real_member',
+                component: () => import(/* webpackChunkName: "Member_real_member" */ '../views/Member/RealMember/realMemberIndex/Member_real_member'),
                 meta: {title: '正式会员'},
             },
             {
@@ -70,8 +83,8 @@ const staticRoute = [
             /*课程*/
             {
                 path: 'Bespeak/index',  //私教
-                name: 'Bespeakindex',
-                component: () => import(/* webpackChunkName: "Bespeakindex" */ '../views/Course/Bespeakindex'),
+                name: 'BespeakIndex',
+                component: () => import(/* webpackChunkName: "BespeakIndex" */ '../views/Course/BespeakIndex'),
                 meta: {title: '私教'},
             },
             {
@@ -182,6 +195,13 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "StaffIndex" */ '../views/Staff/StaffIndex'),
                 meta: {title: '员工列表'},
             },
+            // Staff/group
+            // {
+            //     path: 'Staff/index',   //员工列表
+            //     name: 'StaffIndex',
+            //     component: () => import(/* webpackChunkName: "StaffIndex" */ '../views/Staff/StaffIndex'),
+            //     meta: {title: '员工列表'},
+            // },
             {
                 path: 'Staff/salary',   //员工工资
                 name: 'StaffReword',
@@ -200,6 +220,7 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "ReceptionEntrance_staff" */ '../views/Staff/ReceptionEntrance_staff'),
                 meta: {title: '入场查询'},
             },
+            
 
             /*统计*/
             
@@ -217,8 +238,8 @@ const staticRoute = [
             },
             {
                 path: 'Stat/revenue_statis',  //营收总览
-                name: 'StatisRevenue',
-                component: () => import(/* webpackChunkName: "StatisRevenue" */ '../views/Total/StatisRevenue'),
+                name: 'StatRevenue',
+                component: () => import(/* webpackChunkName: "StatRevenue" */ '../views/Total/StatRevenue'),
                 meta: {title: '营收总览'},
             },
             {
@@ -525,13 +546,50 @@ const staticRoute = [
                 component: () => import(/* webpackChunkName: "DevicemanageRelay" */ '../views/Equipment/DevicemanageRelay'),
                 meta: {title: '中继'},
             },
-
+            {
+                path: 'Sports/centerc',   //运动器材
+                name: 'SportsIndex',
+                component: () => import(/* webpackChunkName: "SportsIndex" */ '../views/Equipment/SportsIndex'),
+                meta: {title: '运动器材'},
+            },
+            {
+                path: 'Autodevice/index',   //自动手环发放机
+                name: 'AutodeviceIndex',
+                component: () => import(/* webpackChunkName: "AutodeviceIndex" */ '../views/Equipment/AutodeviceIndex'),
+                meta: {title: '自动手环发放机'},
+            },
+            {
+                path: 'Bracelet/index',   //智能手环
+                name: 'BraceletIndex',
+                component: () => import(/* webpackChunkName: "BraceletIndex" */ '../views/Equipment/BraceletIndex'),
+                meta: {title: '智能手环'},
+            },
+    
+            {
+                path: 'Sports/centerc',   //智能中控
+                name: 'SportsCenterc',
+                component: () => import(/* webpackChunkName: "SportsCenterc" */ '../views/Equipment/SportsCenterc'),
+                meta: {title: '智能中控'},
+            },
+            
 
             {
                 path: 'Xb/project', //项目列表
                 name: 'Xbproject',
                 component: () => import(/* webpackChunkName: "Xbproject" */ '../views/Project/Xbproject'),
                 meta: {title: '项目列表'},
+            },
+            {
+                path: 'Xb/examine_give', //项目列表
+                name: 'XbExamine_give',
+                component: () => import(/* webpackChunkName: "XbExamine_give" */ '../views/Project/XbExamine_give'),
+                meta: {title: '赠送审核'},
+            },
+            {
+                path: 'Xb/member', //会员管理
+                name: 'XbMember',
+                component: () => import(/* webpackChunkName: "XbMember" */ '../views/Project/XbMember'),
+                meta: {title: '会员管理'},
             },
 
             /*个人*/
@@ -719,7 +777,7 @@ const staticRoute = [
             {
                 path: '500',
                 component: () => import(/* webpackChunkName: "500" */ '../views/Error/500'),
-            }
+            },
         ]
     },
     // {
@@ -727,6 +785,7 @@ const staticRoute = [
     //     path: '/redirect',
     //     component: () => import(/* webpackChunkName: "redirect" */ '../components/redirect/redirect'),
     // },
+    
     {
         name: 'login',  //登录
         path: '/login',

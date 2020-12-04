@@ -13,7 +13,6 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush';
     export default {
         name: "memberhistory",   //三级首页 会员操作
 
@@ -54,7 +53,7 @@
 
         },
         components:{
-            navRefush,
+
         },
     }
 </script>

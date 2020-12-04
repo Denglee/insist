@@ -6,7 +6,7 @@
 <!--        <div v-show="showState.showGroupIndex">-->
 
             <div class="btnNav-contain">
-                <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left" @SecondBack="BtnSecondBack"></navRefush>
+                <navRefush :btnBack="btnState.btnBack" class="btnNav-left" @SecondBack="BtnSecondBack"></navRefush>
                 <ul>
                     <li class="btnNav-flex btnNav-vip">
                         <button class="btnNav-box" v-for="(item,index) in btnVip" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
@@ -54,7 +54,7 @@
                         <el-form :model="setupGroup" class="dia-form" :label-width="formLabelWidth">
                             <el-form-item label="是否启用" >
                                 <el-select  filterable v-model="setupGroup.status" placeholder="是否启用" class="dia-inp">
-                                    <el-option v-for="item in groupStatus" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                                    <el-option v-for="( item, index ) in groupStatus" :key="index" :label="item.name" :value="item.id"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="角色名称" >
@@ -66,7 +66,7 @@
                         </el-form>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="showState.diaGroup = false" plain>取 消</el-button>
-                            <el-button type="primary" @click="sureDiaGroup()" :loading="btnLoad.btnSureGroup">确 定</el-button>
+                            <el-button type="primary" @click="sureDiaGroup()" :loading="btnState.btnSureGroup">确 定</el-button>
                         </div>
                     </el-dialog>
 
@@ -87,7 +87,7 @@
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="showState.diaPower = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaPower()" :loading="btnLoad.btnSurePower">确 定</el-button>
+                <el-button type="primary" @click="sureDiaPower()" :loading="btnState.btnSurePower">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -96,7 +96,7 @@
 
 <script>
     import { AllPromiseApi, AllPromiseGroupApi, AllPromiseRoleApi, AddPromiseGroupApi} from '../../../assets/js/api'
-    import navRefush from '@/components/navRefush/navRefush' /*按钮组件  */
+
     /*import groupMember from "./groupMember/groupMember";  */
     import groupPowerMenu from "./groupPowerMenu";
 
@@ -164,7 +164,7 @@
                 },
 
                 // 按钮点击状态
-                btnLoad:{
+                btnState:{
                     btnBack:true,  //返回按钮是否显示
                     search:false,   //搜索按钮点击状态
                     btnSureGroup:false,
@@ -240,7 +240,7 @@
 
             // A2
             sureDiaPower(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','btnSurePower');
+                this.GLOBAL.btnStateChange(this,'btnState','btnSurePower');
                 console.log('ad');
             },
 
@@ -265,7 +265,7 @@
 
             //E1 弹窗确定
             sureDiaGroup(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','btnSureGroup');
+                this.GLOBAL.btnStateChange(this,'btnState','btnSureGroup');
                 console.log(this.setupGroup);
             },
 
@@ -313,7 +313,7 @@
 
         },
         components:{
-            navRefush,
+
 
             /*groupMember*/
 

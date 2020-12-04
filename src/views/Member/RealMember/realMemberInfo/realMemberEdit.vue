@@ -21,11 +21,12 @@
         <el-dialog  :append-to-body="true" title="相见时难别亦难" :visible.sync="diaChange" width="600px" >
             <div>东风无力百花残</div>
         </el-dialog>
+
     </div>
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush';
+
     export default {
         name: "memberEdit",   //三级首页 会员操作
 
@@ -44,7 +45,7 @@
             // 返回上一页
             SecondBackBtn(){
                 console.log('二级导航返回点击事件');
-                this.$emit('GoBack','memberInfo','memberEdit');
+                this.$emit('GoBack','realMemberInfo','memberEdit');
                 sessionStorage.removeItem('followPageName');
                 sessionStorage.removeItem('followVipInfo');
             },
@@ -73,7 +74,7 @@
 
         },
         components:{
-            navRefush,
+
         },
     }
 </script>

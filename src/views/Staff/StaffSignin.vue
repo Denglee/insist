@@ -10,7 +10,7 @@
                               clearable></el-input>
                     <el-date-picker placeholder="请选择月份" class="month-picker" v-model="staffMonth" type="month"
                                     value-format="yyyy-MM"></el-date-picker>
-                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" :loading="loadState.searchLoad" class="btn-public">搜索</el-button>
+                    <el-button icon="el-icon-search" @click="btnSeaStaffSignin" :loading="btnState.searchLoad" class="btn-public">搜索</el-button>
 
                     <el-button icon="el-icon-notebook-1" @click="signExport" class="btn-public fr">导出</el-button>
                 </form>
@@ -217,7 +217,7 @@
                 activeName: 'StaffSalary', //StaffSalary StaffRoyalty
                 tabLazy: true,
                 formLabelWidth: '120px',
-                loadState: {    //按钮状态
+                btnState: {    //按钮状态
                     searchLoad:false
                 },
                 signStaffList: [],  //签到 员工  列表
@@ -282,7 +282,7 @@
 
             /*考勤 搜索*/
             btnSeaStaffSignin() {
-                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
+                this.GLOBAL.btnStateChange(this,'btnState','searchLoad');
                 this.staffPage = 1;
                 this.getStaffSignin();
             },

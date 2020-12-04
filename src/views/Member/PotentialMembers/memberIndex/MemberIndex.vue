@@ -4,11 +4,11 @@
         <!--<publicIframe/>-->
 
         <!--<div>潜在会员</div>-->
-<!--        <iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
+        <!--<iframe :src="localSrc" frameborder="0" id="iframe"></iframe>-->
 
         <div v-show="pageState.memberIndex">
             <div class="btnNav-contain">
-                <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left"></navRefush>
+                <navRefush :btnBack="btnState.btnBack" class="btnNav-left"></navRefush>
                 <ul>
                     <li class="btnNav-flex btnNav-vip">
                         <button class="btnNav-box" v-for="(item,index) in btnVip" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
@@ -35,27 +35,26 @@
 
                 <header class="index-item-title">会籍统计</header>
                 <div class="bgWhite-padd20">
-                    <!--saler 筛选-->
+                    <!--saler 筛选  -->
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="searchVal.keywords" class="ptScreen-input" clearable></el-input>
-
 
                         <el-select  filterable v-model="searchVal.salerSuggest"
                                     multiple filterable
                                     placeholder="顾问" class="ptScreen-select">
-                            <el-option v-for="item in ArrFpsaler" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in ArrFpsaler" :key="item.id" :label="item.name" :value="item.id"></el-option>
                         </el-select>
 
                         <el-select  filterable v-model="searchVal.fpsaler" placeholder="分配类型" class="ptScreen-select">
-                            <el-option v-for="item in ArrFpsaler" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in ArrFpsaler" :key="item.id" :label="item.name" :value="item.id"></el-option>
                         </el-select>
 
                         <el-select  filterable v-model="searchVal.follow_level" placeholder="跟进等级" class="ptScreen-select">
-                            <el-option v-for="item in followLevel" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in followLevel" :key="item.id" :label="item.name" :value="item.id"></el-option>
                         </el-select>
 
                         <el-select  filterable v-model="searchVal.source" placeholder="获取渠道" class="ptScreen-select">
-                            <el-option v-for="item in getChannel" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in getChannel" :key="item.id" :label="item.name" :value="item.id"></el-option>
                         </el-select>
 
                         <el-date-picker
@@ -68,7 +67,7 @@
                                 value-format="yyyy-MM-dd"
                                 calss="ptScreen-select">
                         </el-date-picker>
-                        <button type="button" class="el-button btn-public" @click="btnSearch" :loading="btnLoad.search">
+                        <button type="button" class="el-button btn-public" @click="btnSearch" :loading="btnState.search">
                             <i class="el-icon-search"></i><span>搜索</span>
                         </button>
                      </div>
@@ -172,7 +171,6 @@
             </div>
         </div>
 
-
         <addNewMember v-if="pageState.addNewMember" @GoBack="goBack('addNewMember')"></addNewMember>
 
         <followTab v-if="pageState.followTab" @GoBack="goBack('followTab')"></followTab>
@@ -185,6 +183,10 @@
         <menberRecharge v-if="pageState.menberRecharge" @GoBack="goBack(arguments,'memberInfo')"
                         @changePageShow="changePageShow(arguments,'memberInfo')"></menberRecharge>
 
+        <!--会员信息 =》会员入会-->
+        <memberJoin v-if="pageState.memberJoin" @GoBack="goBack(arguments,'memberInfo')"
+                        @changePageShow="changePageShow(arguments,'memberInfo')"></memberJoin>
+
         <!--三级 会员操作-->
         <memberEdit  v-if="pageState.memberEdit" @GoBack="goBack(arguments,'memberInfo')"
                      @changePageShow="changePageShow(arguments,'memberEdit')"></memberEdit>
@@ -194,20 +196,19 @@
     </div>
 </template>
 
-
 <script>
-    import navRefush from '@/components/navRefush/navRefush'  /*按钮组件*/
-    import addNewMember from "./memberIndex/addNewMember";  /*会员新增*/
-    import followTab from "./memberIndex/followTab";  /*教练跟进*/
+    import addNewMember from "./addNewMember";  /*会员新增*/
+    import followTab from "./followTab";  /*教练跟进*/
 
-    import memberInfo from "./memberInfo/memberInfo";  /*会员信息 二级首页*/
-    import menberRecharge from "./memberInfo/menberRecharge";  /*会员充值*/
+    import memberInfo from "../memberInfo/memberInfo";  /*会员信息 二级首页*/
+    import menberRecharge from "../memberInfo/menberRecharge";  /*会员充值*/
+    import memberJoin from "../memberInfo/memberJoin";  /*会员购买入会 */
 
-    import memberEdit from "./memberEdit/memberEdit";  /*会员编辑 三级首页*/
-    import memberHistory from './memberEdit/membeHistory'
+    import memberEdit from "../memberEdit/memberEdit";  /*会员编辑 三级首页*/
+    import memberHistory from '../memberEdit/membeHistory'
 
     export default {
-        name: "Memberindex",
+        name: "MemberIndex",
         inject:['reLoad'], //注入依赖 App 中的reLoad方法
         data() {
             return {
@@ -216,7 +217,7 @@
                 localSrc:"",
 
                 // 按钮点击状态
-                btnLoad:{
+                btnState:{
                     btnBack:false,  //返回按钮是否显示
                     search:false,   //搜索按钮点击状态
                 },
@@ -229,6 +230,7 @@
 
                     memberInfo:false,  //潜在会员信息 二级首页
                     menberRecharge:false,  //会员充值
+	                memberJoin:false,  //会员入会
 
                     memberEdit:false,   //信息操作 三级首页 操作
                     memberHistory:false,
@@ -237,9 +239,9 @@
 
                 // 新增会员按钮组
                 btnVip:[
-                    { name:"会员新增", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'addNewMember' ,pageName:'addNewMember'},
-                    { name:"删除会员", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip', pageName:'addNewMember'},
-                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssign', pageName:'addNewMember'},
+                    { name:"会员新增", type:'if',  iconClass:'icon-xinzengyonghu',  methodsName:'addNewMember' },
+                    { name:"删除会员", type:'if',  iconClass:'bgcPink icon-shanchuxiantiao', methodsName:'btnDelVip'},
+                    { name:"分配顾问", type:'if',  iconClass:'bgcMediumBlue2 icon-jiaolian', methodsName:'btnAssignAdviser'},
                 ],
 
                 // 跟进按钮组
@@ -326,22 +328,6 @@
                         customer_classified:'5',  //客户分类
                         id:2,
                     },
-                    {
-                        true_name:'英子',  //姓名
-                        sex:'2', //性别
-                        phone:'17688824544',  //电话
-                        birthday:'1994-04-19',  //生日
-                        identify_no:'',  //身份证
-                        member_time:'2020-05-22 09:22:41',  //录入日期
-                        saler_name:'',  //会籍顾问
-                        last_follow_time:'0',  //跟进状态  0 跟进时间
-                        surplus:'0.00',  //账户余额
-                        source_channel:'5',  //获取渠道
-                        channel_property:'5',  //渠道属性
-                        follow_level:'5',  //跟进等级
-                        customer_classified:'5',  //客户分类
-                        id:3,
-                    }
                 ],
 
                 checkedRows: [],  //选中的值
@@ -361,7 +347,7 @@
                 }
                 sessionStorage.setItem('memberNowPage', JSON.stringify(memberNowPage));
 
-                /*清空 状态  复制初始化data 为了方便 按钮显隐   方便 返回上一页 隐藏上一页*/
+                /*清空 状态  复制初始化data 为了方便 按钮显隐   方便 返回上一页 隐藏上一页 */
                 let pageData =this.$options.data.call(this).pageState;
                 this.pageState = pageData;
             },
@@ -380,7 +366,7 @@
             },
 
 
-            // 返回上一页 并清空
+            // 返回上一页 并清空 。
             goBack(previousPage, indexPage = 'memberIndex'){
                 /*说明：previousPage=上一页        indexPage=归属页
                   用法：this.$emit('GoBack','memberInfo','memberEdit'); */
@@ -430,8 +416,13 @@
                     this.changePageShow('followTab');
 
                     let followVipInfo =  JSON.stringify(this.checkedRows);
-                    sessionStorage.setItem('followVipInfo', followVipInfo);   /*存储预备会员信息*/
+                    sessionStorage.setItem('followVipInfo', followVipInfo);  // 存储预备会员信息
                     sessionStorage.setItem('followPageName', pageName);    /*存储切换选中的跟随页面名字*/
+                }
+
+                /*分配顾问*/
+	            if(methodsName == 'btnAssignAdviser'){
+	            	console.log('分配顾问');
                 }
 
             },
@@ -447,14 +438,13 @@
                 // let list = this.saleRoomInfo;
                 // list.forEach(function(row) {
                 //     vm.$refs.multipleTable.toggleRowSelection(row,true)
-                //
                 // });
                 this.$refs.multipleTable.toggleRowSelection(row);
             },
 
             // 搜索
             btnSearch(){
-                this.GLOBAL.btnStateChange(this,'btnLoad','search');
+                this.GLOBAL.btnStateChange(this,'btnState','search');
                 this.searchVal.st_time = this.timeVip[0];
                 this.searchVal.end_time = this.timeVip[1];
                 console.log(this.searchVal);
@@ -469,7 +459,7 @@
             },
         },
         created() {
-            /*详情 显影*/
+            /*详情 显影 */
             let memberNowPage = JSON.parse(sessionStorage.getItem('memberNowPage'));
             if(memberNowPage != null){
                 console.log(memberNowPage);
@@ -480,21 +470,19 @@
 
         },
         components:{
-            navRefush,
-
             addNewMember,
             followTab,
             memberInfo,
 
             menberRecharge,  //会员充值
+	        memberJoin,  //会员入会
 
             memberEdit,
             memberHistory,
         }
-
     }
 </script>
 
 <style lang="scss">
-    @import "../../assets/css/member";
+    @import "@/assets/css/member";
 </style>

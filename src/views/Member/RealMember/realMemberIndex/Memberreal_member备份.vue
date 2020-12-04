@@ -21,7 +21,7 @@
         created() {
             /*console.log(this.$route);
                        console.log(this.localUrl);
-                       console.log(this.$route.fullPath);*/
+                       console.log(this.$route.fullPath); */
             let userId=this.$route.params.user_id;
             console.log(userId);
             let iframeUrl = '';

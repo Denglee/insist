@@ -123,7 +123,6 @@
                         <el-button @click="resetForm('addStaffForm')">重置</el-button>
                     </el-form-item>
 
-
                 </div>
             </div>
         </el-form>
@@ -131,7 +130,6 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush'
     import trackFace from "@/components/trackFace/trackFace";
 
     export default {
@@ -232,7 +230,7 @@
 
         },
         components:{
-            navRefush,
+
             trackFace,
         },
     }

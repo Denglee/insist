@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="btnNav-contain">
-            <navRefush :btnBack="btnLoad.btnBack" class="btnNav-left" @SecondBack="BtnSecondBack"></navRefush>
+            <navRefush :btnBack="btnState.btnBack" class="btnNav-left" @SecondBack="BtnSecondBack"></navRefush>
             <ul>
                 <li class="btnNav-flex btnNav-vip">
                     <button class="btnNav-box" v-for="(item,index) in btnVip" :key="index" @click="btnMethods(item.methodsName,item.pageName)">
@@ -49,7 +49,7 @@
                     <el-form :model="setupGroupAdd" class="dia-form" :label-width="formLabelWidth" ref="addProForm">
                         <el-form-item label="是否启用" >
                             <el-select  filterable v-model="setupGroupEdit.status" placeholder="是否启用" class="dia-inp">
-                                <el-option v-for="item in groupStatus" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                                <el-option v-for="( item, index ) in groupStatus" :key="index" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item label="所属企业" >
@@ -76,7 +76,7 @@
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="showState.diaGroupAdd = false" plain>取 消</el-button>
-                        <el-button type="primary" @click="sureAddDiaGroup()" :loading="btnLoad.btnSureAddGroup">确 定</el-button>
+                        <el-button type="primary" @click="sureAddDiaGroup()" :loading="btnState.btnSureAddGroup">确 定</el-button>
                     </div>
                 </el-dialog>
 
@@ -101,7 +101,7 @@
                     </el-form>
                     <div slot="footer" class="dialog-footer">
                         <el-button @click="showState.diaGroupEdit = false" plain>取 消</el-button>
-                        <el-button type="primary" @click="sureEditDiaGroup()" :loading="btnLoad.btnSureEditGroup">确 定</el-button>
+                        <el-button type="primary" @click="sureEditDiaGroup()" :loading="btnState.btnSureEditGroup">确 定</el-button>
                     </div>
                 </el-dialog>
 
@@ -112,13 +112,13 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush'  /*按钮组件*/
+
     export default {
         name: "groupMember",
         data() {
             return {
                 // 按钮点击状态
-                btnLoad:{
+                btnState:{
                     btnBack:true,  //返回按钮是否显示
                     search:false,   //搜索按钮点击状态
                     btnSureAddGroup:false,
@@ -194,7 +194,7 @@
             sureAddDiaGroup(){
                 let that = this;
                 that.$refs['addProForm'].validate((valid) => {
-                    this.GLOBAL.btnStateChange(this,'btnLoad','btnSureAddGroup');
+                    this.GLOBAL.btnStateChange(this,'btnState','btnSureAddGroup');
                     if (valid) {
                         console.log(this.setupGroup);
                     }
@@ -212,7 +212,7 @@
 
                 let that = this;
                 that.$refs['editProForm'].validate((valid) => {
-                    this.GLOBAL.btnStateChange(this,'btnLoad','btnSureEditGroup');
+                    this.GLOBAL.btnStateChange(this,'btnState','btnSureEditGroup');
                     if (valid) {
                         console.log(this.setupGroup);
                     }

@@ -1,4 +1,8 @@
 // 打印类属性、方法定义
+
+/*https://blog.csdn.net/qq_38143787/article/details/107939239#vueprintnb_1*/
+
+
 /* eslint-disable */
 const Print =function(dom, options) {
     if (!(this instanceof Print)) return new Print(dom, options);

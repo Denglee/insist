@@ -8,7 +8,7 @@
                     <div class="pt-screen">
                         <el-input placeholder="请输入姓名或电话号码" v-model="rewordParameter.phone" class="ptScreen-input" clearable></el-input>
                         <el-select  filterable v-model="rewordParameter.user_type" placeholder="请选择岗位" class="ptScreen-select">
-                            <el-option v-for="item in userTypeList" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                            <el-option v-for="( item, index ) in userTypeList" :key="index" :label="item.catname" :value="item.id"></el-option>
                         </el-select>
 
                         <el-date-picker
@@ -20,7 +20,7 @@
                                 format="yyyy年MM月"
                                 @change="monthSel">
                         </el-date-picker>
-                        <el-button icon="el-icon-search" @click="btnSeaReword" :loading="loadState.searchLoad" class="btn-public">查询</el-button>
+                        <el-button icon="el-icon-search" @click="btnSeaReword" :loading="btnState.searchLoad" class="btn-public">查询</el-button>
                     </div>
 
                     <el-table class="pub-table staffTable-reword" :data="rewardList" border>
@@ -151,13 +151,13 @@
                 </el-form-item>
                 <el-form-item label="提成类型" prop="deductionType">
                     <el-select  filterable v-model="deductInfo.deductionType"  class="dia-inp" placeholder="请选择提成类型">
-                        <el-option v-for="item in deduction_type2" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="( item, index ) in deduction_type2" :key="item.id" :label="item.name" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogRoyalty = false" plain>取 消</el-button>
-                <el-button type="primary" @click="sureDiaRoyalty()" :loading="btnLoad.state">{{btnLoad.text}}</el-button>
+                <el-button type="primary" @click="sureDiaRoyalty()" :loading="btnState.state">{{btnState.text}}</el-button>
             </div>
         </el-dialog>
 
@@ -202,7 +202,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogSetRoyalty = false" plain>取 消</el-button>
-                    <el-button type="primary" @click="sureDiaSetUp('setRoyalty1')" :loading="btnLoad.state">{{btnLoad.text}}</el-button>
+                    <el-button type="primary" @click="sureDiaSetUp('setRoyalty1')" :loading="btnState.state">{{btnState.text}}</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -225,7 +225,7 @@
                 activeTabName: 'StaffSalary', //StaffSalary StaffRoyalty StaffReward
                 tabLazy: true,
 
-                loadState: {    //按钮状态
+                btnState: {    //按钮状态
                     searchLoad:false
                 },
 
@@ -253,7 +253,7 @@
 
                 /* 二、 tab2 提成添加 种类 */
                 dialogRoyalty:false,   //提成名称 设置 弹窗
-                btnLoad:{
+                btnState:{
                     state:false,
                     text:'确定',
                 },
@@ -372,7 +372,7 @@
 
             //1-2 工资 筛选
             btnSeaReword(){
-                this.GLOBAL.btnStateChange(this,'loadState','searchLoad');
+                this.GLOBAL.btnStateChange(this,'btnState','searchLoad');
 
                 this.rewordParameter.p = 1;
                 this.getStaffSalaryMenuid();
@@ -404,7 +404,7 @@
                     let type = this.deductInfo.type;
                     console.log(type);
                     setTimeout(()=>{
-                        this.btnLoad = {
+                        this.btnState = {
                             state:false,
                             text:'确定',
                         };
@@ -454,7 +454,7 @@
                 if(groupName == ''){
                     this.$message.error('提成名称 不能为空')
                 } else {
-                    this.btnLoad = {
+                    this.btnState = {
                         state:true,
                         text:'提交中',
                     };
@@ -523,7 +523,7 @@
                     let type = this.setRoyalty.type;
                     console.log('当前状态： '+type);
 
-                    this.btnLoad = {
+                    this.btnState = {
                       state:false,
                       text:"确定",
                     };
@@ -563,7 +563,7 @@
             sureDiaSetUp(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.btnLoad = {
+                        this.btnState = {
                             state:true,
                             text:'确定',
                         };

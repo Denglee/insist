@@ -190,11 +190,11 @@
             </ul>
             <div class="line-comeIn">
                 <ve-line
-                        :colors="comeInColor"
-                        :data="comeIn"
-                        :legend-visible="false"
-                        :style="ComeInLineStyle"
-                        :extend = 'lineExtend'
+                    :colors="comeInColor"
+                    :data="comeIn"
+                    :legend-visible="false"
+                    :style="ComeInLineStyle"
+                    :extend = 'lineExtend'
                 ></ve-line>
             </div>
 

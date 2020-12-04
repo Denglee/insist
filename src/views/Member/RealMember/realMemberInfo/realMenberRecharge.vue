@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import navRefush from '@/components/navRefush/navRefush'  /*按钮组件*/
+
     export default {
         name: "menberRecharge",     //会员充值
         data() {
@@ -23,14 +23,14 @@
         methods: {
             // 返回上一页
             SecondBackBtn(){
-                this.$emit('GoBack','memberInfo','memberInfo');
+                this.$emit('GoBack','realMemberInfo','realMemberInfo');
             },
         },
         created() {
 
         },
         components:{
-            navRefush
+
         },
     }
 </script>

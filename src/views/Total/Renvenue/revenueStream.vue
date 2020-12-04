@@ -7,22 +7,22 @@
 
                 <el-select  filterable v-model="searchVal.saler_id" placeholder="请选择顾问" class="ptScreen-select">
                     <el-option label="全部顾问" value=""></el-option>
-                    <el-option v-for="item in dataArr.staffTypeArr" :key="item.index" :label="item.name" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in dataArr.staffTypeArr" :key="index" :label="item.name" :value="item.id"></el-option>
                 </el-select>
 
                 <el-select  filterable v-model="searchVal.card_type" placeholder="请选择合同类型" class="ptScreen-select">
                     <el-option label="全部类型" value="100"></el-option>
-                    <el-option v-for="item in dataArr.cardTypeArr" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in dataArr.cardTypeArr" :key="index" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
 
                 <el-select  filterable v-model="searchVal.order_type" placeholder="请选择操作类型" class="ptScreen-select">
                     <el-option label="全部操作类型" value="100"></el-option>
-                    <el-option v-for="item in dataArr.orderTypeArr" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in dataArr.orderTypeArr" :key="index" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
 
                 <el-select  filterable v-model="searchVal.pay_type_list" placeholder="请选择支付方式" class="ptScreen-select">
                     <el-option label="全部支付方式" value="100"></el-option>
-                    <el-option v-for="item in dataArr.payTypeArr" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in dataArr.payTypeArr" :key="index" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
 
                 <el-date-picker
@@ -130,7 +130,7 @@
         <el-dialog  :append-to-body="true" title="修改支付方式" :visible.sync="btnState.diaChangePay" width="400px">
             <el-form :model="changePayArr" class="dia-form" label-width="60">
                 <el-select  filterable v-model="changePayArr.pay_type" placeholder="请选择支付方式" style="width: 100%">
-                    <el-option v-for="item in dataArr.payTypeArr" :key="item.index" :label="item.catname" :value="item.id"></el-option>
+                    <el-option v-for="( item, index ) in dataArr.payTypeArr" :key="index" :label="item.catname" :value="item.id"></el-option>
                 </el-select>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -151,7 +151,7 @@
         name: "revenueStream",  //营收流水
         data() {
             return {
-                printArr: {},  ////打印数组
+                printArr: {},  //打印数组
 
                 checkedRows:[], //选中的值
 
@@ -213,7 +213,6 @@
                 }
 
                 this.btnState.diaChangePay = true;  /*弹窗*/
-
             },
 
             /*修改支付方式 确定*/
@@ -243,7 +242,7 @@
             },
 
 
-            /* 1.10、 编辑选中 */
+            /* 1.10、 编辑选中  */
             checkedStaff(val) {
                 this.checkedRows = val;
             },
@@ -253,7 +252,7 @@
                 this.$refs.multipleTable.toggleRowSelection(row);
             },
 
-            /*打印事件 */
+            /*打印事件*/
             btnPrint(){
                 let checkedRows =  this.checkedRows;
                 console.log(checkedRows);
